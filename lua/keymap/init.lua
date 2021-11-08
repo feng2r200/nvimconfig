@@ -27,6 +27,10 @@ local plug_map = {
     -- Plugin Telescope
     ["n|<C-F13>"]    = map_cu("Telescope commands"):with_noremap():with_silent(),
 
+    ["n|gd"]         = map_cr("Telescope lsp_definitions"):with_noremap():with_silent(),
+    ["n|gD"]         = map_cr("Telescope lsp_implementations"):with_noremap():with_silent(),
+    ["n|gh"]         = map_cr("Telescope lsp_references"):with_noremap():with_silent(),
+
     ["n|<Leader>fp"] = map_cu("Telescope project"):with_noremap():with_silent(),
     ["n|<Leader>fe"] = map_cu("Telescope frecency"):with_noremap():with_silent(),
     ["n|<Leader>ff"] = map_cu("Telescope find_files"):with_noremap():with_silent(),
@@ -35,17 +39,13 @@ local plug_map = {
     ["n|<Leader>fb"] = map_cu("Telescope file_browser"):with_noremap():with_silent(),
     ["n|<Leader>fz"] = map_cu("Telescope zoxide list"):with_noremap():with_silent(),
 
-    ["n|gd"]         = map_cr("Telescope lsp_definitions"):with_noremap():with_silent(),
-    ["n|gD"]         = map_cr("Telescope lsp_implementations"):with_noremap():with_silent(),
-    ["n|gh"]         = map_cr("Telescope lsp_references"):with_noremap():with_silent(),
+    ["n|<leader>fa"] = map_cu("Telescope lsp_code_actions"):with_noremap():with_silent(),
+    ["v|<leader>fa"] = map_cr("Telescope lsp_range_code_actions"):with_noremap():with_silent(),
+    ["n|<leader>fd"] = map_cr("Telescope lsp_document_diagnostics"):with_noremap():with_silent(),
+    ["n|<leader>fwd"] = map_cr("Telescope lsp_workspace_diagnostics"):with_noremap():with_silent(),
 
-    ["n|<leader>ca"] = map_cu("Telescope lsp_code_actions"):with_noremap():with_silent(),
-    ["v|<leader>ca"] = map_cr("Telescope lsp_range_code_actions"):with_noremap():with_silent(),
-    ["n|<leader>cd"] = map_cr("Telescope lsp_document_diagnostics"):with_noremap():with_silent(),
-    ["n|<leader>cw"] = map_cr("Telescope lsp_workspace_diagnostics"):with_noremap():with_silent(),
-
-    ["n|<leader>td"] = map_cr("Telescope lsp_document_symbols"):with_noremap():with_silent(),
-    ["n|<leader>tw"] = map_cr("Telescope lsp_workspace_symbols"):with_noremap():with_silent(),
+    ["n|<leader>ftd"] = map_cr("Telescope lsp_document_symbols"):with_noremap():with_silent(),
+    ["n|<leader>ftw"] = map_cr("Telescope lsp_workspace_symbols"):with_noremap():with_silent(),
 
     -- Plugin Hop
     ["n|<leader>w"]  = map_cu("HopWord"):with_noremap(),
