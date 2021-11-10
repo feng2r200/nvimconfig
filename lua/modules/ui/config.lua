@@ -11,35 +11,22 @@ function config.edge()
 end
 
 function config.lualine()
-    local function lsp()
-        local icon = [[  LSP: ]]
-        local msg = 'No Active LSP'
-        local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-        local clients = vim.lsp.get_active_clients()
-        if next(clients) == nil then return icon .. msg end
-        for _, client in ipairs(clients) do
-            local filetypes = client.config.filetypes
-            if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                return icon .. client.name
-            end
-        end
-        return icon .. msg
-    end
-
     local gps = require("nvim-gps")
 
     require('lualine').setup {
         options = {
             icons_enabled = true,
             theme = 'onedark',
-            disabled_filetypes = {}
+            disabled_filetypes = {},
+            component_separators = '|',
+            section_separators = {left = '', right = ''}
         },
 
         sections = {
             lualine_a = {'mode'},
             lualine_b = {{'branch'}, {'diff'}},
             lualine_c = {
-                {'filename'}, {gps.get_location, condition = gps.is_available}
+                {gps.get_location, condition = gps.is_available}, {'lsp_progress'}
             },
             lualine_x = {
                 {
@@ -50,10 +37,10 @@ function config.lualine()
                     color_info = "#81A1AC",
                     color_hint = "#88C0D0",
                     symbols = {error = ' ', warn = ' ', info = ' '}
-                }, {lsp}, {'encoding'}, {'fileformat'}
+                },
             },
-            lualine_y = {'progress'},
-            lualine_z = {'location'}
+            lualine_y = {'filetype', 'encoding', 'fileformat'},
+            lualine_z = {'progress', 'location'}
         },
         inactive_sections = {
             lualine_a = {},
@@ -134,10 +121,7 @@ end
 function config.nvim_bufferline()
     require('bufferline').setup {
         options = {
-            number = "both",
-            numbers = function(opts)
-                return string.format('%s·%s', opts.raise(opts.ordinal), opts.lower(opts.id))
-            end,
+            number = "none",
             modified_icon = '✥',
             buffer_close_icon = '',
             left_trunc_marker = "",
@@ -150,7 +134,7 @@ function config.nvim_bufferline()
             show_tab_indicators = true,
             diagnostics = "nvim_lsp",
             always_show_bufferline = true,
-            separator_style = "slant",
+            separator_style = "thin",
             offsets = {
                 {
                     filetype = "NvimTree",
