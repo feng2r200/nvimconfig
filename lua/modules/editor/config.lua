@@ -288,7 +288,7 @@ function config.dap()
                 if vim.fn.executable(cwd .. '/.env/bin/python') == 1 then
                     return cwd .. '/.env/bin/python'
                 else
-                    return '/usr/bin/python'
+                    return '/usr/local/bin/python3'
                 end
             end
         }
