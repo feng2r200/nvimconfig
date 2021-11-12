@@ -68,13 +68,6 @@ lsp_installer.on_server_ready(function(server)
                 telemetry = {enable = false}
             }
         }
-    elseif server == 'jdtls' then
-        vim.api.nvim_exec([[
-        augroup jdtls_lsp
-        autocmd!
-        autocmd FileType java lua require('lsp.jdtls').setup()
-        augroup end
-        ]], false)
     end
 
     opts.capabilities = capabilities
