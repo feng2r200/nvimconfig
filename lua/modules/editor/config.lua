@@ -294,7 +294,7 @@ function config.dap()
 
     dap.adapters.lldb = {
         type = 'executable',
-        command = '/usr/bin/lldb-vscode',
+        command = '/usr/local/opt/llvm/bin/lldb-vscode',
         name = 'lldb'
     }
     dap.configurations.rust = {
