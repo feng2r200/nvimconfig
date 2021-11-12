@@ -215,6 +215,7 @@ end
 
 function config.dap()
     local dap = require("dap")
+    dap.set_log_level('TRACE')
 
     dap.adapters.go = function(callback, conf)
         local stdout = vim.loop.new_pipe(false)
@@ -247,7 +248,14 @@ function config.dap()
     end
     -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
     dap.configurations.go = {
-        {type = "go", name = "Debug", request = "launch", program = "${file}", stopOnEntry = true},
+        {
+            type = "go",
+            name = "Debug",
+            request = "launch",
+            mode = "debug",
+            program = "${file}",
+            stopOnEntry = true
+        },
         {
             type = "go",
             name = "Debug test",
