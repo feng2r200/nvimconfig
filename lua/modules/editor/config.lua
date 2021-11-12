@@ -1,5 +1,4 @@
 local config = {}
-local dap_dir = vim.fn.stdpath("data") .. "/dapinstall/"
 local sessions_dir = vim.fn.stdpath("data") .. "/sessions/"
 
 function config.symbols_outline()
@@ -217,7 +216,7 @@ end
 function config.dap()
     local dap = require("dap")
 
-    dap.adapters.go = function(callback, config)
+    dap.adapters.go = function(callback, conf)
         local stdout = vim.loop.new_pipe(false)
         local handle
         local pid_or_err
@@ -248,26 +247,28 @@ function config.dap()
     end
     -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
     dap.configurations.go = {
-        {type = "go", name = "Debug", request = "launch", program = "${file}"},
+        {type = "go", name = "Debug", request = "launch", program = "${file}", stopOnEntry = true},
         {
             type = "go",
             name = "Debug test",
             request = "launch",
             mode = "test",
-            program = "${file}"
+            program = "${file}",
+            stopOnEntry = true
         },
         {
             type = "go",
             name = "Debug test (go.mod)",
             request = "launch",
             mode = "test",
-            program = "./${relativeFileDirname}"
+            program = "./${relativeFileDirname}",
+            stopOnEntry = true
         }
     }
 
     dap.adapters.python = {
         type = 'executable',
-        command = os.getenv("HOME") .. '/.local/share/nvim/dapinstall/python/bin/python',
+        command = 'python',
         args = {'-m', 'debugpy.adapter'}
     }
     dap.configurations.python = {
@@ -279,15 +280,30 @@ function config.dap()
             -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
 
             program = "${file}",
+            stopOnEntry = true
         }
     }
-end
 
-function config.dapinstall()
-    require("dap-install").setup({
-        installation_path = dap_dir,
-        verbosely_call_debuggers = false
-    })
+    dap.adapters.lldb = {
+        type = 'executable',
+        command = '/usr/bin/lldb-vscode',
+        name = 'lldb'
+    }
+    dap.configurations.rust = {
+        {
+            name = 'Launch',
+            type = 'lldb',
+            request = 'launch',
+
+            program = function ()
+                return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+            end,
+            cwd = '${workspaceFolder}',
+            stopOnEntry = true,
+            args = {},
+            runInTerminal = false
+        }
+    }
 end
 
 function config.tmuxnavigator()
