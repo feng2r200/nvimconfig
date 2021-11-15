@@ -25,7 +25,7 @@ local plug_map = {
     ["n|<A-1>"]      = map_cr("NvimTreeToggle"):with_noremap():with_silent(),
 
     -- Plugin Telescope
-    ["n|<C-F13>"]    = map_cu("Telescope commands"):with_noremap():with_silent(),
+    ["n|<C-F13>"]    = map_cu("Telescope"):with_noremap():with_silent(),
 
     ["n|gd"]         = map_cr("Telescope lsp_definitions"):with_noremap():with_silent(),
     ["n|gD"]         = map_cr("Telescope lsp_implementations"):with_noremap():with_silent(),
