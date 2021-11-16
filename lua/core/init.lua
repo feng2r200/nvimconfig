@@ -27,24 +27,24 @@ end
 
 local leader_map = function()
     vim.g.mapleader = " "
-    vim.api.nvim_set_keymap('n', ' ', '', {noremap = true})
-    vim.api.nvim_set_keymap('x', ' ', '', {noremap = true})
+    vim.api.nvim_set_keymap("n", " ", "", {noremap = true})
+    vim.api.nvim_set_keymap("x", " ", "", {noremap = true})
 end
 
 local load_core = function()
     built_ins_config()
     leader_map()
 
-    require('core.global')
-    require('core.options')
-    require('core.mapping')
-    require('core.event')
+    require("core.global")
+    require("core.options")
+    require("core.mapping")
+    require("core.event")
 
-    local pack = require('core.pack')
+    local pack = require("core.pack")
     pack.ensure_plugins()
     pack.load_compile()
 
-    require('keymap')
+    require("keymap")
 
     vim.cmd [[colorscheme edge]]
 end

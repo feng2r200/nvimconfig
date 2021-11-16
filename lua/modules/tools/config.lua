@@ -3,55 +3,55 @@ local config = {}
 function config.telescope()
     local home = os.getenv("HOME")
 
-    if not packer_plugins['plenary.nvim'].loaded then
+    if not packer_plugins["plenary.nvim"].loaded then
         vim.cmd [[packadd plenary.nvim]]
     end
 
-    if not packer_plugins['popup.nvim'].loaded then
+    if not packer_plugins["popup.nvim"].loaded then
         vim.cmd [[packadd popup.nvim]]
     end
 
-    if not packer_plugins['telescope-fzy-native.nvim'].loaded then
+    if not packer_plugins["telescope-fzy-native.nvim"].loaded then
         vim.cmd [[packadd telescope-fzy-native.nvim]]
     end
 
-    if not packer_plugins['telescope-project.nvim'].loaded then
+    if not packer_plugins["telescope-project.nvim"].loaded then
         vim.cmd [[packadd telescope-project.nvim]]
     end
 
-    if not packer_plugins['sql.nvim'].loaded then
+    if not packer_plugins["sql.nvim"].loaded then
         vim.cmd [[packadd sql.nvim]]
     end
 
-    if not packer_plugins['telescope-frecency.nvim'].loaded then
+    if not packer_plugins["telescope-frecency.nvim"].loaded then
         vim.cmd [[packadd telescope-frecency.nvim]]
     end
 
-    if not packer_plugins['telescope-media-files.nvim'].loaded then
+    if not packer_plugins["telescope-media-files.nvim"].loaded then
         vim.cmd [[packadd telescope-media-files.nvim]]
     end
 
-    if not packer_plugins['telescope-zoxide'].loaded then
+    if not packer_plugins["telescope-zoxide"].loaded then
         vim.cmd [[packadd telescope-zoxide]]
     end
 
-    require('telescope').load_extension('fzy_native')
-    require('telescope').load_extension('project')
-    require('telescope').load_extension('frecency')
-    require('telescope').load_extension('media_files')
-    require('telescope').load_extension('zoxide')
+    require("telescope").load_extension("fzy_native")
+    require("telescope").load_extension("project")
+    require("telescope").load_extension("frecency")
+    require("telescope").load_extension("media_files")
+    require("telescope").load_extension("zoxide")
 
-    require('telescope').setup {
+    require("telescope").setup {
         defaults = {
-            prompt_prefix = '🔭 ',
+            prompt_prefix = "🔭 ",
             selection_caret = " ",
             layout_config = {
                 horizontal = {prompt_position = "bottom", results_width = 0.6},
                 vertical = {mirror = false}
             },
-            file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
-            grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
-            qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+            file_previewer = require "telescope.previewers".vim_buffer_cat.new,
+            grep_previewer = require "telescope.previewers".vim_buffer_vimgrep.new,
+            qflist_previewer = require "telescope.previewers".vim_buffer_qflist.new,
             file_sorter = require("telescope.sorters").get_fuzzy_file,
             file_ignore_patterns = {},
             generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
@@ -59,7 +59,14 @@ function config.telescope()
             winblend = 0,
             border = {},
             borderchars = {
-                "─", "│", "─", "│", "╭", "╮", "╯", "╰"
+                "─",
+                "│",
+                "─",
+                "│",
+                "╭",
+                "╮",
+                "╯",
+                "╰"
             },
             color_devicons = true,
             use_less = true,
@@ -94,7 +101,7 @@ function config.telescope()
 end
 
 function config.sniprun()
-    require'sniprun'.setup({
+    require "sniprun".setup({
         selected_interpreters = {}, -- " use those instead of the default for the current filetype
         repl_enable = {}, -- " enable REPL-like behavior for the given interpreters
         repl_disable = {}, -- " disable REPL-like behavior for the given interpreters
@@ -116,7 +123,7 @@ function config.sniprun()
         inline_messages = 0, -- " inline_message (0/1) is a one-line way to display messages
         -- " to workaround sniprun not being able to display anything
 
-        borders = 'shadow' -- " display borders around floating windows
+        borders = "shadow" -- " display borders around floating windows
         -- " possible values are 'none', 'single', 'double', or 'shadow'
     })
 end

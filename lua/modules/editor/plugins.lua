@@ -1,108 +1,110 @@
 local editor = {}
-local conf = require('modules.editor.config')
+local conf = require("modules.editor.config")
 
-editor['junegunn/vim-easy-align'] = {opt = true, cmd = 'EasyAlign'}
-editor['itchyny/vim-cursorword'] = {
+editor["junegunn/vim-easy-align"] = {opt = true, cmd = "EasyAlign"}
+editor["itchyny/vim-cursorword"] = {
     opt = true,
-    event = {'BufReadPre', 'BufNewFile'},
+    event = {"BufReadPre", "BufNewFile"},
     config = conf.vim_cursorwod
 }
-editor['terrortylor/nvim-comment'] = {
+editor["terrortylor/nvim-comment"] = {
     opt = false,
     config = function()
-        require('nvim_comment').setup({
-            hook = function()
-                require("ts_context_commentstring.internal").update_commentstring()
-            end
+        require("nvim_comment").setup({
+            hook = function() require("ts_context_commentstring.internal").update_commentstring() end
         })
     end
 }
-editor['simrat39/symbols-outline.nvim'] = {
+editor["simrat39/symbols-outline.nvim"] = {
     opt = true,
-    cmd = {'SymbolsOutline', 'SymbolsOulineOpen'},
+    cmd = {"SymbolsOutline", "SymbolsOulineOpen"},
     config = conf.symbols_outline
 }
-editor['nvim-treesitter/nvim-treesitter'] = {
+editor["nvim-treesitter/nvim-treesitter"] = {
     opt = true,
-    run = ':TSUpdate',
-    event = 'BufRead',
+    run = ":TSUpdate",
+    event = "BufRead",
     config = conf.nvim_treesitter
 }
-editor['nvim-treesitter/nvim-treesitter-textobjects'] = {
+editor["nvim-treesitter/nvim-treesitter-textobjects"] = {
     opt = true,
-    after = 'nvim-treesitter'
+    after = "nvim-treesitter"
 }
-editor['romgrk/nvim-treesitter-context'] = {
+editor["romgrk/nvim-treesitter-context"] = {
     opt = true,
-    after = 'nvim-treesitter'
+    after = "nvim-treesitter"
 }
-editor['p00f/nvim-ts-rainbow'] = {
+editor["p00f/nvim-ts-rainbow"] = {
     opt = true,
-    after = 'nvim-treesitter',
-    event = 'BufRead'
+    after = "nvim-treesitter",
+    event = "BufRead"
 }
-editor['JoosepAlviste/nvim-ts-context-commentstring'] = {
+editor["JoosepAlviste/nvim-ts-context-commentstring"] = {
     opt = true,
-    after = 'nvim-treesitter'
+    after = "nvim-treesitter"
 }
-editor['SmiteshP/nvim-gps'] = {
+editor["SmiteshP/nvim-gps"] = {
     opt = true,
-    after = 'nvim-treesitter',
+    after = "nvim-treesitter",
     config = conf.nvim_gps
 }
-editor['sbdchd/neoformat'] = {opt = true, cmd = 'Neoformat'}
-editor['windwp/nvim-ts-autotag'] = {
+editor["sbdchd/neoformat"] = {opt = true, cmd = "Neoformat"}
+editor["windwp/nvim-ts-autotag"] = {
     opt = true,
-    ft = {'html', 'xml'},
+    ft = {"html", "xml"},
     config = conf.autotag
 }
-editor['andymass/vim-matchup'] = {
+editor["andymass/vim-matchup"] = {
     opt = true,
-    after = 'nvim-treesitter',
+    after = "nvim-treesitter",
     config = conf.matchup
 }
 
-editor['romainl/vim-cool'] = {
+editor["romainl/vim-cool"] = {
     opt = true,
-    event = {'CursorMoved', 'InsertEnter'}
+    event = {"CursorMoved", "InsertEnter"}
 }
-editor['phaazon/hop.nvim'] = {
+editor["phaazon/hop.nvim"] = {
     opt = true,
     branch = "v1",
     cmd = {
-        "HopLine", "HopLineStart", "HopWord", "HopPattern", "HopChar1",
+        "HopLine",
+        "HopLineStart",
+        "HopWord",
+        "HopPattern",
+        "HopChar1",
         "HopChar2"
     },
     config = function()
-        require('hop').setup {keys = 'etovxqpdygfblzhckisuran'}
+        require("hop").setup {keys = "etovxqpdygfblzhckisuran"}
     end
 }
-editor['karb94/neoscroll.nvim'] = {
+editor["karb94/neoscroll.nvim"] = {
     opt = true,
     event = "WinScrolled",
     config = conf.neoscroll
 }
 
-editor['norcalli/nvim-colorizer.lua'] = {
+editor["norcalli/nvim-colorizer.lua"] = {
     opt = true,
-    event = 'BufRead',
+    event = "BufRead",
     config = conf.nvim_colorizer
 }
-editor['rmagatti/auto-session'] = {
+editor["rmagatti/auto-session"] = {
     opt = true,
-    cmd = {'SaveSession', 'RestoreSession', 'DeleteSession'},
+    cmd = {"SaveSession", "RestoreSession", "DeleteSession"},
     config = conf.auto_session
 }
 
-editor['rcarriga/nvim-dap-ui'] = {
+editor["rcarriga/nvim-dap-ui"] = {
     opt = false,
     config = conf.dapui,
     requires = {
-        {'mfussenegger/nvim-dap', config = conf.dap}
+        {"mfussenegger/nvim-dap", config = conf.dap}
     }
 }
-editor['rlue/vim-barbaric'] = { opt = false }
-editor['christoomey/vim-tmux-navigator'] = {
+editor["rlue/vim-barbaric"] = { opt = false }
+editor["christoomey/vim-tmux-navigator"] = {
     opt = false,
     config = conf.tmuxnavigator
 }

@@ -13,40 +13,41 @@ end
 function config.lualine()
     local gps = require("nvim-gps")
 
-    require('lualine').setup {
+    require("lualine").setup {
         options = {
             icons_enabled = true,
-            theme = 'onedark',
+            theme = "onedark",
             disabled_filetypes = {},
-            component_separators = '|',
-            section_separators = {left = '', right = ''}
+            component_separators = "|",
+            section_separators = {left = "", right = ""}
         },
 
         sections = {
-            lualine_a = {'mode'},
-            lualine_b = {{'branch'}, {'diff'}},
+            lualine_a = {"mode"},
+            lualine_b = {{"branch"}, {"diff"}},
             lualine_c = {
-                {gps.get_location, condition = gps.is_available}, {'lsp_progress'}
+                {gps.get_location, condition = gps.is_available},
+                {"lsp_progress"}
             },
             lualine_x = {
                 {
-                    'diagnostics',
-                    sources = {'nvim_lsp'},
+                    "diagnostics",
+                    sources = {"nvim_lsp"},
                     color_error = "#BF616A",
                     color_warn = "#EBCB8B",
                     color_info = "#81A1AC",
                     color_hint = "#88C0D0",
-                    symbols = {error = ' ', warn = ' ', info = ' '}
-                },
+                    symbols = {error = " ", warn = " ", info = " "}
+                }
             },
-            lualine_y = {'filetype', 'encoding', 'fileformat'},
-            lualine_z = {'progress', 'location'}
+            lualine_y = {"filetype", "encoding", "fileformat"},
+            lualine_z = {"progress", "location"}
         },
         inactive_sections = {
             lualine_a = {},
             lualine_b = {},
-            lualine_c = {'filename'},
-            lualine_x = {'location'},
+            lualine_c = {"filename"},
+            lualine_x = {"location"},
             lualine_y = {},
             lualine_z = {}
         },
@@ -56,17 +57,17 @@ function config.lualine()
 end
 
 function config.nvim_tree()
-    local tree_cb = require'nvim-tree.config'.nvim_tree_callback
-    require('nvim-tree').setup {
+    local tree_cb = require "nvim-tree.config".nvim_tree_callback
+    require("nvim-tree").setup {
         gitignore = true,
-        ignore = {'.git', 'node_modules', '.cache'},
+        ignore = {".git", "node_modules", ".cache"},
         open_on_tab = false,
         disable_netrw = true,
         hijack_netrw = true,
         auto_close = true,
         update_cwd = true,
         highlight_opened_files = true,
-        auto_ignore_ft = {'startify'},
+        auto_ignore_ft = {"startify"},
         update_focused_file = {
             enable = true,
             update_cwd = true,
@@ -74,7 +75,7 @@ function config.nvim_tree()
         },
         view = {
             width = 40,
-            side = 'left',
+            side = "left",
             auto_resize = false,
             mappings = {
                 custom_only = true,
@@ -119,11 +120,11 @@ function config.nvim_tree()
 end
 
 function config.nvim_bufferline()
-    require('bufferline').setup {
+    require("bufferline").setup {
         options = {
             number = "none",
-            modified_icon = '✥',
-            buffer_close_icon = '',
+            modified_icon = "✥",
+            buffer_close_icon = "",
             left_trunc_marker = "",
             right_trunc_marker = "",
             max_name_length = 14,
@@ -148,47 +149,39 @@ function config.nvim_bufferline()
 end
 
 function config.gitsigns()
-    if not packer_plugins['plenary.nvim'].loaded then
+    if not packer_plugins["plenary.nvim"].loaded then
         vim.cmd [[packadd plenary.nvim]]
     end
-    require('gitsigns').setup {
+    require("gitsigns").setup {
         signs = {
-            add = {hl = 'GitGutterAdd', text = '+'},
-            change = {hl = 'GitGutterChange', text = '~'},
-            delete = {hl = 'GitGutterDelete', text = '-'},
-            topdelete = {hl = 'GitGutterDeleteChange', text = '▔'},
-            changedelete = {hl = 'GitGutterChange', text = '▎'}
+            add = {hl = "GitGutterAdd", text = "+"},
+            change = {hl = "GitGutterChange", text = "~"},
+            delete = {hl = "GitGutterDelete", text = "-"},
+            topdelete = {hl = "GitGutterDeleteChange", text = "▔"},
+            changedelete = {hl = "GitGutterChange", text = "▎"}
         },
         keymaps = {
             -- Default keymap options
             noremap = true,
             buffer = true,
-
-            ['n ]g'] = {
-                expr = true,
-                "&diff ? ']g' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"
-            },
-            ['n [g'] = {
-                expr = true,
-                "&diff ? '[g' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"
-            },
-
-            ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-            ['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-            ['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-            ['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-            ['v <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-            ['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-            ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-            ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
+            ["n ]g"] = {expr = true, '&diff ? \']g\' : \'<cmd>lua require "gitsigns".next_hunk()<CR>\''},
+            ["n [g"] = {expr = true, '&diff ? \'[g\' : \'<cmd>lua require "gitsigns".prev_hunk()<CR>\''},
+            ["n <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+            ["v <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+            ["n <leader>hu"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+            ["n <leader>hr"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+            ["v <leader>hr"] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+            ["n <leader>hR"] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+            ["n <leader>hp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+            ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
 
             -- Text objects
-            ['o ih'] = ':<C-U>lua require"gitsigns".text_object()<CR>',
-            ['x ih'] = ':<C-U>lua require"gitsigns".text_object()<CR>'
+            ["o ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>',
+            ["x ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>'
         },
         watch_gitdir = {interval = 1000, follow_files = true},
         current_line_blame = true,
-        current_line_blame_opts = {delay = 1000, virtual_text_pos = 'eol'},
+        current_line_blame_opts = {delay = 1000, virtual_text_pos = "eol"},
         sign_priority = 6,
         update_debounce = 100,
         status_formatter = nil, -- Use default
@@ -202,22 +195,49 @@ function config.indent_blankline()
         char = "│",
         show_first_indent_level = true,
         filetype_exclude = {
-            "startify", "dotooagenda", "log", "fugitive",
-            "gitcommit", "packer", "vimwiki", "markdown", "json", "txt",
-            "vista", "help", "todoist", "NvimTree", "peekaboo", "git",
-            "TelescopePrompt", "undotree", "flutterToolsOutline", "" -- for all buffers without a file type
+            "startify",
+            "dotooagenda",
+            "log",
+            "fugitive",
+            "gitcommit",
+            "packer",
+            "vimwiki",
+            "markdown",
+            "json",
+            "txt",
+            "vista",
+            "help",
+            "todoist",
+            "NvimTree",
+            "peekaboo",
+            "git",
+            "TelescopePrompt",
+            "undotree",
+            "flutterToolsOutline",
+            "" -- for all buffers without a file type
         },
         buftype_exclude = {"terminal", "nofile"},
         show_trailing_blankline_indent = false,
         show_current_context = true,
         context_patterns = {
-            "class", "function", "method", "block", "list_literal", "selector",
-            "^if", "^table", "if_statement", "while", "for", "type", "var",
+            "class",
+            "function",
+            "method",
+            "block",
+            "list_literal",
+            "selector",
+            "^if",
+            "^table",
+            "if_statement",
+            "while",
+            "for",
+            "type",
+            "var",
             "import"
         }
     }
     -- because lazy load indent-blankline so need readd this autocmd
-    vim.cmd('autocmd CursorMoved * IndentBlanklineRefresh')
+    vim.cmd("autocmd CursorMoved * IndentBlanklineRefresh")
 end
 
 return config

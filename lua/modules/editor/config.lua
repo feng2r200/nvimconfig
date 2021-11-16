@@ -6,7 +6,7 @@ function config.symbols_outline()
         highlight_hovered_item = true,
         show_guides = true,
         auto_preview = true,
-        position = 'right',
+        position = "right",
         show_numbers = false,
         show_relative_numbers = false,
         show_symbol_details = true,
@@ -51,22 +51,22 @@ function config.symbols_outline()
 end
 
 function config.vim_cursorwod()
-    vim.api.nvim_command('augroup user_plugin_cursorword')
-    vim.api.nvim_command('autocmd!')
-    vim.api.nvim_command('autocmd FileType NvimTree,lspsagafinder let b:cursorword = 0')
-    vim.api.nvim_command('autocmd WinEnter * if &diff || &pvw | let b:cursorword = 0 | endif')
-    vim.api.nvim_command('autocmd InsertEnter * let b:cursorword = 0')
-    vim.api.nvim_command('autocmd InsertLeave * let b:cursorword = 1')
-    vim.api.nvim_command('augroup END')
+    vim.api.nvim_command("augroup user_plugin_cursorword")
+    vim.api.nvim_command("autocmd!")
+    vim.api.nvim_command("autocmd FileType NvimTree,lspsagafinder let b:cursorword = 0")
+    vim.api.nvim_command("autocmd WinEnter * if &diff || &pvw | let b:cursorword = 0 | endif")
+    vim.api.nvim_command("autocmd InsertEnter * let b:cursorword = 0")
+    vim.api.nvim_command("autocmd InsertLeave * let b:cursorword = 1")
+    vim.api.nvim_command("augroup END")
 end
 
 function config.nvim_treesitter()
-    vim.api.nvim_command('set foldmethod=expr')
-    vim.api.nvim_command('set foldexpr=nvim_treesitter#foldexpr()')
+    vim.api.nvim_command("set foldmethod=expr")
+    vim.api.nvim_command("set foldexpr=nvim_treesitter#foldexpr()")
 
-    require'nvim-treesitter.configs'.setup {
-        ensure_installed = 'maintained',
-        highlight = {enable = true, disable = {'vim'}},
+    require "nvim-treesitter.configs".setup {
+        ensure_installed = "maintained",
+        highlight = {enable = true, disable = {"vim"}},
         textobjects = {
             select = {
                 enable = true,
@@ -116,32 +116,44 @@ end
 function config.nvim_gps()
     require("nvim-gps").setup({
         icons = {
-            ["class-name"] = ' ', -- Classes and class-like objects
-            ["function-name"] = ' ', -- Functions
-            ["method-name"] = ' ', -- Methods (functions inside class-like objects)
+            ["class-name"] = " ", -- Classes and class-like objects
+            ["function-name"] = " ", -- Functions
+            ["method-name"] = " ", -- Methods (functions inside class-like objects)
             ["container-name"] = '⦿ ',
             ["tag-name"] = '# '
         },
-        separator = ' > '
+        separator = " > "
     })
 end
 
 function config.autotag()
-    require('nvim-ts-autotag').setup({
+    require("nvim-ts-autotag").setup({
         filetypes = {
-            "html", "xml", "javascript", "typescriptreact", "javascriptreact",
+            "html",
+            "xml",
+            "javascript",
+            "typescriptreact",
+            "javascriptreact",
             "vue"
         }
     })
 end
 
-function config.nvim_colorizer() require('colorizer').setup() end
+function config.nvim_colorizer() require("colorizer").setup() end
 
 function config.neoscroll()
-    require('neoscroll').setup({
+    require("neoscroll").setup({
         -- All these keys will be mapped to their corresponding default scrolling animation
         mappings = {
-            '<C-u>', '<C-d>', '<C-b>', '<C-f>', '<C-y>', '<C-e>', 'zt', 'zz', 'zb'
+            "<C-u>",
+            "<C-d>",
+            "<C-b>",
+            "<C-f>",
+            "<C-y>",
+            "<C-e>",
+            "zt",
+            "zz",
+            "zb"
         },
         hide_cursor = true, -- Hide cursor while scrolling
         stop_eof = true, -- Stop at <EOF> when scrolling downwards
@@ -156,7 +168,7 @@ end
 
 function config.auto_session()
     local opts = {
-        log_level = 'info',
+        log_level = "info",
         auto_session_enable_last_session = true,
         auto_session_root_dir = sessions_dir,
         auto_session_enabled = true,
@@ -165,18 +177,18 @@ function config.auto_session()
         auto_session_suppress_dirs = nil
     }
 
-    require('auto-session').setup(opts)
+    require("auto-session").setup(opts)
 end
 
 function config.dapui()
-    local dap, dapui = require('dap'), require('dapui')
-    dap.listeners.after.event_initialized['dapui_config'] = function()
+    local dap, dapui = require("dap"), require("dapui")
+    dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
     end
-    dap.listeners.before.event_terminated['dapui_config'] = function()
+    dap.listeners.before.event_terminated["dapui_config"] = function()
         dapui.close()
     end
-    dap.listeners.before.event_exited['dapui_config'] = function()
+    dap.listeners.before.event_exited["dapui_config"] = function()
         dapui.close()
     end
 
@@ -215,7 +227,7 @@ end
 
 function config.dap()
     local dap = require("dap")
-    dap.set_log_level('TRACE')
+    dap.set_log_level("TRACE")
 
     dap.adapters.go = function(callback, conf)
         local stdout = vim.loop.new_pipe(false)
@@ -230,14 +242,14 @@ function config.dap()
         handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)
             stdout:close()
             handle:close()
-            if code ~= 0 then print('dlv exited with code', code) end
+            if code ~= 0 then print("dlv exited with code", code) end
         end)
-        assert(handle, 'Error running dlv: ' .. tostring(pid_or_err))
+        assert(handle, "Error running dlv: " .. tostring(pid_or_err))
         stdout:read_start(function(err, chunk)
             assert(not err, err)
             if chunk then
                 vim.schedule(function()
-                    require('dap.repl').append(chunk)
+                    require("dap.repl").append(chunk)
                 end)
             end
         end)
@@ -275,14 +287,14 @@ function config.dap()
     }
 
     dap.adapters.python = {
-        type = 'executable',
-        command = 'python',
-        args = {'-m', 'debugpy.adapter'}
+        type = "executable",
+        command = "python",
+        args = {"-m", "debugpy.adapter"}
     }
     dap.configurations.python = {
         {
-            type = 'python',
-            request = 'launch',
+            type = "python",
+            request = "launch",
             name = "Launch file",
 
             -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
@@ -293,20 +305,20 @@ function config.dap()
     }
 
     dap.adapters.lldb = {
-        type = 'executable',
-        command = '/usr/local/opt/llvm/bin/lldb-vscode',
-        name = 'lldb'
+        type = "executable",
+        command = "/usr/local/opt/llvm/bin/lldb-vscode",
+        name = "lldb"
     }
     dap.configurations.rust = {
         {
-            name = 'Launch',
-            type = 'lldb',
-            request = 'launch',
+            name = "Launch",
+            type = "lldb",
+            request = "launch",
 
             program = function ()
-                return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+                return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
             end,
-            cwd = '${workspaceFolder}',
+            cwd = "${workspaceFolder}",
             stopOnEntry = true,
             args = {},
             runInTerminal = false
