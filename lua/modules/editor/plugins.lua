@@ -17,7 +17,7 @@ editor["terrortylor/nvim-comment"] = {
 }
 editor["simrat39/symbols-outline.nvim"] = {
     opt = true,
-    cmd = {"SymbolsOutline", "SymbolsOulineOpen"},
+    cmd = {"SymbolsOutline", "SymbolsOutlineOpen"},
     config = conf.symbols_outline
 }
 editor["nvim-treesitter/nvim-treesitter"] = {
@@ -103,6 +103,7 @@ editor["rcarriga/nvim-dap-ui"] = {
         {"mfussenegger/nvim-dap", config = conf.dap}
     }
 }
+
 editor["rlue/vim-barbaric"] = { opt = false }
 editor["christoomey/vim-tmux-navigator"] = {
     opt = false,
