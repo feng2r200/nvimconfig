@@ -25,7 +25,8 @@ local plug_map = {
     ["n|<A-1>"]      = map_cr("NvimTreeToggle"):with_noremap():with_silent(),
 
     -- Plugin Telescope
-    ["n|<C-F13>"]    = map_cu("Telescope"):with_noremap():with_silent(),
+    ["n|<C-F13>"]    = map_cu("Telescope commands"):with_noremap():with_silent(), -- cmd + shift + p
+    ["n|<C-F14>"]    = map_cu("Telescope"):with_noremap():with_silent(), -- cmd + p
 
     ["n|gd"]         = map_cr("Telescope lsp_definitions"):with_noremap():with_silent(),
     ["n|gD"]         = map_cr("Telescope lsp_implementations"):with_noremap():with_silent(),
@@ -77,7 +78,7 @@ local plug_map = {
     ["n|<F8>"]       = map_cr("lua require('dap').step_over()"):with_noremap():with_silent(),
     ["n|<F7>"]       = map_cr("lua require('dap').step_into()"):with_noremap():with_silent(),
     ["n|<F20>"]      = map_cr("lua require('dap').step_out()"):with_noremap():with_silent(), -- <S-F8>
-    ["n|<leader>do"] = map_cr("lua require('dap').repl.open()"):with_noremap():with_silent()
+    ["n|<leader>do"] = map_cr("lua require('dap').repl.open()"):with_noremap():with_silent(),
 };
 
 bind.nvim_load_mapping(plug_map)
