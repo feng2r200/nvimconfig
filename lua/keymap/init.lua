@@ -79,6 +79,10 @@ local plug_map = {
     ["n|<F7>"]       = map_cr("lua require('dap').step_into()"):with_noremap():with_silent(),
     ["n|<F20>"]      = map_cr("lua require('dap').step_out()"):with_noremap():with_silent(), -- <S-F8>
     ["n|<leader>do"] = map_cr("lua require('dap').repl.open()"):with_noremap():with_silent(),
+
+    -- tsht
+    ["o|m"] = map_cu([[lua require('tsht').nodes()]]):with_silent(),
+    ["v|m"] = map_cr([[lua require('tsht').nodes()]]):with_noremap():with_silent(),
 };
 
 bind.nvim_load_mapping(plug_map)

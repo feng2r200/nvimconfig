@@ -43,6 +43,10 @@ editor["JoosepAlviste/nvim-ts-context-commentstring"] = {
     opt = true,
     after = "nvim-treesitter"
 }
+editor["mfussenegger/nvim-ts-hint-textobject"] = {
+    opt = true,
+    after = "nvim-treesitter"
+}
 editor["SmiteshP/nvim-gps"] = {
     opt = true,
     after = "nvim-treesitter",
