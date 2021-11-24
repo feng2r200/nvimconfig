@@ -5,7 +5,7 @@ local map_cmd = bind.map_cmd
 
 local plug_map = {
     -- Neoformat
-    ["n|<C-A-l>"]    = map_cr("Neoformat"):with_noremap():with_silent(),
+    ["n|<C-A-l>"]    = map_cu("FormatWrite"):with_noremap():with_silent(),
 
     -- Bufferline
     ["n|gb"]         = map_cr("BufferLinePick"):with_noremap():with_silent(),
