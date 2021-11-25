@@ -73,12 +73,12 @@ function config.nvim_tree()
         disable_netrw = true,
         hijack_netrw = true,
         auto_close = true,
-        update_cwd = true,
+        update_cwd = false,
         highlight_opened_files = true,
         auto_ignore_ft = {"startify"},
         update_focused_file = {
             enable = true,
-            update_cwd = true,
+            update_cwd = false,
             ignore_list = {}
         },
         view = {
@@ -89,16 +89,15 @@ function config.nvim_tree()
                 custom_only = true,
                 -- list of mappings to set on the tree manually
                 list = {
-                    {key = {"<CR>", "o", "<2-LeftMouse>"}, cb = tree_cb("tabnew")},
-                    {key = {"<2-RightMouse>", "<C-]>"}, cb = tree_cb("cd")},
+                    {key = {"<CR>", "o"}, cb = tree_cb("edit")},
+                    {key = {"<C-]>"}, cb = tree_cb("cd")},
                     {key = "<C-v>", cb = tree_cb("vsplit")},
                     {key = "<C-x>", cb = tree_cb("split")},
                     {key = "<C-t>", cb = tree_cb("tabnew")},
                     {key = "<", cb = tree_cb("prev_sibling")},
                     {key = ">", cb = tree_cb("next_sibling")},
                     {key = "P", cb = tree_cb("parent_node")},
-                    {key = "<BS>", cb = tree_cb("close_node")},
-                    {key = "<S-CR>", cb = tree_cb("close_node")},
+                    {key = {"<BS>", "<S-CR>"}, cb = tree_cb("close_node")},
                     {key = "<Tab>", cb = tree_cb("preview")},
                     {key = "K", cb = tree_cb("first_sibling")},
                     {key = "J", cb = tree_cb("last_sibling")},
