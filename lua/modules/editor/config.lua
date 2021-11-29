@@ -177,9 +177,19 @@ function config.format()
                 end_pattern = "^}}}$"
             }
         },
-        lua = {{cmd = {"luafmt -w replace"}}},
+        lua = {
+            {
+                cmd = {
+                    function(file)
+                        return string.format("luafmt -w replace %s", file)
+                    end
+                }
+            }
+        },
         go = {{cmd = {"gofmt -w", "goimports -w"}, tempfile_postfix = ".tmp"}},
-        python = {{cmd = {"autopep8 --in-place --aggressive --aggressive"}}},
+        python = {
+            {cmd = {"autopep8 --in-place --aggressive --aggressive"}}
+        },
         sh = {
             {
                 cmd = {
