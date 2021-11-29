@@ -112,6 +112,12 @@ editor["rcarriga/nvim-dap-ui"] = {
     }
 }
 
+editor["chentau/marks.nvim"] = {
+    opt = true,
+    event = "BufReadPost",
+    config = conf.marks
+}
+
 editor["rlue/vim-barbaric"] = { opt = false }
 editor["christoomey/vim-tmux-navigator"] = {
     opt = false,
