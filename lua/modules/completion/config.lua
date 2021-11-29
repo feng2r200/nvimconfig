@@ -127,7 +127,6 @@ function config.cmp()
             {name = "nvim_lua"},
             {name = "luasnip"},
             {name = "path"},
-            {name = "spell"},
             {name = "tmux"},
             {name = "rg"},
         }
