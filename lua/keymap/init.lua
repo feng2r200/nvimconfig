@@ -67,7 +67,7 @@ local plug_map = {
     ["n|<leader>sd"] = map_cu("DeleteSession"):with_noremap():with_silent(),
 
     -- Plugin SnipRun
-    ["v|r"]          = map_cr("SnipRun"):with_noremap():with_silent(),
+    ["v|<leader>r"]  = map_cr("SnipRun"):with_noremap():with_silent(),
 
     -- Plugin dap
     ["n|<F5>"]       = map_cr("lua require('dap').continue()"):with_noremap():with_silent(),
