@@ -1,6 +1,8 @@
 local vim = vim
 
 local built_ins_config = function()
+    vim.g.loaded_fzf = 1
+    vim.g.loaded_gtags = 1
     vim.g.loaded_gzip = 1
     vim.g.loaded_tar = 1
     vim.g.loaded_tarPlugin = 1
