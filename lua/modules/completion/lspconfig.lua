@@ -12,7 +12,7 @@ end
 
 local lsp_installer = require("nvim-lsp-installer")
 
-vim.lsp.set_log_level("info")
+-- vim.lsp.set_log_level("info")
 
 lsp_installer.settings {
     log_level = vim.log.levels.DEBUG,
