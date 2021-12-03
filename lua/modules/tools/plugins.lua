@@ -31,6 +31,7 @@ tools["nvim-telescope/telescope-media-files.nvim"] = {
     after = "telescope.nvim"
 }
 tools["jvgrootveld/telescope-zoxide"] = {opt = true, after = "telescope.nvim"}
+tools["nvim-telescope/telescope-dap.nvim"] = {opt = true, after = "telescope.nvim"}
 tools["thinca/vim-quickrun"] = {opt = true, cmd = {"QuickRun", "Q"}}
 tools["michaelb/sniprun"] = {
     opt = true,

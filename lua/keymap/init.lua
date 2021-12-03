@@ -70,14 +70,12 @@ local plug_map = {
     ["v|<leader>r"]  = map_cr("SnipRun"):with_noremap():with_silent(),
 
     -- Plugin dap
-    ["n|<F5>"]       = map_cr("lua require('dap').continue()"):with_noremap():with_silent(),
-    ["n|<F17>"]      = map_cr("lua require('dap').disconnect()"):with_noremap():with_silent(), -- <S-F5>
     ["n|<F6>"]       = map_cr("lua require('dap').toggle_breakpoint()"):with_noremap():with_silent(),
     ["n|<F18>"]      = map_cr("lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))"):with_noremap():with_silent(), -- <S-F6>
-    ["n|<leader>dl"] = map_cr("lua require('dap').list_breakpoints()"):with_noremap():with_silent(),
     ["n|<F8>"]       = map_cr("lua require('dap').step_over()"):with_noremap():with_silent(),
     ["n|<F7>"]       = map_cr("lua require('dap').step_into()"):with_noremap():with_silent(),
     ["n|<F20>"]      = map_cr("lua require('dap').step_out()"):with_noremap():with_silent(), -- <S-F8>
+    ["n|<leader>dl"] = map_cr("Telescope dap commands"):with_noremap():with_silent(),
     ["n|<leader>do"] = map_cr("lua require('dap').repl.open()"):with_noremap():with_silent(),
 
     -- tsht
