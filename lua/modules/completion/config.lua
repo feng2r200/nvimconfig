@@ -122,11 +122,8 @@ function config.cmp()
         },
 
         sources = {
-            {name = "nvim_lsp"},
-            {name = "nvim_lua"},
-            {name = "luasnip"},
-            {name = "path"},
-            {name = "tmux"},
+            {name = "nvim_lsp"}, {name = "nvim_lua"}, {name = "luasnip"},
+            {name = "path"}, {name = "tmux"},
             {name = "buffer"},
         }
     }
