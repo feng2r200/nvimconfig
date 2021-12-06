@@ -47,7 +47,7 @@ local load_core = function()
 
     require("keymap")
 
-    vim.cmd [[colorscheme edge]]
+    vim.cmd [[colorscheme catppuccin]]
 end
 
 load_core()

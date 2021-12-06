@@ -2,16 +2,17 @@ local ui = {}
 local conf = require("modules.ui.config")
 
 ui["kyazdani42/nvim-web-devicons"] = {opt = false}
-ui["sainnhe/edge"] = {opt = false, config = conf.edge}
+ui["catppuccin/nvim"] = {
+    opt = false,
+    as = "catppuccin",
+    config = conf.catppuccin
+}
 ui["hoob3rt/lualine.nvim"] = {
     opt = true,
     after = "lualine-lsp-progress",
     config = conf.lualine
 }
-ui["arkav/lualine-lsp-progress"] = {
-    opt = true,
-    after = "nvim-gps"
-}
+ui["arkav/lualine-lsp-progress"] = {opt = true, after = "nvim-gps"}
 
 ui["kyazdani42/nvim-tree.lua"] = {
     opt = true,

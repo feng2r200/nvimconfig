@@ -1,13 +1,53 @@
 local config = {}
 
-function config.edge()
-    vim.cmd [[set background=dark]]
-    vim.g.edge_style = "aura"
-    vim.g.edge_enable_italic = 1
-    vim.g.edge_disable_italic_comment = 1
-    vim.g.edge_show_eob = 1
-    vim.g.edge_better_performance = 1
-    vim.g.edge_transparent_background = 1
+function config.catppuccin()
+    require('catppuccin').setup({
+        transparent_background = true,
+        term_colors = true,
+        styles = {
+            comments = "italic",
+            functions = "italic",
+            keywords = "italic",
+            strings = "NONE",
+            variables = "NONE"
+        },
+        integrations = {
+            treesitter = true,
+            native_lsp = {
+                enabled = true,
+                virtual_text = {
+                    errors = "italic",
+                    hints = "italic",
+                    warnings = "italic",
+                    information = "italic"
+                },
+                underlines = {
+                    errors = "underline",
+                    hints = "underline",
+                    warnings = "underline",
+                    information = "underline"
+                }
+            },
+            lsp_trouble = true,
+            lsp_saga = true,
+            gitgutter = false,
+            gitsigns = true,
+            telescope = true,
+            nvimtree = {enabled = true, show_root = true},
+            which_key = true,
+            indent_blankline = {enabled = true, colored_indent_levels = false},
+            dashboard = true,
+            neogit = false,
+            vim_sneak = false,
+            fern = false,
+            barbar = false,
+            bufferline = true,
+            markdown = true,
+            lightspeed = false,
+            ts_rainbow = true,
+            hop = true
+        }
+    })
 end
 
 function config.lualine()
@@ -35,12 +75,11 @@ function config.lualine()
     require("lualine").setup {
         options = {
             icons_enabled = true,
-            theme = "onedark",
+            theme = "catppuccin",
             disabled_filetypes = {},
             component_separators = "|",
             section_separators = {left = "", right = ""}
         },
-
         sections = {
             lualine_a = {"mode"},
             lualine_b = {{"branch"}, {"diff"}},
@@ -194,7 +233,6 @@ function config.gitsigns()
             ["n <leader>hR"] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
             ["n <leader>hp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
             ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
-
             -- Text objects
             ["o ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>',
             ["x ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>'
@@ -211,50 +249,28 @@ function config.gitsigns()
 end
 
 function config.indent_blankline()
+    vim.opt.termguicolors = true
+    vim.opt.list = true
+    vim.opt.listchars:append("space:⋅")
     require("indent_blankline").setup {
         char = "│",
         show_first_indent_level = true,
         filetype_exclude = {
-            "startify",
-            "dotooagenda",
-            "log",
-            "fugitive",
-            "gitcommit",
-            "packer",
-            "vimwiki",
-            "markdown",
-            "json",
-            "txt",
-            "vista",
-            "help",
-            "todoist",
-            "NvimTree",
-            "peekaboo",
-            "git",
-            "TelescopePrompt",
-            "undotree",
-            "flutterToolsOutline",
+            "startify", "dotooagenda", "log", "fugitive",
+            "gitcommit", "packer", "vimwiki", "markdown", "json", "txt",
+            "vista", "help", "todoist", "NvimTree", "peekaboo", "git",
+            "TelescopePrompt", "undotree", "flutterToolsOutline",
             "" -- for all buffers without a file type
         },
         buftype_exclude = {"terminal", "nofile"},
         show_trailing_blankline_indent = false,
         show_current_context = true,
         context_patterns = {
-            "class",
-            "function",
-            "method",
-            "block",
-            "list_literal",
-            "selector",
-            "^if",
-            "^table",
-            "if_statement",
-            "while",
-            "for",
-            "type",
-            "var",
+            "class", "function", "method", "block", "list_literal", "selector",
+            "^if", "^table", "if_statement", "while", "for", "type", "var",
             "import"
-        }
+        },
+        space_char_blankline = " "
     }
     -- because lazy load indent-blankline so need readd this autocmd
     vim.cmd("autocmd CursorMoved * IndentBlanklineRefresh")
