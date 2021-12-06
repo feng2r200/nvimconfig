@@ -63,13 +63,12 @@ function config.cmp()
                 vim_item.kind = string.format("%s %s", lspkind_icons[vim_item.kind], vim_item.kind)
 
                 vim_item.menu = ({
-                    rg = "[RG]",
+                    buffer = "[BUF]",
                     nvim_lsp = "[LSP]",
                     nvim_lua = "[LUA]",
                     path = "[PATH]",
                     tmux = "[TMUX]",
                     luasnip = "[SNIP]",
-                    spell = "[SPELL]"
                 })[entry.source.name]
 
                 return vim_item
@@ -128,7 +127,7 @@ function config.cmp()
             {name = "luasnip"},
             {name = "path"},
             {name = "tmux"},
-            {name = "rg"},
+            {name = "buffer"},
         }
     }
 

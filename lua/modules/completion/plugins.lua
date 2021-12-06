@@ -25,8 +25,8 @@ completion["hrsh7th/nvim-cmp"] = {
         {"hrsh7th/cmp-nvim-lua", after = "cmp-nvim-lsp"},
         {"andersevenrud/cmp-tmux", after = "cmp-nvim-lua"},
         {"hrsh7th/cmp-path", after = "cmp-tmux"},
-        {"lukas-reineke/cmp-rg", after = "cmp-path"},
-        {"kristijanhusak/vim-dadbod-completion", after = "cmp-rg"}
+        {"hrsh7th/cmp-buffer", after = "cmp-path"},
+        {"kristijanhusak/vim-dadbod-completion", after = "cmp-buffer"}
     }
 }
 
