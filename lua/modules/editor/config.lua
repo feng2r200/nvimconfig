@@ -419,4 +419,8 @@ function config.tmuxnavigator()
     vim.g.tmux_navigator_disable_when_zoomed = 1
 end
 
+function config.dadbodui()
+    vim.g.db_ui_save_location = os.getenv("HOME") .. "/.cache/nvim/db_ui"
+end
+
 return config

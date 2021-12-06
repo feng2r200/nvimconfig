@@ -112,6 +112,14 @@ editor["rcarriga/nvim-dap-ui"] = {
     }
 }
 
+editor["kristijanhusak/vim-dadbod-ui"] = {
+    opt = false,
+    config = conf.dadbodui,
+    requires = {
+        { "tpope/vim-dadbod"}
+    }
+}
+
 editor["chentau/marks.nvim"] = {
     opt = true,
     event = "BufReadPost",

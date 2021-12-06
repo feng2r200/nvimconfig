@@ -131,6 +131,10 @@ function config.cmp()
             {name = "rg"},
         }
     }
+
+    vim.api.nvim_exec([[
+    autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
+    ]], false)
 end
 
 function config.luasnip()
