@@ -42,10 +42,12 @@ local function custom_attach()
         bind = true,
         use_lspsaga = false,
         floating_window = true,
+        floating_window_above_cur_line = true,
         fix_pos = true,
         hint_enable = true,
-        hi_parameter = "Search",
+        hi_parameter = "LspSignatureActiveParameter",
         handler_opts = {"double"},
+        always_trigger = false,
         zindex = 50,
         transpancy = 20
     })
