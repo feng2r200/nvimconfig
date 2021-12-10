@@ -76,11 +76,7 @@ editor["phaazon/hop.nvim"] = {
     opt = true,
     branch = "v1",
     cmd = {
-        "HopLine",
-        "HopLineStart",
-        "HopWord",
-        "HopPattern",
-        "HopChar1",
+        "HopLine", "HopLineStart", "HopWord", "HopPattern", "HopChar1",
         "HopChar2"
     },
     config = function()
@@ -112,6 +108,12 @@ editor["rcarriga/nvim-dap-ui"] = {
     }
 }
 
+editor["chentau/marks.nvim"] = {
+    opt = true,
+    event = "BufReadPost",
+    config = conf.marks
+}
+
 editor["kristijanhusak/vim-dadbod-ui"] = {
     opt = false,
     config = conf.dadbodui,
@@ -120,13 +122,8 @@ editor["kristijanhusak/vim-dadbod-ui"] = {
     }
 }
 
-editor["chentau/marks.nvim"] = {
-    opt = true,
-    event = "BufReadPost",
-    config = conf.marks
-}
-
 editor["rlue/vim-barbaric"] = { opt = false }
+
 editor["christoomey/vim-tmux-navigator"] = {
     opt = false,
     config = conf.tmuxnavigator
