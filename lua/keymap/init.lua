@@ -42,8 +42,9 @@ local plug_map = {
 
     ["n|<leader>fa"] = map_cu("Telescope lsp_code_actions"):with_noremap():with_silent(),
     ["v|<leader>fa"] = map_cr("Telescope lsp_range_code_actions"):with_noremap():with_silent(),
-    ["n|<leader>fd"] = map_cr("Telescope lsp_document_diagnostics"):with_noremap():with_silent(),
-    ["n|<leader>fwd"] = map_cr("Telescope lsp_workspace_diagnostics"):with_noremap():with_silent(),
+
+    ["n|<leader>fd"] = map_cr("Telescope diagnostics bufnr=0"):with_noremap():with_silent(),
+    ["n|<leader>fwd"] = map_cr("Telescope diagnostics"):with_noremap():with_silent(),
 
     ["n|<leader>ftd"] = map_cr("Telescope lsp_document_symbols"):with_noremap():with_silent(),
     ["n|<leader>ftw"] = map_cr("Telescope lsp_workspace_symbols"):with_noremap():with_silent(),
