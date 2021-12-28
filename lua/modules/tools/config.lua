@@ -11,6 +11,30 @@ function config.telescope()
         vim.cmd [[packadd sqlite.lua]]
     end
 
+    if not packer_plugins["telescope-fzf-native.nvim"].loaded then
+        vim.cmd [[packadd telescope-fzf-native.nvim]]
+    end
+
+    if not packer_plugins["telescope-project.nvim"].loaded then
+        vim.cmd [[packadd telescope-project.nvim]]
+    end
+
+    if not packer_plugins["telescope-frecency.nvim"].loaded then
+        vim.cmd [[packadd telescope-frecency.nvim]]
+    end
+
+    if not packer_plugins["telescope-media-files.nvim"].loaded then
+        vim.cmd [[packadd telescope-media-files.nvim]]
+    end
+
+    if not packer_plugins["telescope-zoxide"].loaded then
+        vim.cmd [[packadd telescope-zoxide]]
+    end
+
+    if not packer_plugins["telescope-dap.nvim"].loaded then
+        vim.cmd [[packadd telescope-dap.nvim]]
+    end
+
     require("telescope").setup {
         defaults = {
             prompt_prefix = "🔭 ",
@@ -63,6 +87,13 @@ function config.telescope()
             }
         }
     }
+
+    require("telescope").load_extension("fzf")
+    require("telescope").load_extension("project")
+    require("telescope").load_extension("frecency")
+    require("telescope").load_extension("media_files")
+    require("telescope").load_extension("zoxide")
+    require("telescope").load_extension("dap")
 
 end
 
