@@ -32,8 +32,8 @@ local plug_map = {
     ["n|gD"]         = map_cr("Telescope lsp_implementations"):with_noremap():with_silent(),
     ["n|gh"]         = map_cr("Telescope lsp_references"):with_noremap():with_silent(),
 
-    ["n|<Leader>fp"] = map_cu("Telescope project"):with_noremap():with_silent(),
-    ["n|<Leader>fe"] = map_cu("Telescope frecency"):with_noremap():with_silent(),
+    ["n|<Leader>fp"] = map_cu("lua require('telescope').extensions.project.project{}"):with_noremap():with_silent(),
+    ["n|<Leader>fe"] = map_cu("lua require('telescope').extensions.frecency.frecency{}"):with_noremap():with_silent(),
     ["n|<Leader>ff"] = map_cu("Telescope find_files"):with_noremap():with_silent(),
     ["n|<Leader>fg"] = map_cu("Telescope live_grep"):with_noremap():with_silent(),
     ["n|<Leader>fm"] = map_cu("Telescope marks"):with_noremap():with_silent(),

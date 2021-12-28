@@ -1,8 +1,6 @@
 local config = {}
 
 function config.telescope()
-    local home = os.getenv("HOME")
-
     if not packer_plugins["popup.nvim"].loaded then
         vim.cmd [[packadd popup.nvim]]
     end
@@ -69,17 +67,7 @@ function config.telescope()
             frecency = {
                 show_scores = true,
                 show_unindexed = true,
-                ignore_patterns = {"*.git/*", "*/tmp/*"},
-                workspaces = {
-                    ["conf"] = home .. "/.config",
-                    ["data"] = home .. "/.local/share",
-                    ["nvim"] = home .. "/.config/nvim",
-                    ["code"] = home .. "/workspace",
-                    ["go"] = home .. "/workspace/go",
-                    ["rust"] = home .. "/workspace/rust",
-                    ["python"] = home .. "/workspace/python",
-                    ["leetcode"] = home .. "/workspace/leetcode"
-                }
+                ignore_patterns = {"*.git/*", "*/tmp/*"}
             },
             media_files = {
                 filetypes = {"png", "webp", "jpg", "jpeg", "pdf"},

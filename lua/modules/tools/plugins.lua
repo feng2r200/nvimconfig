@@ -4,6 +4,7 @@ local conf = require("modules.tools.config")
 tools["nvim-lua/plenary.nvim"] = {opt = false}
 tools["nvim-telescope/telescope.nvim"] = {
     opt = true,
+    module = "telescope",
     cmd = "Telescope",
     config = conf.telescope,
     requires = {
