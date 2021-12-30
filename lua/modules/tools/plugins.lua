@@ -8,13 +8,16 @@ tools["nvim-telescope/telescope.nvim"] = {
     cmd = "Telescope",
     config = conf.telescope,
     requires = {
-        {"nvim-lua/plenary.nvim", opt = false},
-        {"nvim-lua/popup.nvim", opt = true}
+        {"nvim-lua/plenary.nvim", opt = false}
     }
 }
 tools["nvim-telescope/telescope-fzf-native.nvim"] = {
     opt = true,
     run = "make",
+    after = "telescope.nvim"
+}
+tools["nvim-telescope/telescope-file-browser.nvim"] = {
+    opt = true,
     after = "telescope.nvim"
 }
 tools["nvim-telescope/telescope-project.nvim"] = {
