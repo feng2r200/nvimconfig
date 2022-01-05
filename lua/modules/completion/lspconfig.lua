@@ -10,6 +10,10 @@ if not packer_plugins["lsp_signature.nvim"].loaded then
     vim.cmd [[packadd lsp_signature.nvim]]
 end
 
+if not packer_plugins["lspsaga.nvim"].loaded then
+    vim.cmd [[packadd lspsaga.nvim]]
+end
+
 local lsp_installer = require("nvim-lsp-installer")
 
 -- vim.lsp.set_log_level("info")
@@ -45,7 +49,7 @@ local function custom_attach()
         floating_window_above_cur_line = true,
         fix_pos = true,
         hint_enable = true,
-        hi_parameter = "LspSignatureActiveParameter",
+        hi_parameter = "Search",
         handler_opts = {"double"},
         always_trigger = false,
         zindex = 50,

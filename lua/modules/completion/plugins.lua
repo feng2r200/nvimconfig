@@ -10,6 +10,7 @@ completion["williamboman/nvim-lsp-installer"] = {
     opt = true,
     after = "nvim-lspconfig"
 }
+completion["tami5/lspsaga.nvim"] = {opt = true, after = "nvim-lspconfig"}
 completion["kosayoda/nvim-lightbulb"] = {
     opt = true,
     after = "nvim-lspconfig",

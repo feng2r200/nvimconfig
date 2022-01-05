@@ -3,9 +3,12 @@ local map_cr = bind.map_cr
 local map_cu = bind.map_cu
 local map_cmd = bind.map_cmd
 
-local plug_map = {
+local plug_map        = {
     -- Neoformat
     ["n|<C-A-l>"]     = map_cu("FormatWrite"):with_noremap():with_silent(),
+
+    -- Plugin nvim-tree
+    ["n|<A-1>"]       = map_cr("NvimTreeToggle"):with_noremap():with_silent(),
 
     -- Bufferline
     ["n|gb"]          = map_cr("BufferLinePick"):with_noremap():with_silent(),
@@ -15,28 +18,26 @@ local plug_map = {
     ["n|<A-S-k>"]     = map_cr("BufferLineMovePrev"):with_noremap():with_silent(),
 
     -- Lsp mapp work when insertenter and lsp start
-    ["n|ge"]          = map_cr("lua vim.lsp.diagnostic.goto_next()"):with_noremap():with_silent(),
-    ["n|gE"]          = map_cr("lua vim.lsp.diagnostic.goto_prev()"):with_noremap():with_silent(),
-    ["n|K"]           = map_cr("lua vim.lsp.buf.hover()"):with_noremap():with_silent(),
-    ["n|gs"]          = map_cr("lua vim.lsp.buf.signature_help()"):with_noremap():with_silent(),
-    ["n|gr"]          = map_cr("lua vim.lsp.buf.rename()"):with_noremap():with_silent(),
+    ["n|ge"]          = map_cr("Lspsaga diagnostic_jump_next"):with_noremap():with_silent(),
+    ["n|gE"]          = map_cr("Lspsaga diagnostic_jump_prev"):with_noremap():with_silent(),
 
-    -- Plugin nvim-tree
-    ["n|<A-1>"]       = map_cr("NvimTreeToggle"):with_noremap():with_silent(),
+    ["n|K"]           = map_cr("Lspsaga hover_doc"):with_noremap():with_silent(),
+    ["n|<C-Up>"]      = map_cr("lua require('lspsaga.action').smart_scroll_with_saga(-1)"):with_noremap():with_silent(),
+    ["n|<C-Down>"]    = map_cr("lua require('lspsaga.action').smart_scroll_with_saga(1)"):with_noremap():with_silent(),
 
-    -- Plugin Telescope
-    ["n|<C-F13>"]     = map_cu("lua require('telescope.builtin').commands{}"):with_noremap():with_silent(), -- cmd + shift + p
-    ["n|<C-F14>"]     = map_cu("lua require('telescope.builtin').keymaps{}"):with_noremap():with_silent(), -- cmd + p
+    ["n|gs"]          = map_cr("Lspsaga signature_help"):with_noremap():with_silent(),
+    ["n|gr"]          = map_cr("Lspsaga rename"):with_noremap():with_silent(),
+
+    ["n|<leader>ca"]  = map_cu("lua require('telescope.builtin').lsp_code_actions{}"):with_noremap():with_silent(),
+    ["v|<leader>ca"]  = map_cr("lua require('telescope.builtin').lsp_range_code_actions{}"):with_noremap():with_silent(),
 
     ["n|gd"]          = map_cr("lua require('telescope.builtin').lsp_definitions{}"):with_noremap():with_silent(),
     ["n|gD"]          = map_cr("lua require('telescope.builtin').lsp_implementations{}"):with_noremap():with_silent(),
     ["n|gh"]          = map_cr("lua require('telescope.builtin').lsp_references{}"):with_noremap():with_silent(),
 
-    ["n|<leader>fa"]  = map_cu("lua require('telescope.builtin').lsp_code_actions{}"):with_noremap():with_silent(),
-    ["v|<leader>fa"]  = map_cr("lua require('telescope.builtin').lsp_range_code_actions{}"):with_noremap():with_silent(),
-
-    ["n|<leader>ge"]  = map_cr("lua require('telescope.builtin').diagnostics({bufnr=0})"):with_noremap():with_silent(),
-    ["n|<leader>gew"] = map_cr("lua require('telescope.builtin').diagnostics({})"):with_noremap():with_silent(),
+    -- Plugin Telescope
+    ["n|<C-F13>"]     = map_cu("lua require('telescope.builtin').commands{}"):with_noremap():with_silent(), -- cmd + shift + p
+    ["n|<C-F14>"]     = map_cu("lua require('telescope.builtin').keymaps{}"):with_noremap():with_silent(), -- cmd + p
 
     ["n|<leader>ft"]  = map_cr("lua require('telescope.builtin').lsp_document_symbols{}"):with_noremap():with_silent(),
     ["n|<leader>ftw"] = map_cr("lua require('telescope.builtin').lsp_workspace_symbols{}"):with_noremap():with_silent(),
@@ -56,8 +57,8 @@ local plug_map = {
     ["n|<leader>w"]   = map_cu("HopWord"):with_noremap(),
     ["n|<leader>j"]   = map_cu("HopLine"):with_noremap(),
     ["n|<leader>k"]   = map_cu("HopLine"):with_noremap(),
-    ["n|<leader>c"]   = map_cu("HopChar1"):with_noremap(),
-    ["n|<leader>cc"]  = map_cu("HopChar2"):with_noremap(),
+    ["n|<leader>wc"]  = map_cu("HopChar1"):with_noremap(),
+    ["n|<leader>wcc"] = map_cu("HopChar2"):with_noremap(),
 
     -- Plugin SymbolOutline
     ["n|<A-7>"]       = map_cr("SymbolsOutline"):with_noremap():with_silent(),
