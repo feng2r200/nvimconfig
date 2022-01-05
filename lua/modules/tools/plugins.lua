@@ -8,7 +8,8 @@ tools["nvim-telescope/telescope.nvim"] = {
     cmd = "Telescope",
     config = conf.telescope,
     requires = {
-        {"nvim-lua/plenary.nvim", opt = false}
+        {"nvim-lua/plenary.nvim", opt = false},
+        {"nvim-lua/popup.nvim", opt = true}
     }
 }
 tools["nvim-telescope/telescope-fzf-native.nvim"] = {
@@ -53,7 +54,11 @@ tools["folke/which-key.nvim"] = {
     keys = ",",
     config = function() require("which-key").setup {} end
 }
-
+tools["folke/trouble.nvim"] = {
+    opt = true,
+    cmd = {"Trouble", "TroubleToggle", "TroubleRefresh"},
+    config = conf.trouble
+}
 tools["gelguy/wilder.nvim"] = {
     event = "CmdlineEnter",
     config = conf.wilder,

@@ -41,9 +41,9 @@ function config.telescope()
                 horizontal = {prompt_position = "bottom", results_width = 0.6},
                 vertical = {mirror = false}
             },
-            file_previewer = require "telescope.previewers".vim_buffer_cat.new,
-            grep_previewer = require "telescope.previewers".vim_buffer_vimgrep.new,
-            qflist_previewer = require "telescope.previewers".vim_buffer_qflist.new,
+            file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+            grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+            qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
             file_sorter = require("telescope.sorters").get_fuzzy_file,
             file_ignore_patterns = {},
             generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
@@ -55,7 +55,7 @@ function config.telescope()
             },
             color_devicons = true,
             use_less = true,
-            set_env = {["COLORTERM"] = "truecolor"}
+            set_env = {["COLORTERM"] = "truecolor"},
         },
         extensions = {
             fzf = {
@@ -86,14 +86,59 @@ function config.telescope()
 
 end
 
+function config.trouble()
+    require("trouble").setup {
+        position = "bottom",
+        height = 10,
+        width = 50,
+        icons = true,
+        mode = "document_diagnostics", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
+        fold_open = "",
+        fold_closed = "",
+        action_keys = {
+            -- key mappings for actions in the trouble list
+            -- map to {} to remove a mapping, for example:
+            -- close = {},
+            close = "q",
+            cancel = "<esc>",
+            refresh = "r",
+            jump = {"<cr>", "<tab>"},
+            open_split = {"<c-x>"},
+            open_vsplit = {"<c-v>"},
+            open_tab = {"<c-t>"},
+            jump_close = {"o"},
+            toggle_mode = "m",
+            toggle_preview = "P",
+            hover = "K",
+            preview = "p",
+            close_folds = {"zM", "zm"},
+            open_folds = {"zR", "zr"},
+            toggle_fold = {"zA", "za"},
+            previous = "k",
+            next = "j"
+        },
+        indent_lines = true,
+        auto_open = false,
+        auto_close = false,
+        auto_preview = true,
+        auto_fold = false,
+        signs = {
+            error = "",
+            warning = "",
+            hint = "",
+            information = "",
+            other = "﫠"
+        },
+        use_lsp_diagnostic_signs = false
+    }
+end
+
 function config.sniprun()
     require "sniprun".setup({
         selected_interpreters = {}, -- " use those instead of the default for the current filetype
         repl_enable = {}, -- " enable REPL-like behavior for the given interpreters
         repl_disable = {}, -- " disable REPL-like behavior for the given interpreters
-
         interpreter_options = {}, -- " intepreter-specific options, consult docs / :SnipInfo <name>
-
         -- " you can combo different display modes as desired
         display = {
             "Classic", -- "display results in the command-line  area
@@ -103,7 +148,6 @@ function config.sniprun()
             "LongTempFloatingWindow" -- "same as above, but only long results. To use with VirtualText__
             -- "Terminal"                 -- "display results in a vertical split
         },
-
         -- " miscellaneous compatibility/adjustement settings
         inline_messages = 0, -- " inline_message (0/1) is a one-line way to display messages
         -- " to workaround sniprun not being able to display anything
@@ -122,7 +166,6 @@ call wilder#set_option('pipeline', [wilder#branch(wilder#cmdline_pipeline({'use_
 
 call wilder#set_option('renderer', wilder#renderer_mux({':': wilder#popupmenu_renderer({'highlighter': wilder#lua_fzy_highlighter(), 'left': [wilder#popupmenu_devicons()], 'right': [' ', wilder#popupmenu_scrollbar()]}), '/': wilder#wildmenu_renderer({'highlighter': wilder#lua_fzy_highlighter()})}))
 ]]
-
 end
 
 return config
