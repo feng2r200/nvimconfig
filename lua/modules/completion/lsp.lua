@@ -1,7 +1,3 @@
-if not packer_plugins["nvim-lspconfig"].loaded then
-    vim.cmd [[packadd nvim-lspconfig]]
-end
-
 if not packer_plugins["nvim-lsp-installer"].loaded then
     vim.cmd [[packadd nvim-lsp-installer]]
 end
@@ -57,10 +53,8 @@ local function custom_attach()
     })
 end
 
-lsp_installer.on_server_ready(function(server)
-    local opts = {}
-
-    if (server.name == "sumneko_lua") then
+local enhance_server_opts = {
+    ["sumneko_lua"] = function(opts)
         opts.settings = {
             Lua = {
                 diagnostics = {globals = {"vim", "packer_plugins", "hs"}},
@@ -76,11 +70,32 @@ lsp_installer.on_server_ready(function(server)
                 telemetry = {enable = false}
             }
         }
-    end
+    end,
+    ["gopls"] = function(opts)
+        opts.settings = {
+            gopls = {
+                usePlaceholders = true,
+                analyses = {
+                    nilness = true,
+                    shadow = true,
+                    unusedparams = true,
+                    unusewrites = true
+                }
+            }
+        }
+    end,
+}
 
-    opts.capabilities = capabilities
-    opts.flags = {debounce_text_changes = 500}
-    opts.on_attach = custom_attach
+lsp_installer.on_server_ready(function(server)
+    local opts = {
+        capabilities = capabilities,
+        flags = {debounce_text_changes = 500},
+        on_attach = custom_attach,
+    }
+
+    if enhance_server_opts[server.name] then
+        enhance_server_opts[server.name](opts)
+    end
 
     server:setup(opts)
 end)
