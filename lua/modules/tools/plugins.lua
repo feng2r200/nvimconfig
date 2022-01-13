@@ -42,6 +42,10 @@ tools["nvim-telescope/telescope-dap.nvim"] = {
     opt = true,
     after = "telescope.nvim"
 }
+tools["nvim-telescope/telescope-ui-select.nvim"] = {
+    opt = true,
+    after = "telescope.nvim"
+}
 
 tools["thinca/vim-quickrun"] = {opt = true, cmd = {"QuickRun", "Q"}}
 tools["michaelb/sniprun"] = {

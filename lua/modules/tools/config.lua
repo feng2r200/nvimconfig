@@ -33,6 +33,10 @@ function config.telescope()
         vim.cmd [[packadd telescope-zoxide]]
     end
 
+    if not packer_plugins["telescope-ui-select.nvim"].loaded then
+        vim.cmd [[packadd telescope-ui-select.nvim]]
+    end
+
     require("telescope").setup {
         defaults = {
             prompt_prefix = "🔭 ",
@@ -83,6 +87,7 @@ function config.telescope()
     require("telescope").load_extension("media_files")
     require("telescope").load_extension("project")
     require("telescope").load_extension("zoxide")
+    require("telescope").load_extension("ui-select")
 
 end
 
