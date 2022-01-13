@@ -11,11 +11,6 @@ completion["williamboman/nvim-lsp-installer"] = {
     after = "nvim-lspconfig"
 }
 completion["tami5/lspsaga.nvim"] = {opt = true, after = "nvim-lspconfig"}
-completion["kosayoda/nvim-lightbulb"] = {
-    opt = true,
-    after = "nvim-lspconfig",
-    config = conf.lightbulb
-}
 completion["ray-x/lsp_signature.nvim"] = {opt = true, after = "nvim-lspconfig"}
 completion["hrsh7th/nvim-cmp"] = {
     config = conf.cmp,
@@ -27,8 +22,7 @@ completion["hrsh7th/nvim-cmp"] = {
         {"hrsh7th/cmp-nvim-lua", after = "cmp-nvim-lsp"},
         {"andersevenrud/cmp-tmux", after = "cmp-nvim-lua"},
         {"hrsh7th/cmp-path", after = "cmp-tmux"},
-        {"hrsh7th/cmp-buffer", after = "cmp-path"},
-        {"kristijanhusak/vim-dadbod-completion", after = "cmp-buffer"}
+        {"hrsh7th/cmp-buffer", after = "cmp-path"}
     }
 }
 

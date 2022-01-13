@@ -114,14 +114,6 @@ editor["chentau/marks.nvim"] = {
     config = conf.marks
 }
 
-editor["kristijanhusak/vim-dadbod-ui"] = {
-    opt = false,
-    config = conf.dadbodui,
-    requires = {
-        { "tpope/vim-dadbod"}
-    }
-}
-
 editor["rlue/vim-barbaric"] = { opt = false }
 
 editor["christoomey/vim-tmux-navigator"] = {

@@ -2,10 +2,6 @@ local config = {}
 
 function config.nvim_lsp() require("modules.completion.lsp") end
 
-function config.lightbulb()
-    vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
-end
-
 function config.cmp()
     vim.cmd [[highlight CmpItemAbbrDeprecated guifg=#D8DEE9 guibg=NONE gui=strikethrough]]
     vim.cmd [[highlight CmpItemKindSnippet guifg=#BF616A guibg=NONE]]
@@ -135,10 +131,6 @@ function config.cmp()
             {name = "buffer"},
         }
     }
-
-    vim.api.nvim_exec([[
-    autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
-    ]], false)
 end
 
 function config.luasnip()
