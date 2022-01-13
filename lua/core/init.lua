@@ -32,17 +32,27 @@ local leader_map = function()
     vim.api.nvim_set_keymap("x", " ", "", {noremap = true})
 end
 
+local neovide_config = function ()
+    vim.g.neovide_refresh_rate=140
+    vim.g.neovide_transparency=0.8
+    vim.g.neovide_input_use_logo=true
+    vim.g.neovide_cursor_antialiasing=false
+end
+
 local load_core = function()
+    local pack = require("core.pack")
+
     built_ins_config()
     leader_map()
+
+    pack.ensure_plugins()
+    neovide_config()
 
     require("core.global")
     require("core.options")
     require("core.mapping")
     require("core.event")
 
-    local pack = require("core.pack")
-    pack.ensure_plugins()
     pack.load_compile()
 
     require("keymap")
