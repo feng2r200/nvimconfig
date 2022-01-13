@@ -108,6 +108,11 @@ editor["rcarriga/nvim-dap-ui"] = {
     }
 }
 
+editor["famiu/bufdelete.nvim"] = {
+    opt = true,
+    cmd = {"Bdelete", "Bwipeout", "Bdelete!", "Bwipeout!"}
+}
+
 editor["chentau/marks.nvim"] = {
     opt = true,
     event = "BufReadPost",

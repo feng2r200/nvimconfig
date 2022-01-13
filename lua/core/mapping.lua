@@ -7,7 +7,7 @@ local map_cmd = bind.map_cmd
 local def_map = {
     -- Vim map
     ["n|<BS>"] = map_cr("set hls!"):with_noremap():with_silent(),
-    ["n|<C-x>k"] = map_cr("bdelete"):with_noremap():with_silent(),
+    ["n|<C-x>k"] = map_cr("Bdelete"):with_noremap():with_silent(),
     ["n|<C-s>"] = map_cu("write"):with_noremap(),
     ["n|n"] = map_cmd("nzzzv"):with_noremap(),
     ["n|N"] = map_cmd("Nzzzv"):with_noremap(),
