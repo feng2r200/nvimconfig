@@ -72,15 +72,15 @@ editor["romainl/vim-cool"] = {
     opt = true,
     event = {"CursorMoved", "InsertEnter"}
 }
-editor["phaazon/hop.nvim"] = {
+
+editor['rlane/pounce.nvim'] = {
     opt = true,
-    branch = "v1",
-    cmd = {
-        "HopLine", "HopLineStart", "HopWord", "HopPattern", "HopChar1",
-        "HopChar2"
-    },
+    cmd = {"Pounce"},
     config = function()
-        require("hop").setup {keys = "etovxqpdygfblzhckisuran"}
+        require("pounce").setup {
+            accept_keys = "JFKDLSAHGNUVRBYTMICEOXWPQZ",
+            debug = false,
+        }
     end
 }
 editor["karb94/neoscroll.nvim"] = {

@@ -55,12 +55,10 @@ local plug_map        = {
     ["n|<leader>fz"]  = map_cu("Telescope zoxide list"):with_noremap():with_silent(),
     ["n|<leader>dl"]  = map_cr("Telescope dap commands"):with_noremap():with_silent(),
 
-    -- Plugin Hop
-    ["n|<leader>w"]   = map_cu("HopWord"):with_noremap(),
-    ["n|<leader>j"]   = map_cu("HopLine"):with_noremap(),
-    ["n|<leader>k"]   = map_cu("HopLine"):with_noremap(),
-    ["n|<leader>wc"]  = map_cu("HopChar1"):with_noremap(),
-    ["n|<leader>wcc"] = map_cu("HopChar2"):with_noremap(),
+    -- motion
+    ["n|<leader>w"]   = map_cu("Pounce"):with_noremap(),
+    ["v|<leader>w"]   = map_cu("Pounce"):with_noremap(),
+    ["o|<leader>w"]   = map_cu("Pounce"):with_noremap(),
 
     -- Plugin SymbolOutline
     ["n|<A-7>"]       = map_cr("SymbolsOutline"):with_noremap():with_silent(),
