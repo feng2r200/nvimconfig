@@ -89,6 +89,11 @@ editor["karb94/neoscroll.nvim"] = {
     config = conf.neoscroll
 }
 
+editor["akinsho/nvim-toggleterm.lua"] = {
+    opt = true,
+    event = "BufRead",
+    config = conf.toggleterm
+}
 editor["norcalli/nvim-colorizer.lua"] = {
     opt = true,
     event = "BufRead",
