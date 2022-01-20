@@ -131,11 +131,7 @@ end
 function config.autotag()
     require("nvim-ts-autotag").setup({
         filetypes = {
-            "html",
-            "xml",
-            "javascript",
-            "typescriptreact",
-            "javascriptreact",
+            "html", "xml", "javascript", "typescriptreact", "javascriptreact",
             "vue"
         }
     })
@@ -147,14 +143,7 @@ function config.neoscroll()
     require("neoscroll").setup({
         -- All these keys will be mapped to their corresponding default scrolling animation
         mappings = {
-            "<C-u>",
-            "<C-d>",
-            "<C-b>",
-            "<C-f>",
-            "<C-y>",
-            "<C-e>",
-            "zt",
-            "zz",
+            "<C-u>", "<C-d>", "<C-b>", "<C-f>", "<C-y>", "<C-e>", "zt", "zz",
             "zb"
         },
         hide_cursor = true, -- Hide cursor while scrolling
