@@ -3,9 +3,6 @@ local map_cr = bind.map_cr
 local map_cu = bind.map_cu
 
 local plug_map        = {
-    -- Neoformat
-    ["n|<C-A-l>"]     = map_cu("FormatWrite"):with_noremap():with_silent(),
-
     -- Plugin nvim-tree
     ["n|<A-1>"]       = map_cr("NvimTreeToggle"):with_noremap():with_silent(),
 
