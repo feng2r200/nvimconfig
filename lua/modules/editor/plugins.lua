@@ -52,6 +52,9 @@ editor["SmiteshP/nvim-gps"] = {
     after = "nvim-treesitter",
     config = conf.nvim_gps
 }
+
+editor["sbdchd/neoformat"] = {opt = true, cmd = "Neoformat"}
+
 editor["windwp/nvim-ts-autotag"] = {
     opt = true,
     ft = {"html", "xml"},
