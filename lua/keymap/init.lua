@@ -87,3 +87,13 @@ local plug_map        = {
 };
 
 bind.nvim_load_mapping(plug_map)
+
+if vim.g.neovide then
+    vim.api.nvim_set_keymap("n", "∆", '<A-j>', {})
+    vim.api.nvim_set_keymap("n", "˚", '<A-k>', {})
+    vim.api.nvim_set_keymap("n", "¬", '<A-l>', {})
+    vim.api.nvim_set_keymap("n", "Ô", '<A-S-j>', {})
+    vim.api.nvim_set_keymap("n", "", '<A-S-k>', {})
+    vim.api.nvim_set_keymap("n", "¡", '<A-1>', {})
+    vim.api.nvim_set_keymap("n", "¶", '<A-7>', {})
+end
