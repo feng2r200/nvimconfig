@@ -4,16 +4,16 @@ local map_cu = bind.map_cu
 
 local plug_map        = {
     -- Format
-    ["n|<C-A-l>"]     = map_cr("Neoformat"):with_noremap():with_silent(),
+    ["n|<A-l>"]     = map_cr("Neoformat"):with_noremap():with_silent(),
 
     -- Plugin nvim-tree
     ["n|<A-1>"]       = map_cr("NvimTreeToggle"):with_noremap():with_silent(),
 
     -- Bufferline
     ["n|gb"]          = map_cr("BufferLinePick"):with_noremap():with_silent(),
-    ["n|<F36>"]       = map_cr("BufferLineCycleNext"):with_noremap():with_silent(),
+    ["n|<A-j>"]       = map_cr("BufferLineCycleNext"):with_noremap():with_silent(),
     ["n|gt"]          = map_cr("BufferLineCycleNext"):with_noremap():with_silent(),
-    ["n|<F24>"]       = map_cr("BufferLineCyclePrev"):with_noremap():with_silent(),
+    ["n|<A-k>"]       = map_cr("BufferLineCyclePrev"):with_noremap():with_silent(),
     ["n|gT"]          = map_cr("BufferLineCyclePrev"):with_noremap():with_silent(),
     ["n|<A-S-j>"]     = map_cr("BufferLineMoveNext"):with_noremap():with_silent(),
     ["n|<A-S-k>"]     = map_cr("BufferLineMovePrev"):with_noremap():with_silent(),
@@ -37,9 +37,6 @@ local plug_map        = {
     ["n|gh"]          = map_cr("lua require('telescope.builtin').lsp_references{}"):with_noremap():with_silent(),
 
     -- Plugin Telescope
-    ["n|<C-F13>"]     = map_cu("lua require('telescope.builtin').commands{}"):with_noremap():with_silent(), -- cmd + p
-    ["n|<D-p>"]       = map_cu("lua require('telescope.builtin').commands{}"):with_noremap():with_silent(), -- cmd + p
-
     ["n|<leader>ft"]  = map_cr("lua require('telescope.builtin').lsp_document_symbols{}"):with_noremap():with_silent(),
     ["n|<leader>ftw"] = map_cr("lua require('telescope.builtin').lsp_workspace_symbols{}"):with_noremap():with_silent(),
 
