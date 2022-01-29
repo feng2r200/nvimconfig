@@ -1,18 +1,7 @@
-if not packer_plugins["nvim-lsp-installer"].loaded then
-    vim.cmd [[packadd nvim-lsp-installer]]
-end
-
-if not packer_plugins["lsp_signature.nvim"].loaded then
-    vim.cmd [[packadd lsp_signature.nvim]]
-end
-
-if not packer_plugins["lspsaga.nvim"].loaded then
-    vim.cmd [[packadd lspsaga.nvim]]
-end
-
-if not packer_plugins["cmp-nvim-lsp"].loaded then
-    vim.cmd [[packadd cmp-nvim-lsp]]
-end
+vim.cmd [[packadd nvim-lsp-installer]]
+vim.cmd [[packadd lsp_signature.nvim]]
+vim.cmd [[packadd lspsaga.nvim]]
+vim.cmd [[packadd cmp-nvim-lsp]]
 
 local lsp_installer = require("nvim-lsp-installer")
 
@@ -56,7 +45,7 @@ local enhance_server_opts = {
     ["sumneko_lua"] = function(opts)
         opts.settings = {
             Lua = {
-                diagnostics = {globals = {"vim", "packer_plugins", "hs"}},
+                diagnostics = {globals = {"vim", "hs"}},
                 workspace = {
                     library = {
                         [vim.fn.expand "$VIMRUNTIME/lua"] = true,
