@@ -6,7 +6,7 @@ function autocmd.nvim_create_augroups(definitions)
         vim.api.nvim_command("augroup " .. group_name)
         vim.api.nvim_command("autocmd!")
         for _, def in ipairs(definition) do
-            local command = table.concat(vim.tbl_flatten {"autocmd", def}, " ")
+            local command = table.concat(vim.tbl_flatten({ "autocmd", def }), " ")
             vim.api.nvim_command(command)
         end
         vim.api.nvim_command("augroup END")
@@ -42,8 +42,8 @@ function autocmd.load_autocmds()
             {"FileType", "go,rust", "setlocal tabstop=4 shiftwidth=4"},
             {"FileType", "javascript,typescript,html", "setlocal tabstop=2 shiftwidth=2"},
             {"FileType", "*", [[setlocal formatoptions-=c formatoptions-=r formatoptions-=o]]},
+            {"FileType", "dap-repl", "lua require('dap.ext.autocompl').attach()"},
         },
-
         yank = {
             {"TextYankPost", [[* silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=300})]]}
         }

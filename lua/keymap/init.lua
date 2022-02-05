@@ -62,14 +62,6 @@ local plug_map        = {
     -- Plugin MarkdownPreview
     ["n|<F12>"]       = map_cr("MarkdownPreviewToggle"):with_noremap():with_silent(),
 
-    -- Plugin auto_session
-    ["n|<leader>ss"]  = map_cu("SaveSession"):with_noremap():with_silent(),
-    ["n|<leader>sr"]  = map_cu("RestoreSession"):with_noremap():with_silent(),
-    ["n|<leader>sd"]  = map_cu("DeleteSession"):with_noremap():with_silent(),
-
-    -- Plugin SnipRun
-    ["v|<leader>r"]   = map_cr("SnipRun"):with_noremap():with_silent(),
-
     -- Plugin dap
     ["n|<F6>"]        = map_cr("lua require('dap').toggle_breakpoint()"):with_noremap():with_silent(),
     ["n|<F18>"]       = map_cr("lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))"):with_noremap():with_silent(), -- <S-F6>

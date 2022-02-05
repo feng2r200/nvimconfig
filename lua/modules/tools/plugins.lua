@@ -8,14 +8,14 @@ tools["nvim-telescope/telescope.nvim"] = {
     cmd = "Telescope",
     config = conf.telescope,
     requires = {
-        {"nvim-lua/plenary.nvim", opt = false},
-        {"nvim-lua/popup.nvim", opt = true}
-    }
+        { "nvim-lua/plenary.nvim", opt = false },
+        { "nvim-lua/popup.nvim", opt = true },
+    },
 }
 tools["nvim-telescope/telescope-fzf-native.nvim"] = {
     opt = true,
     run = "make",
-    after = "telescope.nvim"
+    after = "telescope.nvim",
 }
 tools["nvim-telescope/telescope-file-browser.nvim"] = {
     opt = true,
@@ -47,7 +47,6 @@ tools["nvim-telescope/telescope-ui-select.nvim"] = {
     after = "telescope.nvim"
 }
 
-tools["thinca/vim-quickrun"] = {opt = true, cmd = {"QuickRun", "Q"}}
 tools["michaelb/sniprun"] = {
     opt = true,
     run = "bash ./install.sh",
@@ -68,4 +67,9 @@ tools["gelguy/wilder.nvim"] = {
     config = conf.wilder,
     requires = {{"romgrk/fzy-lua-native", after = "wilder.nvim"}}
 }
+tools["nathom/filetype.nvim"] = {
+	opt = false,
+	config = conf.filetype,
+}
+
 return tools

@@ -1,7 +1,7 @@
 local config = {}
 
 function config.edge()
-    vim.cmd [[set background=dark]]
+    vim.cmd([[set background=dark]])
     vim.g.edge_style = "aura"
     vim.g.edge_enable_italic = 1
     vim.g.edge_disable_italic_comment = 1
@@ -20,59 +20,102 @@ function config.lualine()
             return ""
         end
     end
+    local simple_sections = {
+        lualine_a = { "mode" },
+        lualine_b = { "filetype" },
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = { "location" },
+    }
     local symbols_outline = {
-        sections = {
-            lualine_a = {'mode'},
-            lualine_b = {'filetype'},
-            lualine_c = {},
-            lualine_x = {},
-            lualine_y = {},
-            lualine_z = {'location'}
-        },
-        filetypes = {'Outline'}
+        sections = simple_sections,
+        filetypes = { "Outline" },
+    }
+    local dapui_scopes = {
+        sections = simple_sections,
+        filetypes = { "dapui_scopes" },
     }
 
-    require("lualine").setup {
+    local dapui_breakpoints = {
+        sections = simple_sections,
+        filetypes = { "dapui_breakpoints" },
+    }
+
+    local dapui_stacks = {
+        sections = simple_sections,
+        filetypes = { "dapui_stacks" },
+    }
+
+    local dapui_watches = {
+        sections = simple_sections,
+        filetypes = { "dapui_watches" },
+    }
+
+    require("lualine").setup({
         options = {
             icons_enabled = true,
             theme = "onedark",
             disabled_filetypes = {},
             component_separators = "|",
-            section_separators = {left = "", right = ""}
+            section_separators = { left = "", right = "" },
         },
         sections = {
-            lualine_a = {"mode"},
-            lualine_b = {{"branch"}, {"diff"}},
+            lualine_a = { "mode" },
+            lualine_b = { { "branch" }, { "diff" } },
             lualine_c = {
-                {"lsp_progress"}, {gps_content, cond = gps.is_available}
+                { "lsp_progress" },
+                { gps_content, cond = gps.is_available },
             },
             lualine_x = {
                 {
                     "diagnostics",
-                    sources = {"nvim_diagnostic"},
-                    symbols = {error = " ", warn = " ", info = " "}
-                }
+                    sources = { "nvim_diagnostic" },
+                    symbols = { error = " ", warn = " ", info = " " },
+                },
             },
-            lualine_y = {"filetype", "encoding", "fileformat"},
-            lualine_z = {"progress", "location"}
+            lualine_y = {
+                {
+                    "filetype",
+                    "encoding",
+                },
+                {
+                    "fileformat",
+                    icons_enabled = true,
+                    symbols = {
+                        unix = "LF",
+                        dos = "CRLF",
+                        mac = "CR",
+                    },
+                },
+            },
+            lualine_z = { "progress", "location" },
         },
         inactive_sections = {
             lualine_a = {},
             lualine_b = {},
-            lualine_c = {"filename"},
-            lualine_x = {"location"},
+            lualine_c = { "filename" },
+            lualine_x = { "location" },
             lualine_y = {},
-            lualine_z = {}
+            lualine_z = {},
         },
         tabline = {},
         extensions = {
-            "quickfix", "nvim-tree", "toggleterm", "fugitive", symbols_outline
-        }
-    }
+            "quickfix",
+            "nvim-tree",
+            "toggleterm",
+            "fugitive",
+            symbols_outline,
+            dapui_scopes,
+            dapui_breakpoints,
+            dapui_stacks,
+            dapui_watches,
+        },
+    })
 end
 
 function config.nvim_tree()
-    require("nvim-tree").setup {
+    require("nvim-tree").setup({
         disable_netrw = true,
         hijack_netrw = true,
         open_on_setup = false,
@@ -81,37 +124,37 @@ function config.nvim_tree()
         open_on_tab = false,
         hijack_cursor = true,
         update_cwd = false,
-        update_to_buf_dir = {enable = false, auto_open = false},
+        update_to_buf_dir = { enable = false, auto_open = false },
         diagnostics = {
             enable = false,
-            icons = {hint = "", info = "", warning = "", error = ""}
+            icons = { hint = "", info = "", warning = "", error = "" },
         },
         highlight_opened_files = true,
         auto_ignore_ft = {"startify"},
         update_focused_file = {
             enable = true,
             update_cwd = false,
-            ignore_list = {}
+            ignore_list = {},
         },
-        system_open = {cmd = nil, args = {}},
-        filters = {dotfiles = false, custom = {}},
-        git = {enable = true, ignore = true, timeout = 500},
+        system_open = { cmd = nil, args = {} },
+        filters = { dotfiles = false, custom = {} },
+        git = { enable = true, ignore = true, timeout = 500 },
         view = {
             width = 40,
             hide_root_folder = false,
             side = "left",
             auto_resize = false,
-            mappings = {custom_only = false, list = {}},
+            mappings = { custom_only = false, list = {} },
             number = false,
             relativenumber = false,
-            signcolumn = "yes"
+            signcolumn = "yes",
         },
-        trash = {cmd = "trash", require_confirm = true}
-    }
+        trash = { cmd = "trash", require_confirm = true },
+    })
 end
 
 function config.nvim_bufferline()
-    require("bufferline").setup {
+    require("bufferline").setup({
         options = {
             number = "none",
             modified_icon = "✥",
@@ -132,16 +175,15 @@ function config.nvim_bufferline()
                     filetype = "NvimTree",
                     text = "File Explorer",
                     text_align = "center",
-                    padding = 1
-                }
-            }
-        }
-    }
+                    padding = 1,
+                },
+            },
+        },
+    })
 end
 
 function config.gitsigns()
-    vim.cmd [[packadd plenary.nvim]]
-    require("gitsigns").setup {
+    require("gitsigns").setup({
         signs = {
             add = {hl = "GitGutterAdd", text = "+"},
             change = {hl = "GitGutterChange", text = "~"},
@@ -165,42 +207,69 @@ function config.gitsigns()
             ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
             -- Text objects
             ["o ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>',
-            ["x ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>'
+            ["x ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>',
         },
-        watch_gitdir = {interval = 1000, follow_files = true},
+        watch_gitdir = { interval = 1000, follow_files = true },
         current_line_blame = true,
-        current_line_blame_opts = {delay = 1000, virtual_text_pos = "eol"},
+        current_line_blame_opts = { delay = 1000, virtual_text_pos = "eol" },
         sign_priority = 6,
         update_debounce = 100,
         status_formatter = nil, -- Use default
         word_diff = false,
-        diff_opts = {internal = true}
-    }
+        diff_opts = { internal = true },
+    })
 end
 
 function config.indent_blankline()
     vim.opt.termguicolors = true
     vim.opt.list = true
-    require("indent_blankline").setup {
+    require("indent_blankline").setup({
         char = "│",
         show_first_indent_level = true,
         filetype_exclude = {
-            "startify", "dotooagenda", "log", "fugitive",
-            "gitcommit", "packer", "vimwiki", "markdown", "json", "txt",
-            "vista", "help", "todoist", "NvimTree", "peekaboo", "git",
-            "TelescopePrompt", "undotree", "flutterToolsOutline",
-            "" -- for all buffers without a file type
+            "startify",
+            "dashboard",
+            "dotooagenda",
+            "log",
+            "fugitive",
+            "gitcommit",
+            "packer",
+            "vimwiki",
+            "markdown",
+            "json",
+            "txt",
+            "vista",
+            "help",
+            "todoist",
+            "NvimTree",
+            "peekaboo",
+            "git",
+            "TelescopePrompt",
+            "undotree",
+            "flutterToolsOutline",
+            "", -- for all buffers without a file type
         },
-        buftype_exclude = {"terminal", "nofile"},
+        buftype_exclude = { "terminal", "nofile" },
         show_trailing_blankline_indent = false,
         show_current_context = true,
         context_patterns = {
-            "class", "function", "method", "block", "list_literal", "selector",
-            "^if", "^table", "if_statement", "while", "for", "type", "var",
-            "import"
+            "class",
+            "function",
+            "method",
+            "block",
+            "list_literal",
+            "selector",
+            "^if",
+            "^table",
+            "if_statement",
+            "while",
+            "for",
+            "type",
+            "var",
+            "import",
         },
-        space_char_blankline = " "
-    }
+        space_char_blankline = " ",
+    })
     -- because lazy load indent-blankline so need readd this autocmd
     vim.cmd("autocmd CursorMoved * IndentBlanklineRefresh")
 end
