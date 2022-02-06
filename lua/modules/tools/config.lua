@@ -9,7 +9,6 @@ function config.telescope()
     vim.cmd([[packadd telescope-media-files.nvim]])
     vim.cmd([[packadd telescope-project.nvim]])
     vim.cmd([[packadd telescope-zoxide]])
-    vim.cmd([[packadd telescope-ui-select.nvim]])
 
     require("telescope").setup({
         defaults = {
@@ -61,7 +60,6 @@ function config.telescope()
     require("telescope").load_extension("media_files")
     require("telescope").load_extension("project")
     require("telescope").load_extension("zoxide")
-    require("telescope").load_extension("ui-select")
 
 end
 
