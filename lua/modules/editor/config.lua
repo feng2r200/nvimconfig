@@ -1,5 +1,4 @@
 local config = {}
-local sessions_dir = vim.fn.stdpath("data") .. "/sessions/"
 
 function config.symbols_outline()
     require("symbols-outline").setup({
@@ -169,6 +168,8 @@ function config.neoscroll()
 end
 
 function config.auto_session()
+    local sessions_dir = vim.fn.stdpath("data") .. "/sessions/"
+
     local opts = {
         log_level = "info",
         auto_session_enable_last_session = true,
