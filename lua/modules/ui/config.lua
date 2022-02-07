@@ -114,6 +114,26 @@ function config.lualine()
     })
 end
 
+function config.dashboard()
+    vim.g.dashboard_footer_icon = "🐬 "
+    vim.g.dashboard_default_executive = "telescope"
+
+    vim.g.dashboard_custom_section = {
+        find_project = {
+            description = { " Project find               SPC f p " },
+            command = "Telescope project",
+        },
+        find_file = {
+            description = { " File find                  SPC f f " },
+            command = "DashboardFindFile",
+        },
+        file_new = {
+            description = { " File new                   SPC f n " },
+            command = "DashboardNewFile",
+        },
+    }
+end
+
 function config.nvim_tree()
     require("nvim-tree").setup({
         disable_netrw = true,
