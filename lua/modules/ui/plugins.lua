@@ -2,7 +2,7 @@ local ui = {}
 local conf = require("modules.ui.config")
 
 ui["kyazdani42/nvim-web-devicons"] = {opt = false}
-ui["sainnhe/edge"] = {opt = false, config = conf.edge}
+ui["navarasu/onedark.nvim"] = {opt = false, config = conf.onedark}
 
 ui["hoob3rt/lualine.nvim"] = {
     opt = true,

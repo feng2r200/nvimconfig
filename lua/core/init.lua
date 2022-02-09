@@ -11,8 +11,6 @@ local load_core = function()
     pack.load_compile()
 
     require("core.mapping")
-
-    vim.cmd [[colorscheme edge]]
 end
 
 load_core()
