@@ -133,6 +133,7 @@ end)
 local nvim_lsp = require("lspconfig")
 local nvim_lsp_util = require("lspconfig/util")
 
+-- rust lsp
 nvim_lsp.rust_analyzer.setup({
     cmd = { "rust-analyzer" },
     filetypes = { "rust" },
@@ -142,4 +143,11 @@ nvim_lsp.rust_analyzer.setup({
     settings = {
         ["rust-analyzer"] = {}
     },
+})
+
+-- sqls lsp
+nvim_lsp.sqls.setup({
+    cmd = { "sqls", "-config", "/Users/liangdong/.config/sqls/config.yml" },
+    on_attach = custom_attach,
+    capabilities = capabilities,
 })
