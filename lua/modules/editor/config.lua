@@ -287,7 +287,7 @@ function config.dap()
             request = "launch",
             mode = "debug",
             program = "${file}",
-            stopOnEntry = true,
+            -- stopOnEntry = true,
         },
         {
             type = "go",
@@ -295,7 +295,7 @@ function config.dap()
             request = "launch",
             mode = "test",
             program = "${file}",
-            stopOnEntry = true,
+            -- stopOnEntry = true,
         },
         {
             type = "go",
@@ -303,7 +303,7 @@ function config.dap()
             request = "launch",
             mode = "test",
             program = "./${relativeFileDirname}",
-            stopOnEntry = true
+            -- stopOnEntry = true
         }
     }
 
