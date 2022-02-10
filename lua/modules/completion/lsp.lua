@@ -4,6 +4,7 @@ vim.cmd [[packadd lspsaga.nvim]]
 vim.cmd [[packadd cmp-nvim-lsp]]
 
 local lsp_installer = require("nvim-lsp-installer")
+local nvim_lsp_util = require("lspconfig/util")
 
 require("lspsaga").init_lsp_saga {
     error_sign = '',
@@ -115,6 +116,9 @@ local enhance_server_opts = {
             }
         }
     end,
+    ["sqls"] = function(opts)
+        opts.cmd = { "sqls", "-config", os.getenv("HOME") .. "/.config/sqls/config.yml" }
+    end,
 }
 
 lsp_installer.on_server_ready(function(server)
@@ -131,7 +135,6 @@ lsp_installer.on_server_ready(function(server)
 end)
 
 local nvim_lsp = require("lspconfig")
-local nvim_lsp_util = require("lspconfig/util")
 
 -- rust lsp
 nvim_lsp.rust_analyzer.setup({
@@ -145,9 +148,3 @@ nvim_lsp.rust_analyzer.setup({
     },
 })
 
--- sqls lsp
-nvim_lsp.sqls.setup({
-    cmd = { "sqls", "-config", "/Users/liangdong/.config/sqls/config.yml" },
-    on_attach = custom_attach,
-    capabilities = capabilities,
-})
