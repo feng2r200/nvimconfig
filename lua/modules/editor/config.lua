@@ -215,7 +215,6 @@ end
 
 function config.dap()
     local dap = require("dap")
-    dap.set_log_level("TRACE")
 
     local dapui = require("dapui")
     dap.listeners.after.event_initialized["dapui"] = function()
@@ -235,20 +234,22 @@ function config.dap()
         command = "/usr/local/opt/llvm/bin/lldb-vscode",
         name = "lldb"
     }
-    dap.configurations.rust = {
+    dap.configurations.cpp = {
         {
             name = "Launch",
             type = "lldb",
+            -- type = "codelldb",
             request = "launch",
             program = function ()
                 return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
             end,
             cwd = "${workspaceFolder}",
-            stopOnEntry = true,
+            -- stopOnEntry = true,
             args = {},
             runInTerminal = false
         },
     }
+    dap.configurations.rust = dap.configurations.cpp
 
     dap.adapters.go = function(callback, conf)
         local stdout = vim.loop.new_pipe(false)

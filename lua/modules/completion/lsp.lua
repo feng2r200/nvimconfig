@@ -124,6 +124,7 @@ local enhance_server_opts = {
 lsp_installer.on_server_ready(function(server)
     local opts = {
         capabilities = capabilities,
+        flags = { debounce_text_changes = 500 },
         on_attach = custom_attach,
     }
 
@@ -131,20 +132,13 @@ lsp_installer.on_server_ready(function(server)
         enhance_server_opts[server.name](opts)
     end
 
-    server:setup(opts)
+    if server.name == "rust_analyzer" then
+        require("rust_tools").setup({
+            server = vim.tbl_deep_extend("force", server:get_default_options(), opts),
+        })
+        server:attach_buffers()
+    else
+        server:setup(opts)
+    end
 end)
-
-local nvim_lsp = require("lspconfig")
-
--- rust lsp
-nvim_lsp.rust_analyzer.setup({
-    cmd = { "rust-analyzer" },
-    filetypes = { "rust" },
-    root_dir = nvim_lsp_util.root_pattern("Cargo.toml", "rust-project.json"),
-    capabilities = capabilities,
-    on_attach = custom_attach,
-    settings = {
-        ["rust-analyzer"] = {}
-    },
-})
 
