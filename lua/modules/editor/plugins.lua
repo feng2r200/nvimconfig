@@ -107,6 +107,12 @@ editor["rcarriga/nvim-dap-ui"] = {
         {"mfussenegger/nvim-dap", config = conf.dap}
     }
 }
+editor["theHamsta/nvim-dap-virtual-text"] = {
+    opt = false,
+    config = function()
+        require("nvim-dap-virtual-text").setup()
+    end,
+}
 
 editor["tpope/vim-fugitive"] = {opt = true, cmd = {"Git", "Gsplit", "Gvdiffsplit", "Gread", "Ggrep", "Glgrep"}}
 editor["famiu/bufdelete.nvim"] = {
