@@ -229,11 +229,11 @@ function config.dap()
 
     vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
 
-    dap.adapters.lldb = {
-        type = "executable",
-        command = "/usr/local/opt/llvm/bin/lldb-vscode",
-        name = "lldb"
-    }
+    -- dap.adapters.lldb = {
+    --     type = "executable",
+    --     command = "/usr/local/opt/llvm/bin/lldb-vscode",
+    --     name = "lldb"
+    -- }
     dap.configurations.cpp = {
         {
             name = "Launch",

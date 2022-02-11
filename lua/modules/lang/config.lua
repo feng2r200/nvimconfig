@@ -117,9 +117,9 @@ function config.rust_tools()
             standalone = false,
         },
 
-        -- dap = { -- debugging stuff
-            -- adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path)
-        -- },
+        dap = { -- debugging stuff
+            adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path)
+        },
     }
 
     require("rust-tools").setup(opts)

@@ -4,7 +4,6 @@ vim.cmd [[packadd lspsaga.nvim]]
 vim.cmd [[packadd cmp-nvim-lsp]]
 
 local lsp_installer = require("nvim-lsp-installer")
-local nvim_lsp_util = require("lspconfig/util")
 
 require("lspsaga").init_lsp_saga {
     error_sign = '',
@@ -132,12 +131,7 @@ lsp_installer.on_server_ready(function(server)
         enhance_server_opts[server.name](opts)
     end
 
-    if server.name == "rust_analyzer" then
-        require("rust_tools").setup({
-            server = vim.tbl_deep_extend("force", server:get_default_options(), opts),
-        })
-        server:attach_buffers()
-    else
+    if server.name ~= "jdtls" then
         server:setup(opts)
     end
 end)
