@@ -38,7 +38,7 @@ function Packer:load_packer()
     end
     packer.init({
         compile_path = packer_compiled,
-        git = {clone_timeout = 120},
+        git = { clone_timeout = 120, default_url_format = "git@github.com:%s" },
         disable_commands = true,
         max_jobs = 20,
         display = {
@@ -124,13 +124,13 @@ function plugins.load_compile()
     else
         assert("Missing packer compile file Run PackerCompile Or PackerInstall to fix")
     end
-    vim.cmd [[command! PackerCompile lua require('core.pack').magic_compile()]]
-    vim.cmd [[command! PackerInstall lua require('core.pack').install()]]
-    vim.cmd [[command! PackerUpdate lua require('core.pack').update()]]
-    vim.cmd [[command! PackerSync lua require('core.pack').sync()]]
-    vim.cmd [[command! PackerClean lua require('core.pack').clean()]]
-    vim.cmd [[autocmd User PackerComplete lua require('core.pack').magic_compile()]]
-    vim.cmd [[command! PackerStatus lua require('core.pack').magic_compile() require('packer').status()]]
+    vim.cmd([[command! PackerCompile lua require('core.pack').magic_compile()]])
+    vim.cmd([[command! PackerInstall lua require('core.pack').install()]])
+    vim.cmd([[command! PackerUpdate lua require('core.pack').update()]])
+    vim.cmd([[command! PackerSync lua require('core.pack').sync()]])
+    vim.cmd([[command! PackerClean lua require('core.pack').clean()]])
+    vim.cmd([[autocmd User PackerComplete lua require('core.pack').magic_compile()]])
+    vim.cmd([[command! PackerStatus lua require('core.pack').magic_compile() require('packer').status()]])
 end
 
 return plugins

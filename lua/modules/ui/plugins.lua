@@ -17,8 +17,8 @@ ui["glepnir/dashboard-nvim"] = {
 }
 ui["kyazdani42/nvim-tree.lua"] = {
     opt = true,
-    cmd = {"NvimTreeToggle", "NvimTreeOpen"},
-    config = conf.nvim_tree
+	event = "BufRead",
+	config = conf.nvim_tree,
 }
 ui["lewis6991/gitsigns.nvim"] = {
     opt = true,
