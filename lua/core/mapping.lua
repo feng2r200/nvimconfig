@@ -91,6 +91,7 @@ local plug_map = {
     ["t|<C-t>"]       = map_cu([[<C-\><C-n><CMD>lua require("FTerm").toggle()]]):with_noremap():with_silent(),
 
     -- Motion
+    ["n|<leader>j"]   = map_cu("HopLine"):with_noremap(),
     ["n|<leader>w"]   = map_cu("Pounce"):with_noremap(),
     ["v|<leader>w"]   = map_cu("Pounce"):with_noremap(),
     ["o|<leader>w"]   = map_cu("Pounce"):with_noremap(),
