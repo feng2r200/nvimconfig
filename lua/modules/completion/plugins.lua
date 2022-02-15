@@ -22,7 +22,14 @@ completion["hrsh7th/nvim-cmp"] = {
         {"hrsh7th/cmp-nvim-lua", after = "cmp-nvim-lsp"},
         {"andersevenrud/cmp-tmux", after = "cmp-nvim-lua"},
         {"hrsh7th/cmp-path", after = "cmp-tmux"},
-        {"hrsh7th/cmp-buffer", after = "cmp-path"}
+        {"hrsh7th/cmp-buffer", after = "cmp-path"},
+        {
+            "tzachar/cmp-tabnine",
+            run = "./install.sh",
+            after = "cmp-buffer",
+            require = "hrsh7th/nvim-cmp",
+            config = conf.tabnine
+        },
     }
 }
 
