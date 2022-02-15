@@ -90,6 +90,7 @@ local plug_map = {
 
     -- Motion
     ["n|<leader>j"]   = map_cu("HopLine"):with_noremap(),
+    ["n|<leader>k"]   = map_cu("HopLine"):with_noremap(),
     ["n|<leader>w"]   = map_cu("Pounce"):with_noremap(),
     ["v|<leader>w"]   = map_cu("Pounce"):with_noremap(),
     ["o|<leader>w"]   = map_cu("Pounce"):with_noremap(),
