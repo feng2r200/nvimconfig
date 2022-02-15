@@ -11,7 +11,6 @@ completion["williamboman/nvim-lsp-installer"] = {
     opt = true,
     after = "nvim-lspconfig"
 }
-completion["tami5/lspsaga.nvim"] = {opt = true, after = "nvim-lspconfig"}
 completion["ray-x/lsp_signature.nvim"] = {opt = true, after = "nvim-lspconfig"}
 completion["hrsh7th/nvim-cmp"] = {
     config = conf.cmp,

@@ -1,16 +1,8 @@
 vim.cmd [[packadd nvim-lsp-installer]]
 vim.cmd [[packadd lsp_signature.nvim]]
-vim.cmd [[packadd lspsaga.nvim]]
 vim.cmd [[packadd cmp-nvim-lsp]]
 
 local lsp_installer = require("nvim-lsp-installer")
-
-require("lspsaga").init_lsp_saga {
-    error_sign = '',
-    warn_sign = '',
-    hint_sign = '',
-    infor_sign = ''
-}
 
 lsp_installer.settings {
     ui = {
