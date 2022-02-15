@@ -110,6 +110,17 @@ local enhance_server_opts = {
     ["sqls"] = function(opts)
         opts.cmd = { "sqls", "-config", os.getenv("HOME") .. "/.config/sqls/config.yml" }
     end,
+    ["jdtls"] = function(opts)
+        opts.settings = {
+            java = {
+                configuration = {
+                    maven = {
+                        globalSettings = os.getenv("HOME") .. "/.m2/settings.xml"
+                    }
+                }
+            }
+        }
+    end
 }
 
 lsp_installer.on_server_ready(function(server)
