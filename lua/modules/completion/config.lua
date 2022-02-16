@@ -29,7 +29,6 @@ function config.cmp()
         sorting = {
             priority_weight = 2,
             comparators = {
-                require('cmp_tabnine.compare'),
                 cmp.config.compare.offset, cmp.config.compare.exact,
                 cmp.config.compare.score, require("cmp-under-comparator").under,
                 cmp.recently_used, cmp.config.compare.kind,
@@ -70,7 +69,6 @@ function config.cmp()
                 vim_item.kind = string.format("%s %s", lspkind_icons[vim_item.kind], vim_item.kind)
 
                 vim_item.menu = ({
-                    cmp_tabnine = "[TN]",
                     buffer = "[BUF]",
                     nvim_lsp = "[LSP]",
                     nvim_lua = "[LUA]",
@@ -132,7 +130,7 @@ function config.cmp()
         sources = {
             {name = "nvim_lsp"}, {name = "nvim_lua"}, {name = "luasnip"},
             {name = "path"}, {name = "tmux"},
-            {name = "buffer"}, {name = "cmp_tabnine"},
+            {name = "buffer"},
         }
     }
 end
@@ -143,18 +141,6 @@ function config.luasnip()
         updateevents = "TextChanged,TextChangedI"
     }
     require("luasnip/loaders/from_vscode").load()
-end
-
-function config.tabnine()
-    local tabnine = require("cmp_tabnine.config")
-    tabnine:setup({
-        max_line = 1000,
-        max_num_results = 20,
-        sort = true,
-        run_on_every_keystroke = true,
-        snippet_placeholder = "..",
-        ignored_file_types = {},
-    })
 end
 
 function config.autopairs()
