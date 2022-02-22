@@ -135,6 +135,19 @@ lsp_installer.on_server_ready(function(server)
         enhance_server_opts[server.name](opts)
     end
 
-    server:setup(opts)
+    if server.name ~= "jdtls" then
+        server:setup(opts)
+    end
 end)
 
+local M = {}
+
+M.capabilities = function()
+    return capabilities
+end
+
+M.custom_attach = function(client)
+    return custom_attach(client)
+end
+
+return M
