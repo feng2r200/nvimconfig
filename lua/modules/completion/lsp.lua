@@ -17,7 +17,7 @@ lsp_installer.settings {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
-local function custom_attach(client)
+local function custom_attach(client, bufnr)
     require("lsp_signature").on_attach({
         bind = true,
         use_lspsaga = false,
@@ -31,7 +31,7 @@ local function custom_attach(client)
         zindex = 50,
         transpancy = 20
     })
-    require("aerial").on_attach(client)
+    require("aerial").on_attach(client, bufnr)
 end
 
 local enhance_server_opts = {
@@ -111,17 +111,6 @@ local enhance_server_opts = {
     ["sqls"] = function(opts)
         opts.cmd = { "sqls", "-config", os.getenv("HOME") .. "/.config/sqls/config.yml" }
     end,
-    ["jdtls"] = function(opts)
-        opts.settings = {
-            java = {
-                configuration = {
-                    maven = {
-                        globalSettings = os.getenv("HOME") .. "/.m2/settings.xml"
-                    }
-                }
-            }
-        }
-    end
 }
 
 lsp_installer.on_server_ready(function(server)
@@ -142,12 +131,8 @@ end)
 
 local M = {}
 
-M.capabilities = function()
-    return capabilities
-end
-
-M.custom_attach = function(client)
-    return custom_attach(client)
+M.custom_attach = function(client, bufnr)
+    return custom_attach(client, bufnr)
 end
 
 return M
