@@ -15,11 +15,6 @@ editor["terrortylor/nvim-comment"] = {
         })
     end
 }
-editor["simrat39/symbols-outline.nvim"] = {
-    opt = true,
-    cmd = {"SymbolsOutline", "SymbolsOutlineOpen"},
-    config = conf.symbols_outline
-}
 editor["nvim-treesitter/nvim-treesitter"] = {
     opt = true,
     run = ":TSUpdate",
@@ -52,9 +47,7 @@ editor["SmiteshP/nvim-gps"] = {
     after = "nvim-treesitter",
     config = conf.nvim_gps
 }
-
 editor["sbdchd/neoformat"] = {opt = true, cmd = "Neoformat"}
-
 editor["windwp/nvim-ts-autotag"] = {
     opt = true,
     ft = {"html", "xml"},
@@ -65,12 +58,10 @@ editor["andymass/vim-matchup"] = {
     after = "nvim-treesitter",
     config = conf.matchup
 }
-
 editor["romainl/vim-cool"] = {
     opt = true,
     event = {"CursorMoved", "InsertEnter"}
 }
-
 editor["phaazon/hop.nvim"] = {
 	opt = true,
 	branch = "v1",
@@ -101,9 +92,7 @@ editor["karb94/neoscroll.nvim"] = {
     event = "WinScrolled",
     config = conf.neoscroll
 }
-
 editor["numtostr/FTerm.nvim"] = { opt = true, event = "BufRead" }
-
 editor["norcalli/nvim-colorizer.lua"] = {
     opt = true,
     event = "BufRead",
@@ -114,7 +103,6 @@ editor["rmagatti/auto-session"] = {
     cmd = {"SaveSession", "RestoreSession", "DeleteSession"},
     config = conf.auto_session
 }
-
 editor["rcarriga/nvim-dap-ui"] = {
     opt = false,
     config = conf.dapui,
@@ -128,21 +116,17 @@ editor["theHamsta/nvim-dap-virtual-text"] = {
         require("nvim-dap-virtual-text").setup()
     end,
 }
-
 editor["tpope/vim-fugitive"] = {opt = true, cmd = {"Git", "Gsplit", "Gvdiffsplit", "Gread", "Ggrep", "Glgrep"}}
 editor["famiu/bufdelete.nvim"] = {
     opt = true,
     cmd = {"Bdelete", "Bwipeout", "Bdelete!", "Bwipeout!"}
 }
-
 editor["chentau/marks.nvim"] = {
     opt = true,
     event = "BufReadPost",
     config = conf.marks
 }
-
 editor["rlue/vim-barbaric"] = { opt = false }
-
 editor["christoomey/vim-tmux-navigator"] = {
     opt = false,
     config = conf.tmuxnavigator

@@ -1,7 +1,7 @@
 vim.cmd [[packadd nvim-lsp-installer]]
 vim.cmd [[packadd lsp_signature.nvim]]
 vim.cmd [[packadd cmp-nvim-lsp]]
-
+vim.cmd([[packadd aerial.nvim]])
 local lsp_installer = require("nvim-lsp-installer")
 
 lsp_installer.settings {
@@ -15,7 +15,7 @@ lsp_installer.settings {
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 local function custom_attach(client)
     require("lsp_signature").on_attach({
@@ -31,6 +31,7 @@ local function custom_attach(client)
         zindex = 50,
         transpancy = 20
     })
+    require("aerial").on_attach(client)
 end
 
 local enhance_server_opts = {

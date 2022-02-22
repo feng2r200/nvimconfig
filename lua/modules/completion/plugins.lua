@@ -6,10 +6,14 @@ completion["neovim/nvim-lspconfig"] = {
     event = "BufReadPre",
     config = conf.nvim_lsp
 }
-
 completion["williamboman/nvim-lsp-installer"] = {
     opt = true,
     after = "nvim-lspconfig"
+}
+completion["stevearc/aerial.nvim"] = {
+	opt = true,
+	after = "nvim-lspconfig",
+	config = conf.aerial,
 }
 completion["ray-x/lsp_signature.nvim"] = {opt = true, after = "nvim-lspconfig"}
 completion["hrsh7th/nvim-cmp"] = {
@@ -25,7 +29,6 @@ completion["hrsh7th/nvim-cmp"] = {
         {"hrsh7th/cmp-buffer", after = "cmp-path"},
     }
 }
-
 completion["L3MON4D3/LuaSnip"] = {
     after = "nvim-cmp",
     config = conf.luasnip,

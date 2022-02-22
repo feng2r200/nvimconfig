@@ -95,8 +95,8 @@ local plug_map = {
     ["v|<leader>w"]   = map_cu("Pounce"):with_noremap(),
     ["o|<leader>w"]   = map_cu("Pounce"):with_noremap(),
 
-    -- Plugin SymbolOutline
-    ["n|<A-7>"]       = map_cr("SymbolsOutline"):with_noremap():with_silent(),
+    -- Plugin Aerial
+    ["n|<A-7>"]       = map_cr("AerialToggle! right"):with_noremap():with_silent(),
 
     -- Plugin MarkdownPreview
     ["n|<F12>"]       = map_cr("MarkdownPreviewToggle"):with_noremap():with_silent(),
