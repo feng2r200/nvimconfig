@@ -61,7 +61,7 @@ local plug_map = {
     ["n|gs"]          = map_cr("lua vim.lsp.buf.signature_help()"):with_noremap():with_silent(),
     ["n|gr"]          = map_cr("lua vim.lsp.buf.rename()"):with_noremap():with_silent(),
 
-    ["n|<leader>ca"]  = map_cu("lua require('telescope.builtin').lsp_code_actions{}"):with_noremap():with_silent(),
+    ["n|<leader>ca"]  = map_cr("lua require('telescope.builtin').lsp_code_actions{}"):with_noremap():with_silent(),
     ["v|<leader>ca"]  = map_cr("lua require('telescope.builtin').lsp_range_code_actions{}"):with_noremap():with_silent(),
 
     ["n|gd"]          = map_cr("lua require('telescope.builtin').lsp_definitions{}"):with_noremap():with_silent(),
@@ -72,16 +72,16 @@ local plug_map = {
     ["n|<leader>ft"]  = map_cr("lua require('telescope.builtin').lsp_document_symbols{}"):with_noremap():with_silent(),
     ["n|<leader>ftw"] = map_cr("lua require('telescope.builtin').lsp_workspace_symbols{}"):with_noremap():with_silent(),
 
-    ["n|<leader>fp"]  = map_cu("lua require('telescope').extensions.project.project{}"):with_noremap():with_silent(),
-    ["n|<leader>fh"]  = map_cu("lua require('telescope').extensions.frecency.frecency{}"):with_noremap():with_silent(),
-    ["n|<leader>ff"]  = map_cu("lua require('telescope.builtin').find_files{}"):with_noremap():with_silent(),
-    ["n|<leader>fg"]  = map_cu("lua require('telescope.builtin').live_grep{}"):with_noremap():with_silent(),
-    ["n|<leader>fm"]  = map_cu("lua require('telescope.builtin').marks{}"):with_noremap():with_silent(),
-    ["n|<leader>fb"]  = map_cu("lua require('telescope').extensions.file_browser.file_browser()"):with_noremap():with_silent(),
-    ["n|<leader>fc"]  = map_cu("lua require('telescope.builtin').current_buffer_fuzzy_find{}"):with_noremap():with_silent(),
-    ["n|<leader>fn"]  = map_cu("DashboardNewFile"):with_noremap():with_silent(),
+    ["n|<leader>fp"]  = map_cr("lua require('telescope').extensions.project.project{}"):with_noremap():with_silent(),
+    ["n|<leader>fh"]  = map_cr("lua require('telescope').extensions.frecency.frecency{}"):with_noremap():with_silent(),
+    ["n|<leader>ff"]  = map_cr("lua require('telescope.builtin').find_files{}"):with_noremap():with_silent(),
+    ["n|<leader>fg"]  = map_cr("lua require('telescope.builtin').live_grep{}"):with_noremap():with_silent(),
+    ["n|<leader>fm"]  = map_cr("lua require('telescope.builtin').marks{}"):with_noremap():with_silent(),
+    ["n|<leader>fb"]  = map_cr("lua require('telescope').extensions.file_browser.file_browser()"):with_noremap():with_silent(),
+    ["n|<leader>fc"]  = map_cr("lua require('telescope.builtin').current_buffer_fuzzy_find{}"):with_noremap():with_silent(),
+    ["n|<leader>fn"]  = map_cr("DashboardNewFile"):with_noremap():with_silent(),
 
-    ["n|<leader>fz"]  = map_cu("Telescope zoxide list"):with_noremap():with_silent(),
+    ["n|<leader>fz"]  = map_cr("Telescope zoxide list"):with_noremap():with_silent(),
     ["n|<leader>dl"]  = map_cr("Telescope dap commands"):with_noremap():with_silent(),
 
     -- Term
@@ -89,11 +89,11 @@ local plug_map = {
     ["t|<C-t>"]       = map_cu([[<C-\><C-n><CMD>lua require("FTerm").toggle()]]):with_noremap():with_silent(),
 
     -- Motion
-    ["n|<leader>j"]   = map_cu("HopLine"):with_noremap(),
-    ["n|<leader>k"]   = map_cu("HopLine"):with_noremap(),
-    ["n|<leader>w"]   = map_cu("Pounce"):with_noremap(),
-    ["v|<leader>w"]   = map_cu("Pounce"):with_noremap(),
-    ["o|<leader>w"]   = map_cu("Pounce"):with_noremap(),
+    ["n|<leader>j"]   = map_cr("HopLine"):with_noremap(),
+    ["n|<leader>k"]   = map_cr("HopLine"):with_noremap(),
+    ["n|<leader>w"]   = map_cr("Pounce"):with_noremap(),
+    ["v|<leader>w"]   = map_cr("Pounce"):with_noremap(),
+    ["o|<leader>w"]   = map_cr("Pounce"):with_noremap(),
 
     -- Plugin Aerial
     ["n|<A-7>"]       = map_cr("AerialToggle! right"):with_noremap():with_silent(),
