@@ -61,8 +61,10 @@ local plug_map = {
     ["n|gs"]          = map_cr("lua vim.lsp.buf.signature_help()"):with_noremap():with_silent(),
     ["n|gr"]          = map_cr("lua vim.lsp.buf.rename()"):with_noremap():with_silent(),
 
-    ["n|<leader>ca"]  = map_cr("lua require('telescope.builtin').lsp_code_actions{}"):with_noremap():with_silent(),
-    ["v|<leader>ca"]  = map_cr("lua require('telescope.builtin').lsp_range_code_actions{}"):with_noremap():with_silent(),
+    ["n|<leader>ga"]  = map_cr("lua require('telescope.builtin').lsp_code_actions{}"):with_noremap():with_silent(),
+    ["v|<leader>ga"]  = map_cr("lua require('telescope.builtin').lsp_range_code_actions{}"):with_noremap():with_silent(),
+    ["n|<leader>gi"]  = map_cr("lua vim.lsp.buf.incoming_calls()"):with_noremap():with_silent(),
+    ["n|<leader>go"]  = map_cr("lua vim.lsp.buf.outgoing_calls()"):with_noremap():with_silent(),
 
     ["n|gd"]          = map_cr("lua require('telescope.builtin').lsp_definitions{}"):with_noremap():with_silent(),
     ["n|gD"]          = map_cr("lua require('telescope.builtin').lsp_implementations{}"):with_noremap():with_silent(),
