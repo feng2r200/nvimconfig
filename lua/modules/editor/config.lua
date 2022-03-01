@@ -276,7 +276,7 @@ function config.dap()
             -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
 
             program = "${file}",
-            -- stopOnEntry = true
+            stopOnEntry = false
         }
     }
 end

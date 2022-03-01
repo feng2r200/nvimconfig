@@ -84,7 +84,6 @@ local plug_map = {
     ["n|<leader>fn"]  = map_cr("DashboardNewFile"):with_noremap():with_silent(),
 
     ["n|<leader>fz"]  = map_cr("Telescope zoxide list"):with_noremap():with_silent(),
-    ["n|<leader>dl"]  = map_cr("Telescope dap commands"):with_noremap():with_silent(),
 
     -- Term
     ["n|<C-t>"]       = map_cu('lua require("FTerm").toggle()'):with_noremap():with_silent(),
@@ -104,11 +103,14 @@ local plug_map = {
     ["n|<F12>"]       = map_cr("MarkdownPreviewToggle"):with_noremap():with_silent(),
 
     -- Plugin dap
+    ["n|<F5>"]        = map_cr("lua require('dap').continue()"):with_noremap():with_silent(),
     ["n|<F6>"]        = map_cr("lua require('dap').toggle_breakpoint()"):with_noremap():with_silent(),
     ["n|<F18>"]       = map_cr("lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))"):with_noremap():with_silent(), -- <S-F6>
     ["n|<F8>"]        = map_cr("lua require('dap').step_over()"):with_noremap():with_silent(),
     ["n|<F7>"]        = map_cr("lua require('dap').step_into()"):with_noremap():with_silent(),
     ["n|<F20>"]       = map_cr("lua require('dap').step_out()"):with_noremap():with_silent(), -- <S-F8>
+
+    ["n|<leader>dl"]  = map_cr("Telescope dap commands"):with_noremap():with_silent(),
 
     -- tsht
     ["o|m"]           = map_cu([[lua require('tsht').nodes()]]):with_silent(),
