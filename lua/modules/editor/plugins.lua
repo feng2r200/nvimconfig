@@ -120,7 +120,7 @@ editor["theHamsta/nvim-dap-virtual-text"] = {
         require("nvim-dap-virtual-text").setup()
     end,
 }
-editor["tpope/vim-fugitive"] = {opt = true, cmd = {"Git", "Gsplit", "Gvdiffsplit", "Gread", "Ggrep", "Glgrep"}}
+editor["tpope/vim-fugitive"] = {opt = true, event = "BufRead"}
 editor["famiu/bufdelete.nvim"] = {
     opt = true,
     cmd = {"Bdelete", "Bwipeout", "Bdelete!", "Bwipeout!"}
