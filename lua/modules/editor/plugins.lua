@@ -92,7 +92,11 @@ editor["karb94/neoscroll.nvim"] = {
     event = "WinScrolled",
     config = conf.neoscroll
 }
-editor["numtostr/FTerm.nvim"] = { opt = true, event = "BufRead" }
+editor["akinsho/nvim-toggleterm.lua"] = {
+    opt = true,
+    event = "BufRead",
+    config = conf.toggleterm
+}
 editor["norcalli/nvim-colorizer.lua"] = {
     opt = true,
     event = "BufRead",

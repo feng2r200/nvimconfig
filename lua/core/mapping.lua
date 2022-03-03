@@ -85,10 +85,6 @@ local plug_map = {
 
     ["n|<leader>fz"]  = map_cr("Telescope zoxide list"):with_noremap():with_silent(),
 
-    -- Term
-    ["n|<C-t>"]       = map_cu('lua require("FTerm").toggle()'):with_noremap():with_silent(),
-    ["t|<C-t>"]       = map_cu([[<C-\><C-n><CMD>lua require("FTerm").toggle()]]):with_noremap():with_silent(),
-
     -- Motion
     ["n|<leader>j"]   = map_cr("HopLine"):with_noremap(),
     ["n|<leader>k"]   = map_cr("HopLine"):with_noremap(),

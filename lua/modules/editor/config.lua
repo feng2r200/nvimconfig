@@ -137,6 +137,29 @@ function config.auto_session()
     require("auto-session").setup(opts)
 end
 
+function config.toggleterm()
+    require("toggleterm").setup({
+        size = function(term)
+            if term.direction == "horizontal" then
+                return 15
+            elseif term.direction == "vertical" then
+                return vim.o.columns * 0.40
+            end
+        end,
+        open_mapping = [[<C-t>]],
+        hide_numbers = true,
+        shade_filetypes = {},
+        shade_terminals = false,
+        shading_factor = "1",
+        start_in_insert = true,
+        insert_mappings = true,
+        persist_size = false,
+        direction = "float",
+        close_on_exit = true,
+        shell = vim.o.shell
+    })
+end
+
 function config.dapui()
     require("dapui").setup({
         icons = { expanded = "▾", collapsed = "▸" },
