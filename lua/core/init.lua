@@ -6,11 +6,11 @@ local load_core = function()
     pack.ensure_plugins()
 
     require("core.options")
-    require("core.event")
+    require("core.autocmds")
 
     pack.load_compile()
 
-    require("core.mapping")
+    require("core.mappings")
 end
 
 load_core()
