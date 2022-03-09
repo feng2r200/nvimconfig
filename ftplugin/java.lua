@@ -130,19 +130,13 @@ config.init_options = {
 }
 
 -- Mappings.
-local bind = require("kit.bind")
-local map_cr = bind.map_cr
+vim.api.nvim_set_keymap("n", "<A-o>", ":lua require'jdtls'.organize_imports()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "crv", ":lua require('jdtls').extract_variable()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "crv", ":<Esc>lua require('jdtls').extract_variable(true)<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "crc", ":lua require('jdtls').extract_constant()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "crc", ":<Esc>lua require('jdtls').extract_constant(true)<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "crm", ":<Esc>lua require('jdtls').extract_method(true)<CR>", { noremap = true, silent = true })
 
-local jdtls_map = {
-    ["n|<A-o>"] = map_cr("lua require'jdtls'.organize_imports()"):with_noremap():with_silent(),
-    ["n|crv"] = map_cr("lua require('jdtls').extract_variable()"):with_noremap():with_silent(),
-    ["v|crv"] = map_cr("<Esc>lua require('jdtls').extract_variable(true)"):with_noremap():with_silent(),
-    ["n|crc"] = map_cr("lua require('jdtls').extract_constant()"):with_noremap():with_silent(),
-    ["v|crc"] = map_cr("<Esc>lua require('jdtls').extract_constant(true)"):with_noremap():with_silent(),
-    ["v|crm"] = map_cr("<Esc>lua require('jdtls').extract_method(true)"):with_noremap():with_silent(),
-}
-
-bind.nvim_load_mapping(jdtls_map)
 
 -- Setup
 require("jdtls").start_or_attach(config)
