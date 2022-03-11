@@ -1,16 +1,18 @@
 vim.g.mapleader = " "
 vim.api.nvim_set_keymap("", " ", "", {noremap = true, silent = true})
 
-local bind = require("kit.bind")
+local bind = require("core.bind")
 local map_cr = bind.map_cr
 local map_cu = bind.map_cu
 local map_cmd = bind.map_cmd
 
 -- default map
 local def_map = {
-    -- Vim map
+    -- Better save
     ["n|<C-s>"] = map_cu("write"):with_noremap(),
+    ["i|<C-s>"] = map_cmd("<Esc>:w<CR>i"),
 
+    -- Better window navigation
     ["n|<C-h>"] = map_cmd("<C-w>h"):with_noremap(),
     ["n|<C-l>"] = map_cmd("<C-w>l"):with_noremap(),
     ["n|<C-j>"] = map_cmd("<C-w>j"):with_noremap(),
@@ -19,7 +21,6 @@ local def_map = {
     -- Insert
     ["i|<C-u>"] = map_cmd("<C-g>u<C-u>"):with_noremap(),
     ["i|<C-w>"] = map_cmd("<C-g>u<C-w>"):with_noremap(),
-    ["i|<C-s>"] = map_cmd("<Esc>:w<CR>i"),
 
     -- Command line
     ["c|<C-a>"] = map_cmd("<Home>"):with_noremap(),

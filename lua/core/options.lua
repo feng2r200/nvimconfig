@@ -1,19 +1,5 @@
-local global = require("core.global")
-
-local function bind_option(options)
-    for k, v in pairs(options) do
-        if v == true then
-            vim.cmd("set " .. k)
-        elseif v == false then
-            vim.cmd("set no" .. k)
-        else
-            vim.cmd("set " .. k .. "=" .. v)
-        end
-    end
-end
-
 local function load_options()
-    local global_local = {
+    local option_local = {
         termguicolors = true,
         mouse = "a",
         errorbells = true,
@@ -31,11 +17,6 @@ local function load_options()
         backup = false,
         writebackup = false,
         swapfile = false,
-        directory = global.cache_dir .. "swap/",
-        undodir = global.cache_dir .. "undo/",
-        backupdir = global.cache_dir .. "backup/",
-        viewdir = global.cache_dir .. "view/",
-        spellfile = global.cache_dir .. "spell/en.uft-8.add",
         history = 2000,
         shada = "!,'300,<50,@100,s10,h",
         backupskip = "/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim",
@@ -95,6 +76,7 @@ local function load_options()
         autowrite = true,
         colorcolumn = "81,101"
     }
+    for name, value in pairs(option_local) do vim.o[name] = value end
 
     local bw_local = {
         undofile = true,
@@ -116,47 +98,52 @@ local function load_options()
         conceallevel = 0,
         concealcursor = "niv"
     }
+    for k, v in pairs(bw_local) do
+        if v == true then
+            vim.cmd("set " .. k)
+        elseif v == false then
+            vim.cmd("set no" .. k)
+        else
+            vim.cmd("set " .. k .. "=" .. v)
+        end
+    end
 
-    if global.is_mac then
-        vim.g.clipboard = {
+    local global_local = {
+        clipboard = {
             name = "macOS-clipboard",
             copy = {["+"] = "pbcopy", ["*"] = "pbcopy"},
             paste = {["+"] = "pbpaste", ["*"] = "pbpaste"},
             cache_enabled = 0
-        }
-    end
+        },
+        python_host_prog = "/usr/bin/python",
+        python3_host_prog = "/usr/local/bin/python3",
+        did_load_filetypes = 1,
+        did_load_fzf = 1,
+        did_load_gtags = 1,
+        did_load_gzip = 1,
+        did_load_tar = 1,
+        did_load_tarPlugin = 1,
+        did_load_zip = 1,
+        did_load_zipPlugin = 1,
+        did_load_getscript = 1,
+        did_load_getscriptPlugin = 1,
+        did_load_vimball = 1,
+        did_load_vimballPlugin = 1,
+        did_load_matchit = 1,
+        did_load_matchparen = 1,
+        did_load_2html_plugin = 1,
+        did_load_logiPat = 1,
+        did_load_rrhelper = 1,
+        did_load_netrw = 1,
+        did_load_netrwPlugin = 1,
+        did_load_netrwSettings = 1,
+        did_load_netrwFileHandlers = 1,
+        loaded_python_provider = 0,
+        loaded_perl_provider = 0,
+        loaded_ruby_provider = 0,
+    }
+    for name, value in pairs(global_local) do vim.g[name] = value end
 
-    vim.g.python_host_prog = "/usr/bin/python"
-    vim.g.python3_host_prog = "/usr/local/bin/python3"
-
-    vim.g.did_load_filetypes = 1
-    vim.g.did_load_fzf = 1
-    vim.g.did_load_gtags = 1
-    vim.g.did_load_gzip = 1
-    vim.g.did_load_tar = 1
-    vim.g.did_load_tarPlugin = 1
-    vim.g.did_load_zip = 1
-    vim.g.did_load_zipPlugin = 1
-    vim.g.did_load_getscript = 1
-    vim.g.did_load_getscriptPlugin = 1
-    vim.g.did_load_vimball = 1
-    vim.g.did_load_vimballPlugin = 1
-    vim.g.did_load_matchit = 1
-    vim.g.did_load_matchparen = 1
-    vim.g.did_load_2html_plugin = 1
-    vim.g.did_load_logiPat = 1
-    vim.g.did_load_rrhelper = 1
-    vim.g.did_load_netrw = 1
-    vim.g.did_load_netrwPlugin = 1
-    vim.g.did_load_netrwSettings = 1
-    vim.g.did_load_netrwFileHandlers = 1
-
-    vim.g.loaded_python_provider = 0
-    vim.g.loaded_perl_provider = 0
-    vim.g.loaded_ruby_provider = 0
-
-    for name, value in pairs(global_local) do vim.o[name] = value end
-    bind_option(bw_local)
 end
 
 load_options()
