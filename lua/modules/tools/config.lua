@@ -1,14 +1,11 @@
 local config = {}
 
 function config.telescope()
-    vim.cmd([[packadd sqlite.lua]])
     vim.cmd([[packadd telescope-dap.nvim]])
     vim.cmd([[packadd telescope-file-browser.nvim]])
-    vim.cmd([[packadd telescope-frecency.nvim]])
     vim.cmd([[packadd telescope-fzf-native.nvim]])
     vim.cmd([[packadd telescope-media-files.nvim]])
     vim.cmd([[packadd telescope-project.nvim]])
-    vim.cmd([[packadd telescope-zoxide]])
     vim.cmd([[packadd telescope-ui-select.nvim]])
 
     require("telescope").setup({
@@ -52,11 +49,6 @@ function config.telescope()
                 override_file_sorter = true,
                 case_mode = "smart_case"
             },
-            frecency = {
-                show_scores = true,
-                show_unindexed = true,
-                ignore_patterns = {"*.git/*", "*/tmp/*"},
-            },
             media_files = {
                 filetypes = {"png", "webp", "jpg", "jpeg", "pdf"},
                 find_cmd = "fd"
@@ -70,11 +62,9 @@ function config.telescope()
 
     require("telescope").load_extension("dap")
     require("telescope").load_extension("file_browser")
-    require("telescope").load_extension("frecency")
     require("telescope").load_extension("fzf")
     require("telescope").load_extension("media_files")
     require("telescope").load_extension("project")
-    require("telescope").load_extension("zoxide")
     require("telescope").load_extension("ui-select")
 
 end

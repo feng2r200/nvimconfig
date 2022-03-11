@@ -3,25 +3,16 @@ local conf = require("modules.tools.config")
 
 tools["nvim-lua/plenary.nvim"] = {opt = false}
 tools["nvim-lua/popup.nvim"] = {opt = false}
+
 tools["nvim-telescope/telescope.nvim"] = {
     opt = true,
     module = "telescope",
     cmd = "Telescope",
     config = conf.telescope,
 }
-tools["nvim-telescope/telescope-fzf-native.nvim"] = {
-    opt = true,
-    run = "make",
-    after = "telescope.nvim",
-}
+tools["nvim-telescope/telescope-fzf-native.nvim"] = { opt = true, run = "make", after = "telescope.nvim", }
 tools["nvim-telescope/telescope-file-browser.nvim"] = { opt = true, after = "telescope.nvim" }
 tools["nvim-telescope/telescope-project.nvim"] = { opt = true, after = "telescope.nvim" }
-tools["nvim-telescope/telescope-frecency.nvim"] = {
-    opt = true,
-    after = "telescope.nvim",
-    requires = {{"tami5/sqlite.lua", opt = true}}
-}
-tools["jvgrootveld/telescope-zoxide"] = { opt = true, after = "telescope.nvim" }
 tools["nvim-telescope/telescope-media-files.nvim"] = { opt = true, after = "telescope.nvim" }
 tools["nvim-telescope/telescope-dap.nvim"] = { opt = true, after = "telescope.nvim" }
 tools["nvim-telescope/telescope-ui-select.nvim"] = { opt = true, after = "telescope.nvim" }
