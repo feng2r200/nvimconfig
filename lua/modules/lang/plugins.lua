@@ -5,11 +5,6 @@ lang["simrat39/rust-tools.nvim"] = {
     opt = true,
     ft = "rust",
     config = conf.rust_tools,
-    requires = {
-        { "neovim/nvim-lspconfig" },
-        { "nvim-lua/plenary.nvim", opt = true },
-        { "mfussenegger/nvim-dap", opt = true },
-    },
 }
 
 lang["mfussenegger/nvim-jdtls"] = {
