@@ -304,7 +304,7 @@ function config.luasnip()
         history = true,
         updateevents = "TextChanged,TextChangedI"
     }
-    require("luasnip/loaders/from_vscode").lazyload()
+    require("luasnip/loaders/from_vscode").load()
 end
 
 function config.autopairs()

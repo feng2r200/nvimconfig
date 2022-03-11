@@ -1,11 +1,8 @@
-local fn, uv, api = vim.fn, vim.loop, vim.api
-
-local modules_dir = vim.fn.stdpath("config") .. "/lua/modules"
+local uv, api = vim.loop, vim.api
 
 local data_dir = vim.fn.stdpath("data") .. "/site"
 local packer_compiled = data_dir .. "/packer_compiled.vim"
 local compile_to_lua = data_dir .. "/lua/_compiled.lua"
-local bak_compiled = data_dir .. "/lua/bak_compiled.lua"
 
 local packer = nil
 
@@ -15,21 +12,9 @@ Packer.__index = Packer
 function Packer:load_plugins()
     self.repos = {}
 
-    local get_plugins_list = function()
-        local list = {}
-        local tmp = vim.split(fn.globpath(modules_dir, "*/plugins.lua"), "\n")
-        for _, f in ipairs(tmp) do
-            list[#list + 1] = f:sub(#modules_dir - 6, -1)
-        end
-        return list
-    end
-
-    local plugins_file = get_plugins_list()
-    for _, m in ipairs(plugins_file) do
-        local repos = require(m:sub(0, #m - 4))
-        for repo, conf in pairs(repos) do
-            self.repos[#self.repos + 1] = vim.tbl_extend("force", {repo}, conf)
-        end
+    local repos = require("core.plugins")
+    for repo, conf in pairs(repos) do
+        self.repos[#self.repos + 1] = vim.tbl_extend("force", {repo}, conf)
     end
 end
 
@@ -91,6 +76,7 @@ function plugins.convert_compile_file()
     end
 
     if vim.fn.filereadable(compile_to_lua) == 1 then
+        local bak_compiled = data_dir .. "/lua/bak_compiled.lua"
         os.rename(compile_to_lua, bak_compiled)
     end
 
@@ -104,15 +90,6 @@ end
 function plugins.magic_compile()
     plugins.compile()
     plugins.convert_compile_file()
-end
-
-function plugins.auto_compile()
-    local file = vim.fn.expand("%:p")
-    if file:match(modules_dir) then
-        plugins.clean()
-        plugins.compile()
-        plugins.convert_compile_file()
-    end
 end
 
 function plugins.load_compile()
