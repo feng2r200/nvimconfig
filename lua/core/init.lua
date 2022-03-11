@@ -2,7 +2,6 @@ local load_core = function()
     require("gui")
 
     local pack = require("core.pack")
-
     pack.ensure_plugins()
 
     require("core.options")
