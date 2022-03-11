@@ -187,6 +187,7 @@ function config.cmp()
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
     end
 
+    vim.cmd([[packadd cmp-under-comparator]])
     local cmp = require("cmp")
     cmp.setup {
         sorting = {
@@ -303,10 +304,11 @@ function config.luasnip()
         history = true,
         updateevents = "TextChanged,TextChangedI"
     }
-    require("luasnip/loaders/from_vscode").load()
+    require("luasnip/loaders/from_vscode").lazyload()
 end
 
 function config.autopairs()
+    vim.cmd([[packadd nvim-cmp]])
     require("nvim-autopairs").setup {}
 
     -- If you want insert `(` after select function or method item

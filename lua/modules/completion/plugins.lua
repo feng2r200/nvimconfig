@@ -16,11 +16,12 @@ completion["stevearc/aerial.nvim"] = {
     config = conf.aerial,
 }
 completion["ray-x/lsp_signature.nvim"] = {opt = true, after = "nvim-lspconfig"}
+completion["lukas-reineke/cmp-under-comparator"] = {opt = true}
 completion["hrsh7th/nvim-cmp"] = {
+    opt = false,
     config = conf.cmp,
     event = "InsertEnter",
     requires = {
-        {"lukas-reineke/cmp-under-comparator"},
         {"saadparwaiz1/cmp_luasnip", after = "LuaSnip"},
         {"hrsh7th/cmp-nvim-lsp", after = "cmp_luasnip"},
         {"hrsh7th/cmp-nvim-lua", after = "cmp-nvim-lsp"},
@@ -37,7 +38,6 @@ completion["L3MON4D3/LuaSnip"] = {
 completion["windwp/nvim-autopairs"] = {
     opt = true,
     event = "InsertEnter",
-    after = "nvim-cmp",
     config = conf.autopairs
 }
 
