@@ -1,4 +1,5 @@
 local fn, uv, api = vim.fn, vim.loop, vim.api
+
 local vim_path = require("core.global").vim_path
 local data_dir = require("core.global").data_dir
 local modules_dir = vim_path .. "/lua/modules"
@@ -41,11 +42,6 @@ function Packer:load_packer()
         git = { clone_timeout = 120, default_url_format = "git@github.com:%s" },
         disable_commands = true,
         max_jobs = 20,
-        display = {
-            open_fn = function()
-                return require("packer.util").float({border = "single"})
-            end
-        }
     })
     packer.reset()
     local use = packer.use
@@ -58,7 +54,7 @@ function Packer:init_ensure_plugins()
     local packer_dir = data_dir .. "pack/packer/opt/packer.nvim"
     local state = uv.fs_stat(packer_dir)
     if not state then
-        local cmd = "!git clone https://github.com/wbthomason/packer.nvim " .. packer_dir
+        local cmd = "!git clone https://github.com/wbthomason/packer.nvim --depth=1 " .. packer_dir
         api.nvim_command(cmd)
         uv.fs_mkdir(data_dir .. "lua", 511, function() assert("make compile path dir faield") end)
         self:load_packer()
