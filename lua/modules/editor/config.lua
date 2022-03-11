@@ -145,7 +145,20 @@ function config.toggleterm()
 end
 
 function config.dapui()
-    require("dapui").setup({
+    local dap = require("dap")
+    local dapui = require("dapui")
+
+    dap.listeners.after.event_initialized["dapui"] = function()
+        dapui.open()
+    end
+    dap.listeners.before.event_terminated["dapui"] = function()
+        dapui.close()
+    end
+    dap.listeners.before.event_exited["dapui"] = function()
+        dapui.close()
+    end
+
+    dapui.setup({
         icons = { expanded = "▾", collapsed = "▸" },
         mappings = {
             expand = { "<CR>" },
@@ -176,17 +189,6 @@ end
 
 function config.dap()
     local dap = require("dap")
-
-    local dapui = require("dapui")
-    dap.listeners.after.event_initialized["dapui"] = function()
-        dapui.open()
-    end
-    dap.listeners.after.event_terminated["dapui"] = function()
-        dapui.close()
-    end
-    dap.listeners.after.event_exited["dapui"] = function()
-        dapui.close()
-    end
 
     vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
 

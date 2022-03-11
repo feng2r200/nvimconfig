@@ -103,15 +103,15 @@ editor["norcalli/nvim-colorizer.lua"] = {
     config = conf.nvim_colorizer
 }
 editor["mfussenegger/nvim-dap"] = {
-    opt = true,
+    opt = false,
     config = conf.dap
 }
 editor["rcarriga/nvim-dap-ui"] = {
-    opt = false,
+    opt = true,
     config = conf.dapui,
 }
 editor["theHamsta/nvim-dap-virtual-text"] = {
-    opt = false,
+    opt = true,
     config = function()
         require("nvim-dap-virtual-text").setup()
     end,
