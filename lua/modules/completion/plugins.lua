@@ -11,9 +11,9 @@ completion["williamboman/nvim-lsp-installer"] = {
     after = "nvim-lspconfig"
 }
 completion["stevearc/aerial.nvim"] = {
-	opt = true,
-	after = "nvim-lspconfig",
-	config = conf.aerial,
+    opt = true,
+    after = "nvim-lspconfig",
+    config = conf.aerial,
 }
 completion["ray-x/lsp_signature.nvim"] = {opt = true, after = "nvim-lspconfig"}
 completion["hrsh7th/nvim-cmp"] = {
@@ -30,11 +30,13 @@ completion["hrsh7th/nvim-cmp"] = {
     }
 }
 completion["L3MON4D3/LuaSnip"] = {
-    after = "nvim-cmp",
+    opt = true,
     config = conf.luasnip,
     requires = "rafamadriz/friendly-snippets"
 }
 completion["windwp/nvim-autopairs"] = {
+    opt = true,
+    event = "InsertEnter",
     after = "nvim-cmp",
     config = conf.autopairs
 }
