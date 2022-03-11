@@ -28,10 +28,11 @@ tools["folke/trouble.nvim"] = {
     config = conf.trouble
 }
 tools["gelguy/wilder.nvim"] = {
+    opt = true,
     event = "CmdlineEnter",
     config = conf.wilder,
-    requires = {{"romgrk/fzy-lua-native", after = "wilder.nvim"}}
 }
+tools["romgrk/fzy-lua-native"] = { opt = true, after = "wilder.nvim"}
 tools["nathom/filetype.nvim"] = {
 	opt = false,
 	config = conf.filetype,

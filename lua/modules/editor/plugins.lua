@@ -8,9 +8,11 @@ editor["itchyny/vim-cursorword"] = {
     config = conf.vim_cursorwod
 }
 editor["terrortylor/nvim-comment"] = {
-    opt = false,
+    opt = true,
+    event = "BufEnter",
     config = function()
         require("nvim_comment").setup({
+            comment_empty = false,
             hook = function() require("ts_context_commentstring.internal").update_commentstring() end
         })
     end
@@ -65,17 +67,8 @@ editor["romainl/vim-cool"] = {
 editor["phaazon/hop.nvim"] = {
 	opt = true,
 	branch = "v1",
-	cmd = {
-		"HopLine",
-		"HopLineStart",
-		"HopWord",
-		"HopPattern",
-		"HopChar1",
-		"HopChar2",
-	},
-	config = function()
-		require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
-	end,
+	cmd = { "HopLine", "HopLineStart", "HopWord", "HopPattern", "HopChar1", "HopChar2", },
+	config = function() require("hop").setup({ keys = "etovxqpdygfblzhckisuran" }) end,
 }
 editor['rlane/pounce.nvim'] = {
     opt = true,
