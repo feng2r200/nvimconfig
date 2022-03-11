@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 vim.api.nvim_set_keymap("", " ", "", {noremap = true, silent = true})
 
-local bind = require("core.bind")
+local bind = require("core.kit")
 local map_cr = bind.map_cr
 local map_cu = bind.map_cu
 local map_cmd = bind.map_cmd
