@@ -102,17 +102,13 @@ editor["norcalli/nvim-colorizer.lua"] = {
     event = "BufRead",
     config = conf.nvim_colorizer
 }
-editor["rmagatti/auto-session"] = {
+editor["mfussenegger/nvim-dap"] = {
     opt = true,
-    cmd = {"SaveSession", "RestoreSession", "DeleteSession"},
-    config = conf.auto_session
+    config = conf.dap
 }
 editor["rcarriga/nvim-dap-ui"] = {
     opt = false,
     config = conf.dapui,
-    requires = {
-        {"mfussenegger/nvim-dap", config = conf.dap}
-    }
 }
 editor["theHamsta/nvim-dap-virtual-text"] = {
     opt = false,
