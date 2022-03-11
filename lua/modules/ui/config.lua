@@ -92,7 +92,7 @@ function config.lualine()
         options = {
             icons_enabled = true,
             theme = "onedark",
-            disabled_filetypes = {},
+            disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline" },
             component_separators = "|",
             section_separators = { left = "", right = "" },
         },
@@ -150,23 +150,75 @@ function config.lualine()
     })
 end
 
-function config.dashboard()
-    vim.g.dashboard_footer_icon = "🐬 "
-    vim.g.dashboard_default_executive = "telescope"
+function config.alpha()
+    local ascii = {
+        [[                               __                ]],
+        [[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
+        [[ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
+        [[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
+        [[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
+        [[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
+    }
 
-    vim.g.dashboard_custom_section = {
-        find_project = {
-            description = { " Project find               SPC f p " },
-            command = "Telescope project",
+    local header = {
+        type = "text",
+        val = ascii,
+        opts = {
+            position = "center",
+            hl = "AlphaHeader",
         },
-        find_file = {
-            description = { " File find                  SPC f f " },
-            command = "DashboardFindFile",
+    }
+
+    local function button(sc, txt)
+        local sc_ = sc:gsub("%s", ""):gsub("SPC", "<leader>")
+
+        local opts = {
+            position = "center",
+            text = txt,
+            shortcut = sc,
+            cursor = 5,
+            width = 36,
+            align_shortcut = "right",
+            hl = "AlphaButtons",
+        }
+
+        return {
+            type = "button",
+            val = txt,
+            on_press = function()
+                local key = vim.api.nvim_replace_termcodes(sc_, true, false, true)
+                vim.api.nvim_feedkeys(key, "normal", false)
+            end,
+            opts = opts,
+        }
+    end
+
+    local buttons = {
+        type = "group",
+        val = {
+            button("SPC f n", "  File New"),
+            button("SPC f f", "  Find File  "),
+            button("SPC f w", "  Find Word  "),
+            button("SPC f p", "  Find Project"),
         },
-        file_new = {
-            description = { " File new                   SPC f n " },
-            command = "DashboardNewFile",
+        opts = {
+            spacing = 1,
         },
+    }
+
+    local section = {
+        header = header,
+        buttons = buttons,
+    }
+
+    require("alpha").setup {
+        layout = {
+            { type = "padding", val = 5 },
+            section.header,
+            { type = "padding", val = 2 },
+            section.buttons,
+        },
+        opts = {},
     }
 end
 
@@ -175,7 +227,7 @@ function config.nvim_tree()
         disable_netrw = true,
         hijack_netrw = true,
         open_on_setup = false,
-        ignore_ft_on_setup = {},
+        ignore_ft_on_setup = { "startify", "dashboard", "alpha" },
         auto_close = true,
         open_on_tab = false,
         hijack_cursor = true,
@@ -186,7 +238,7 @@ function config.nvim_tree()
             icons = { hint = "", info = "", warning = "", error = "" },
         },
         highlight_opened_files = true,
-        auto_ignore_ft = {"startify"},
+        auto_ignore_ft = { "startify", "dashboard", "alpha" },
         update_focused_file = {
             enable = true,
             update_cwd = false,
@@ -285,8 +337,12 @@ function config.indent_blankline()
         filetype_exclude = {
             "startify",
             "dashboard",
+            "alpha",
             "dotooagenda",
             "log",
+            "lspinfo",
+            "lsp-installer",
+            "terminal",
             "fugitive",
             "gitcommit",
             "packer",

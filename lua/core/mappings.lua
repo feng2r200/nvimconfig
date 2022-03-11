@@ -82,7 +82,7 @@ local plug_map = {
     ["n|<leader>fm"]  = map_cr("lua require('telescope.builtin').marks{}"):with_noremap():with_silent(),
     ["n|<leader>fb"]  = map_cr("lua require('telescope').extensions.file_browser.file_browser()"):with_noremap():with_silent(),
     ["n|<leader>fc"]  = map_cr("lua require('telescope.builtin').current_buffer_fuzzy_find{}"):with_noremap():with_silent(),
-    ["n|<leader>fn"]  = map_cr("DashboardNewFile"):with_noremap():with_silent(),
+    ["n|<leader>fn"]  = map_cr("ene"):with_noremap():with_silent(),
 
     ["n|<leader>fz"]  = map_cr("Telescope zoxide list"):with_noremap():with_silent(),
 
