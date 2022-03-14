@@ -74,14 +74,14 @@ local config = {
                 },
                 runtimes = {
                     {name = "JavaSE-1.8", path="/usr/local/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home", default=true},
-                    {name = "JavaSE-11", path="/usr/local/Cellar/openjdk@11/11.0.12/libexec/openjdk.jdk/Contents/Home"},
+                    {name = "JavaSE-11", path="/usr/local/Cellar/openjdk@11/11.0.14.1/libexec/openjdk.jdk/Contents/Home"},
                     {name = "JavaSE-17", path="/usr/local/Cellar/openjdk/17.0.2/libexec/openjdk.jdk/Contents/Home"},
                 },
                 updateBuildConfiguration = "interactive"
             },
             contentProvider = { preferred = 'fernflower' },
             foldingRange = { enabled = true},
-            home = "/usr/local/Cellar/openjdk@8/1.8.0+312/libexec/openjdk.jdk/Contents/Home",
+            home = "/usr/local/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home",
             implementationsCodeLens = { enabled = true },
             import = {
                 maven = { enabled = true },
