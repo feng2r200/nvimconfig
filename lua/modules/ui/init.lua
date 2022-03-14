@@ -241,7 +241,7 @@ function config.nvim_tree()
         auto_ignore_ft = { "startify", "dashboard", "alpha" },
         update_focused_file = {
             enable = true,
-            update_cwd = false,
+            update_cwd = true,
             ignore_list = {},
         },
         system_open = { cmd = nil, args = {} },
