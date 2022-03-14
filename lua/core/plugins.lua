@@ -128,7 +128,7 @@ M["windwp/nvim-ts-autotag"] = {
 M["andymass/vim-matchup"] = {
     opt = true,
     after = "nvim-treesitter",
-    config = conf.editor.matchup
+    config = function() vim.cmd([[let g:matchup_matchparen_offscreen = {'method': 'popup'}]]) end
 }
 M["romainl/vim-cool"] = {
     opt = true,
@@ -163,7 +163,7 @@ M["akinsho/nvim-toggleterm.lua"] = {
 M["norcalli/nvim-colorizer.lua"] = {
     opt = true,
     event = "BufRead",
-    config = conf.editor.nvim_colorizer
+    config = function () require("colorizer").setup() end
 }
 M["mfussenegger/nvim-dap"] = {
     opt = false,
@@ -192,7 +192,7 @@ M["chentau/marks.nvim"] = {
 M["rlue/vim-barbaric"] = { opt = false }
 M["christoomey/vim-tmux-navigator"] = {
     opt = false,
-    config = conf.editor.tmuxnavigator
+    config = function () vim.g.tmux_navigator_disable_when_zoomed = 1 end
 }
 
 M["neovim/nvim-lspconfig"] = {

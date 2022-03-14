@@ -64,10 +64,6 @@ function config.nvim_treesitter()
 	end
 end
 
-function config.matchup()
-    vim.cmd([[let g:matchup_matchparen_offscreen = {'method': 'popup'}]])
-end
-
 function config.nvim_gps()
     require("nvim-gps").setup({
         icons = {
@@ -93,8 +89,6 @@ function config.autotag()
         },
     })
 end
-
-function config.nvim_colorizer() require("colorizer").setup() end
 
 function config.neoscroll()
     require("neoscroll").setup({
@@ -214,7 +208,7 @@ function config.dap()
     }
     dap.configurations.rust = dap.configurations.cpp
 
-    dap.adapters.go = function(callback, conf)
+    dap.adapters.go = function(callback, _)
         local stdout = vim.loop.new_pipe(false)
         local handle
         local pid_or_err
@@ -319,10 +313,6 @@ function config.marks()
         bookmark_0 = {sign = "⚑", virt_text = "hello world"},
         mappings = {}
     }
-end
-
-function config.tmuxnavigator()
-    vim.g.tmux_navigator_disable_when_zoomed = 1
 end
 
 return config
