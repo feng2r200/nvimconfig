@@ -3,7 +3,7 @@ local M = {}
 local conf = require("modules")
 
 M["kyazdani42/nvim-web-devicons"] = {opt = false}
-M["sainnhe/everforest"] = {opt = false, config = conf.ui.everforest}
+M["Shatur/neovim-ayu"] = {opt = false, config = conf.ui.ayu}
 M["hoob3rt/lualine.nvim"] = {
     opt = true,
     after = "lualine-lsp-progress",

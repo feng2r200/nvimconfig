@@ -1,11 +1,12 @@
 local config = {}
 
-function config.everforest()
+function config.ayu()
     vim.cmd([[set background=dark]])
-    vim.g.everforest_background = "hard"
-    vim.g.everforest_disable_italic_comment = 0
-
-    vim.cmd([[colorscheme everforest]])
+    local ayu = require("ayu")
+    ayu.setup({
+        mirage = true,
+    })
+    ayu.colorscheme()
 end
 
 function config.lualine()
@@ -61,7 +62,7 @@ function config.lualine()
     require("lualine").setup({
         options = {
             icons_enabled = true,
-            theme = "everforest",
+            theme = "ayu",
             disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline" },
             component_separators = "|",
             section_separators = { left = "", right = "" },
