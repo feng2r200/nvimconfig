@@ -3,9 +3,6 @@ local config = {}
 function config.ayu()
     vim.cmd([[set background=dark]])
     local ayu = require("ayu")
-    ayu.setup({
-        mirage = true,
-    })
     ayu.colorscheme()
 end
 
