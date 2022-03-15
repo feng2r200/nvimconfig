@@ -293,10 +293,13 @@ function config.cmp()
 
         sources = {
             {name = "nvim_lsp"}, {name = "nvim_lua"}, {name = "luasnip"},
-            {name = "path"}, {name = "tmux"},
-            {name = "buffer"},
+            {name = "path"}, {name = "tmux"}, {name = "buffer"}, {name = "cmdline"},
         }
     }
+
+    cmp.setup.cmdline( "/", { sources = { {name = "buffer"} } })
+    cmp.setup.cmdline( "?", { sources = { {name = "buffer"} } })
+    cmp.setup.cmdline( ":", { sources = cmp.config.sources( { {name = "path"} }, { {name = "cmdline"} }) })
 end
 
 function config.luasnip()

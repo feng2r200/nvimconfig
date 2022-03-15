@@ -60,12 +60,6 @@ M["folke/trouble.nvim"] = {
     cmd = {"Trouble", "TroubleToggle", "TroubleRefresh"},
     config = conf.tool.trouble
 }
-M["gelguy/wilder.nvim"] = {
-    opt = true,
-    event = "CmdlineEnter",
-    config = conf.tool.wilder,
-}
-M["romgrk/fzy-lua-native"] = { opt = true, after = "wilder.nvim"}
 M["nathom/filetype.nvim"] = {
     opt = false,
     config = conf.tool.filetype,
@@ -188,7 +182,7 @@ M["stevearc/aerial.nvim"] = {
 M["ray-x/lsp_signature.nvim"] = {opt = true, after = "nvim-lspconfig"}
 M["hrsh7th/nvim-cmp"] = {
     config = conf.completion.cmp,
-    event = "InsertEnter",
+    event = {"InsertEnter", "CmdlineEnter"},
     requires = {
         {"lukas-reineke/cmp-under-comparator"},
         {"saadparwaiz1/cmp_luasnip", after = "LuaSnip"},
@@ -197,6 +191,7 @@ M["hrsh7th/nvim-cmp"] = {
         {"andersevenrud/cmp-tmux", after = "cmp-nvim-lua"},
         {"hrsh7th/cmp-path", after = "cmp-tmux"},
         {"hrsh7th/cmp-buffer", after = "cmp-path"},
+        {"hrsh7th/cmp-cmdline", after = "cmp-buffer"},
     }
 }
 M["L3MON4D3/LuaSnip"] = {
