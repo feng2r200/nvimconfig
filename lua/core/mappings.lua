@@ -9,37 +9,37 @@ local map_cmd = bind.map_cmd
 -- default map
 local def_map = {
     -- Better save
-    ["n|<C-s>"] = map_cu("write"):with_noremap(),
-    ["i|<C-s>"] = map_cmd("<Esc>:w<CR>i"),
+    ["n|<C-s>"]  = map_cu("write"):with_noremap(),
+    ["i|<C-s>"]  = map_cmd("<Esc>:w<CR>i"),
 
     -- Better window navigation
-    ["n|<C-h>"] = map_cmd("<C-w>h"):with_noremap(),
-    ["n|<C-l>"] = map_cmd("<C-w>l"):with_noremap(),
-    ["n|<C-j>"] = map_cmd("<C-w>j"):with_noremap(),
-    ["n|<C-k>"] = map_cmd("<C-w>k"):with_noremap(),
+    ["n|<C-h>"]  = map_cmd("<C-w>h"):with_noremap(),
+    ["n|<C-l>"]  = map_cmd("<C-w>l"):with_noremap(),
+    ["n|<C-j>"]  = map_cmd("<C-w>j"):with_noremap(),
+    ["n|<C-k>"]  = map_cmd("<C-w>k"):with_noremap(),
 
     -- Insert
-    ["i|<C-u>"] = map_cmd("<C-g>u<C-u>"):with_noremap(),
-    ["i|<C-w>"] = map_cmd("<C-g>u<C-w>"):with_noremap(),
+    ["i|<C-u>"]  = map_cmd("<C-g>u<C-u>"):with_noremap(),
+    ["i|<C-w>"]  = map_cmd("<C-g>u<C-w>"):with_noremap(),
 
     -- Command line
-    ["c|<C-a>"] = map_cmd("<Home>"):with_noremap(),
-    ["c|<C-e>"] = map_cmd("<End>"):with_noremap(),
-    ["c|<C-g>"] = map_cmd([[<C-R>=expand("%:p:h") . "/" <CR>]]):with_noremap(),
+    ["c|<C-a>"]  = map_cmd("<Home>"):with_noremap(),
+    ["c|<C-e>"]  = map_cmd("<End>"):with_noremap(),
+    ["c|<C-g>"]  = map_cmd([[<C-R>=expand("%:p:h") . "/" <CR>]]):with_noremap(),
 
     -- Visual
-    ["v|<C-j>"] = map_cmd(":m '>+1<cr>gv=gv"),
-    ["v|<C-k>"] = map_cmd(":m '<-2<cr>gv=gv"),
-    ["v|<"]     = map_cmd("<gv"),
-    ["v|>"]     = map_cmd(">gv")
+    ["v|<C-j>"]  = map_cmd(":m '>+1<cr>gv=gv"),
+    ["v|<C-k>"]  = map_cmd(":m '<-2<cr>gv=gv"),
+    ["v|<"]      = map_cmd("<gv"),
+    ["v|>"]      = map_cmd(">gv"),
+
+    -- Bdelete
+    ["n|<C-x>k"] = map_cr("bdelete"):with_noremap():with_silent(),
 }
 
 bind.nvim_load_mapping(def_map)
 
 local plug_map = {
-    -- Bdelete
-    ["n|<C-x>k"]      = map_cr("Bdelete"):with_noremap():with_silent(),
-
     -- Format
     ["n|<A-l>"]       = map_cr("Neoformat"):with_noremap():with_silent(),
 
@@ -87,8 +87,6 @@ local plug_map = {
     ["n|<leader>fz"]  = map_cr("Telescope zoxide list"):with_noremap():with_silent(),
 
     -- Motion
-    ["n|<leader>j"]   = map_cr("HopLine"):with_noremap(),
-    ["n|<leader>k"]   = map_cr("HopLine"):with_noremap(),
     ["n|<leader>w"]   = map_cr("Pounce"):with_noremap(),
     ["v|<leader>w"]   = map_cr("Pounce"):with_noremap(),
     ["o|<leader>w"]   = map_cr("Pounce"):with_noremap(),

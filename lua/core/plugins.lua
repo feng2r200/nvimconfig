@@ -130,16 +130,6 @@ M["andymass/vim-matchup"] = {
     after = "nvim-treesitter",
     config = function() vim.cmd([[let g:matchup_matchparen_offscreen = {'method': 'popup'}]]) end
 }
-M["romainl/vim-cool"] = {
-    opt = true,
-    event = {"CursorMoved", "InsertEnter"}
-}
-M["phaazon/hop.nvim"] = {
-	opt = true,
-	branch = "v1",
-	cmd = { "HopLine", "HopLineStart", "HopWord", "HopPattern", "HopChar1", "HopChar2", },
-	config = function() require("hop").setup({ keys = "etovxqpdygfblzhckisuran" }) end,
-}
 M['rlane/pounce.nvim'] = {
     opt = true,
     cmd = {"Pounce"},
@@ -180,10 +170,6 @@ M["theHamsta/nvim-dap-virtual-text"] = {
     end,
 }
 M["tpope/vim-fugitive"] = {opt = true, event = "BufRead"}
-M["famiu/bufdelete.nvim"] = {
-    opt = true,
-    cmd = {"Bdelete", "Bwipeout", "Bdelete!", "Bwipeout!"}
-}
 M["chentau/marks.nvim"] = {
     opt = true,
     event = "BufReadPost",
