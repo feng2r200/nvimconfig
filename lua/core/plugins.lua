@@ -183,6 +183,10 @@ M["williamboman/nvim-lsp-installer"] = {
     opt = true,
     after = "nvim-lspconfig"
 }
+M["tami5/lspsaga.nvim"] = {
+    opt = true,
+    after = "nvim-lspconfig",
+}
 M["stevearc/aerial.nvim"] = {
     opt = true,
     after = "nvim-lspconfig",

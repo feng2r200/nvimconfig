@@ -1,9 +1,24 @@
 vim.cmd [[packadd nvim-lsp-installer]]
 vim.cmd [[packadd lsp_signature.nvim]]
+vim.cmd([[packadd lspsaga.nvim]])
 vim.cmd [[packadd cmp-nvim-lsp]]
 vim.cmd([[packadd aerial.nvim]])
-local lsp_installer = require("nvim-lsp-installer")
 
+local saga = require("lspsaga")
+saga.init_lsp_saga({
+    error_sign = "",
+    warn_sign = "",
+    hint_sign = "",
+    infor_sign = "",
+    code_action_prompt = {
+        enable = false,
+        sign = true,
+        sign_priority = 40,
+        virtual_text = true,
+    },
+})
+
+local lsp_installer = require("nvim-lsp-installer")
 local servers = {
     "bashls",
     "gopls",

@@ -56,13 +56,15 @@ local plug_map = {
     ["n|<A-S-k>"]     = map_cr("BufferLineMovePrev"):with_noremap():with_silent(),
 
     -- Lsp mapp work when insertenter and lsp start
-    ["n|ge"]          = map_cr("lua vim.diagnostic.goto_next({})"):with_noremap():with_silent(),
-    ["n|gE"]          = map_cr("lua vim.diagnostic.goto_prev({})"):with_noremap():with_silent(),
+    ["n|ge"]          = map_cr("Lspsaga diagnostic_jump_next"):with_noremap():with_silent(),
+    ["n|gE"]          = map_cr("Lspsaga diagnostic_jump_prev"):with_noremap():with_silent(),
 
-    ["n|K"]           = map_cr("lua vim.lsp.buf.hover()"):with_noremap():with_silent(),
+    ["n|K"]           = map_cr("Lspsaga hover_doc"):with_noremap():with_silent(),
+	["n|<C-Up>"]      = map_cr("lua require('lspsaga.action').smart_scroll_with_saga(-1)"):with_noremap():with_silent(),
+	["n|<C-Down>"]    = map_cr("lua require('lspsaga.action').smart_scroll_with_saga(1)"):with_noremap():with_silent(),
 
-    ["n|gs"]          = map_cr("lua vim.lsp.buf.signature_help()"):with_noremap():with_silent(),
-    ["n|gr"]          = map_cr("lua vim.lsp.buf.rename()"):with_noremap():with_silent(),
+    ["n|gs"]          = map_cr("Lspsaga signature_help"):with_noremap():with_silent(),
+    ["n|gr"]          = map_cr("Lspsaga rename"):with_noremap():with_silent(),
 
     ["n|<leader>ga"]  = map_cr("lua require('telescope.builtin').lsp_code_actions{}"):with_noremap():with_silent(),
     ["v|<leader>ga"]  = map_cr("lua require('telescope.builtin').lsp_range_code_actions{}"):with_noremap():with_silent(),
