@@ -33,7 +33,7 @@ local def_map = {
     ["v|<"]      = map_cmd("<gv"),
     ["v|>"]      = map_cmd(">gv"),
 
-    -- Bdelete
+    -- bdelete
     ["n|<C-x>k"] = map_cr("bdelete"):with_noremap():with_silent(),
 }
 
@@ -76,20 +76,12 @@ local plug_map = {
     ["n|<leader>ftw"] = map_cr("lua require('telescope.builtin').lsp_workspace_symbols{}"):with_noremap():with_silent(),
 
     ["n|<leader>fp"]  = map_cr("lua require('telescope').extensions.project.project{}"):with_noremap():with_silent(),
-    ["n|<leader>fh"]  = map_cr("lua require('telescope').extensions.frecency.frecency{}"):with_noremap():with_silent(),
     ["n|<leader>ff"]  = map_cr("lua require('telescope.builtin').find_files{}"):with_noremap():with_silent(),
     ["n|<leader>fg"]  = map_cr("lua require('telescope.builtin').live_grep{}"):with_noremap():with_silent(),
     ["n|<leader>fm"]  = map_cr("lua require('telescope.builtin').marks{}"):with_noremap():with_silent(),
     ["n|<leader>fb"]  = map_cr("lua require('telescope').extensions.file_browser.file_browser()"):with_noremap():with_silent(),
     ["n|<leader>fc"]  = map_cr("lua require('telescope.builtin').current_buffer_fuzzy_find{}"):with_noremap():with_silent(),
     ["n|<leader>fn"]  = map_cr("ene"):with_noremap():with_silent(),
-
-    ["n|<leader>fz"]  = map_cr("Telescope zoxide list"):with_noremap():with_silent(),
-
-    -- Motion
-    ["n|<leader>w"]   = map_cr("Pounce"):with_noremap(),
-    ["v|<leader>w"]   = map_cr("Pounce"):with_noremap(),
-    ["o|<leader>w"]   = map_cr("Pounce"):with_noremap(),
 
     -- Plugin Aerial
     ["n|<A-7>"]       = map_cr("AerialToggle! right"):with_noremap():with_silent(),

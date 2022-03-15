@@ -130,16 +130,6 @@ M["andymass/vim-matchup"] = {
     after = "nvim-treesitter",
     config = function() vim.cmd([[let g:matchup_matchparen_offscreen = {'method': 'popup'}]]) end
 }
-M['rlane/pounce.nvim'] = {
-    opt = true,
-    cmd = {"Pounce"},
-    config = function()
-        require("pounce").setup {
-            accept_keys = "JFKDLSAHGNUVRBYTMICEOXWPQZ",
-            debug = false,
-        }
-    end
-}
 M["karb94/neoscroll.nvim"] = {
     opt = true,
     event = "WinScrolled",
