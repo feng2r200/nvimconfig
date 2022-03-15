@@ -69,7 +69,16 @@ M["junegunn/vim-easy-align"] = {opt = true, cmd = "EasyAlign"}
 M["itchyny/vim-cursorword"] = {
     opt = true,
     event = {"BufReadPre", "BufNewFile"},
-    config = conf.editor.vim_cursorwod
+    config = conf.editor.vim_cursorwod,
+}
+M["ur4ltz/surround.nvim"] = {
+    opt = true,
+    event = {"BufRead", "BufNewFile"},
+    config = function()
+        require("surround").setup({
+            mappings_style = "surround",
+        })
+    end,
 }
 M["terrortylor/nvim-comment"] = {
     opt = true,

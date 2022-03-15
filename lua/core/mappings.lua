@@ -10,7 +10,6 @@ local map_cmd = bind.map_cmd
 local def_map = {
     -- Better save
     ["n|<C-s>"]  = map_cu("write"):with_noremap(),
-    ["i|<C-s>"]  = map_cmd("<Esc>:w<CR>i"),
 
     -- Better window navigation
     ["n|<C-h>"]  = map_cmd("<C-w>h"):with_noremap(),
