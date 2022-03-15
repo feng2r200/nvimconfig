@@ -32,9 +32,6 @@ local def_map = {
     ["v|<"]      = map_cmd("<gv"),
     ["v|>"]      = map_cmd(">gv"),
 
-    -- bdelete
-    ["n|<C-x>k"] = map_cr("bdelete"):with_noremap():with_silent(),
-
     -- nohl
     ["n|<BS>"]   = map_cr("nohlsearch"):with_noremap():with_silent(),
 }
