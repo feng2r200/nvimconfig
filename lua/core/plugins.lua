@@ -66,11 +66,6 @@ M["nathom/filetype.nvim"] = {
 }
 
 M["junegunn/vim-easy-align"] = {opt = true, cmd = "EasyAlign"}
-M["itchyny/vim-cursorword"] = {
-    opt = true,
-    event = {"BufReadPre", "BufNewFile"},
-    config = conf.editor.vim_cursorwod,
-}
 M["terrortylor/nvim-comment"] = {
     opt = true,
     event = "BufEnter",
@@ -154,11 +149,7 @@ M["theHamsta/nvim-dap-virtual-text"] = {
     end,
 }
 M["tpope/vim-fugitive"] = {opt = true, event = "BufRead"}
-M["chentau/marks.nvim"] = {
-    opt = true,
-    event = "BufReadPost",
-    config = conf.editor.marks
-}
+
 M["rlue/vim-barbaric"] = { opt = false }
 M["christoomey/vim-tmux-navigator"] = {
     opt = false,
