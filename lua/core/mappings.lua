@@ -53,8 +53,8 @@ local plug_map = {
     ["n|<A-S-k>"]     = map_cr("BufferLineMovePrev"):with_noremap():with_silent(),
 
     -- Lsp mapp work when insertenter and lsp start
-    ["n|g["]          = map_cr("Lspsaga diagnostic_jump_next"):with_noremap():with_silent(),
-    ["n|g]"]          = map_cr("Lspsaga diagnostic_jump_prev"):with_noremap():with_silent(),
+    ["n|g]"]          = map_cr("Lspsaga diagnostic_jump_next"):with_noremap():with_silent(),
+    ["n|g["]          = map_cr("Lspsaga diagnostic_jump_prev"):with_noremap():with_silent(),
 
     ["n|K"]           = map_cr("Lspsaga hover_doc"):with_noremap():with_silent(),
 	["n|<C-Up>"]      = map_cr("lua require('lspsaga.action').smart_scroll_with_saga(-1)"):with_noremap():with_silent(),
