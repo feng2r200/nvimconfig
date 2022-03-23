@@ -72,9 +72,6 @@ local plug_map = {
     ["n|gD"]          = map_cr("lua require('telescope.builtin').lsp_implementations{}"):with_noremap():with_silent(),
     ["n|gh"]          = map_cr("lua require('telescope.builtin').lsp_references{}"):with_noremap():with_silent(),
 
-    -- Plugin Undotree
-	["n|<Leader>u"]   = map_cr("UndotreeToggle"):with_noremap():with_silent(),
-
     -- Plugin Telescope
     ["n|<leader>ft"]  = map_cr("lua require('telescope.builtin').lsp_document_symbols{}"):with_noremap():with_silent(),
     ["n|<leader>ftw"] = map_cr("lua require('telescope.builtin').lsp_workspace_symbols{}"):with_noremap():with_silent(),
