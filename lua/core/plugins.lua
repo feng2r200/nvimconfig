@@ -157,6 +157,10 @@ M["sindrets/diffview.nvim"] = {
 	opt = true,
 	cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewRefresh", "DiffviewFileHistory" },
 }
+M["famiu/bufdelete.nvim"] = {
+	opt = true,
+	cmd = { "Bdelete", "Bwipeout", "Bdelete!", "Bwipeout!" },
+}
 
 M["rlue/vim-barbaric"] = { opt = false }
 M["christoomey/vim-tmux-navigator"] = {
