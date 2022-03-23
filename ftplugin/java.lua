@@ -137,6 +137,8 @@ vim.api.nvim_set_keymap("n", "crc", ":lua require('jdtls').extract_constant()<CR
 vim.api.nvim_set_keymap("v", "crc", ":<Esc>lua require('jdtls').extract_constant(true)<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "crm", ":<Esc>lua require('jdtls').extract_method(true)<CR>", { noremap = true, silent = true })
 
+-- command
+vim.cmd [[ command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config() ]]
 
 -- Setup
 require("jdtls").start_or_attach(config)
