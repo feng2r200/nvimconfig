@@ -149,6 +149,10 @@ local enhance_server_opts = {
 }
 
 lsp_installer.on_server_ready(function(server)
+    if server.name == "jdtls" then
+        return
+    end
+
     local opts = {
         capabilities = capabilities,
         flags = { debounce_text_changes = 500 },
@@ -159,9 +163,7 @@ lsp_installer.on_server_ready(function(server)
         enhance_server_opts[server.name](opts)
     end
 
-    if server.name ~= "jdtls" then
-        server:setup(opts)
-    end
+    server:setup(opts)
 end)
 
 local M = {}
