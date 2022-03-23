@@ -30,10 +30,14 @@ M["lukas-reineke/indent-blankline.nvim"] = {
     event = "BufRead",
     config = conf.ui.indent_blankline
 }
-M["akinsho/nvim-bufferline.lua"] = {
+M["akinsho/bufferline.nvim"] = {
     opt = true,
     event = "BufRead",
     config = conf.ui.nvim_bufferline
+}
+M["mbbill/undotree"] = {
+	opt = true,
+	cmd = "UndotreeToggle",
 }
 
 M["nvim-lua/plenary.nvim"] = {opt = false}
@@ -149,6 +153,10 @@ M["theHamsta/nvim-dap-virtual-text"] = {
     end,
 }
 M["tpope/vim-fugitive"] = {opt = true, event = "BufRead"}
+M["sindrets/diffview.nvim"] = {
+	opt = true,
+	cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewRefresh", "DiffviewFileHistory" },
+}
 
 M["rlue/vim-barbaric"] = { opt = false }
 M["christoomey/vim-tmux-navigator"] = {
