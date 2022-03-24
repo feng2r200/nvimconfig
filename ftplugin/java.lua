@@ -2,6 +2,12 @@
     Settings for mfussenegger/nvim-jdtls
 --]]
 
+local java_path = {
+    ["8"] = "/usr/local/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home",
+    ["11"]= "/usr/local/Cellar/openjdk@11/11.0.14.1/libexec/openjdk.jdk/Contents/Home",
+    ["17"]= "/usr/local/Cellar/openjdk/17.0.2/libexec/openjdk.jdk/Contents/Home",
+}
+
 local get_cmd = function()
     local path = require "nvim-lsp-installer.path"
     local platform = require "nvim-lsp-installer.platform"
@@ -9,7 +15,7 @@ local get_cmd = function()
 
     local root_dir = path.concat {vim.fn.stdpath("data"), "lsp_servers", "jdtls"}
 
-    local executable = vim.env.JAVA_HOME and path.concat { vim.env.JAVA_HOME, "bin", "java" } or "java"
+    local executable = path.concat { java_path["11"], "bin", "java" } or "java"
     local jar = vim.fn.expand(path.concat { root_dir, "plugins", "org.eclipse.equinox.launcher_*.jar" })
     local lombok = vim.fn.expand(path.concat { root_dir, "lombok.jar" })
     local workspace_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
@@ -22,6 +28,7 @@ local get_cmd = function()
         "-Declipse.product=org.eclipse.jdt.ls.core.product",
         "-Dlog.protocol=true",
         "-Dlog.level=ALL",
+        "-noverify",
         "-Xms4g",
         "-Xmx6G",
         "-javaagent:" .. lombok,
@@ -54,7 +61,7 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local config = {
     cmd = get_cmd(),
-    root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'}),
+    root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', "pom.xml"}),
     settings = {
         java = {
             codeGeneration = {
@@ -73,15 +80,15 @@ local config = {
                     globalSettings = os.getenv("HOME") .. "/.m2/settings.xml",
                 },
                 runtimes = {
-                    {name = "JavaSE-1.8", path="/usr/local/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home", default=true},
-                    {name = "JavaSE-11", path="/usr/local/Cellar/openjdk@11/11.0.14.1/libexec/openjdk.jdk/Contents/Home"},
-                    {name = "JavaSE-17", path="/usr/local/Cellar/openjdk/17.0.2/libexec/openjdk.jdk/Contents/Home"},
+                    {name = "JavaSE-1.8", path=java_path["8"], default=true},
+                    {name = "JavaSE-11", path=java_path["11"]},
+                    {name = "JavaSE-17", path=java_path["17"]},
                 },
                 updateBuildConfiguration = "interactive"
             },
             contentProvider = { preferred = 'fernflower' },
             foldingRange = { enabled = true},
-            home = "/usr/local/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home",
+            home =java_path["11"],
             implementationsCodeLens = { enabled = true },
             import = {
                 maven = { enabled = true },
