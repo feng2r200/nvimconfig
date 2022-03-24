@@ -63,8 +63,8 @@ local plug_map = {
     ["n|gs"]          = map_cr("Lspsaga signature_help"):with_noremap():with_silent(),
     ["n|gr"]          = map_cr("Lspsaga rename"):with_noremap():with_silent(),
 
-    ["n|<leader>ga"]  = map_cr("Lspsaga code_action"):with_noremap():with_silent(),
-    ["v|<leader>ga"]  = map_cr("Lspsaga range_code_action"):with_noremap():with_silent(),
+    ["n|<leader>ga"]  = map_cr("lua require('telescope.builtin').lsp_code_actions{}"):with_noremap():with_silent(),
+    ["v|<leader>ga"]  = map_cr("lua require('telescope.builtin').lsp_range_code_actions{}"):with_noremap():with_silent(),
 
     ["n|<leader>gi"]  = map_cr("lua vim.lsp.buf.incoming_calls()"):with_noremap():with_silent(),
     ["n|<leader>go"]  = map_cr("lua vim.lsp.buf.outgoing_calls()"):with_noremap():with_silent(),
