@@ -137,7 +137,6 @@ config.init_options = {
 }
 
 -- Mappings.
-vim.api.nvim_set_keymap("n", "<A-o>", ":lua require'jdtls'.organize_imports()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "crv", ":lua require('jdtls').extract_variable()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "crv", ":<Esc>lua require('jdtls').extract_variable(true)<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "crc", ":lua require('jdtls').extract_constant()<CR>", { noremap = true, silent = true })
