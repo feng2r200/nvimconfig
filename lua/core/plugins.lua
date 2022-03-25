@@ -161,6 +161,21 @@ M["famiu/bufdelete.nvim"] = {
 	opt = true,
 	cmd = { "Bdelete", "Bwipeout", "Bdelete!", "Bwipeout!" },
 }
+M["phaazon/hop.nvim"] = {
+	opt = true,
+	branch = "v1",
+	cmd = {
+		"HopLine",
+		"HopLineStart",
+		"HopWord",
+		"HopPattern",
+		"HopChar1",
+		"HopChar2",
+	},
+	config = function()
+		require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
+	end,
+}
 
 M["rlue/vim-barbaric"] = { opt = false }
 M["christoomey/vim-tmux-navigator"] = {

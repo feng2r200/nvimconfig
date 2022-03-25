@@ -85,6 +85,10 @@ local plug_map = {
     ["n|<leader>fc"]  = map_cr("lua require('telescope.builtin').current_buffer_fuzzy_find{}"):with_noremap():with_silent(),
     ["n|<leader>fn"]  = map_cr("ene"):with_noremap():with_silent(),
 
+    -- EasyMotion
+    ["n|<leader>j"]   = map_cu("HopLine"):with_noremap(),
+    ["n|<leader>k"]   = map_cu("HopLine"):with_noremap(),
+
     -- Plugin Aerial
     ["n|<A-7>"]       = map_cr("AerialToggle! right"):with_noremap():with_silent(),
 
