@@ -28,7 +28,6 @@ local get_cmd = function()
         "-Declipse.product=org.eclipse.jdt.ls.core.product",
         "-Dlog.protocol=true",
         "-Dlog.level=ALL",
-        "-noverify",
         "-Xms4g",
         "-Xmx6G",
         "-javaagent:" .. lombok,
