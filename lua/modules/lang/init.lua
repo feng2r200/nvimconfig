@@ -1,11 +1,12 @@
 local config = {}
 
 function config.rust_tools()
-    local extension_path = os.getenv("XDG_CONFIG_HOME") .. "/nvim/codelldb"
-    local codelldb_path = extension_path .. "adapter/codelldb"
-    local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
+    local extension_path = os.getenv("XDG_CONFIG_HOME") .. "/nvim/codelldb/"
+    local codelldb_path  = extension_path .. "adapter/codelldb"
+    local liblldb_path   = extension_path .. "lldb/lib/liblldb.so"
 
-	vim.cmd([[packadd nvim-lspconfig]])
+    vim.cmd([[packadd dap]])
+    vim.cmd([[packadd nvim-lspconfig]])
     local opts = {
         tools = { -- rust-tools options
             -- Automatically set inlay hints (type hints)

@@ -174,24 +174,25 @@ end
 function config.dap()
     local dap = require("dap")
 
+    vim.cmd([[packadd nvim-lspconfig]])
+    local lspconfig = require("lspconfig")
+
     vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
 
-    -- dap.adapters.lldb = {
-    --     type = "executable",
-    --     command = "/usr/local/opt/llvm/bin/lldb-vscode",
-    --     name = "lldb"
-    -- }
     dap.configurations.cpp = {
         {
             name = "Launch",
-            type = "lldb",
-            -- type = "codelldb",
+            type = "rt_lldb",
             request = "launch",
             program = function ()
-                return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+                local workspaceRoot = lspconfig.rust_analyzer.get_root_dir()
+                local workspaceName = vim.fn.fnamemodify(workspaceRoot, ":t")
+
+                return vim.fn.input("Path to executable: ", workspaceRoot .. "/target/debug/" .. workspaceName, "file")
             end,
             cwd = "${workspaceFolder}",
-            -- stopOnEntry = true,
+            stopOnEntry = false,
+            sourceLanguages = { "rust" },
             args = {},
             runInTerminal = false
         },
