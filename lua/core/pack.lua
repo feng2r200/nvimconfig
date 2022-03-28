@@ -28,6 +28,11 @@ function Packer:load_packer()
         git = { clone_timeout = 120, default_url_format = "git@github.com:%s" },
         disable_commands = true,
         max_jobs = 20,
+        display = {
+            open_fn = function()
+                return require("packer.util").float({ border = "single" })
+            end,
+        },
     })
     packer.reset()
     local use = packer.use
