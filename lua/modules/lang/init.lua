@@ -1,9 +1,7 @@
 local config = {}
 
 function config.rust_tools()
-    local extension_path = os.getenv("XDG_CONFIG_HOME") .. "/nvim/codelldb/"
-    local codelldb_path  = extension_path .. "adapter/codelldb"
-    local liblldb_path   = extension_path .. "lldb/lib/liblldb.so"
+    local liblldb_path   = "/usr/local/opt/llvm/bin/lldb-vscode"
 
     vim.cmd([[packadd dap]])
     vim.cmd([[packadd nvim-lspconfig]])
@@ -120,7 +118,12 @@ function config.rust_tools()
         },
 
         dap = { -- debugging stuff
-            adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path)
+            -- adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path)
+            adapter = {
+                type = "executable",
+                command = liblldb_path,
+                name = "lldb",
+            }
         },
     }
 

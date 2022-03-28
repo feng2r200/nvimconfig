@@ -129,19 +129,7 @@ function config.toggleterm()
 end
 
 function config.dapui()
-    local dap = require("dap")
     local dapui = require("dapui")
-
-    dap.listeners.after.event_initialized["dapui"] = function()
-        dapui.open()
-    end
-    dap.listeners.before.event_terminated["dapui"] = function()
-        dapui.close()
-    end
-    dap.listeners.before.event_exited["dapui"] = function()
-        dapui.close()
-    end
-
     dapui.setup({
         icons = { expanded = "▾", collapsed = "▸" },
         mappings = {
@@ -174,15 +162,33 @@ end
 function config.dap()
     local dap = require("dap")
 
+    local dapui = require("dapui")
+    dap.listeners.after.event_initialized["dapui"] = function()
+        dapui.open()
+    end
+    dap.listeners.before.event_terminated["dapui"] = function()
+        dapui.close()
+    end
+    dap.listeners.before.event_exited["dapui"] = function()
+        dapui.close()
+    end
+
     vim.cmd([[packadd nvim-lspconfig]])
     local lspconfig = require("lspconfig")
 
     vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
 
+    local liblldb_path   = "/usr/local/opt/llvm/bin/lldb-vscode"
+    dap.adapters.lldb = {
+        type = "executable",
+        command = liblldb_path,
+        name = "lldb",
+    }
     dap.configurations.cpp = {
         {
             name = "Launch",
-            type = "rt_lldb",
+            -- type = "rt_lldb",
+            type = "lldb",
             request = "launch",
             program = function ()
                 local workspaceRoot = lspconfig.rust_analyzer.get_root_dir()
@@ -194,7 +200,6 @@ function config.dap()
             stopOnEntry = false,
             sourceLanguages = { "rust" },
             args = {},
-            runInTerminal = false
         },
     }
     dap.configurations.rust = dap.configurations.cpp

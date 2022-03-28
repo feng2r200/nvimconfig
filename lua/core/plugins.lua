@@ -143,11 +143,11 @@ M["mfussenegger/nvim-dap"] = {
     config = conf.editor.dap
 }
 M["rcarriga/nvim-dap-ui"] = {
-    opt = true,
+    opt = false,
     config = conf.editor.dapui,
 }
 M["theHamsta/nvim-dap-virtual-text"] = {
-    opt = true,
+    opt = false,
     config = function()
         require("nvim-dap-virtual-text").setup()
     end,
