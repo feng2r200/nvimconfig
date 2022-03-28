@@ -1,7 +1,7 @@
 local config = {}
 
 function config.rust_tools()
-    local extension_path = os.getenv("HOME") .. "/.config/vadimcn.vscode-lldb-1.6.10/"
+    local extension_path = os.getenv("XDG_CONFIG_HOME") .. "/nvim/codelldb"
     local codelldb_path = extension_path .. "adapter/codelldb"
     local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
 
