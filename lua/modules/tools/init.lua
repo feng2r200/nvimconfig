@@ -1,6 +1,7 @@
 local config = {}
 
 function config.telescope()
+    vim.cmd([[packadd dap]])
     vim.cmd([[packadd telescope-dap.nvim]])
     vim.cmd([[packadd telescope-file-browser.nvim]])
     vim.cmd([[packadd telescope-fzf-native.nvim]])

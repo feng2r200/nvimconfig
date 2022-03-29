@@ -139,18 +139,13 @@ M["norcalli/nvim-colorizer.lua"] = {
     config = function () require("colorizer").setup() end
 }
 M["mfussenegger/nvim-dap"] = {
-    opt = false,
     config = conf.editor.dap
 }
 M["rcarriga/nvim-dap-ui"] = {
-    opt = false,
     config = conf.editor.dapui,
 }
 M["theHamsta/nvim-dap-virtual-text"] = {
-    opt = false,
-    config = function()
-        require("nvim-dap-virtual-text").setup()
-    end,
+    opt = true,
 }
 M["tpope/vim-fugitive"] = {opt = true, event = "BufRead"}
 M["sindrets/diffview.nvim"] = {

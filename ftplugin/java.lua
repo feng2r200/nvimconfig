@@ -52,7 +52,6 @@ local custom_attach = function(client, bufnr)
     require("modules.completion.lsp").custom_attach(client, bufnr)
     require("jdtls.setup").add_commands()
     require("jdtls").setup_dap({hotcodereplace="auto"})
-    -- require("jdtls.dap").setup_dap_main_class_configs()
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -129,10 +128,17 @@ config.on_init = function(client, _)
     client.notify("workspace/didChangeConfiguration", { settings = config.settings})
 end
 
+local bundles = {
+    vim.fn.glob(os.getenv("XDG_CONFIG_HOME") .. "/nvim/java-debug/com.microsoft.java.debug.plugin-*.jar"),
+};
+vim.list_extend(bundles, vim.split(vim.fn.glob(os.getenv("XDG_CONFIG_HOME") .. "/nvim/vscode-java-test/*.jar"), "\n"))
+vim.list_extend(bundles, vim.split(vim.fn.glob(os.getenv("XDG_CONFIG_HOME") .. "/nvim/vscode-java-decompiler/*.jar"), "\n"))
+
 local extendedClientCapabilities = require'jdtls'.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 config.init_options = {
     extendedClientCapabilities = extendedClientCapabilities,
+    bundles = bundles,
 }
 
 -- Mappings.
@@ -141,6 +147,8 @@ vim.api.nvim_set_keymap("v", "crv", ":<Esc>lua require('jdtls').extract_variable
 vim.api.nvim_set_keymap("n", "crc", ":lua require('jdtls').extract_constant()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "crc", ":<Esc>lua require('jdtls').extract_constant(true)<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "crm", ":<Esc>lua require('jdtls').extract_method(true)<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<leader>dn", ":lua require('jdtls').test_nearest_method()<CR>", { noremap = true, silent = true })
 
 -- command
 vim.cmd [[ command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config() ]]

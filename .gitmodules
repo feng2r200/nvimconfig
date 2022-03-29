@@ -1,0 +1,9 @@
+[submodule "pack/java-debug"]
+	path = pack/java-debug
+	url = git@github.com:microsoft/java-debug.git
+[submodule "pack/vscode-java-test"]
+	path = pack/vscode-java-test
+	url = git@github.com:microsoft/vscode-java-test.git
+[submodule "pack/vscode-java-decompiler"]
+	path = pack/vscode-java-decompiler
+	url = git@github.com:dgileadi/vscode-java-decompiler.git

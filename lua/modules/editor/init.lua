@@ -129,7 +129,22 @@ function config.toggleterm()
 end
 
 function config.dapui()
+    local dap = require("dap")
     local dapui = require("dapui")
+
+    dap.listeners.after.event_initialized["dapui"] = function()
+        dapui.open()
+    end
+    dap.listeners.before.event_terminated["dapui"] = function()
+        dapui.close()
+    end
+    dap.listeners.before.event_exited["dapui"] = function()
+        dapui.close()
+    end
+
+    vim.cmd([[packadd nvim-dap-virtual-text]])
+    require("nvim-dap-virtual-text").setup()
+
     dapui.setup({
         icons = { expanded = "▾", collapsed = "▸" },
         mappings = {
@@ -162,28 +177,19 @@ end
 function config.dap()
     local dap = require("dap")
 
-    local dapui = require("dapui")
-    dap.listeners.after.event_initialized["dapui"] = function()
-        dapui.open()
-    end
-    dap.listeners.before.event_terminated["dapui"] = function()
-        dapui.close()
-    end
-    dap.listeners.before.event_exited["dapui"] = function()
-        dapui.close()
-    end
-
+    vim.cmd([[packadd nvim-dap-virtual-text]])
     vim.cmd([[packadd nvim-lspconfig]])
+
     local lspconfig = require("lspconfig")
 
     vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
 
-    local liblldb_path   = "/usr/local/opt/llvm/bin/lldb-vscode"
-    dap.adapters.lldb = {
-        type = "executable",
-        command = liblldb_path,
-        name = "lldb",
-    }
+    -- local liblldb_path   = "/usr/local/opt/llvm/bin/lldb-vscode"
+    -- dap.adapters.lldb = {
+    --     type = "executable",
+    --     command = liblldb_path,
+    --     name = "lldb",
+    -- }
     dap.configurations.cpp = {
         {
             name = "Launch",

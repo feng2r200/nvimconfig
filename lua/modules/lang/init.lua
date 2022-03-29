@@ -3,7 +3,6 @@ local config = {}
 function config.rust_tools()
     local liblldb_path   = "/usr/local/opt/llvm/bin/lldb-vscode"
 
-    vim.cmd([[packadd dap]])
     vim.cmd([[packadd nvim-lspconfig]])
     local opts = {
         tools = { -- rust-tools options
@@ -118,7 +117,6 @@ function config.rust_tools()
         },
 
         dap = { -- debugging stuff
-            -- adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path)
             adapter = {
                 type = "executable",
                 command = liblldb_path,
