@@ -1,9 +1,22 @@
 local config = {}
 
-function config.ayu()
-    vim.cmd([[set background=dark]])
-    local ayu = require("ayu")
-    ayu.colorscheme()
+function config.onedark()
+    local onedark = require("onedark")
+    onedark.setup {
+        style = "darker",
+        transparent = true,
+        term_colors = true,
+        toggle_style_list = {"darker"},
+
+        code_style = {
+            comments = 'italic',
+            keywords = 'bold',
+            functions = 'bold',
+            strings = "none",
+            variables = "underline",
+        }
+    }
+    onedark.load()
 end
 
 function config.lualine()
@@ -59,7 +72,7 @@ function config.lualine()
     require("lualine").setup({
         options = {
             icons_enabled = true,
-            theme = "ayu",
+            theme = "onedark",
             disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline" },
             component_separators = "|",
             section_separators = { left = "", right = "" },
