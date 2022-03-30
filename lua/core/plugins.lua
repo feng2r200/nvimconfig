@@ -73,7 +73,25 @@ M["nathom/filetype.nvim"] = {
     opt = false,
     config = conf.tool.filetype,
 }
+M["rmagatti/auto-session"] = {
+    opt = false,
+    config = function()
+        require("auto-session").setup({
+            log_level = "info",
+            auto_session_enable_last_session = true,
+            auto_session_enabled = true,
+            auto_save_enabled = true,
+            auto_restore_enabled = true,
+        })
+    end
+}
 
+M["nvim-treesitter/nvim-treesitter"] = {
+    opt = true,
+    run = ":TSUpdate",
+    event = "BufRead",
+    config = conf.editor.nvim_treesitter
+}
 M["junegunn/vim-easy-align"] = {opt = true, cmd = "EasyAlign"}
 M["terrortylor/nvim-comment"] = {
     opt = true,
