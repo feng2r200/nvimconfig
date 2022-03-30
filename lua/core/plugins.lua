@@ -103,22 +103,11 @@ M["terrortylor/nvim-comment"] = {
         })
     end
 }
-M["nvim-treesitter/nvim-treesitter"] = {
-    opt = true,
-    run = ":TSUpdate",
-    event = "BufRead",
-    config = conf.editor.nvim_treesitter
-}
-M["nvim-treesitter/nvim-treesitter-textobjects"] = {
+M["JoosepAlviste/nvim-ts-context-commentstring"] = {
     opt = true,
     after = "nvim-treesitter"
 }
-M["p00f/nvim-ts-rainbow"] = {
-    opt = true,
-    after = "nvim-treesitter",
-    event = "BufRead"
-}
-M["JoosepAlviste/nvim-ts-context-commentstring"] = {
+M["nvim-treesitter/nvim-treesitter-textobjects"] = {
     opt = true,
     after = "nvim-treesitter"
 }
