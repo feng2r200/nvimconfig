@@ -67,6 +67,11 @@ local function custom_attach(client, bufnr)
         transpancy = 20
     })
     require("aerial").on_attach(client, bufnr)
+    require("illuminate").on_attach(client)
+    -- Set underline highlighting for Lsp references
+    vim.cmd("hi! LspReferenceText cterm=underline gui=underline")
+    vim.cmd("hi! LspReferenceWrite cterm=underline gui=underline")
+    vim.cmd("hi! LspReferenceRead cterm=underline gui=underline")
 end
 
 local enhance_server_opts = {

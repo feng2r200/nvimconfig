@@ -233,6 +233,23 @@ M["windwp/nvim-autopairs"] = {
     after = "nvim-cmp",
     config = conf.completion.autopairs
 }
+M["RRethy/vim-illuminate"] = {
+    event = "BufRead",
+    config = function()
+        vim.g.Illuminate_highlightUnderCursor = 0
+        vim.g.Illuminate_ftblacklist = {
+            "help",
+            "dashboard",
+            "alpha",
+            "packer",
+            "norg",
+            "DoomInfo",
+            "NvimTree",
+            "Outline",
+            "toggleterm",
+        }
+    end
+}
 
 M["simrat39/rust-tools.nvim"] = {
     opt = true,
