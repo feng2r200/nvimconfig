@@ -6,7 +6,6 @@ function config.onedark()
         style = "darker",
         transparent = true,
         term_colors = true,
-        toggle_style_list = {"darker"},
 
         code_style = {
             comments = 'italic',
