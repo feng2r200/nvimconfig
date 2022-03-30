@@ -13,7 +13,7 @@ function config.onedark()
             keywords = 'bold',
             functions = 'bold',
             strings = "none",
-            variables = "underline",
+            variables = "none",
         }
     }
     onedark.load()
