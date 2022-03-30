@@ -18,7 +18,7 @@ local function load_options()
         writebackup = false,
         swapfile = false,
         history = 2000,
-        shada = "!,'300,<50,@100,s10,h",
+        shada = "!,'300,<100,@50,s1000,:0,h",
         backupskip = "/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim",
         smarttab = true,
         shiftround = true,
