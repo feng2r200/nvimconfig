@@ -57,8 +57,8 @@ local plug_map = {
     ["n|g["]          = map_cr("Lspsaga diagnostic_jump_prev"):with_noremap():with_silent(),
 
     ["n|K"]           = map_cr("Lspsaga hover_doc"):with_noremap():with_silent(),
-	["n|<C-Up>"]      = map_cr("lua require('lspsaga.action').smart_scroll_with_saga(-1)"):with_noremap():with_silent(),
-	["n|<C-Down>"]    = map_cr("lua require('lspsaga.action').smart_scroll_with_saga(1)"):with_noremap():with_silent(),
+    ["n|<C-Up>"]      = map_cr("lua require('lspsaga.action').smart_scroll_with_saga(-1)"):with_noremap():with_silent(),
+    ["n|<C-Down>"]    = map_cr("lua require('lspsaga.action').smart_scroll_with_saga(1)"):with_noremap():with_silent(),
 
     ["n|gs"]          = map_cr("Lspsaga signature_help"):with_noremap():with_silent(),
     ["n|gr"]          = map_cr("Lspsaga rename"):with_noremap():with_silent(),
