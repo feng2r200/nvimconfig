@@ -54,6 +54,16 @@ function config.nvim_treesitter()
 	end
 end
 
+function config.comment()
+    require("Comment").setup({
+        mappings = {
+            basic = true,
+            extra = true,
+            extended = true,
+        }
+    })
+end
+
 function config.nvim_gps()
     require("nvim-gps").setup({
         icons = {

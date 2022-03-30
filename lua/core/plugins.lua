@@ -93,19 +93,10 @@ M["nvim-treesitter/nvim-treesitter"] = {
     config = conf.editor.nvim_treesitter
 }
 M["junegunn/vim-easy-align"] = {opt = true, cmd = "EasyAlign"}
-M["terrortylor/nvim-comment"] = {
+M["numToStr/Comment.nvim"] = {
     opt = true,
     event = "BufEnter",
-    config = function()
-        require("nvim_comment").setup({
-            comment_empty = false,
-            hook = function() require("ts_context_commentstring.internal").update_commentstring() end
-        })
-    end
-}
-M["JoosepAlviste/nvim-ts-context-commentstring"] = {
-    opt = true,
-    after = "nvim-treesitter"
+    config = conf.editor.comment,
 }
 M["nvim-treesitter/nvim-treesitter-textobjects"] = {
     opt = true,
