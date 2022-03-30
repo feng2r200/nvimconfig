@@ -176,6 +176,11 @@ M["phaazon/hop.nvim"] = {
 		require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 	end,
 }
+M["ur4ltz/surround.nvim"] = {
+    opt = true,
+    event = {"BufRead", "BufNewFile"},
+    config = conf.editor.surround,
+}
 
 M["rlue/vim-barbaric"] = { opt = false }
 M["christoomey/vim-tmux-navigator"] = {
