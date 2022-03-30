@@ -95,10 +95,6 @@ M["nvim-treesitter/nvim-treesitter-textobjects"] = {
     opt = true,
     after = "nvim-treesitter"
 }
-M["romgrk/nvim-treesitter-context"] = {
-    opt = true,
-    after = "nvim-treesitter"
-}
 M["p00f/nvim-ts-rainbow"] = {
     opt = true,
     after = "nvim-treesitter",
