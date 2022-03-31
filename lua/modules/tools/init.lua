@@ -2,6 +2,7 @@ local config = {}
 
 function config.telescope()
     vim.cmd([[packadd dap]])
+    vim.cmd([[packadd aerial]])
     vim.cmd([[packadd telescope-dap.nvim]])
     vim.cmd([[packadd telescope-file-browser.nvim]])
     vim.cmd([[packadd telescope-fzf-native.nvim]])
@@ -61,6 +62,7 @@ function config.telescope()
         }
     })
 
+    require("telescope").load_extension("aerial")
     require("telescope").load_extension("dap")
     require("telescope").load_extension("file_browser")
     require("telescope").load_extension("fzf")

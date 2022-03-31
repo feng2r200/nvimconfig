@@ -74,8 +74,7 @@ local plug_map = {
     ["n|gh"]          = map_cr("lua require('telescope.builtin').lsp_references{}"):with_noremap():with_silent(),
 
     -- Plugin Telescope
-    ["n|<leader>ft"]  = map_cr("lua require('telescope.builtin').lsp_document_symbols{}"):with_noremap():with_silent(),
-    ["n|<leader>ftw"] = map_cr("lua require('telescope.builtin').lsp_workspace_symbols{}"):with_noremap():with_silent(),
+    ["n|<leader>fs"]  = map_cr("lua require('telescope.builtin').lsp_document_symbols{}"):with_noremap():with_silent(),
 
     ["n|<leader>fe"]  = map_cr("lua require('telescope.builtin').oldfiles{}"):with_noremap():with_silent(),
     ["n|<leader>fp"]  = map_cr("lua require('telescope').extensions.project.project{}"):with_noremap():with_silent(),
