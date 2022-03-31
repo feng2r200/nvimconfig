@@ -5,7 +5,6 @@
 local java_path = {
     ["8"] = "/usr/local/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home",
     ["11"]= "/usr/local/Cellar/openjdk@11/11.0.14.1/libexec/openjdk.jdk/Contents/Home",
-    ["18"]= "/usr/local/Cellar/openjdk/18/libexec/openjdk.jdk/Contents/Home",
 }
 
 local get_cmd = function()
@@ -80,7 +79,6 @@ local config = {
                 runtimes = {
                     {name = "JavaSE-1.8", path=java_path["8"], default=true},
                     {name = "JavaSE-11", path=java_path["11"]},
-                    {name = "JavaSE-18", path=java_path["18"]},
                 },
                 updateBuildConfiguration = "interactive"
             },
