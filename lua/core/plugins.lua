@@ -4,6 +4,7 @@ local conf = require("modules")
 
 M["kyazdani42/nvim-web-devicons"] = {opt = false}
 M["navarasu/onedark.nvim"] = {opt = false, config = conf.ui.onedark}
+M["antoinemadec/FixCursorHold.nvim"] = { event = {"CursorHold", "CursorHoldI"} }
 M["hoob3rt/lualine.nvim"] = {
     opt = true,
     after = "lualine-lsp-progress",
