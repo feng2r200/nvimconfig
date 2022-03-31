@@ -25,7 +25,7 @@ function Packer:load_packer()
     end
     packer.init({
         compile_path = packer_compiled,
-        git = { clone_timeout = 120, default_url_format = "git@github.com:%s" },
+        git = { clone_timeout = 120 },
         disable_commands = true,
         max_jobs = 20,
         display = {
