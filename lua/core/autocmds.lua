@@ -21,7 +21,8 @@ function autocmd.load_autocmds()
             {"BufWritePre", "MERGE_MSG", "setlocal noundofile"},
             {"BufWritePre", "*.tmp", "setlocal noundofile"},
             {"BufWritePre", "*.bak", "setlocal noundofile"},
-            {"BufReadPost", "*", [[if line("'\"") > 0 && line("'\"") <= line("$") | execute "normal! g'\"" | endif]]}
+            {"BufReadPost", "*", [[if line("'\"") > 0 && line("'\"") <= line("$") | execute "normal! g'\"" | endif]]},
+            {"BufEnter", "*", "++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"},
         },
 
         wins = {

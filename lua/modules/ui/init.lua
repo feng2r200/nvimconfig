@@ -209,7 +209,6 @@ function config.nvim_tree()
         hijack_netrw = true,
         open_on_setup = false,
         ignore_ft_on_setup = { "startify", "dashboard", "alpha" },
-        auto_close = true,
         open_on_tab = false,
         hijack_cursor = true,
         update_cwd = false,
