@@ -3,12 +3,15 @@ local config = {}
 function config.telescope()
     vim.cmd([[packadd dap]])
     vim.cmd([[packadd aerial]])
+    vim.cmd([[packadd trouble]])
     vim.cmd([[packadd telescope-dap.nvim]])
     vim.cmd([[packadd telescope-file-browser.nvim]])
     vim.cmd([[packadd telescope-fzf-native.nvim]])
     vim.cmd([[packadd telescope-media-files.nvim]])
     vim.cmd([[packadd telescope-project.nvim]])
     vim.cmd([[packadd telescope-ui-select.nvim]])
+
+    local trouble = require("trouble.providers.telescope")
 
     require("telescope").setup({
         defaults = {
@@ -43,6 +46,10 @@ function config.telescope()
             grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
             qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
             buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
+            mappings = {
+                i = {["<C-T>"] = trouble.open_with_trouble },
+                n = {["<C-T>"] = trouble.open_with_trouble },
+            }
         },
         extensions = {
             fzf = {

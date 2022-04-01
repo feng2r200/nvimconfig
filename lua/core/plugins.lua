@@ -37,24 +37,24 @@ M["akinsho/bufferline.nvim"] = {
     config = conf.ui.nvim_bufferline
 }
 M["mbbill/undotree"] = {
-	opt = true,
-	cmd = "UndotreeToggle",
+    opt = true,
+    cmd = "UndotreeToggle",
 }
 
 M["nvim-lua/plenary.nvim"] = {opt = false}
 M["nvim-lua/popup.nvim"] = {opt = false}
 M["nvim-telescope/telescope.nvim"] = {
-    opt = true,
     module = "telescope",
     cmd = "Telescope",
+    event = { "BufRead", "BufNewFile" },
     config = conf.tool.telescope,
 }
-M["nvim-telescope/telescope-fzf-native.nvim"] = { opt = true, run = "make", after = "telescope.nvim", }
-M["nvim-telescope/telescope-file-browser.nvim"] = { opt = true, after = "telescope.nvim" }
-M["nvim-telescope/telescope-project.nvim"] = { opt = true, after = "telescope.nvim" }
-M["nvim-telescope/telescope-media-files.nvim"] = { opt = true, after = "telescope.nvim" }
-M["nvim-telescope/telescope-dap.nvim"] = { opt = true, after = "telescope.nvim" }
-M["nvim-telescope/telescope-ui-select.nvim"] = { opt = true, after = "telescope.nvim" }
+M["nvim-telescope/telescope-fzf-native.nvim"] = { run = "make", after = "telescope.nvim", }
+M["nvim-telescope/telescope-file-browser.nvim"] = { after = "telescope.nvim" }
+M["nvim-telescope/telescope-project.nvim"] = { after = "telescope.nvim" }
+M["nvim-telescope/telescope-media-files.nvim"] = { after = "telescope.nvim" }
+M["nvim-telescope/telescope-dap.nvim"] = { after = "telescope.nvim" }
+M["nvim-telescope/telescope-ui-select.nvim"] = { after = "telescope.nvim" }
 M["folke/which-key.nvim"] = {
     opt = true,
     keys = ",",
@@ -62,6 +62,7 @@ M["folke/which-key.nvim"] = {
 }
 M["folke/trouble.nvim"] = {
     opt = true,
+    event = { "BufRead" },
     cmd = {"Trouble", "TroubleToggle", "TroubleRefresh"},
     config = conf.tool.trouble
 }
