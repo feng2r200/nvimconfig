@@ -82,7 +82,6 @@ function config.lualine()
             lualine_c = {
                 { "lsp_progress" },
                 { gps_content, cond = gps.is_available },
-                { require('auto-session-library').current_session_name },
             },
             lualine_x = {
                 {
