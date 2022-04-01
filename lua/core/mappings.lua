@@ -46,7 +46,7 @@ local plug_map = {
     ["n|<A-1>"]       = map_cr("NvimTreeToggle"):with_noremap():with_silent(),
 
     -- Bufferline
-    ["n|gb"]          = map_cr("BufferLinePick"):with_noremap():with_silent(),
+    ["n|gt"]          = map_cr("BufferLinePick"):with_noremap():with_silent(),
     ["n|<A-j>"]       = map_cr("BufferLineCycleNext"):with_noremap():with_silent(),
     ["n|<A-k>"]       = map_cr("BufferLineCyclePrev"):with_noremap():with_silent(),
     ["n|<A-S-j>"]     = map_cr("BufferLineMoveNext"):with_noremap():with_silent(),
