@@ -40,11 +40,6 @@ M["mbbill/undotree"] = {
 	opt = true,
 	cmd = "UndotreeToggle",
 }
-M["folke/todo-comments.nvim"] = {
-    opt = true,
-    event = {"BufRead", "BufNewFile"},
-    config = conf.ui.todo_comments
-}
 
 M["nvim-lua/plenary.nvim"] = {opt = false}
 M["nvim-lua/popup.nvim"] = {opt = false}
