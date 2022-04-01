@@ -58,7 +58,7 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local config = {
     cmd = get_cmd(),
-    root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', "pom.xml"}),
+    root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew' }),
     settings = {
         java = {
             codeGeneration = {
