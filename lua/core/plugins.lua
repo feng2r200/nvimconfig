@@ -44,17 +44,17 @@ M["mbbill/undotree"] = {
 M["nvim-lua/plenary.nvim"] = {opt = false}
 M["nvim-lua/popup.nvim"] = {opt = false}
 M["nvim-telescope/telescope.nvim"] = {
+    opt = true,
     module = "telescope",
     cmd = "Telescope",
-    event = { "BufRead", "BufNewFile" },
     config = conf.tool.telescope,
 }
-M["nvim-telescope/telescope-fzf-native.nvim"] = { run = "make", after = "telescope.nvim", }
-M["nvim-telescope/telescope-file-browser.nvim"] = { after = "telescope.nvim" }
-M["nvim-telescope/telescope-project.nvim"] = { after = "telescope.nvim" }
-M["nvim-telescope/telescope-media-files.nvim"] = { after = "telescope.nvim" }
-M["nvim-telescope/telescope-dap.nvim"] = { after = "telescope.nvim" }
-M["nvim-telescope/telescope-ui-select.nvim"] = { after = "telescope.nvim" }
+M["nvim-telescope/telescope-fzf-native.nvim"] = { opt = true, run = "make", after = "telescope.nvim", }
+M["nvim-telescope/telescope-file-browser.nvim"] = { opt = true, after = "telescope.nvim" }
+M["nvim-telescope/telescope-project.nvim"] = { opt = true, after = "telescope.nvim" }
+M["nvim-telescope/telescope-media-files.nvim"] = { opt = true, after = "telescope.nvim" }
+M["nvim-telescope/telescope-dap.nvim"] = { opt = true, after = "telescope.nvim" }
+M["nvim-telescope/telescope-ui-select.nvim"] = { opt = true, after = "telescope.nvim" }
 M["folke/which-key.nvim"] = {
     opt = true,
     keys = ",",
@@ -62,8 +62,8 @@ M["folke/which-key.nvim"] = {
 }
 M["folke/trouble.nvim"] = {
     opt = true,
-    event = { "BufRead" },
     cmd = {"Trouble", "TroubleToggle", "TroubleRefresh"},
+    event = "BufEnter",
     config = conf.tool.trouble
 }
 M["nathom/filetype.nvim"] = {
@@ -173,7 +173,6 @@ M["ur4ltz/surround.nvim"] = {
     config = conf.editor.surround,
 }
 
-M["rlue/vim-barbaric"] = { opt = false }
 M["christoomey/vim-tmux-navigator"] = {
     opt = false,
     config = function () vim.g.tmux_navigator_disable_when_zoomed = 1 end
