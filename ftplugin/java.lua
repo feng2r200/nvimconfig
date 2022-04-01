@@ -84,7 +84,7 @@ local config = {
             },
             contentProvider = { preferred = 'fernflower' },
             foldingRange = { enabled = true},
-            home =java_path["8"],
+            home =java_path["11"],
             implementationsCodeLens = { enabled = true },
             import = {
                 maven = { enabled = true },
