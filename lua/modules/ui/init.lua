@@ -210,7 +210,7 @@ function config.nvim_tree()
         ignore_ft_on_setup = { "startify", "dashboard", "alpha", "aerial" },
         open_on_tab = false,
         hijack_cursor = true,
-        update_cwd = true,
+        update_cwd = false,
         update_to_buf_dir = { enable = false, auto_open = false },
         diagnostics = {
             enable = false,
@@ -220,7 +220,7 @@ function config.nvim_tree()
         auto_ignore_ft = { "startify", "dashboard", "alpha", "aerial" },
         update_focused_file = {
             enable = true,
-            update_cwd = true,
+            update_cwd = false,
             ignore_list = {},
         },
         system_open = { cmd = nil, args = {} },
