@@ -9,7 +9,8 @@ local map_cmd = bind.map_cmd
 -- default map
 local def_map = {
     -- Better save
-    ["n|<C-s>"]  = map_cu("write"):with_noremap(),
+    ["n|<C-s>"]  = map_cmd("write"):with_noremap(),
+    ["i|<C-s>"]  = map_cmd("<Esc>:write<CR>i"):with_noremap(),
 
     -- Better window navigation
     ["n|<C-h>"]  = map_cmd("<C-w>h"):with_noremap(),
