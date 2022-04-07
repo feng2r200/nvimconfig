@@ -173,6 +173,10 @@ M["ur4ltz/surround.nvim"] = {
     config = conf.editor.surround,
 }
 
+M["rlue/vim-barbaric"] = {
+    opt = true,
+    event = {"BufRead", "BufNewFile"}
+}
 M["christoomey/vim-tmux-navigator"] = {
     opt = false,
     config = function () vim.g.tmux_navigator_disable_when_zoomed = 1 end
