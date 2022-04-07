@@ -33,7 +33,7 @@ M["lukas-reineke/indent-blankline.nvim"] = {
 }
 M["akinsho/bufferline.nvim"] = {
     opt = true,
-    event = "BufRead",
+    event = {"BufRead", "BufNewFile"},
     config = conf.ui.nvim_bufferline
 }
 M["mbbill/undotree"] = {
@@ -63,7 +63,7 @@ M["folke/which-key.nvim"] = {
 M["folke/trouble.nvim"] = {
     opt = true,
     cmd = {"Trouble", "TroubleToggle", "TroubleRefresh"},
-    event = "BufEnter",
+    event = {"BufRead"},
     config = conf.tool.trouble
 }
 M["nathom/filetype.nvim"] = {
@@ -92,7 +92,7 @@ M["nvim-treesitter/nvim-treesitter"] = {
 M["junegunn/vim-easy-align"] = {opt = true, cmd = "EasyAlign"}
 M["numToStr/Comment.nvim"] = {
     opt = true,
-    event = "BufEnter",
+    event = {"BufRead", "BufNewFile"},
     config = conf.editor.comment,
 }
 M["nvim-treesitter/nvim-treesitter-textobjects"] = {
@@ -126,7 +126,7 @@ M["karb94/neoscroll.nvim"] = {
 }
 M["akinsho/nvim-toggleterm.lua"] = {
     opt = true,
-    event = "BufRead",
+    event = {"BufNewFile", "BufRead"},
     config = conf.editor.toggleterm
 }
 M["norcalli/nvim-colorizer.lua"] = {
