@@ -224,7 +224,14 @@ function config.nvim_tree()
             ignore_list = {},
         },
         system_open = { cmd = nil, args = {} },
-        filters = { dotfiles = false, custom = {} },
+        filters = {
+            dotfiles = false,
+            custom = {
+                "^\\.git$",
+            },
+            exclude = {
+            }
+        },
         git = { enable = true, ignore = true, timeout = 500 },
         view = {
             width = 40,
