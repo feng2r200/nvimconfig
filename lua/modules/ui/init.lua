@@ -228,6 +228,8 @@ function config.nvim_tree()
             dotfiles = false,
             custom = {
                 "^\\.git$",
+                "^\\.apt_generated",
+                "^\\.apt_generated_tests",
             },
             exclude = {
             }
