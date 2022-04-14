@@ -21,13 +21,6 @@ end
 function config.lualine()
     local gps = require("nvim-gps")
 
-    local function gps_content()
-        if gps.is_available() then
-            return gps.get_location()
-        else
-            return ""
-        end
-    end
     local mini_sections = {
         lualine_a = {},
         lualine_b = {},
@@ -81,7 +74,7 @@ function config.lualine()
             lualine_b = { { "branch" }, { "diff" } },
             lualine_c = {
                 { "lsp_progress" },
-                { gps_content, cond = gps.is_available },
+                { gps.get_location, cond = gps.is_available },
             },
             lualine_x = {
                 {
@@ -91,17 +84,15 @@ function config.lualine()
                 },
             },
             lualine_y = {
-                {
-                    "filetype",
-                    "encoding",
-                },
+                { "filetype" },
+                { "encoding" },
                 {
                     "fileformat",
                     icons_enabled = true,
                     symbols = {
                         unix = "LF",
-                        dos = "CRLF",
-                        mac = "CR",
+                        dos  = "CRLF",
+                        mac  = "CR",
                     },
                 },
             },
