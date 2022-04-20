@@ -6,24 +6,9 @@ function config.nvim_treesitter()
 
     require("nvim-treesitter.configs").setup({
         ensure_installed = {
-            "bash",
-            "c",
-            "cpp",
-            "lua",
-            "go",
-            "gomod",
-            "json",
-            "yaml",
-            "latex",
-            "make",
-            "python",
-            "rust",
-            "html",
-            "javascript",
-            "typescript",
-            "vue",
-            "css",
-            "java",
+            "bash", "c", "cpp", "lua", "go", "gomod", "java",
+            "json", "yaml", "latex", "make", "python", "rust",
+            "html", "javascript", "typescript", "vue", "css",
         },
         highlight = { enable = true, disable = { "vim" } },
         textobjects = {
@@ -57,14 +42,7 @@ function config.nvim_treesitter()
                 },
             },
         },
-        rainbow = {
-            enable = true,
-            extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
-            max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
-        },
-        context_commentstring = { enable = true, enable_autocmd = false },
         matchup = { enable = true },
-        context = { enable = true, throttle = true },
     })
 end
 
