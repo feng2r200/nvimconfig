@@ -123,6 +123,7 @@ function config.toggleterm()
         shading_factor = "1",
         start_in_insert = true,
         insert_mappings = true,
+        terminal_mappings = true,
         persist_size = false,
         direction = "float",
         close_on_exit = true,
