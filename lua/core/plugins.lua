@@ -33,6 +33,7 @@ M["lukas-reineke/indent-blankline.nvim"] = {
 }
 M["akinsho/bufferline.nvim"] = {
     opt = true,
+    tag = "*",
     event = {"BufRead", "BufNewFile"},
     config = conf.ui.nvim_bufferline
 }
