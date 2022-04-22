@@ -124,7 +124,7 @@ M["karb94/neoscroll.nvim"] = {
     event = "WinScrolled",
     config = conf.editor.neoscroll
 }
-M["akinsho/nvim-toggleterm.lua"] = {
+M["akinsho/toggleterm.nvim"] = {
     opt = true,
     event = {"BufNewFile", "BufRead"},
     config = conf.editor.toggleterm
