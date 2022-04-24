@@ -288,10 +288,4 @@ function config.dap()
     }
 end
 
-function config.surround()
-    require("surround").setup({
-        mappings_style = "surround"
-    })
-end
-
 return config

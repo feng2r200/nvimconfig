@@ -153,11 +153,6 @@ M["famiu/bufdelete.nvim"] = {
     opt = true,
     cmd = { "Bdelete", "Bwipeout", "Bdelete!", "Bwipeout!" },
 }
-M["ur4ltz/surround.nvim"] = {
-    opt = true,
-    event = {"BufRead", "BufNewFile"},
-    config = conf.editor.surround,
-}
 
 M["rlue/vim-barbaric"] = {
     opt = true,
