@@ -116,7 +116,7 @@ function config.toggleterm()
                 return vim.o.columns * 0.40
             end
         end,
-        open_mapping = [[<C-\>]],
+        open_mapping = [[<C-t>]],
         hide_numbers = true,
         shade_filetypes = {},
         shade_terminals = false,
