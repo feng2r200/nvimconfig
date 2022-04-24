@@ -146,27 +146,12 @@ M["theHamsta/nvim-dap-virtual-text"] = {
 }
 M["tpope/vim-fugitive"] = {opt = true, event = "BufRead"}
 M["sindrets/diffview.nvim"] = {
-	opt = true,
-	cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewRefresh", "DiffviewFileHistory" },
+    opt = true,
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewRefresh", "DiffviewFileHistory" },
 }
 M["famiu/bufdelete.nvim"] = {
-	opt = true,
-	cmd = { "Bdelete", "Bwipeout", "Bdelete!", "Bwipeout!" },
-}
-M["phaazon/hop.nvim"] = {
-	opt = true,
-	branch = "v1",
-	cmd = {
-		"HopLine",
-		"HopLineStart",
-		"HopWord",
-		"HopPattern",
-		"HopChar1",
-		"HopChar2",
-	},
-	config = function()
-		require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
-	end,
+    opt = true,
+    cmd = { "Bdelete", "Bwipeout", "Bdelete!", "Bwipeout!" },
 }
 M["ur4ltz/surround.nvim"] = {
     opt = true,
