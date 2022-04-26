@@ -221,6 +221,7 @@ function config.nvim_tree()
                 "^\\.git$",
                 "^\\.apt_generated",
                 "^\\.apt_generated_tests",
+                "^__pycache__$",
             },
             exclude = {
             }
