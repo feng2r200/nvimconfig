@@ -195,26 +195,38 @@ end
 
 function config.nvim_tree()
     require("nvim-tree").setup({
+        auto_reload_on_write = true,
         disable_netrw = true,
-        hijack_netrw = true,
-        open_on_setup = false,
-        ignore_ft_on_setup = { "startify", "dashboard", "alpha", "aerial" },
-        open_on_tab = false,
         hijack_cursor = true,
+        hijack_netrw = true,
+        hijack_unnamed_buffer_when_opening = false,
+        ignore_buffer_on_setup = false,
+        open_on_setup = false,
+        open_on_setup_file = false,
+        open_on_tab = false,
+        sort_by = "name",
         update_cwd = false,
-        update_to_buf_dir = { enable = false, auto_open = false },
-        diagnostics = {
-            enable = false,
-            icons = { hint = "", info = "", warning = "", error = "" },
+        view = {
+            width = 40,
+            hide_root_folder = false,
+            side = "left",
+            preserve_window_proportions=false,
+            number = false,
+            relativenumber = false,
+            signcolumn = "yes",
+            mappings = { custom_only = false, list = {} },
         },
-        highlight_opened_files = true,
-        auto_ignore_ft = { "startify", "dashboard", "alpha", "aerial" },
         update_focused_file = {
             enable = true,
             update_cwd = false,
             ignore_list = {},
         },
+        ignore_ft_on_setup = { "startify", "dashboard", "alpha", "aerial" },
         system_open = { cmd = nil, args = {} },
+        diagnostics = {
+            enable = false,
+            icons = { hint = "", info = "", warning = "", error = "" },
+        },
         filters = {
             dotfiles = false,
             custom = {
@@ -227,16 +239,6 @@ function config.nvim_tree()
             }
         },
         git = { enable = true, ignore = false, timeout = 500 },
-        view = {
-            width = 40,
-            hide_root_folder = false,
-            side = "left",
-            auto_resize = false,
-            mappings = { custom_only = false, list = {} },
-            number = false,
-            relativenumber = false,
-            signcolumn = "yes",
-        },
         trash = { cmd = "trash", require_confirm = true },
     })
 end
