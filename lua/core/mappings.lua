@@ -83,6 +83,7 @@ local plug_map = {
     ["n|<leader>fg"]  = map_cr("lua require('telescope.builtin').live_grep{}"):with_noremap():with_silent(),
     ["n|<leader>fm"]  = map_cr("lua require('telescope.builtin').marks{}"):with_noremap():with_silent(),
     ["n|<leader>fb"]  = map_cr("lua require('telescope').extensions.file_browser.file_browser()"):with_noremap():with_silent(),
+    ["n|<leader>fh"]  = map_cr("lua require('telescope.builtin').buffers{}"):with_noremap():with_silent(),
     ["n|<leader>fc"]  = map_cr("lua require('telescope.builtin').current_buffer_fuzzy_find{}"):with_noremap():with_silent(),
     ["n|<leader>fn"]  = map_cr("ene"):with_noremap():with_silent(),
 
