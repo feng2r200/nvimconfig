@@ -238,5 +238,6 @@ M["iamcco/markdown-preview.nvim"] = {
     run = "cd app && yarn install"
 }
 M["chrisbra/csv.vim"] = {opt = true, ft = "csv"}
+M["solarnz/thrift.vim"] = {opt = true, ft = "thrift" }
 
 return M
