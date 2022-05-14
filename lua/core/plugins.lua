@@ -122,7 +122,7 @@ M["andymass/vim-matchup"] = {
 }
 M["karb94/neoscroll.nvim"] = {
     opt = true,
-    event = "WinScrolled",
+    event = "BufReadPost",
     config = conf.editor.neoscroll
 }
 M["akinsho/toggleterm.nvim"] = {
@@ -171,6 +171,11 @@ M["neovim/nvim-lspconfig"] = {
 M["williamboman/nvim-lsp-installer"] = {
     opt = true,
     after = "nvim-lspconfig"
+}
+M["kevinhwang91/nvim-bqf"] = {
+    opt = true,
+    ft = "qf",
+    config = conf.completion.bqf,
 }
 M["tami5/lspsaga.nvim"] = {
     opt = true,

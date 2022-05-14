@@ -3,6 +3,7 @@ vim.cmd [[packadd lsp_signature.nvim]]
 vim.cmd [[packadd lspsaga.nvim]]
 vim.cmd [[packadd cmp-nvim-lsp]]
 vim.cmd [[packadd aerial.nvim]]
+vim.cmd([[packadd vim-illuminate]])
 
 local saga = require("lspsaga")
 saga.init_lsp_saga({
@@ -78,7 +79,7 @@ local enhance_server_opts = {
     ["sumneko_lua"] = function(opts)
         opts.settings = {
             Lua = {
-                diagnostics = {globals = {"vim", "hs"}},
+                diagnostics = {globals = {"vim", "packer_plugins", "hs"}},
                 workspace = {
                     library = {
                         [vim.fn.expand "$VIMRUNTIME/lua"] = true,

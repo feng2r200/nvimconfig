@@ -222,24 +222,38 @@ function config.aerial()
 end
 
 function config.cmp()
-    vim.cmd [[highlight CmpItemAbbrDeprecated guifg=#D8DEE9 guibg=NONE gui=strikethrough]]
-    vim.cmd [[highlight CmpItemKindSnippet guifg=#BF616A guibg=NONE]]
-    vim.cmd [[highlight CmpItemKindUnit guifg=#D08770 guibg=NONE]]
-    vim.cmd [[highlight CmpItemKindProperty guifg=#A3BE8C guibg=NONE]]
-    vim.cmd [[highlight CmpItemKindKeyword guifg=#EBCB8B guibg=NONE]]
-    vim.cmd [[highlight CmpItemAbbrMatch guifg=#5E81AC guibg=NONE]]
-    vim.cmd [[highlight CmpItemAbbrMatchFuzzy guifg=#5E81AC guibg=NONE]]
-    vim.cmd [[highlight CmpItemKindVariable guifg=#8FBCBB guibg=NONE]]
-    vim.cmd [[highlight CmpItemKindInterface guifg=#88C0D0 guibg=NONE]]
-    vim.cmd [[highlight CmpItemKindText guifg=#81A1C1 guibg=NONE]]
-    vim.cmd [[highlight CmpItemKindFunction guifg=#B48EAD guibg=NONE]]
-    vim.cmd [[highlight CmpItemKindMethod guifg=#B48EAD guibg=NONE]]
-
     vim.cmd [[packadd LuaSnip]]
+
+    local border = function(hl)
+        return {
+            { "╭", hl },
+            { "─", hl },
+            { "╮", hl },
+            { "│", hl },
+            { "╯", hl },
+            { "─", hl },
+            { "╰", hl },
+            { "│", hl },
+        }
+    end
+
+    local cmp_window = require("cmp.utils.window")
+
+    function cmp_window:has_scrollbar()
+        return false
+    end
 
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     cmp.setup {
+        window = {
+            completion = {
+                border = border("CmpBorder"),
+            },
+            documentation = {
+                border = border("CmpDocBorder"),
+            },
+        },
         formatting = {
             format = function(entry, vim_item)
                 local lspkind_icons = {
@@ -377,6 +391,52 @@ function config.autopairs()
     local cmp = require("cmp")
     cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({map_char = {tex = ""}}))
     cmp_autopairs.lisp[#cmp_autopairs.lisp + 1] = "racket"
+end
+
+function config.bqf()
+    vim.cmd([[
+    hi BqfPreviewBorder guifg=#F2CDCD ctermfg=71
+    hi link BqfPreviewRange Search
+    ]])
+
+    require("bqf").setup({
+        auto_enable = true,
+        auto_resize_height = true, -- highly recommended enable
+        preview = {
+            win_height = 12,
+            win_vheight = 12,
+            delay_syntax = 80,
+            border_chars = { "┃", "┃", "━", "━", "┏", "┓", "┗", "┛", "█" },
+            should_preview_cb = function(bufnr, qwinid)
+                local ret = true
+                local bufname = vim.api.nvim_buf_get_name(bufnr)
+                local fsize = vim.fn.getfsize(bufname)
+                if fsize > 100 * 1024 then
+                    -- skip file size greater than 100k
+                    ret = false
+                elseif bufname:match("^fugitive://") then
+                    -- skip fugitive buffer
+                    ret = false
+                end
+                return ret
+            end,
+        },
+        -- make `drop` and `tab drop` to become preferred
+        func_map = {
+            drop = "o",
+            openc = "O",
+            split = "<C-s>",
+            tabdrop = "<C-t>",
+            tabc = "",
+            ptogglemode = "z,",
+        },
+        filter = {
+            fzf = {
+                action_for = { ["ctrl-s"] = "split", ["ctrl-t"] = "tab drop" },
+                extra_opts = { "--bind", "ctrl-o:toggle-all", "--prompt", "> " },
+            },
+        },
+    })
 end
 
 return config
