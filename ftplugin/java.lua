@@ -2,6 +2,7 @@
     Settings for mfussenegger/nvim-jdtls
 --]]
 
+vim.cmd [[packadd nvim-lsp-installer]]
 vim.cmd [[packadd nvim-jdtls]]
 
 local java_path = {
@@ -10,9 +11,9 @@ local java_path = {
 }
 
 local get_cmd = function()
-    local path = require "nvim-lsp-installer.path"
-    local platform = require "nvim-lsp-installer.platform"
-    local Data = require "nvim-lsp-installer.data"
+    local path = require "nvim-lsp-installer.core.path"
+    local platform = require "nvim-lsp-installer.core.platform"
+    local functional = require "nvim-lsp-installer.core.functional"
 
     local root_dir = path.concat {vim.fn.stdpath("data"), "lsp_servers", "jdtls"}
 
@@ -39,10 +40,10 @@ local get_cmd = function()
         "-configuration",
         path.concat {
             root_dir,
-            Data.coalesce(
-                Data.when(platform.is_mac, "config_mac"),
-                Data.when(platform.is_linux, "config_linux"),
-                Data.when(platform.is_win, "config_win")
+            functional.coalesce(
+                functional.when(platform.is_mac, "config_mac"),
+                functional.when(platform.is_linux, "config_linux"),
+                functional.when(platform.is_win, "config_win")
             ),
         },
         "-data", path.concat { workspace_name, workspace_dir },
