@@ -115,7 +115,6 @@ local function load_options()
         },
         python_host_prog = "/usr/bin/python",
         python3_host_prog = "/usr/local/bin/python3",
-        did_load_filetypes = 1,
         did_load_fzf = 1,
         did_load_gtags = 1,
         did_load_gzip = 1,
