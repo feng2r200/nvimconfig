@@ -10,7 +10,7 @@ function config.nvim_treesitter()
             "json", "yaml", "latex", "make", "python", "rust",
             "html", "javascript", "typescript", "vue", "css",
         },
-        highlight = { enable = true, disable = { "vim" } },
+        highlight = { enable = true, disable = {} },
         textobjects = {
             select = {
                 enable = true,
