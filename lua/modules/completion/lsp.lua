@@ -3,7 +3,7 @@ vim.cmd [[packadd lsp_signature.nvim]]
 vim.cmd [[packadd lspsaga.nvim]]
 vim.cmd [[packadd cmp-nvim-lsp]]
 vim.cmd [[packadd aerial.nvim]]
-vim.cmd([[packadd vim-illuminate]])
+vim.cmd [[packadd vim-illuminate]] 
 
 local saga = require("lspsaga")
 saga.init_lsp_saga({
