@@ -14,12 +14,14 @@ end
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
 lsp_installer.on_server_ready(function(server)
+  if server.name == 'jdtls' then
+    return
+  end
+
   local opts = {
     on_attach = require("user.lsp.handlers").on_attach,
     capabilities = require("user.lsp.handlers").capabilities,
-    flags = {
-      debounce_text_changes = 150,
-    }
+    flags = { debounce_text_changes = 150, }
   }
 
   if server.name == "clangd" then
@@ -37,9 +39,14 @@ lsp_installer.on_server_ready(function(server)
     opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
   end
 
-  if server.name == "pyright" then
-    local pyright_opts = require("user.lsp.settings.pyright")
-    opts = vim.tbl_deep_extend("force", pyright_opts, opts)
+  if server.name == "sqls" then
+    local sqls_opts = require("user.lsp.settings.sqls")
+    opts = vim.tbl_deep_extend("force", sqls_opts, opts)
+  end
+
+  if server.name == "gopls" then
+    local gopls_opts = require("user.lsp.settings.gopls")
+    opts = vim.tbl_deep_extend("force", gopls_opts, opts)
   end
 
   -- This setup() function is exactly the same as lspconfig's setup function.

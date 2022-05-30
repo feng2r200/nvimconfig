@@ -54,3 +54,19 @@ vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 
+
+local global_local = {
+    clipboard = {
+        name = "macOS-clipboard",
+        copy = {["+"] = "pbcopy", ["*"] = "pbcopy"},
+        paste = {["+"] = "pbpaste", ["*"] = "pbpaste"},
+        cache_enabled = 0
+    },
+    python_host_prog = "/usr/bin/python",
+    python3_host_prog = "/usr/local/bin/python3",
+    loaded_python_provider = 0,
+    loaded_perl_provider = 0,
+    loaded_ruby_provider = 0,
+}
+for name, value in pairs(global_local) do vim.g[name] = value end
+

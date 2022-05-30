@@ -8,7 +8,7 @@ end
 aerial.setup({
   -- Priority list of preferred backends for aerial.
   -- This can be a filetype map (see :help aerial-filetype-map)
-  backends = { "lsp", "treesitter", "markdown" },
+  backends = { "treesitter", "lsp", "markdown" },
 
   -- Enum: persist, close, auto, global
   --   persist - aerial window will stay open until closed
@@ -38,6 +38,7 @@ aerial.setup({
   -- To see all available values, see :help SymbolKind
   filter_kind = {
     "Class",
+    "Constant",
     "Constructor",
     "Enum",
     "Function",
@@ -63,7 +64,7 @@ aerial.setup({
   highlight_closest = true,
 
   -- Highlight the symbol in the source buffer when cursor is in the aerial win
-  highlight_on_hover = true,
+  highlight_on_hover = false,
 
   -- When jumping to a symbol, highlight the line for this many ms.
   -- Set to false to disable
@@ -120,7 +121,7 @@ aerial.setup({
 
   -- Fold code when you open/collapse symbols in the tree.
   -- Only works when manage_folds = true
-  link_tree_to_folds = false,
+  link_tree_to_folds = true,
 
   -- Use symbol tree for folding. Set to true or false to enable/disable
   -- 'auto' will manage folds if your previous foldmethod was 'manual'
@@ -130,9 +131,9 @@ aerial.setup({
   -- They can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
   -- min_width and max_width can be a list of mixed types.
   -- max_width = {40, 0.2} means "the lesser of 40 columns or 20% of total"
-  max_width = { 50 },
+  max_width = { 50, 0.2 },
   width = nil,
-  min_width = 30,
+  min_width = 20,
 
   -- Set default symbol icons to use patched font icons (see https://www.nerdfonts.com/)
   -- "auto" will set it to true if nvim-web-devicons or lspkind-nvim is installed.
@@ -210,10 +211,6 @@ aerial.setup({
 
     -- Set to false to not update the symbols when there are LSP errors
     update_when_errors = true,
-
-    -- How long to wait (in ms) after a buffer change before updating
-    -- Only used when diagnostics_trigger_update = false
-    update_delay = 300,
   },
 
   treesitter = {

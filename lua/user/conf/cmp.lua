@@ -182,16 +182,17 @@ cmp_config = {
       Variable = " ",
     },
     source_names = {
-      nvim_lsp = "(LSP)",
-      treesitter = "(TS)",
-      emoji = "(Emoji)",
-      path = "(Path)",
-      calc = "(Calc)",
-      cmp_tabnine = "(Tabnine)",
-      vsnip = "(Snippet)",
-      luasnip = "(Snippet)",
-      buffer = "(Buffer)",
-      spell = "(Spell)",
+      nvim_lsp = "[LSP]",
+      nvim_lua = "[LUA]",
+      treesitter = "[TS]",
+      emoji = "[Emoji]",
+      path = "[Path)]",
+      calc = "[Calc]",
+      vsnip = "[Snippet]",
+      luasnip = "[Snippet]",
+      buffer = "[Buffer]",
+      spell = "[Spell]",
+      tmux = "[TMUX]",
     },
     duplicates = {
       buffer = 1,
@@ -225,14 +226,13 @@ cmp_config = {
     { name = "nvim_lsp" },
     { name = "path" },
     { name = "luasnip" },
-    { name = "cmp_tabnine" },
     { name = "nvim_lua" },
     { name = "buffer" },
     { name = "spell" },
     { name = "calc" },
-    { name = "emoji" },
     { name = "treesitter" },
     { name = "crates" },
+    { name = "tmux" },
   },
   mapping = cmp.mapping.preset.insert {
     ["<C-k>"] = cmp.mapping.select_prev_item(),
@@ -271,24 +271,22 @@ cmp_config = {
       "s",
     }),
 
-    ["<C-p>"] = cmp.mapping.complete(),
+    ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.abort(),
-    ["<CR>"] = cmp.mapping(function(fallback)
-      if cmp.visible() and cmp.confirm(cmp_config.confirm_opts) then
-        if jumpable(1) then
-          luasnip.jump(1)
-        end
-        return
-      end
-
-      if jumpable(1) then
-        if not luasnip.jump(1) then
-          fallback()
-        end
-      else
-        fallback()
-      end
-    end),
+    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+  },
+  matching = {
+    disallow_prefix_unmatching = true,
+  },
+  sorting = {
+    priority_weight = 2,
+    comparators = {
+        cmp.config.compare.offset, cmp.config.compare.exact,
+        cmp.config.compare.score, require("cmp-under-comparator").under,
+        cmp.config.compare.recently_used, cmp.config.compare.kind,
+        cmp.config.compare.sort_text, cmp.config.compare.length,
+        cmp.config.compare.order
+    }
   },
 }
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).

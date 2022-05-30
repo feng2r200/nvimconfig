@@ -35,29 +35,6 @@
 -- S will prompt the user to enter a path and then expands the tree to match the path
 -- . will enter vim command mode with the file the cursor is on
 -- C-k will toggle a popup with file infos about the file under the cursor
---
--- following options are the default
--- each of these are documented in `:help nvim-tree.OPTION_NAME`
-vim.g.nvim_tree_icons = {
-  default = "",
-  symlink = "",
-  git = {
-    unstaged = "",
-    staged = "S",
-    unmerged = "",
-    renamed = "➜",
-    deleted = "",
-    untracked = "U",
-    ignored = "◌",
-  },
-  folder = {
-    default = "",
-    open = "",
-    empty = "",
-    empty_open = "",
-    symlink = "",
-  },
-}
 
 local status_ok, nvim_tree = pcall(require, "nvim-tree")
 if not status_ok then
@@ -67,8 +44,8 @@ end
 
 nvim_tree.setup({
   auto_reload_on_write = true,
-  disable_netrw = false,
-  hijack_cursor = false,
+  disable_netrw = true,
+  hijack_cursor = true,
   hijack_netrw = true,
   hijack_unnamed_buffer_when_opening = false,
   ignore_buffer_on_setup = false,
@@ -77,7 +54,7 @@ nvim_tree.setup({
   open_on_tab = false,
   sort_by = "name",
   view = {
-    width = 30,
+    width = 40,
     height = 30,
     hide_root_folder = false,
     side = "left",
@@ -85,63 +62,63 @@ nvim_tree.setup({
     number = false,
     relativenumber = false,
     signcolumn = "yes",
-    mappings = {
-      custom_only = false,
-      list = {
-        -- user mappings go here
-        { key = { "l", "<CR>", "o" }, action = "edit" },
-        { key = "h", action = "close_node" },
-        { key = "v", action = "vsplit" },
-        { key = "O", action = "cd" },
-      },
-    },
+    mappings = { custom_only = false, list = {}, },
   },
+  update_focused_file = {
+    enable = true,
+    update_cwd = false,
+    ignore_list = {},
+  },
+  ignore_ft_on_setup = { "startify", "dashboard", "alpha", "aerial" },
+  system_open = { cmd = nil, args = {}, },
+  diagnostics = {
+    enable = false,
+    show_on_dirs = true,
+    icons = { hint = "", info = "", warning = "", error = "", },
+  },
+  filters = {
+    dotfiles = false,
+    custom = {
+      "^\\.git$",
+      "^\\.apt_generated",
+      "^\\.apt_generated_tests",
+      "^__pycache__$",
+    },
+    exclude = {},
+  },
+  git = { enable = true, ignore = true, timeout = 400, },
   renderer = {
     indent_markers = {
       enable = false,
-      icons = {
-        corner = "└ ",
-        edge = "│ ",
-        none = "  ",
-      },
+      icons = { corner = "└ ", edge = "│ ", none = "  ", },
     },
     icons = {
       webdev_colors = true,
+      glyphs = {
+        default = "",
+        symlink = "",
+        git = {
+          unstaged = "",
+          staged = "S",
+          unmerged = "",
+          renamed = "➜",
+          deleted = "",
+          untracked = "U",
+          ignored = "◌",
+        },
+        folder = {
+          default = "",
+          open = "",
+          empty = "",
+          empty_open = "",
+          symlink = "",
+        },
+      }
     },
   },
   hijack_directories = {
     enable = true,
     auto_open = true,
-  },
-  update_focused_file = {
-    enable = true,
-    update_cwd = true,
-    ignore_list = {},
-  },
-  ignore_ft_on_setup = {},
-  system_open = {
-    cmd = "",
-    args = {},
-  },
-  diagnostics = {
-    enable = true,
-    show_on_dirs = true,
-    icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
-    },
-  },
-  filters = {
-    dotfiles = false,
-    custom = {},
-    exclude = {},
-  },
-  git = {
-    enable = true,
-    ignore = true,
-    timeout = 400,
   },
   actions = {
     use_system_clipboard = true,
@@ -163,10 +140,7 @@ nvim_tree.setup({
       },
     },
   },
-  trash = {
-    cmd = "trash",
-    require_confirm = true,
-  },
+  trash = { cmd = "trash", require_confirm = true, },
   log = {
     enable = false,
     truncate = false,
@@ -189,8 +163,8 @@ require "nvim-tree.events".on_file_created(function(file) vim.cmd("edit " .. fil
 -- require"nvim-tree.events".on_file_created(function(file) vim.cmd("edit "..vim.fn.fnamemodify(file.fname, ":p")) end)
 
 -- auto close feature
--- vim.cmd(
---   [[
---     autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
--- ]]
--- )
+vim.cmd(
+  [[
+    autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
+]]
+)

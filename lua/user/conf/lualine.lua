@@ -13,7 +13,7 @@ local diagnostics = {
   sources = { "nvim_diagnostic" },
   sections = { "error", "warn" },
   symbols = { error = " ", warn = " " },
-  colored = false,
+  colored = true,
   update_in_insert = false,
   always_visible = true,
 }
@@ -29,14 +29,6 @@ local diff = {
   },
   cond = hide_in_width
 }
-
-local mode = {
-  "mode",
-  fmt = function(str)
-    return "-- " .. str .. " --"
-  end,
-}
-
 
 local file_name = {
   'filename',
@@ -71,49 +63,50 @@ local location = {
   padding = 0,
 }
 
--- cool function for progress
-local progress = function()
-  local current_line = vim.fn.line(".")
-  local total_lines = vim.fn.line("$")
-  -- local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
-  local chars = { "██", "▇▇", "▆▆", "▅▅", "▄▄", "▃▃", "▂▂", "▁▁", " ", }
-  local line_ratio = current_line / total_lines
-  local index = math.ceil(line_ratio * #chars)
-  return chars[index]
-end
-
 local spaces = function()
   return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
 
 -- add gps module to get the position information
--- local gps = require("nvim-gps")
+local ngps = require("nvim-gps")
+local gps = {
+  ngps.get_location,
+  cond = ngps.is_available
+}
+
+local fileformat = {
+  "fileformat",
+  icons_enabled = true,
+  symbols = {
+      unix = "LF",
+      dos  = "CRLF",
+      mac  = "CR",
+  },
+}
 
 lualine.setup({
   options = {
     icons_enabled = true,
     theme = "auto",
-    component_separators = { left = "", right = "" },
-    section_separators = { left = "", right = "" },
-    -- component_separators = { left = "", right = "" },
-    -- section_separators = { left = "", right = "" },
+    component_separators = { left = "", right = "" },
+    section_separators = { left = "", right = "" },
     disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline" },
     always_divide_middle = true,
   },
   sections = {
-    lualine_a = { branch, diagnostics },
-    lualine_b = { mode },
-    lualine_c = { file_name },
-    lualine_x = { diff, spaces, "encoding", filetype, "fileformat" },
-    lualine_y = { location },
-    lualine_z = { progress },
+    lualine_a = { branch },
+    lualine_b = { diff },
+    lualine_c = { gps },
+    lualine_x = { diagnostics },
+    lualine_y = { spaces, "encoding", filetype },
+    lualine_z = { location },
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
     lualine_c = { file_name },
     lualine_x = { "location" },
-    lualine_y = {},
+    lualine_y = { fileformat },
     lualine_z = {},
   },
   tabline = {},

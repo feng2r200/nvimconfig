@@ -5,18 +5,36 @@ end
 
 vim.g.indent_blankline_buftype_exclude = { "terminal", "nofile" }
 vim.g.indent_blankline_filetype_exclude = {
-	"help",
-	"startify",
-	"dashboard",
-	"packer",
-	"neogitstatus",
-	"NvimTree",
-	"Trouble",
+  "startify",
+  "dashboard",
+  "alpha",
+  "dotooagenda",
+  "log",
+  "lspinfo",
+  "lsp-installer",
+  "terminal",
+  "fugitive",
+  "gitcommit",
+  "packer",
+  "vimwiki",
+  "markdown",
+  "json",
+  "txt",
+  "vista",
+  "help",
+  "neogitstatus",
+  "todoist",
+  "NvimTree",
+  "peekaboo",
+  "git",
+  "TelescopePrompt",
+  "Trouble",
+  "undotree",
+  "flutterToolsOutline",
+  "", -- for all buffers without a file type
 }
 vim.g.indentLine_enabled = 1
--- vim.g.indent_blankline_char = "│"
-vim.g.indent_blankline_char = "▏"
--- vim.g.indent_blankline_char = "▎"
+vim.g.indent_blankline_char = "│"
 vim.g.indent_blankline_show_trailing_blankline_indent = false
 vim.g.indent_blankline_show_first_indent_level = true
 vim.g.indent_blankline_use_treesitter = true

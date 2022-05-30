@@ -78,7 +78,6 @@ return packer.startup(function(use)
   use "windwp/nvim-ts-autotag"
   use "Shatur/neovim-session-manager"
   use "junegunn/vim-easy-align"
-  use "sbdchd/neoformat"
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
   use "lukas-reineke/cmp-under-comparator"
@@ -100,10 +99,6 @@ return packer.startup(function(use)
   use "ahmedkhalf/project.nvim" -- project manager
   use "lukas-reineke/indent-blankline.nvim" -- indent blankline
   use "folke/which-key.nvim" -- which  key
-  use {
-    "phaazon/hop.nvim", -- like easymotion, but more powerful
-    branch = "v1", -- optional but strongly recommended
-  }
   use "famiu/bufdelete.nvim"
 
   -- snippets
@@ -120,8 +115,6 @@ return packer.startup(function(use)
   use 'sindrets/diffview.nvim'
 
   -- UI
-  -- Colorschemes
-  use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
   use "navarasu/onedark.nvim"
 
   use "kyazdani42/nvim-tree.lua" -- file explore
@@ -146,7 +139,6 @@ return packer.startup(function(use)
   use "ldelossa/litee-calltree.nvim"
 
   -- tools
-  use "ravenxrz/neovim-cmake"
   use {
     "iamcco/markdown-preview.nvim",
     run = "cd app && yarn install"
