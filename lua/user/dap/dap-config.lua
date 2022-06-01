@@ -35,22 +35,22 @@ local function config_dapui()
     vim.api.nvim_command("DapVirtualTextEnable")
   end
   local debug_close = function()
+    vim.api.nvim_command("DapVirtualTextDisable")
     dap.repl.close()
     dapui.close()
-    vim.api.nvim_command("DapVirtualTextDisable")
     vim.api.nvim_command("bdelete! term:")   -- close debug temrinal
   end
 
-  dap.listeners.after.event_initialized["dapui_config"] = function()
+  dap.listeners.after.event_initialized["dapui"] = function()
     debug_open()
   end
-  dap.listeners.before.event_terminated["dapui_config"] = function()
+  dap.listeners.before.event_terminated["dapui"] = function()
     debug_close()
   end
-  dap.listeners.before.event_exited["dapui_config"]     = function()
+  dap.listeners.before.event_exited["dapui"]     = function()
     debug_close()
   end
-  dap.listeners.before.disconnect["dapui_config"]       = function()
+  dap.listeners.before.disconnect["dapui"]       = function()
     debug_close()
   end
 end
@@ -68,6 +68,7 @@ local function config_debuggers()
   -- require("user.dap.dap-cpp")
   -- require("user.dap.dap-go")
   -- require("user.dap.dap-cpp")
+  require("user.dap.dap-python")
   -- require("config.dap.python").setup()
   -- require("config.dap.rust").setup()
   -- require("config.dap.go").setup()

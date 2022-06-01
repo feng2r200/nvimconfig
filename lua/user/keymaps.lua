@@ -67,4 +67,5 @@ keymap("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts)
 
 keymap("n", "gd", "<cmd>lua require('telescope.builtin').lsp_definitions{}<cr>", opts)
 keymap("n", "gD", "<cmd>lua require('telescope.builtin').lsp_implementations{}<cr>", opts)
+keymap("n", "gh", "<cmd>lua require('telescope.builtin').lsp_references{}<cr>", opts)
 
