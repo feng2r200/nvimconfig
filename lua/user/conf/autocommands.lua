@@ -1,28 +1,56 @@
-vim.cmd [[
-  augroup _general_settings
-    autocmd!
-    autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR> 
-    autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'Search', timeout = 200}) 
-    autocmd BufWinEnter * set formatoptions-=cro
-  augroup end
-  augroup _git
-    autocmd!
-    autocmd FileType gitcommit setlocal wrap
-    autocmd FileType gitcommit setlocal spell
-  augroup end
-  augroup _markdown
-    autocmd!
-    autocmd FileType markdown setlocal wrap
-    autocmd FileType markdown setlocal spell
-  augroup end
+local vim = vim
+local autocmd = {}
 
-  " augroup _auto_resize
-  "   autocmd!
-  "   autocmd VimResized * tabdo wincmd = 
-  " augroup end
+function autocmd.nvim_create_augroups(definitions)
+    for group_name, definition in pairs(definitions) do
+        vim.api.nvim_command("augroup " .. group_name)
+        vim.api.nvim_command("autocmd!")
+        for _, def in ipairs(definition) do
+            local command = table.concat(vim.tbl_flatten({ "autocmd", def }), " ")
+            vim.api.nvim_command(command)
+        end
+        vim.api.nvim_command("augroup END")
+    end
+end
 
-  augroup _fold_bug_solution  " https://github.com/nvim-telescope/telescope.nvim/issues/559
-    autocmd!
-    autocmd BufRead * autocmd BufWinEnter * ++once normal! zx
-  augroup end
-]]
+function autocmd.load_autocmds()
+    local definitions = {
+        bufs = {
+            {"BufWritePre", "/tmp/*", "setlocal noundofile"},
+            {"BufWritePre", "COMMIT_EDITMSG", "setlocal noundofile"},
+            {"BufWritePre", "MERGE_MSG", "setlocal noundofile"},
+            {"BufWritePre", "*.tmp", "setlocal noundofile"},
+            {"BufWritePre", "*.bak", "setlocal noundofile"},
+            {"BufReadPost", "*", [[if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif]]},
+            {"BufEnter", "*", "++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"},
+            {"BufWinEnter", "*", "set formatoptions-=cro"},
+            {"VimEnter", "*", "hi link illuminatedWord LspReferenceText"},
+        },
+
+        wins = {
+            -- Force write shada on leaving nvim
+            {"VimLeave", "*", [[if has('nvim') | wshada! | else | wviminfo! | endif]]},
+            -- Check if file changed when its window is focus, more eager than 'autoread'
+            {"FocusGained", "* checktime"},
+            -- Equalize window dimensions when resizing vim window
+            {"VimResized", "*", [[tabdo wincmd =]]}
+        },
+
+        ft = {
+            {"BufNewFile,BufRead", "*.toml", " setf toml"},
+            {"FileType", "dashboard,alpha", "set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2",},
+            {"FileType", "*", [[setlocal formatoptions-=c formatoptions-=r formatoptions-=o]]},
+            {"FileType", "dap-repl", "lua require('dap.ext.autocompl').attach()"},
+            {"FileType", "markdown", "set wrap"},
+            {"BufWritePost", "*.java", "lua vim.lsp.codelens.refresh()"},
+        },
+        yank = {
+            {"TextYankPost", [[* silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=300})]]}
+        }
+    }
+
+    autocmd.nvim_create_augroups(definitions)
+end
+
+autocmd.load_autocmds()
+

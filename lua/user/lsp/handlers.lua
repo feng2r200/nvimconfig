@@ -47,8 +47,6 @@ M.on_attach = function(client, bufnr)
   -- end
   lsp_keymaps(bufnr)
 
-  -- add outline support for evey lanuage
-  require("aerial").on_attach(client, bufnr)
   require "lsp_signature".on_attach()
   require("illuminate").on_attach(client)
   -- Set underline highlighting for Lsp references

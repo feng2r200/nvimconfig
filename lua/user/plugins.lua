@@ -130,7 +130,7 @@ return packer.startup(function(use)
   use "kevinhwang91/nvim-bqf" -- better quick fix
   use "RRethy/vim-illuminate" -- highlight undercursor word
   use "folke/todo-comments.nvim" -- todo comments
-  use "stevearc/aerial.nvim"
+  use "simrat39/symbols-outline.nvim" -- outline
   use "norcalli/nvim-colorizer.lua" -- show color
   use "folke/trouble.nvim"
   use "j-hui/fidget.nvim" -- show lsp progress
@@ -150,7 +150,7 @@ return packer.startup(function(use)
   use "solarnz/thrift.vim"
 
   use "mtdl9/vim-log-highlighting"
-  use "ravenxrz/vim-local-history"
+  use "dinhhuy258/vim-local-history"
 
   use "vim-test/vim-test"
   use {
@@ -159,11 +159,7 @@ return packer.startup(function(use)
   }
   use "djoshea/vim-autoread"
   use "rlue/vim-barbaric"
-  use {
-    "christoomey/vim-tmux-navigator",
-    config = function() vim.g.tmux_navigator_disable_when_zoomed = 1 end
-  }
-
+  use "aserowy/tmux.nvim"
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

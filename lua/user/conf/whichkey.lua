@@ -83,7 +83,7 @@ local mappings = {
     name = "View",
     e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
     n = { "<cmd>ene<cr>", "New File"},
-    o = { "<cmd>AerialToggle<CR>", "Outline" },
+    o = { "<cmd>SymbolsOutline<CR>", "Outline" },
   },
 
   f = {

@@ -35,6 +35,12 @@ keymap("n", "q", "<Nop>", opts)
 keymap("c", "<C-a>", "<Home>", opts)
 keymap("c", "<C-e>", "<End>", opts)
 
+-- Resize with arrows
+keymap("n", "<C-Down>", ":resize -1<CR>", opts)
+keymap("n", "<C-Up>", ":resize +1<CR>", opts)
+keymap("n", "<C-Left>", ":vertical resize +1<CR>", opts)
+keymap("n", "<C-Right>", ":vertical resize -1<CR>", opts)
+
 -- Navigate buffers
 keymap("n", "R", ":BufferLineCycleNext<CR>", opts)
 keymap("n", "E", ":BufferLineCyclePrev<CR>", opts)
@@ -58,8 +64,6 @@ keymap("n", "<F7>", "<cmd>lua require'dap'.step_into()<cr>", opts)
 keymap("n", "<F8>", "<cmd>lua require'dap'.step_out()<cr>", opts)
 
 keymap("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts)
-keymap("n", "<C-Up>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>", opts)
-keymap("n", "<C-Down>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<cr>", opts)
 
 keymap("n", "gd", "<cmd>lua require('telescope.builtin').lsp_definitions{}<cr>", opts)
 keymap("n", "gD", "<cmd>lua require('telescope.builtin').lsp_implementations{}<cr>", opts)

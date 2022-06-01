@@ -152,7 +152,6 @@ telescope.setup {
   },
 }
 
-telescope.load_extension('aerial')
 telescope.load_extension('dap')
 telescope.load_extension('file_browser')
 telescope.load_extension('fzf')
