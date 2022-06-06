@@ -4,31 +4,17 @@ if not status_ok then
   return
 end
 
+vim.api.nvim_command("set foldmethod=expr")
+vim.api.nvim_command("set foldexpr=nvim_treesitter#foldexpr()")
+
 configs.setup {
-  ensure_installed = { "cpp", "c", "python", "go", "markdown", "json", "yaml", "html",  }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
-  ignore_install = { "" }, -- List of parsers to ignore installing
-  highlight = {
-    enable = true, -- false will disable the whole extension
-    disable = { "" }, -- list of language that will be disabled
-    additional_vim_regex_highlighting = false,
-  },
+  ensure_installed = {
+    "bash", "c", "cpp", "css", "dockerfile", "lua", "go",
+    "gomod", "java", "json", "yaml", "latex", "make", "python",
+    "rust", "html", "javascript", "typescript", "vue",
+  }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  highlight = { enable = true, disable = {}, },
   indent = { enable = false, disable = { "yaml" } },
-  context_commentstring = {
-    enable = true,
-    config = {
-      -- Languages that have a single comment style
-      typescript = "// %s",
-      css = "/* %s */",
-      scss = "/* %s */",
-      html = "<!-- %s -->",
-      svelte = "<!-- %s -->",
-      vue = "<!-- %s -->",
-      json = "",
-    },
-  },
-  -- textobjects extension settings
-  -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   textobjects = {
     swap = {
       enable = false,
@@ -47,7 +33,7 @@ configs.setup {
     },
     move = {
       enable = true,
-      set_jumps = false, -- whether to set jumps in the jumplist
+      set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
         ["]]"] = "@function.outer",
         -- ["]["] = "@function.outer",
@@ -101,16 +87,16 @@ configs.setup {
     extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
     max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
   },
-  autotag = { enable = false },
+  autotag = { enable = true },
   -- matchup plugin
   -- https://github.com/andymass/vim-matchup
   matchup = {
-    enable = false, -- mandatory, false will disable the whole extension
+    enable = true, -- mandatory, false will disable the whole extension
     -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
     -- [options]
   },
   -- autopairs plugin
   autopairs = {
-    enable = false,
+    enable = true,
   },
 }

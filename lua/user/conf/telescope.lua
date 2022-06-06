@@ -1,5 +1,3 @@
--- NOTE: install ripgrep for live_grep picker
-
 -- ====for live_grep raw====:
 -- for rp usage: reference: https://segmentfault.com/a/1190000016170184
 -- -i ignore case
@@ -152,9 +150,9 @@ telescope.setup {
   },
 }
 
-telescope.load_extension('dap')
-telescope.load_extension('file_browser')
 telescope.load_extension('fzf')
 telescope.load_extension("ui-select")
+telescope.load_extension('dap')
+telescope.load_extension('file_browser')
 telescope.load_extension('vim_bookmarks')
-
+telescope.load_extension('live_grep_raw')

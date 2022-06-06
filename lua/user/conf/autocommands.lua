@@ -21,9 +21,6 @@ function autocmd.load_autocmds()
             {"BufWritePre", "MERGE_MSG", "setlocal noundofile"},
             {"BufWritePre", "*.tmp", "setlocal noundofile"},
             {"BufWritePre", "*.bak", "setlocal noundofile"},
-            {"BufReadPost", "*", [[if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif]]},
-            {"BufEnter", "*", "++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"},
-            {"BufWinEnter", "*", "set formatoptions-=cro"},
             {"VimEnter", "*", "hi link illuminatedWord LspReferenceText"},
         },
 
@@ -38,7 +35,6 @@ function autocmd.load_autocmds()
 
         ft = {
             {"BufNewFile,BufRead", "*.toml", " setf toml"},
-            {"FileType", "dashboard,alpha", "set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2",},
             {"FileType", "*", [[setlocal formatoptions-=c formatoptions-=r formatoptions-=o]]},
             {"FileType", "dap-repl", "lua require('dap.ext.autocompl').attach()"},
             {"FileType", "markdown", "set wrap"},

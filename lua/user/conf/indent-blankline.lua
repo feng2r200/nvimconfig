@@ -86,3 +86,7 @@ indent_blankline.setup({
 	--   "IndentBlanklineIndent3",
 	-- },
 })
+
+-- because lazy load indent-blankline so need readd this autocmd
+vim.cmd("autocmd CursorMoved * IndentBlanklineRefresh")
+

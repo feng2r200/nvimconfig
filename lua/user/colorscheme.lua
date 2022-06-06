@@ -1,3 +1,5 @@
+require "user.themes.onedark"
+
 -- cursor color: #61AFEF
 local colorscheme = "onedark"
 
@@ -7,6 +9,3 @@ if not status_ok then
   return
 end
 
-if colorscheme == "onedark" then
-  require "user.themes.onedark"
-end
