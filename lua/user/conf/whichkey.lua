@@ -94,7 +94,7 @@ local mappings = {
     },
     F = { "<cmd>lua require('telescope').extensions.file_browser.file_browser()<cr>", "File browser" },
     g = {
-      "<cmd>lua require('telescope').extensions.live_grep_raw.live_grep_raw(require('telescope.themes').get_ivy())<cr>",
+      "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args(require('telescope.themes').get_ivy())<cr>",
       "Find Text"
     },
     s = {
