@@ -2,12 +2,13 @@
     Settings for mfussenegger/nvim-jdtls
 --]]
 
-vim.cmd [[packadd nvim-lsp-installer]]
-vim.cmd [[packadd nvim-jdtls]]
+vim.cmd [[set tabstop=4]]
+vim.cmd [[set shiftwidth=4]]
 
 local java_path = {
     ["8"] = "/usr/local/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home",
     ["11"]= "/usr/local/Cellar/openjdk@11/11.0.15/libexec/openjdk.jdk/Contents/Home",
+    ["18"]= "/usr/local/Cellar/openjdk/18.0.1.1/libexec/openjdk.jdk/Contents/Home",
 }
 
 local get_cmd = function()
@@ -17,7 +18,7 @@ local get_cmd = function()
 
     local root_dir = path.concat {vim.fn.stdpath("data"), "lsp_servers", "jdtls"}
 
-    local executable = path.concat { java_path["11"], "bin", "java" } or "java"
+    local executable = path.concat { java_path["18"], "bin", "java" } or "java"
     local jar = vim.fn.expand(path.concat { root_dir, "plugins", "org.eclipse.equinox.launcher_*.jar" })
     local lombok = vim.fn.expand(path.concat { root_dir, "lombok.jar" })
     local workspace_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
@@ -81,7 +82,6 @@ local config = {
                 },
                 runtimes = {
                     {name = "JavaSE-1.8", path=java_path["8"], default=true},
-                    {name = "JavaSE-11", path=java_path["11"]},
                 },
                 updateBuildConfiguration = "interactive"
             },
