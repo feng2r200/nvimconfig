@@ -44,6 +44,7 @@ local function load_options()
     pumblend = 10,
     winblend = 10,
     foldlevelstart = 99,
+    cursorline = true,
     colorcolumn = "81,101",
   }
   for name, value in pairs(option_local) do vim.opt[name] = value end
