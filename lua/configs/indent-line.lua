@@ -21,6 +21,7 @@ indent_blankline.setup({
     "NvimTree",
     "neo-tree",
     "Trouble",
+    "", -- for all buffers without a file type
   },
   context_patterns = {
     "class",

@@ -18,7 +18,7 @@ local function load_module_file(module)
     if status_ok then
       found_module = loaded_module
     else
-      mivim.notify("Error loading " .. found_module, "error")
+      print("Error loading " .. found_module, "error")
     end
   end
   return found_module
@@ -45,10 +45,6 @@ end
 
 function mivim.trim_or_nil(str)
   return type(str) == "string" and vim.trim(str) or nil
-end
-
-function mivim.notify(msg, type, opts)
-  vim.notify(msg, type, vim.tbl_deep_extend("force", { title = "Nvim" }, opts or {}))
 end
 
 function mivim.echo(messages)

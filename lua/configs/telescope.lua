@@ -5,7 +5,6 @@ end
 
 local actions = require "telescope.actions"
 
-mivim.conditional_func(telescope.load_extension, pcall(require, "notify"), "notify")
 mivim.conditional_func(telescope.load_extension, pcall(require, "aerial"), "aerial")
 
 telescope.setup({

@@ -67,4 +67,3 @@ mivim.vim_opts({
   },
 })
 
-vim.api.nvim_command("colorscheme default_theme")

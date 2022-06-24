@@ -93,7 +93,6 @@ if is_available "telescope.nvim" then
   maps.n["<leader>sb"] = { function() require("telescope.builtin").git_branches() end, desc = "Git branchs" }
   maps.n["<leader>sh"] = { function() require("telescope.builtin").help_tags() end, desc = "Search help" }
   maps.n["<leader>sm"] = { function() require("telescope.builtin").man_pages() end, desc = "Search man" }
-  maps.n["<leader>sn"] = { function() require("telescope").extensions.notify.notify() end, desc = "Search notifications" }
   maps.n["<leader>sr"] = { function() require("telescope.builtin").registers() end, desc = "Search registers" }
   maps.n["<leader>sk"] = { function() require("telescope.builtin").keymaps() end, desc = "Search keymaps" }
   maps.n["<leader>sc"] = { function() require("telescope.builtin").commands() end, desc = "Search commands" }
@@ -113,6 +112,8 @@ if is_available "toggleterm.nvim" then
 end
 
 -- Stay in indent mode
+maps.v["<C-j>"] = { ":m'>+1<cr>gv=gv", desc = "Move current line down"}
+maps.v["<C-k>"] = { ":m'<-2<cr>gv=gv", desc = "Move current line up"}
 maps.v["<"] = { "<gv", desc = "unindent line" }
 maps.v[">"] = { ">gv", desc = "indent line" }
 

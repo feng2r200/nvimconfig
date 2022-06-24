@@ -11,19 +11,17 @@ local plugins = {
   -- Popup API
   ["nvim-lua/popup.nvim"] = {},
 
+  ["navarasu/onedark.nvim"] = {
+    config = function()
+      require "configs.nvim_onedark"
+    end,
+  },
+
   -- Indent detection
   ["Darazaki/indent-o-matic"] = {
     event = "BufReadPost",
     config = function()
       require "configs.indent-o-matic"
-    end,
-  },
-
-  -- Notification Enhancer
-  ["rcarriga/nvim-notify"] = {
-    event = "VimEnter",
-    config = function()
-      require "configs.notify"
     end,
   },
 
@@ -35,6 +33,14 @@ local plugins = {
     event = { "BufRead", "BufNewFile" },
     config = function()
       vim.g.cursorhold_updatetime = 100
+    end,
+  },
+
+  -- FileType
+  ["nathom/filetype.nvim"] = {
+    event = "BufEnter",
+    config = function()
+      require "configs.filetype-nvim"
     end,
   },
 
@@ -79,14 +85,26 @@ local plugins = {
     end,
   },
 
-  -- Parenthesis highlighting
-  ["p00f/nvim-ts-rainbow"] = { after = "nvim-treesitter" },
+  -- gps
+  ["SmiteshP/nvim-gps"] = {
+    after = "nvim-web-devicons",
+    config = function()
+      require "configs.gps"
+    end,
+  },
 
   -- Autoclose tags
   ["windwp/nvim-ts-autotag"] = { after = "nvim-treesitter" },
 
   -- Context based commenting
   ["JoosepAlviste/nvim-ts-context-commentstring"] = { after = "nvim-treesitter" },
+
+  ["nvim-treesitter/nvim-treesitter-textobjects"] = { after = "nvim-treesitter" },
+
+  ["andymass/vim-matchup"] = {
+    after = "nvim-treesitter",
+    config = function() vim.cmd([[let g:matchup_matchparen_offscreen = {'method': 'popup'}]]) end
+  },
 
   -- Syntax highlighting
   ["nvim-treesitter/nvim-treesitter"] = {
@@ -326,6 +344,7 @@ local plugins = {
     end,
   },
 
+  -- File types
   ["mfussenegger/nvim-jdtls"] = {
     ft = "java",
   },
@@ -336,6 +355,14 @@ local plugins = {
 
   ["solarnz/thrift.vim"] = {
     ft = "thrift",
+  },
+
+  -- Last place
+  ["ethanholz/nvim-lastplace"] = {
+    event = "BufRead",
+    config = function()
+      require "configs.nvim-lastplace"
+    end,
   },
 }
 

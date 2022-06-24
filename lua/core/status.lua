@@ -1,5 +1,5 @@
 local M = { hl = {}, provider = {}, conditional = {} }
-local C = require "default_theme.colors"
+local C = require "onedark.colors"
 
 local function hl_by_name(name)
   return string.format("#%06x", vim.api.nvim_get_hl_by_name(name.group, true)[name.prop])
@@ -19,18 +19,18 @@ M.modes = {
   ["v"] = { "VISUAL", "Visual", C.purple },
   ["V"] = { "V-LINE", "Visual", C.purple },
   [""] = { "V-BLOCK", "Visual", C.purple },
-  ["R"] = { "REPLACE", "Replace", C.red_1 },
-  ["Rv"] = { "V-REPLACE", "Replace", C.red_1 },
-  ["s"] = { "SELECT", "Visual", C.orange_1 },
-  ["S"] = { "S-LINE", "Visual", C.orange_1 },
-  [""] = { "S-BLOCK", "Visual", C.orange_1 },
-  ["c"] = { "COMMAND", "Command", C.yellow_1 },
-  ["cv"] = { "COMMAND", "Command", C.yellow_1 },
-  ["ce"] = { "COMMAND", "Command", C.yellow_1 },
-  ["r"] = { "PROMPT", "Inactive", C.grey_7 },
-  ["rm"] = { "MORE", "Inactive", C.grey_7 },
-  ["r?"] = { "CONFIRM", "Inactive", C.grey_7 },
-  ["!"] = { "SHELL", "Inactive", C.grey_7 },
+  ["R"] = { "REPLACE", "Replace", C.red },
+  ["Rv"] = { "V-REPLACE", "Replace", C.red },
+  ["s"] = { "SELECT", "Visual", C.orange },
+  ["S"] = { "S-LINE", "Visual", C.orange },
+  [""] = { "S-BLOCK", "Visual", C.orange },
+  ["c"] = { "COMMAND", "Command", C.yellow },
+  ["cv"] = { "COMMAND", "Command", C.yellow },
+  ["ce"] = { "COMMAND", "Command", C.yellow },
+  ["r"] = { "PROMPT", "Inactive", C.grey },
+  ["rm"] = { "MORE", "Inactive", C.grey },
+  ["r?"] = { "CONFIRM", "Inactive", C.grey },
+  ["!"] = { "SHELL", "Inactive", C.grey },
 }
 
 function M.hl.group(hlgroup, base)
@@ -46,7 +46,7 @@ function M.hl.fg(hlgroup, base)
 end
 
 function M.hl.mode(base)
-  local lualine_avail, lualine = pcall(require, "lualine.themes." .. (vim.g.colors_name or "default_theme"))
+  local lualine_avail, lualine = pcall(require, "lualine.themes" .. vim.g.colors_name)
   return function()
     local lualine_opts = lualine_avail and lualine[M.modes[vim.fn.mode()][2]:lower()]
     return M.hl.group(
@@ -96,6 +96,13 @@ function M.provider.treesitter_status()
   return (ts and next(ts)) and " 綠TS" or ""
 end
 
+function M.provider.gps()
+  return function ()
+    local gps_status_ok, gps = pcall(require, "nvim-gps")
+    return gps_status_ok and gps.get_location() or ""
+  end
+end
+
 function M.provider.spacer(n)
   return string.rep(" ", n or 1)
 end
@@ -116,6 +123,13 @@ end
 function M.conditional.bar_width(n)
   return function()
     return (vim.opt.laststatus:get() == 3 and vim.opt.columns:get() or vim.fn.winwidth(0)) > (n or 80)
+  end
+end
+
+function M.conditional.gps_available()
+  return function()
+    local gps_status_ok, gps = pcall(require, "nvim-gps")
+    return gps_status_ok and gps.is_available() or false
   end
 end
 
