@@ -5,9 +5,10 @@
 vim.cmd [[set tabstop=4]]
 vim.cmd [[set shiftwidth=4]]
 
+vim.cmd [[packadd nvim-jdtls]]
+
 local java_path = {
     ["8"] = "/usr/local/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home",
-    ["11"]= "/usr/local/Cellar/openjdk@11/11.0.15/libexec/openjdk.jdk/Contents/Home",
     ["18"]= "/usr/local/Cellar/openjdk/18.0.1.1/libexec/openjdk.jdk/Contents/Home",
 }
 
