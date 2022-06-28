@@ -52,14 +52,15 @@ local get_cmd = function()
     }
 end
 
+local lsp_handlers = require "lsp.handlers"
+
 local custom_attach = function(client, bufnr)
-    require("modules.completion.lsp").custom_attach(client, bufnr)
+    lsp_handlers.on_attach(client, bufnr)
     require("jdtls.setup").add_commands()
     require("jdtls").setup_dap({hotcodereplace="auto"})
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = lsp_handlers.capabilities
 
 local config = {
     cmd = get_cmd(),

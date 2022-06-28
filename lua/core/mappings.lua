@@ -73,31 +73,32 @@ else
 end
 
 -- SymbolsOutline
-if is_available "aerial.nvim" then
-  maps.n["<leader>o"] = { "<cmd>AerialToggle<cr>", desc = "Symbols outline" }
+if is_available "symbols-outline.nvim" then
+  maps.n["<leader>o"] = { "<cmd>SymbolsOutline<cr>", desc = "Symbols outline" }
 end
 
 -- Telescope
 if is_available "telescope.nvim" then
+  maps.n["gh"] = { function() require("telescope.builtin").lsp_references() end, desc = "Search references" }
+
   -- git
   maps.n["<leader>gt"] = { function() require("telescope.builtin").git_status() end, desc = "Git status" }
   maps.n["<leader>gb"] = { function() require("telescope.builtin").git_branches() end, desc = "Git branchs" }
   maps.n["<leader>gc"] = { function() require("telescope.builtin").git_commits() end, desc = "Git commits" }
+
   -- file
-  maps.n["<leader>fb"] = { function() require("telescope.builtin").buffers() end, desc = "Search buffers" }
-  maps.n["<leader>ff"] = { function() require("telescope.builtin").find_files() end, desc = "Search files" }
+  maps.n["<leader>fb"] = { function() require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false}) end, desc = "Search buffers" }
+  maps.n["<leader>ff"] = { function() require("telescope.builtin").find_files(require('telescope.themes').get_ivy()) end, desc = "Search files" }
+  maps.n["<leader>fF"] = { function() require('telescope').extensions.file_browser.file_browser() end, desc = "File browser" }
+  maps.n["<leader>fw"] = { function() require('telescope').extensions.live_grep_args.live_grep_args(require('telescope.themes').get_ivy()) end, desc = "Search Text" }
+  maps.n["<leader>fs"] = { function() require("telescope.builtin").lsp_document_symbols() end, desc = "Search symbols" }
   maps.n["<leader>fh"] = { function() require("telescope.builtin").help_tags() end, desc = "Search help" }
   maps.n["<leader>fm"] = { function() require("telescope.builtin").marks() end, desc = "Search marks" }
-  maps.n["<leader>fo"] = { function() require("telescope.builtin").oldfiles() end, desc = "Search history" }
-  maps.n["<leader>fw"] = { function() require("telescope.builtin").live_grep() end, desc = "Search words" }
-  maps.n["<leader>sb"] = { function() require("telescope.builtin").git_branches() end, desc = "Git branchs" }
-  maps.n["<leader>sh"] = { function() require("telescope.builtin").help_tags() end, desc = "Search help" }
+  maps.n["<leader>fe"] = { function() require("telescope.builtin").oldfiles() end, desc = "Search history" }
+  maps.n["<leader>fr"] = { function() require("telescope.builtin").registers() end, desc = "Search registers" }
+
   maps.n["<leader>sm"] = { function() require("telescope.builtin").man_pages() end, desc = "Search man" }
-  maps.n["<leader>sr"] = { function() require("telescope.builtin").registers() end, desc = "Search registers" }
-  maps.n["<leader>sk"] = { function() require("telescope.builtin").keymaps() end, desc = "Search keymaps" }
-  maps.n["<leader>sc"] = { function() require("telescope.builtin").commands() end, desc = "Search commands" }
-  maps.n["<leader>ls"] = { function() local aerial_avail, _ = pcall(require, "aerial") if aerial_avail then require("telescope").extensions.aerial.aerial() else require("telescope.builtin").lsp_document_symbols() end end, desc = "Search symbols" }
-  maps.n["<leader>lR"] = { function() require("telescope.builtin").lsp_references() end, desc = "Search references" }
+
   maps.n["<leader>lD"] = { function() require("telescope.builtin").diagnostics() end, desc = "Search diagnostics" }
 end
 

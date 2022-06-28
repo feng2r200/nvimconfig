@@ -28,6 +28,7 @@ feline.setup({
         { provider = "diagnostic_warnings", hl = hl.fg("DiagnosticWarn", { fg = C.orange }), icon = "  " },
         { provider = "diagnostic_info", hl = hl.fg("DiagnosticInfo", { fg = C.fd }), icon = "  " },
         { provider = "diagnostic_hints", hl = hl.fg("DiagnosticHint", { fg = C.yellow }), icon = "  " },
+        { provider = provider.spacer(2), enabled = conditional.gps_available() },
         { provider = provider.gps(), enabled = conditional.gps_available() },
       },
       {

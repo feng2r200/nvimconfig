@@ -1,17 +1,6 @@
 local is_available = mivim.is_available
 local cmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
-local create_command = vim.api.nvim_create_user_command
-
-augroup("highlighturl", { clear = true })
-cmd({ "VimEnter", "FileType", "BufEnter", "WinEnter" }, {
-  desc = "URL Highlighting",
-  group = "highlighturl",
-  pattern = "*",
-  callback = function()
-    mivim.set_url_match()
-  end,
-})
 
 if is_available "neo-tree.nvim" then
   augroup("neotree_start", { clear = true })
@@ -38,8 +27,6 @@ if is_available "feline.nvim" then
     end,
   })
 end
-
-create_command("ToggleHighlightURL", mivim.toggle_url_match, { desc = "Toggle URL Highlights" })
 
 augroup("yank", { clear = true })
 cmd("TextYankPost", {

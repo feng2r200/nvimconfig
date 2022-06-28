@@ -139,86 +139,76 @@ local plugins = {
 
   -- Completion engine
   ["hrsh7th/nvim-cmp"] = {
-    event = "InsertEnter",
+    event = { "InsertEnter", "CmdlineEnter" },
     config = function()
       require "configs.cmp"
     end,
   },
 
-  -- Snippet completion source
+  ["lukas-reineke/cmp-under-comparator"] = {
+    after = "nvim-cmp"
+  },
   ["saadparwaiz1/cmp_luasnip"] = {
-    after = "nvim-cmp",
-    config = function()
-      mivim.add_user_cmp_source "luasnip"
-    end,
+    after = "nvim-cmp"
   },
-
-  -- Buffer completion source
-  ["hrsh7th/cmp-buffer"] = {
-    after = "nvim-cmp",
-    config = function()
-      mivim.add_user_cmp_source "buffer"
-    end,
-  },
-
-  -- Path completion source
-  ["hrsh7th/cmp-path"] = {
-    after = "nvim-cmp",
-    config = function()
-      mivim.add_user_cmp_source "path"
-    end,
-  },
-
-  -- LSP completion source
   ["hrsh7th/cmp-nvim-lsp"] = {
-    after = "nvim-cmp",
-    config = function()
-      mivim.add_user_cmp_source "nvim_lsp"
-    end,
+    after = "nvim-cmp"
   },
-
-  -- Tmux completion source
+  ["hrsh7th/cmp-nvim-lua"] = {
+    after = "nvim-cmp"
+  },
   ["andersevenrud/cmp-tmux"] = {
-    after = "nvim-cmp",
-    config = function()
-      mivim.add_user_cmp_source "cmp_tmux"
-    end,
+    after = "nvim-cmp"
   },
-
-  -- Cmdline completion source
+  ["hrsh7th/cmp-path"] = {
+    after = "nvim-cmp"
+  },
+  ["hrsh7th/cmp-buffer"] = {
+    after = "nvim-cmp"
+  },
   ["hrsh7th/cmp-cmdline"] = {
-    after = "nvim-cmp",
-    config = function()
-      mivim.add_user_cmp_source "cmp_cmdline"
-    end,
+    after = "nvim-cmp"
   },
-
-  -- Treesitter completion source
   ["ray-x/cmp-treesitter"] = {
-    after = "nvim-cmp",
-    config = function()
-      mivim.add_user_cmp_source "cmp_treesitter"
-    end,
+    after = "nvim-cmp"
   },
 
   -- Built-in LSP
   ["neovim/nvim-lspconfig"] = { event = "VimEnter" },
+
+  ["RRethy/vim-illuminate"] = {
+    event = "BufRead",
+    after = "nvim-lspconfig",
+    config = function()
+      vim.g.Illuminate_highlightUnderCursor = 0
+      vim.g.Illuminate_ftblacklist = {
+        "help",
+        "dashboard",
+        "alpha",
+        "packer",
+        "norg",
+        "DoomInfo",
+        "NvimTree",
+        "Outline",
+        "toggleterm",
+      }
+    end
+  },
 
   -- LSP manager
   ["williamboman/nvim-lsp-installer"] = {
     after = "nvim-lspconfig",
     config = function()
       require "configs.nvim-lsp-installer"
-      require "configs.lsp"
+      require "lsp"
     end,
   },
 
   -- LSP symbols
-  ["stevearc/aerial.nvim"] = {
-    module = "aerial",
-    cmd = { "AerialToggle", "AerialOpen", "AerialInfo" },
+  ["simrat39/symbols-outline.nvim"] = {
+    event = "BufReadPost",
     config = function()
-      require "configs.aerial"
+      require "configs.symbols"
     end,
   },
 
@@ -230,39 +220,57 @@ local plugins = {
     end,
   },
 
+  ["ray-x/lsp_signature.nvim"] = {
+    after = "nvim-lspconfig",
+    config = function()
+      require "configs.signature"
+    end
+  },
+
   -- Fuzzy finder
   ["nvim-telescope/telescope.nvim"] = {
     cmd = "Telescope",
     module = "telescope",
     config = function()
-      require "configs.telescope"
+      require "configs.telescope-config"
     end,
   },
 
   -- Fuzzy finder syntax support
-  [("nvim-telescope/telescope-%s-native.nvim"):format(vim.fn.has "win32" == 1 and "fzy" or "fzf")] = {
+  ["nvim-telescope/telescope-fzf-native.nvim"] = { after = "telescope.nvim", run = "make" },
+  ["nvim-telescope/telescope-live-grep-args.nvim"] = { after = "telescope.nvim" },
+  ["nvim-telescope/telescope-file-browser.nvim"] = { after = "telescope.nvim" },
+
+  ["MattesGroeger/vim-bookmarks"] = { after = "telescope.nvim" },
+  ["tom-anders/telescope-vim-bookmarks.nvim"] = { after = "telescope.nvim" },
+
+  ["ahmedkhalf/project.nvim"] = {
     after = "telescope.nvim",
-    run = vim.fn.has "win32" ~= 1 and "make" or nil,
     config = function()
-      require("telescope").load_extension(vim.fn.has "win32" == 1 and "fzy_native" or "fzf")
-    end,
+      require "configs.project"
+    end
+  },
+
+  ["m-demare/hlargs.nvim"] = {
+    event = "BufReadPost",
+    config = function()
+      require "configs.hlargs-config"
+    end
   },
 
   -- Git integration
   ["lewis6991/gitsigns.nvim"] = {
     event = "BufEnter",
     config = function()
-      require "configs.gitsigns"
+      require "configs.gitsigns-config"
     end,
   },
 
-  -- Start screen
-  ["goolord/alpha-nvim"] = {
-    cmd = "Alpha",
-    module = "alpha",
+  ["sindrets/diffview.nvim"] = {
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewRefresh", "DiffviewFileHistory" },
     config = function()
-      require "configs.alpha"
-    end,
+      require "configs.diffview-config"
+    end
   },
 
   -- Color highlighting
@@ -344,6 +352,11 @@ local plugins = {
     end,
   },
 
+  -- EasyAlign
+  ["junegunn/vim-easy-align"] = {
+    cmd = "EasyAlign",
+  },
+
   -- File types
   ["mfussenegger/nvim-jdtls"] = {
     ft = "java",
@@ -357,6 +370,15 @@ local plugins = {
     ft = "thrift",
   },
 
+  ["simrat39/rust-tools.nvim"] = {
+    ft = "rust",
+  },
+
+  ["iamcco/markdown-preview.nvim"] = {
+    ft = "markdown",
+    run = "cd app && yarn install",
+  },
+
   -- Last place
   ["ethanholz/nvim-lastplace"] = {
     event = "BufRead",
@@ -364,9 +386,87 @@ local plugins = {
       require "configs.nvim-lastplace"
     end,
   },
+
+  -- Search and replace pane
+  ["nvim-pack/nvim-spectre"] = {
+    opt = true,
+    config = function ()
+      require "configs.spectre"
+    end,
+  },
+
+  -- Debugger
+  ["mfussenegger/nvim-dap"] = {
+    event = "BufReadPost",
+    config = function()
+      require "configs.dap-config"
+    end,
+  },
+  ["rcarriga/nvim-dap-ui"] = {
+    after = "nvim-dap",
+    config = function()
+      require "configs.dap-ui"
+    end,
+  },
+  ["theHamsta/nvim-dap-virtual-text"] = {
+    after = "nvim-dap",
+    config = function()
+      require "configs.dap-virtual-text"
+    end
+  },
+
+  ["rlue/vim-barbaric"] = {
+    event = {"BufRead", "BufNewFile"}
+  },
+
+  ["kevinhwang91/nvim-bqf"] = {
+    ft = "qf",
+    config = function()
+      require "configs.bqf"
+    end
+  },
+
+  ["folke/trouble.nvim"] = {
+    cmd = {"Trouble", "TroubleToggle", "TroubleRefresh"},
+    event = {"BufRead"},
+    config = function()
+      require "configs.trouble-config"
+    end,
+  },
+
+  ["dinhhuy258/vim-local-history"] = {
+    event = "BufReadPost",
+    config = function ()
+      require "configs.local-history"
+    end
+  }
 }
 
-local packer = mivim.initialize_packer()
+local function initialize_packer()
+  local packer_avail, packer = pcall(require, "packer")
+  if not packer_avail then
+    local packer_path = stdpath "data" .. "/site/pack/packer/start/packer.nvim"
+    vim.fn.delete(packer_path, "rf")
+    vim.fn.system {
+      "git",
+      "clone",
+      "--depth",
+      "1",
+      "https://github.com/wbthomason/packer.nvim",
+      packer_path,
+    }
+    mivim.echo { { "Initializing Packer...\n\n" } }
+    vim.cmd "packadd packer.nvim"
+    packer_avail, packer = pcall(require, "packer")
+    if not packer_avail then
+      vim.api.nvim_err_writeln("Failed to load packer at:" .. packer_path .. "\n\n" .. packer)
+    end
+  end
+  return packer
+end
+
+local compile_path = vim.fn.stdpath "data" .. "/packer_compiled.lua"
+local packer = initialize_packer()
 packer.startup {
   function(use)
     for key, plugin in pairs(plugins) do
@@ -377,7 +477,7 @@ packer.startup {
     end
   end,
   config = {
-    compile_path = mivim.compile_path,
+    compile_path = compile_path,
     display = {
       open_fn = function()
         return require("packer.util").float { border = "rounded" }
@@ -393,10 +493,21 @@ packer.startup {
         update = "pull --rebase",
       },
     },
+    max_jobs = 20,
     auto_clean = true,
     compile_on_sync = true,
   },
 }
 
-mivim.compiled()
+local M = {}
+function M.compiled()
+  local run_me, _ = loadfile(compile_path)
+  if run_me then
+    run_me()
+  else
+    mivim.echo { { "Please run " }, { ":PackerSync", "Title" } }
+  end
+end
+
+M.compiled()
 

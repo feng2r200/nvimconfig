@@ -52,3 +52,5 @@ indent_blankline.setup({
   show_current_context = true,
 })
 
+-- because lazy load indent-blankline so need readd this autocmd
+vim.cmd("autocmd CursorMoved * IndentBlanklineRefresh")
