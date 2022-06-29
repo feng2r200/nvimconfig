@@ -1,74 +1,62 @@
-local function vim_opts(options)
-  for scope, table in pairs(options) do
-    for setting, value in pairs(table) do
-      vim[scope][setting] = value
-    end
-  end
-end
+vim.opt.backspace = vim.opt.backspace + { "nostop" } -- Don't stop backspace at insert
+vim.opt.breakindentopt = "shift:2,min:20"
+vim.opt.clipboard = "unnamedplus" -- Connection to the system clipboard
+vim.opt.completeopt = { "menuone", "noselect" } -- Options for insert mode completion
+vim.opt.copyindent = true -- Copy the previous indentation on autoindenting
+vim.opt.colorcolumn = "80,100"
+vim.opt.cursorline = true -- Highlight the text line of the cursor
+vim.opt.diffopt = "filler,iwhite,internal,algorithm:patience"
+vim.opt.expandtab = true -- Enable the use of space in tab
+vim.opt.fileencoding = "utf-8" -- File content encoding for the buffer
+vim.opt.fillchars = { eob = " " } -- Disable `~` on nonexistent lines
+vim.opt.grepprg = "rg --hidden --vimgrep --smart-case --"
+vim.opt.history = 2000 -- Number of commands to remember in a history table
+vim.opt.ignorecase = true -- Case insensitive searching
+vim.opt.jumpoptions = "stack"
+vim.opt.laststatus = 3 -- globalstatus
+vim.opt.lazyredraw = true -- lazily redraw screen
+vim.opt.mouse = "a" -- Enable mouse support
+vim.opt.number = true -- Show numberline
+vim.opt.preserveindent = true -- Preserve indent structure as much as possible
+vim.opt.pumheight = 10 -- Height of the pop up menu
+vim.opt.relativenumber = true -- Show relative numberline
+vim.opt.scrolloff = 8 -- Number of lines to keep above and below the cursor
+vim.opt.shiftwidth = 2 -- Number of space inserted for indentation
+vim.opt.showmode = false -- Disable showing modes in command line
+vim.opt.sidescrolloff = 8 -- Number of columns to keep at the sides of the cursor
+vim.opt.signcolumn = "yes" -- Always show the sign column
+vim.opt.smartcase = true -- Case sensitivie searching
+vim.opt.splitbelow = true -- Splitting a new window below the current one
+vim.opt.splitright = true -- Splitting a new window at the right of the current one
+vim.opt.swapfile = false -- Disable use of swapfile for the buffer
+vim.opt.tabstop = 2 -- Number of space in a tab
+vim.opt.termguicolors = true -- Enable 24-bit RGB color in the TUI
+vim.opt.timeoutlen = 300 -- Length of time to wait for a mapped sequence
+vim.opt.undofile = true -- Enable persistent undo
+vim.opt.updatetime = 300 -- Length of time to wait before triggering the plugin
+vim.opt.wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**"
+vim.opt.wrap = false -- Disable wrapping of lines longer than the width of window
+vim.opt.writebackup = false -- Disable making a backup before overwriting a file
 
-vim_opts({
-  opt = {
-    backspace = vim.opt.backspace + { "nostop" }, -- Don't stop backspace at insert
-    breakindentopt = "shift:2,min:20",
-    clipboard = "unnamedplus", -- Connection to the system clipboard
-    completeopt = { "menuone", "noselect" }, -- Options for insert mode completion
-    copyindent = true, -- Copy the previous indentation on autoindenting
-    colorcolumn = "80,100",
-    cursorline = true, -- Highlight the text line of the cursor
-    diffopt = "filler,iwhite,internal,algorithm:patience",
-    expandtab = true, -- Enable the use of space in tab
-    fileencoding = "utf-8", -- File content encoding for the buffer
-    fillchars = { eob = " " }, -- Disable `~` on nonexistent lines
-    grepprg = "rg --hidden --vimgrep --smart-case --",
-    history = 2000, -- Number of commands to remember in a history table
-    ignorecase = true, -- Case insensitive searching
-    jumpoptions = "stack",
-    laststatus = 3, -- globalstatus
-    lazyredraw = true, -- lazily redraw screen
-    mouse = "a", -- Enable mouse support
-    number = true, -- Show numberline
-    preserveindent = true, -- Preserve indent structure as much as possible
-    pumheight = 10, -- Height of the pop up menu
-    relativenumber = true, -- Show relative numberline
-    scrolloff = 8, -- Number of lines to keep above and below the cursor
-    shiftwidth = 2, -- Number of space inserted for indentation
-    showmode = false, -- Disable showing modes in command line
-    sidescrolloff = 8, -- Number of columns to keep at the sides of the cursor
-    signcolumn = "yes", -- Always show the sign column
-    smartcase = true, -- Case sensitivie searching
-    splitbelow = true, -- Splitting a new window below the current one
-    splitright = true, -- Splitting a new window at the right of the current one
-    swapfile = false, -- Disable use of swapfile for the buffer
-    tabstop = 2, -- Number of space in a tab
-    termguicolors = true, -- Enable 24-bit RGB color in the TUI
-    timeoutlen = 300, -- Length of time to wait for a mapped sequence
-    undofile = true, -- Enable persistent undo
-    updatetime = 300, -- Length of time to wait before triggering the plugin
-    wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**",
-    wrap = false, -- Disable wrapping of lines longer than the width of window
-    writebackup = false, -- Disable making a backup before overwriting a file
-  },
-  g = {
-    zipPlugin = false, -- disable zip
-    load_black = false, -- disable black
-    loaded_2html_plugin = true, -- disable 2html
-    loaded_getscript = true, -- disable getscript
-    loaded_getscriptPlugin = true, -- disable getscript
-    loaded_gzip = true, -- disable gzip
-    loaded_logipat = true, -- disable logipat
-    loaded_matchit = true, -- disable matchit
-    loaded_netrwFileHandlers = true, -- disable netrw
-    loaded_netrwPlugin = true, -- disable netrw
-    loaded_netrwSettngs = true, -- disable netrw
-    loaded_perl_provider = 0,
-    loaded_ruby_provider = 0,
-    loaded_remote_plugins = true, -- disable remote plugins
-    loaded_tar = true, -- disable tar
-    loaded_tarPlugin = true, -- disable tar
-    loaded_zip = true, -- disable zip
-    loaded_zipPlugin = true, -- disable zip
-    loaded_vimball = true, -- disable vimball
-    loaded_vimballPlugin = true, -- disable vimball
-  },
-})
+vim.g.python3_host_prog = '/usr/local/bin/python3'
+vim.g.zipPlugin = false -- disable zip
+vim.g.load_black = false -- disable black
+vim.g.loaded_2html_plugin = true -- disable 2html
+vim.g.loaded_getscript = true -- disable getscript
+vim.g.loaded_getscriptPlugin = true -- disable getscript
+vim.g.loaded_gzip = true -- disable gzip
+vim.g.loaded_logipat = true -- disable logipat
+vim.g.loaded_matchit = true -- disable matchit
+vim.g.loaded_netrwFileHandlers = true -- disable netrw
+vim.g.loaded_netrwPlugin = true -- disable netrw
+vim.g.loaded_netrwSettngs = true -- disable netrw
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_remote_plugins = true -- disable remote plugins
+vim.g.loaded_tar = true -- disable tar
+vim.g.loaded_tarPlugin = true -- disable tar
+vim.g.loaded_zip = true -- disable zip
+vim.g.loaded_zipPlugin = true -- disable zip
+vim.g.loaded_vimball = true -- disable vimball
+vim.g.loaded_vimballPlugin = true -- disable vimball
 
