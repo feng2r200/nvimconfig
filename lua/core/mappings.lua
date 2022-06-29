@@ -99,24 +99,23 @@ init_table("n", "<leader>", "f", "File")
 maps.n["<leader>fe"] = { function() require("telescope.builtin").oldfiles() end, desc = "Search history" }
 maps.n["<leader>ff"] = { function() require("telescope.builtin").find_files(require("telescope.themes").get_ivy()) end, desc = "Search files" }
 maps.n["<leader>fF"] = { function() require("telescope").extensions.file_browser.file_browser() end, desc = "File browser" }
+maps.n["<leader>fg"] = { function() require("telescope").extensions.live_grep_args.live_grep_args(require("telescope.themes").get_ivy()) end, desc = "Search Text" }
 maps.n["<leader>fn"] = { "<cmd>enew<cr>", desc = "New File" }
-maps.n["<leader>fw"] = { function() require("telescope.builtin").current_buffer_fuzzy_find() end, desc = "Fuzzy finder current buf"}
 
 -- Search
 init_table("n", "<leader>", "s", "Search")
-maps.n["<leader>sd"] = { function() require("telescope.builtin").lsp_document_diagnostics() end, desc = "Search document diagnostics" }
-maps.n["<leader>sD"] = { function() require("telescope.builtin").diagnostics() end, desc = "Search diagnostics" }
-maps.n["<leader>sj"] = { function() require("telescope.builtin").jumplist() end, desc = "Search jump list" }
+maps.n["<leader>sd"] = { function() require("telescope.builtin").diagnostics() end, desc = "Search diagnostics" }
 maps.n["<leader>sm"] = { function() require("telescope.builtin").marks() end, desc = "Search marks" }
-maps.n["<leader>sp"] = { "<cmd>Telescope projects<cr>", desc = "List project" }
 maps.n["<leader>sr"] = { function() require("telescope.builtin").registers() end, desc = "Search registers" }
 maps.n["<leader>ss"] = { function() require("telescope.builtin").lsp_document_symbols() end, desc = "Search symbols" }
-maps.n["<leader>sw"] = { function() require("telescope").extensions.live_grep_args.live_grep_args(require("telescope.themes").get_ivy()) end, desc = "Search Text" }
+maps.n["<leader>sw"] = { function() require("telescope.builtin").current_buffer_fuzzy_find() end, desc = "Fuzzy finder current buf"}
 
 -- Help
 init_table("n", "<leader>", "h", "Help")
 maps.n["<leader>hh"] = { function() require("telescope.builtin").help_tags() end, desc = "Search help" }
+maps.n["<leader>hj"] = { function() require("telescope.builtin").jumplist() end, desc = "Search jump list" }
 maps.n["<leader>hm"] = { function() require("telescope.builtin").man_pages() end, desc = "Search man" }
+maps.n["<leader>hp"] = { "<cmd>Telescope projects<cr>", desc = "List project" }
 
 -- Replace
 init_table("n", "<leader>", "R", "Replace")
