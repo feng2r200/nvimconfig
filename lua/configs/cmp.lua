@@ -179,7 +179,7 @@ local cmp_config = {
   { { name = "nvim_lsp" }, { name = "nvim_lua" }, { name = "luasnip" }, { name = "vsnip" } },
   { { name = "path" }, { name = "tmux" }, { name = "buffer" }, { name = "treesitter"} }
   ),
-  mapping = {
+  mapping = cmp.mapping.preset.insert({
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<Up>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
@@ -209,7 +209,7 @@ local cmp_config = {
         fallback()
       end
     end, { "i", "s", }),
-  },
+  }),
   matching = {
     disallow_prefix_unmatching = true,
   },
