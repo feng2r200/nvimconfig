@@ -1,0 +1,94 @@
+let mapleader="\\"
+""" Plugins --------------------------------------------------------------
+set argtextobj
+set textobj-entire
+set textobj-indent
+set highlightedyank
+set ideajoin
+set keep-english-in-normal-and-restore-in-insert
+set easymotion
+
+""" Plugin settings ------------------------------------------------------
+let g:argtextobj_pairs="[:],(:),<:>"
+let g:highlightedyank_highlight_duration="1000"
+let g:EasyMotion_override_acejump=0
+let g:EasyMotion_do_mapping=0
+
+""" Common settings ------------------------------------------------------
+set showmode
+set showcmd
+set so=5
+set incsearch
+set hlsearch
+set nu
+set relativenumber
+set ignorecase smartcase
+set history=1000
+set ttimeoutlen=50
+set visualbell
+set cursorline=true
+set cursorcolumn=true
+
+set clipboard+=unnamed,unnamedplus,ideaput
+
+""" Idea specific settings -----------------------------------------------
+set ideastatusicon=gray
+set idearefactormode=keep
+set ideamarks=true
+set selectmode+=ideaselection
+
+""" Idea key mapping ---------------------------------------------------
+nmap <C-s>              :write<CR>
+imap <C-s>              <Esc>:w<CR>i
+
+""" Navigation
+sethandler <C-j>        a:vim
+sethandler <C-k>        a:vim
+nnoremap <C-h>          <c-w>h
+nnoremap <C-l>          <c-w>l
+nnoremap <C-j>          <c-w>j
+nnoremap <C-k>          <c-w>k
+
+""" Editing source code
+nmap <BS>               :nohl<CR>
+
+nmap <S-h> gT
+nmap <S-l> gt
+
+vnoremap < <gv
+vnoremap > >gv
+
+nnoremap <C-o>          :action Back<CR>
+nnoremap <C-i>          :action Forward<CR>
+vnoremap <C-j>          :action MoveStatementDown<CR>
+vnoremap <C-k>          :action MoveStatementUp<CR>
+
+nnoremap gcc            :action CommentByLineComment<CR>
+nnoremap gbc            :action CommentByBlockComment<CR>
+vnoremap gbc            :action CommentByBlockComment<CR>
+
+nnoremap crv            :action IntroduceVariable<CR>
+vnoremap crv            :action IntroduceVariable<CR>
+
+nnoremap [[             :action MethodUp<CR>
+nnoremap ]]             :action MethodDown<CR>
+
+noremap <C-A-l>         :action ReformatCode<CR>
+
+nnoremap ]d             :action GotoNextError<CR>
+nnoremap [d             :action GotoPreviousError<CR>
+
+nnoremap gr             :action RenameElement<CR>
+vnoremap gr             :action RenameElement<CR>
+
+""" Searching and Source Code Navigation
+nnoremap gd             :action GotoDeclaration<CR>
+nnoremap gI             :action GotoImplementation<CR>
+nnoremap <leader>lh     :action FindUsages<CR>
+
+""" Tool windows
+nnoremap <leader>sa     :action Annotate<CR>
+
+""" Motion
+nmap <Space>j      <Plug>(easymotion-j)
+nmap <Space>k      <Plug>(easymotion-k)

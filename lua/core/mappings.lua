@@ -179,6 +179,7 @@ init_table("n", "<leader>", "d", "Debug")
 maps.n["<leader>db"] = { function() require("dap").toggle_breakpoint() end, desc = "Set breakpoint" }
 maps.n["<leader>dB"] = { function() require("dap").set_breakpoint(vim.fn.input '[Condition] > ') end, desc = "Set condition breakpoint" }
 maps.n["<leader>dk"] = { function() require("dapui").eval() end, desc = "Show cursor eval" }
+maps.v["<leader>dk"] = { function() require("dapui").eval() end, desc = "Show cursor eval" }
 
 -- Undo tree
 init_table("n", "<leader>", "v", "View")
