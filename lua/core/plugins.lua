@@ -1,3 +1,10 @@
+local function echo(messages)
+  messages = messages or {{"\n"}}
+  if type(messages) == "table" then
+    vim.api.nvim_echo(messages, false, {})
+  end
+end
+
 local plugins = {
   -- Plugin manager
   ["wbthomason/packer.nvim"] = {},
@@ -241,9 +248,6 @@ local plugins = {
   ["nvim-telescope/telescope-live-grep-args.nvim"] = { after = "telescope.nvim" },
   ["nvim-telescope/telescope-file-browser.nvim"] = { after = "telescope.nvim" },
 
-  ["MattesGroeger/vim-bookmarks"] = { after = "telescope.nvim" },
-  ["tom-anders/telescope-vim-bookmarks.nvim"] = { after = "telescope.nvim" },
-
   ["ahmedkhalf/project.nvim"] = {
     after = "telescope.nvim",
     config = function()
@@ -395,6 +399,14 @@ local plugins = {
     end,
   },
 
+  ["phaazon/hop.nvim"] = {
+    event = { "BufNewFile", "BufReadPost" },
+    branch = "v1",
+    config = function()
+      require "configs.hop-config"
+    end,
+  },
+
   -- Debugger
   ["mfussenegger/nvim-dap"] = {
     event = "BufReadPost",
@@ -434,18 +446,23 @@ local plugins = {
     end,
   },
 
-  ["dinhhuy258/vim-local-history"] = {
+  ["mbbill/undotree"] = {
     event = "BufReadPost",
-    config = function ()
-      require "configs.local-history"
+    cmd = "UndotreeToggle",
+  },
+
+  ["folke/todo-comments.nvim"] = {
+    event = "BufReadPost",
+    config = function()
+      require("todo-comments").setup({})
     end
-  }
+  },
 }
 
 local function initialize_packer()
   local packer_avail, packer = pcall(require, "packer")
   if not packer_avail then
-    local packer_path = stdpath "data" .. "/site/pack/packer/start/packer.nvim"
+    local packer_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
     vim.fn.delete(packer_path, "rf")
     vim.fn.system {
       "git",
@@ -455,7 +472,7 @@ local function initialize_packer()
       "https://github.com/wbthomason/packer.nvim",
       packer_path,
     }
-    mivim.echo { { "Initializing Packer...\n\n" } }
+    echo { { "Initializing Packer...\n\n" } }
     vim.cmd "packadd packer.nvim"
     packer_avail, packer = pcall(require, "packer")
     if not packer_avail then
@@ -505,7 +522,7 @@ function M.compiled()
   if run_me then
     run_me()
   else
-    mivim.echo { { "Please run " }, { ":PackerSync", "Title" } }
+    echo { { "Please run " }, { ":PackerSync", "Title" } }
   end
 end
 

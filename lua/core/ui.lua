@@ -138,6 +138,12 @@ function ui.telescope_select()
   end)
 end
 
+local function conditional_func(func, condition, ...)
+  if (condition == nil and true or condition) and type(func) == "function" then
+    return func(...)
+  end
+end
+
 for ui_addition, enabled in pairs({ nui_input = true, telescope_select = true }) do
-  mivim.conditional_func(ui[ui_addition], enabled)
+  conditional_func(ui[ui_addition], enabled)
 end

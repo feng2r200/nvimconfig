@@ -10,6 +10,25 @@ local function hl_prop(group, prop)
   return status_ok and color or nil
 end
 
+local function null_ls_providers(filetype)
+  local registered = {}
+  local sources_avail, sources = pcall(require, "null-ls.sources")
+  if sources_avail then
+    for _, source in ipairs(sources.get_available(filetype)) do
+      for method in pairs(source.methods) do
+        registered[method] = registered[method] or {}
+        table.insert(registered[method], source.name)
+      end
+    end
+  end
+  return registered
+end
+
+local function null_ls_sources(filetype, source)
+  local methods_avail, methods = pcall(require, "null-ls.methods")
+  return methods_avail and null_ls_providers(filetype)[methods.internal[source]] or {}
+end
+
 M.modes = {
   ["n"] = { "NORMAL", "Normal", C.blue },
   ["no"] = { "N-PENDING", "Normal", C.blue },
@@ -81,8 +100,8 @@ function M.provider.lsp_client_names(expand_null_ls)
     local buf_client_names = {}
     for _, client in pairs(vim.lsp.buf_get_clients(0)) do
       if client.name == "null-ls" and expand_null_ls then
-        vim.list_extend(buf_client_names, mivim.null_ls_sources(vim.bo.filetype, "FORMATTING"))
-        vim.list_extend(buf_client_names, mivim.null_ls_sources(vim.bo.filetype, "DIAGNOSTICS"))
+        vim.list_extend(buf_client_names, null_ls_sources(vim.bo.filetype, "FORMATTING"))
+        vim.list_extend(buf_client_names, null_ls_sources(vim.bo.filetype, "DIAGNOSTICS"))
       else
         table.insert(buf_client_names, client.name)
       end

@@ -14,7 +14,6 @@ for _, source in ipairs {
   "core.autocmds",
   "core.mappings",
   "core.ui",
-  "configs.which-key-register",
 } do
   local status_ok, fault = pcall(require, source)
   if not status_ok then
