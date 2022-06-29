@@ -205,7 +205,9 @@ local cmp_config = {
     end, { "i", "s", }),
   }),
   matching = {
-    disallow_prefix_unmatching = true,
+    disallow_fuzzy_matching = false,
+    disallow_partial_matching = false,
+    disallow_prefix_unmatching = false,
   },
   sorting = {
     priority_weight = 2,

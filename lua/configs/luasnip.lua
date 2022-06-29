@@ -12,12 +12,12 @@ ls.config.set_config({
 	ext_opts = {
 		[types.choiceNode] = {
 			active = {
-				virt_text = { { "●", "GruvboxOrange" } },
+				virt_text = { { "●", "Comment" } },
 			},
 		},
 		[types.insertNode] = {
       active = {
-        virt_text = { { "●", "GruvboxBlue" } },
+        virt_text = { { "●", "Comment" } },
       }
 		},
 	},
@@ -30,12 +30,7 @@ ls.config.set_config({
 	end,
 })
 
-ls.filetype_extend("lua", { "c" })
-ls.filetype_set("cpp", { "c" })
-ls.filetype_extend("all", { "_" })
+require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_vscode").load({ paths = { "./my-snippets" } }) -- Load snippets from my-snippets folder
 
 require("luasnip.loaders.from_lua").lazy_load()
-
-require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip.loaders.from_vscode").load({ paths = { vim.fn.stdpath "config" .. "./my-snippets" } }) -- Load snippets from my-snippets folder
-
