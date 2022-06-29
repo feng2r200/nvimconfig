@@ -100,7 +100,7 @@ maps.n["<leader>fe"] = { function() require("telescope.builtin").oldfiles() end,
 maps.n["<leader>ff"] = { function() require("telescope.builtin").find_files(require("telescope.themes").get_ivy()) end, desc = "Search files" }
 maps.n["<leader>fF"] = { function() require("telescope").extensions.file_browser.file_browser() end, desc = "File browser" }
 maps.n["<leader>fn"] = { "<cmd>enew<cr>", desc = "New File" }
-maps.n["<leader>fw"] = { function() require("telescope").extensions.live_grep_args.live_grep_args(require("telescope.themes").get_ivy()) end, desc = "Search Text" }
+maps.n["<leader>fw"] = { function() require("telescope.builtin").live_grep(require("telescope.themes").get_ivy()) end, desc = "Search Text" }
 
 -- Search
 init_table("n", "<leader>", "s", "Search")

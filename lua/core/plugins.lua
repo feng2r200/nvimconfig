@@ -237,7 +237,6 @@ local plugins = {
 
   -- Fuzzy finder syntax support
   ["nvim-telescope/telescope-fzf-native.nvim"] = { after = "telescope.nvim", run = "make" },
-  ["nvim-telescope/telescope-live-grep-args.nvim"] = { after = "telescope.nvim" },
   ["nvim-telescope/telescope-file-browser.nvim"] = { after = "telescope.nvim" },
 
   ["ahmedkhalf/project.nvim"] = {
