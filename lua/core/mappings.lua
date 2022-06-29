@@ -22,8 +22,8 @@ maps.n["<C-s>"] = { "<cmd>write<cr>", desc = "Force write" }
 maps.i["<C-s>"] = { "<esc><cmd>write<cr>i", desc = "Force write" }
 
 -- Navigate buffers
-maps.n["<Space><S-l>"] = { "<cmd>BufferLineCycleNext<cr>",  desc = "Next buffer tab" }
-maps.n["<Space><S-h>"] = { "<cmd>BufferLineCyclePrev<cr>",  desc = "Previous buffer tab" }
+maps.n["<Space>l"] = { "<cmd>BufferLineCycleNext<cr>",  desc = "Next buffer tab" }
+maps.n["<Space>h"] = { "<cmd>BufferLineCyclePrev<cr>",  desc = "Previous buffer tab" }
 maps.n[">b"]           = { "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer tab right" }
 maps.n["<b"]           = { "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer tab left" }
 
