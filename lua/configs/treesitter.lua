@@ -12,8 +12,8 @@ treesitter.setup({
   sync_install = false,
   ignore_install = {},
   highlight = {
-    enable = false,
-    additional_vim_regex_highlighting = false,
+    enable = true,
+    additional_vim_regex_highlighting = true,
   },
   context_commentstring = {
     enable = true,

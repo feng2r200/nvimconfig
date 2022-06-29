@@ -255,13 +255,6 @@ local plugins = {
     end
   },
 
-  ["m-demare/hlargs.nvim"] = {
-    event = "BufReadPost",
-    config = function()
-      require "configs.hlargs-config"
-    end
-  },
-
   -- Git integration
   ["lewis6991/gitsigns.nvim"] = {
     event = "BufEnter",
