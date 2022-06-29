@@ -22,9 +22,8 @@ signature.setup({
   -- will set to true when fully tested, set to false will use whichever side has more space
   -- this setting will be helpful if you do not want the PUM and floating win overlap
 
-  floating_window_off_x = 10, -- adjust float windows x position.
-  floating_window_off_y = 10, -- adjust float windows y position.
-
+  floating_window_off_x = 2, -- adjust float windows x position.
+  floating_window_off_y = 2, -- adjust float windows y position.
 
   fix_pos = true,  -- set to true, the floating window will not auto-close until finish all parameters
   hint_enable = true, -- virtual hint enable
@@ -42,7 +41,7 @@ signature.setup({
 
   auto_close_after = nil, -- autoclose signature float win after x sec, disabled if nil.
   extra_trigger_chars = {}, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
-  zindex = 20, -- by default it will be on top of all floating windows, set to <= 50 send it to bottom
+  zindex = 10, -- by default it will be on top of all floating windows, set to <= 50 send it to bottom
 
   padding = '', -- character to pad on left and right of signature can be ' ', or '|'  etc
 
