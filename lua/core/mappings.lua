@@ -102,15 +102,6 @@ maps.n["<leader>fF"] = { function() require("telescope").extensions.file_browser
 maps.n["<leader>fn"] = { "<cmd>enew<cr>", desc = "New File" }
 maps.n["<leader>fw"] = { function() require("telescope.builtin").current_buffer_fuzzy_find() end, desc = "Fuzzy finder current buf"}
 
--- Trouble
-init_table("n", "<leader>", "T", "Trouble")
-maps.n["<leader>Tt"] = { "<cmd>Trouble<cr>", desc = "Toggle trouble" }
-maps.n["<leader>Td"] = { "<cmd>Trouble document_diagnostics<cr>", desc = "Document Diagnostics"}
-maps.n["<leader>Tw"] = { "<cmd>Trouble workspace_diagnostics<cr>", desc = "Workspace Diagnostics"}
-maps.n["<leader>Tq"] = { "<cmd>Trouble quickfix<cr>", desc = "Quick Fix"}
-maps.n["<leader>Tu"] = { "<cmd>Trouble lsp_references<cr>", desc = "Usage"}
-maps.n["<leader>Tg"] = { "<cmd>Gitsigns setloclist<cr>", desc = "Open changed hunk" }
-
 -- Search
 init_table("n", "<leader>", "s", "Search")
 maps.n["<leader>sd"] = { function() require("telescope.builtin").lsp_document_diagnostics() end, desc = "Search document diagnostics" }
@@ -174,12 +165,18 @@ maps.n["<leader>dB"] = { function() require("dap").set_breakpoint(vim.fn.input '
 maps.n["<leader>dk"] = { function() require("dapui").eval() end, desc = "Show cursor eval" }
 maps.v["<leader>dk"] = { function() require("dapui").eval() end, desc = "Show cursor eval" }
 
--- Undo tree
+-- View
 init_table("n", "<leader>", "v", "View")
+maps.n["<leader>vd"] = { "<cmd>Trouble document_diagnostics<cr>", desc = "Document Diagnostics"}
 maps.n["<leader>ve"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" }
+maps.n["<leader>vg"] = { "<cmd>Gitsigns setloclist<cr>", desc = "Open changed hunk" }
+maps.n["<leader>vh"] = { "<cmd>Trouble lsp_references<cr>", desc = "Usage"}
 maps.n["<leader>vo"] = { "<cmd>SymbolsOutline<cr>", desc = "Symbols outline" }
+maps.n["<leader>vq"] = { "<cmd>Trouble quickfix<cr>", desc = "Quick Fix"}
+maps.n["<leader>vt"] = { "<cmd>Trouble<cr>", desc = "Toggle trouble" }
+maps.n["<leader>vT"] = { "<cmd>TodoTelescope<cr>", desc = "Todo toggle" }
 maps.n["<leader>vu"] = { "<cmd>UndotreeToggle<cr>", desc = "UndoTree toggle" }
-maps.n["<leader>vt"] = { "<cmd>TodoTelescope<cr>", desc = "Todo toggle" }
+maps.n["<leader>vw"] = { "<cmd>Trouble workspace_diagnostics<cr>", desc = "Workspace Diagnostics"}
 
 ------------------------------------------------------------------------
 
