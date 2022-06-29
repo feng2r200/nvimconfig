@@ -9,11 +9,11 @@ end
 
 for _, source in ipairs {
   "core.utils",
-  "core.options",
   "core.plugins",
-  "core.autocmds",
-  "core.mappings",
   "core.ui",
+  "core.mappings",
+  "core.autocmds",
+  "core.options",
 } do
   local status_ok, fault = pcall(require, source)
   if not status_ok then

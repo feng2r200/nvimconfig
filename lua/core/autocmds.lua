@@ -61,3 +61,10 @@ cmd("BufWritePre", {
   command = "setlocal noundofile",
 })
 
+augroup("filetype", { clear = true })
+cmd("FileType", {
+  desc = "Set python,java tab",
+  group = "filetype",
+  pattern = { "python", "java" },
+  command = "set shiftwidth=4 tabstop=4",
+})
