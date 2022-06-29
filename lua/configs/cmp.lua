@@ -18,11 +18,6 @@ vim.cmd [[packadd cmp_luasnip]]
 ---@param dir number 1 for forward, -1 for backward; defaults to 1
 ---@return boolean true if a jumpable luasnip field is found while inside a snippet
 local function jumpable(dir)
-  local luasnip_ok, luasnip = pcall(require, "luasnip")
-  if not luasnip_ok then
-    return
-  end
-
   local win_get_cursor = vim.api.nvim_win_get_cursor
   local get_current_buf = vim.api.nvim_get_current_buf
 
@@ -122,7 +117,6 @@ local function jumpable(dir)
   end
 end
 
-
 local kind_icons = {
   Text          = "", Method    = "",    Function = "", Constructor  = "",
   Field         = "ﰠ", Variable  = "",  Class      = "",    Interface = "",
@@ -134,10 +128,10 @@ local kind_icons = {
 }
 
 local source_menu = {
-  buffer = "[BUF]",  nvim_lsp   = "[LSP]",   nvim_lua   = "[LUA]",
-  path   = "[PATH]", tmux       = "[TMUX]",  luasnip    = "[SNIP]",
-  vsnip  = "[SNIP]", treesitter = "[TS]",    emoji      = "[Emoji]",
-  calc   = "[Calc]", spell      = "[Spell]",
+  buffer = "[BUF]",  nvim_lsp   = "[LSP]",   nvim_lua    = "[LUA]",
+  path   = "[PATH]", tmux       = "[TMUX]",  luasnip     = "[SNIP]",
+  vsnip  = "[SNIP]", treesitter = "[TS]",    emoji       = "[Emoji]",
+  calc   = "[Calc]", spell      = "[Spell]", cmp_tabnine = "[TN]",
 }
 
 local duplicates = {

@@ -1,25 +1,41 @@
-local user_settings = {
-  -- Add paths for including more VS Code style snippets in luasnip
-  vscode_snippet_paths = {},
-  -- Extend filetypes
-  filetype_extend = {
-    javascript = { "javascriptreact" },
-  },
-}
-
-local loader_avail, loader = pcall(require, "luasnip/loaders/from_vscode")
-if loader_avail then
-  if user_settings.vscode_snippet_paths ~= nil then
-    loader.lazy_load { paths = user_settings.vscode_snippet_paths }
-  end
-  loader.lazy_load()
+local status_ok, ls = pcall(require, "luasnip")
+if not status_ok then
+  return
 end
 
-local luasnip_avail, luasnip = pcall(require, "luasnip")
-if luasnip_avail then
-  if type(user_settings.filetype_extend) == "table" then
-    for filetype, snippets in pairs(user_settings.filetype_extend) do
-      luasnip.filetype_extend(filetype, snippets)
-    end
-  end
-end
+local types = require("luasnip.util.types")
+
+ls.config.set_config({
+	history = true,
+	update_events = "TextChanged,TextChangedI",
+	delete_check_events = "TextChanged",
+	ext_opts = {
+		[types.choiceNode] = {
+			active = {
+				virt_text = { { "●", "GruvboxOrange" } },
+			},
+		},
+		[types.insertNode] = {
+      active = {
+        virt_text = { { "●", "GruvboxBlue" } },
+      }
+		},
+	},
+	ext_base_prio = 300,
+	ext_prio_increase = 1,
+	enable_autosnippets = true,
+	store_selection_keys = "<Tab>",
+	ft_func = function()
+		return vim.split(vim.bo.filetype, ".", true)
+	end,
+})
+
+ls.filetype_extend("lua", { "c" })
+ls.filetype_set("cpp", { "c" })
+ls.filetype_extend("all", { "_" })
+
+require("luasnip.loaders.from_lua").lazy_load()
+
+require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_vscode").load({ paths = { vim.fn.stdpath "config" .. "./my-snippets" } }) -- Load snippets from my-snippets folder
+

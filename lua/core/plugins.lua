@@ -145,31 +145,31 @@ local plugins = {
   },
 
   ["lukas-reineke/cmp-under-comparator"] = {
-    after = "nvim-cmp"
+    after = "nvim-cmp",
   },
   ["saadparwaiz1/cmp_luasnip"] = {
-    after = "nvim-cmp"
+    after = "nvim-cmp",
   },
   ["hrsh7th/cmp-nvim-lsp"] = {
-    after = "nvim-cmp"
+    after = "nvim-cmp",
   },
   ["hrsh7th/cmp-nvim-lua"] = {
-    after = "nvim-cmp"
+    after = "nvim-cmp",
   },
   ["andersevenrud/cmp-tmux"] = {
-    after = "nvim-cmp"
+    after = "nvim-cmp",
   },
   ["hrsh7th/cmp-path"] = {
-    after = "nvim-cmp"
+    after = "nvim-cmp",
   },
   ["hrsh7th/cmp-buffer"] = {
-    after = "nvim-cmp"
+    after = "nvim-cmp",
   },
   ["hrsh7th/cmp-cmdline"] = {
-    after = "nvim-cmp"
+    after = "nvim-cmp",
   },
   ["ray-x/cmp-treesitter"] = {
-    after = "nvim-cmp"
+    after = "nvim-cmp",
   },
 
   -- Built-in LSP
@@ -379,7 +379,7 @@ local plugins = {
   ["nvim-pack/nvim-spectre"] = {
     opt = true,
     config = function ()
-      require "configs.spectre"
+      require "configs.spectre-config"
     end,
   },
 
