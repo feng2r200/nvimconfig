@@ -5,7 +5,7 @@ end
 
 dap.adapters.python = {
   type = "executable",
-	command = os.getenv("HOME") .. "/.local/share/nvim/dapinstall/python/bin/python",
+	command = "python",
 	args = { "-m", "debugpy.adapter" },
 }
 
