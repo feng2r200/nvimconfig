@@ -51,14 +51,22 @@ maps.n["<F12>"] = { "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown preview" 
 
 ------------------------------------------------------------------------
 
--- NeoTree
-maps.n["<leader>e"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" }
-
--- SymbolsOutline
-maps.n["<leader>o"] = { "<cmd>SymbolsOutline<cr>", desc = "Symbols outline" }
-
 -- Buffers
 maps.n["<Space>b"] = { function() require("telescope.builtin").buffers(require("telescope.themes").get_dropdown{previewer = false}) end, desc = "Search buffers" }
+
+-- motion
+maps.n["<Space>j"] = { "<cmd>HopLine<cr>", desc = "Hop line" }
+maps.n["<Space>k"] = { "<cmd>HopLine<cr>", desc = "Hop line" }
+maps.n["<Space>w"] = { "<cmd>HopWord<cr>", desc = "Hop word" }
+maps.n["<Space>s"] = { "<cmd>HopChar1<cr>", desc = "Hop char1" }
+
+-- enhance f motion
+maps.n["<Space>f"]   = { function() require"hop".hint_char1({ direction = require"hop.hint".HintDirection.AFTER_CURSOR, current_line_only = true }) end, desc = "Enhance f" }
+maps.n["<Space>F"]   = { function() require"hop".hint_char1({ direction = require"hop.hint".HintDirection.BEFORE_CURSOR, current_line_only = true }) end, desc = "Enhance F" }
+maps.o["<Space>f"]   = { function() require"hop".hint_char1({ direction = require"hop.hint".HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true }) end, desc = "Enhance f" }
+maps.o["<Space>F"]   = { function() require"hop".hint_char1({ direction = require"hop.hint".HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true }) end, desc = "Enhance F" }
+maps[""]["<Space>t"] = { function() require"hop".hint_char1({ direction = require"hop.hint".HintDirection.AFTER_CURSOR, current_line_only = true }) end, desc = "Enhance t" }
+maps[""]["<Space>T"] = { function() require"hop".hint_char1({ direction = require"hop.hint".HintDirection.BEFORE_CURSOR, current_line_only = true }) end, desc = "Enhance T" }
 
 -- GitSigns
 init_table("n", "<leader>", "g", "Git")
@@ -126,20 +134,6 @@ maps.n["<leader>Rf"] = { function() require("spectre").open_file_search() end, d
 maps.n["<leader>Rp"] = { function() require("spectre").open() end, desc = "Replace Project" }
 maps.n["<leader>Rs"] = { function() require("spectre").open_visual({select_word=true}) end, desc = "Search" }
 
--- motion
-maps.n["<Space>j"] = { "<cmd>HopLine<cr>", desc = "Hop line" }
-maps.n["<Space>k"] = { "<cmd>HopLine<cr>", desc = "Hop line" }
-maps.n["<Space>w"] = { "<cmd>HopWord<cr>", desc = "Hop word" }
-maps.n["<Space>s"] = { "<cmd>HopChar1<cr>", desc = "Hop char1" }
-
--- enhance f motion
-maps.n["<Space>f"]   = { function() require"hop".hint_char1({ direction = require"hop.hint".HintDirection.AFTER_CURSOR, current_line_only = true }) end, desc = "Enhance f" }
-maps.n["<Space>F"]   = { function() require"hop".hint_char1({ direction = require"hop.hint".HintDirection.BEFORE_CURSOR, current_line_only = true }) end, desc = "Enhance F" }
-maps.o["<Space>f"]   = { function() require"hop".hint_char1({ direction = require"hop.hint".HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true }) end, desc = "Enhance f" }
-maps.o["<Space>F"]   = { function() require"hop".hint_char1({ direction = require"hop.hint".HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true }) end, desc = "Enhance F" }
-maps[""]["<Space>t"] = { function() require"hop".hint_char1({ direction = require"hop.hint".HintDirection.AFTER_CURSOR, current_line_only = true }) end, desc = "Enhance t" }
-maps[""]["<Space>T"] = { function() require"hop".hint_char1({ direction = require"hop.hint".HintDirection.BEFORE_CURSOR, current_line_only = true }) end, desc = "Enhance T" }
-
 -- Terminal
 maps.n["<C-t>"]      = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" }
 
@@ -183,6 +177,8 @@ maps.v["<leader>dk"] = { function() require("dapui").eval() end, desc = "Show cu
 
 -- Undo tree
 init_table("n", "<leader>", "v", "View")
+maps.n["<leader>ve"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" }
+maps.n["<leader>vo"] = { "<cmd>SymbolsOutline<cr>", desc = "Symbols outline" }
 maps.n["<leader>vu"] = { "<cmd>UndotreeToggle<cr>", desc = "UndoTree toggle" }
 maps.n["<leader>vt"] = { "<cmd>TodoTelescope<cr>", desc = "Todo toggle" }
 
