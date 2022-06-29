@@ -22,11 +22,10 @@ maps.n["<C-s>"] = { "<cmd>write<cr>", desc = "Force write" }
 maps.i["<C-s>"] = { "<esc><cmd>write<cr>i", desc = "Force write" }
 
 -- Navigate buffers
-maps.n["<S-l>"] = { "<cmd>BufferLineCycleNext<cr>",  desc = "Next buffer tab" }
-maps.n["<S-h>"] = { "<cmd>BufferLineCyclePrev<cr>",  desc = "Previous buffer tab" }
-maps.n[">b"]    = { "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer tab right" }
-maps.n["<b"]    = { "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer tab left" }
-maps.n["gt"]    = { "<cmd>BufferLinePick<cr>", desc = "Pick buffer" }
+maps.n["<Space><S-l>"] = { "<cmd>BufferLineCycleNext<cr>",  desc = "Next buffer tab" }
+maps.n["<Space><S-h>"] = { "<cmd>BufferLineCyclePrev<cr>",  desc = "Previous buffer tab" }
+maps.n[">b"]           = { "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer tab right" }
+maps.n["<b"]           = { "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer tab left" }
 
 -- Smart Splits
 -- Better window navigation

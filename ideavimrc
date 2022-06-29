@@ -52,8 +52,8 @@ nnoremap <C-k>          <c-w>k
 """ Editing source code
 nmap <BS>               :nohl<CR>
 
-nmap <S-h> gT
-nmap <S-l> gt
+nmap <Space><S-h> gT
+nmap <Space><S-l> gt
 
 vnoremap < <gv
 vnoremap > >gv
