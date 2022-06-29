@@ -3,4 +3,14 @@ if not status_ok then
   return
 end
 
-indent_o_matic.setup({})
+indent_o_matic.setup({
+  standard_widths = { 2, 4 },
+
+  filetype_python = {
+    standard_widths = { 4 },
+  },
+
+  filetype_ = {
+    standard_widths = { 2, 4 },
+  },
+})
