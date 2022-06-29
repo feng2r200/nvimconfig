@@ -31,6 +31,7 @@ ls.config.set_config({
 })
 
 require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip.loaders.from_vscode").load({ paths = { "./my-snippets" } }) -- Load snippets from my-snippets folder
+require("luasnip.loaders.from_vscode").load({ paths = { "./my-snippets" } })
 
 require("luasnip.loaders.from_lua").lazy_load()
+
