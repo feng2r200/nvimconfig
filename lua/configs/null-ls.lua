@@ -10,7 +10,6 @@ local code_actions = null_ls.builtins.code_actions
 null_ls.setup {
   debug = false,
   sources = {
-    diagnostics.flake8,
     diagnostics.jsonlint,
     diagnostics.sqlfluff.with({ extra_args = { "--ignore-local-config", "--dialect", "mysql", "--exclude-rules", "L029,L016" } }),
     diagnostics.tidy,
@@ -19,7 +18,6 @@ null_ls.setup {
       extra_filetypes = { "toml", "solidity" },
       extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
     },
-    formatting.autopep8,
     formatting.google_java_format,
     formatting.black,
     formatting.jq,
