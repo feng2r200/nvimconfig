@@ -1,12 +1,12 @@
 local M = {}
 
 M.on_attach = function(client, bufnr)
-  vim.api.nvim_buf_create_user_command(bufnr, "Format", function() vim.lsp.buf.formatting() end, { desc = "Format file with LSP" })
-
   -- Set underline highlighting for Lsp references
   vim.cmd("hi! LspReferenceText cterm=underline gui=underline")
   vim.cmd("hi! LspReferenceWrite cterm=underline gui=underline")
   vim.cmd("hi! LspReferenceRead cterm=underline gui=underline")
+
+  client.resolved_capabilities.document_formatting = false
 
   local status_signature, signature = pcall(require, "lsp_signature")
   if status_signature then

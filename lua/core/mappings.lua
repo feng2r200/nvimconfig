@@ -1,4 +1,4 @@
-local maps = { n = {}, i = {}, v = {}, o = {}, t = {}, [""] = {} }
+local maps = { n = {}, i = {}, v = {}, o = {}, t = {}, x = {}, [""] = {} }
 
 local mappings = {
   n = {
@@ -27,7 +27,6 @@ maps.n["[b"] = { "<cmd>BufferLineCyclePrev<cr>",  desc = "Previous buffer tab" }
 maps.n[">b"] = { "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer tab right" }
 maps.n["<b"] = { "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer tab left" }
 
--- Smart Splits
 -- Better window navigation
 maps.n["<C-h>"] = { function() require("tmux").move_left() end, desc = "Move to left split" }
 maps.n["<C-j>"] = { function() require("tmux").move_bottom() end, desc = "Move to below split" }
@@ -68,23 +67,18 @@ maps[""]["<Space>t"] = { function() require"hop".hint_char1({ direction = requir
 maps[""]["<Space>T"] = { function() require"hop".hint_char1({ direction = require"hop.hint".HintDirection.BEFORE_CURSOR, current_line_only = true }) end, desc = "Enhance T" }
 
 -- GitSigns
+init_table("n", "<Space>", "g", "Git")
+maps.n["<Space>gn"] = { function() require("gitsigns").next_hunk() end, desc = "Next git hunk" }
+maps.n["<Space>gN"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous git hunk" }
+maps.n["<Space>gp"] = { function() require("gitsigns").preview_hunk() end, desc = "Preview git hunk" }
+
 init_table("n", "<leader>", "g", "Git")
 maps.n["<leader>gb"] = { function() require("telescope.builtin").git_branches() end, desc = "Git branchs" }
 maps.n["<leader>gc"] = { function() require("telescope.builtin").git_commits() end, desc = "Git commits" }
-maps.n["<leader>gd"] = { function() require("gitsigns").diffthis() end, desc = "View git diff" }
+maps.n["<leader>gd"] = { "<cmd>DiffviewFileHistory %<cr>", desc = "Current file history" }
 maps.n["<leader>gf"] = { "<cmd>DiffviewFileHistory<cr>", desc = "File History" }
-maps.n["<leader>gn"] = { function() require("gitsigns").next_hunk() end, desc = "Next git hunk" }
-maps.n["<leader>gN"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous git hunk" }
-maps.n["<leader>gl"] = { function() require("gitsigns").blame_line() end, desc = "View git blame" }
-maps.n["<leader>gp"] = { "<cmd>DiffviewOpen<cr>", desc = "Diff Project" }
-maps.n["<leader>gP"] = { function() require("gitsigns").preview_hunk() end, desc = "Preview git hunk" }
-maps.n["<leader>gr"] = { function() require("gitsigns").reset_hunk() end, desc = "Reset git hunk" }
-maps.n["<leader>gR"] = { function() require("gitsigns").reset_buffer() end, desc = "Reset git buffer" }
-maps.n["<leader>gs"] = { function() require("gitsigns").stage_hunk() end, desc = "Stage git hunk" }
-maps.n["<leader>gS"] = { function() require("gitsigns").stage_buffer() end, desc = "Stage git buffer" }
 maps.n["<leader>gt"] = { function() require("telescope.builtin").git_status() end, desc = "Git status" }
 maps.n["<leader>gT"] = { function() require("telescope.builtin").git_stash() end, desc = "Git stash" }
-maps.n["<leader>gu"] = { function() require("gitsigns").undo_stage_hunk() end, desc = "Unstage git hunk" }
 
 -- Session Manager
 init_table("n", "<leader>", "S", "Session")
@@ -93,6 +87,13 @@ maps.n["<leader>Sf"] = { "<cmd>SessionManager! load_session<cr>", desc = "Search
 maps.n["<leader>Sl"] = { "<cmd>SessionManager! load_last_session<cr>", desc = "Load last session" }
 maps.n["<leader>Ss"] = { "<cmd>SessionManager! save_current_session<cr>", desc = "Save this session" }
 maps.n["<leader>S."] = { "<cmd>SessionManager! load_current_dir_session<cr>", desc = "Load current directory session" }
+
+-- Close
+init_table("n", "<leader>", "C", "Close")
+maps.n["<leader>Cw"] = { "<cmd>Bdelete<cr>", desc = "Close buffer" }
+maps.n["<leader>Ct"] = { "<cmd>tabclose<cr>", desc = "Close tab" }
+maps.n["<leader>Ch"] = { "<cmd>BufferLineCloseLeft<cr>", desc = "Close buffer left"}
+maps.n["<leader>Cl"] = { "<cmd>BufferLineCloseRight<cr>", desc = "Close buffer right"}
 
 -- file
 init_table("n", "<leader>", "f", "File")
@@ -111,11 +112,11 @@ maps.n["<leader>ss"] = { function() require("telescope.builtin").lsp_document_sy
 maps.n["<leader>sw"] = { function() require("telescope.builtin").current_buffer_fuzzy_find() end, desc = "Fuzzy finder current buf"}
 
 -- Help
-init_table("n", "<leader>", "h", "Help")
-maps.n["<leader>hh"] = { function() require("telescope.builtin").help_tags() end, desc = "Search help" }
-maps.n["<leader>hj"] = { function() require("telescope.builtin").jumplist() end, desc = "Search jump list" }
-maps.n["<leader>hm"] = { function() require("telescope.builtin").man_pages() end, desc = "Search man" }
-maps.n["<leader>hp"] = { "<cmd>Telescope projects<cr>", desc = "List project" }
+init_table("n", "<leader>", "H", "Help")
+maps.n["<leader>Hh"] = { function() require("telescope.builtin").help_tags() end, desc = "Search help" }
+maps.n["<leader>Hj"] = { function() require("telescope.builtin").jumplist() end, desc = "Search jump list" }
+maps.n["<leader>Hm"] = { function() require("telescope.builtin").man_pages() end, desc = "Search man" }
+maps.n["<leader>Hp"] = { "<cmd>Telescope projects<cr>", desc = "List project" }
 
 -- Replace
 init_table("n", "<leader>", "R", "Replace")
@@ -145,7 +146,7 @@ maps.n["gl"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagn
 
 init_table("n", "<leader>", "l", "LSP")
 maps.n["<leader>la"] = { function() vim.lsp.buf.code_action() end, desc = "LSP code action" }
-maps.n["<leader>lf"] = { function() vim.lsp.buf.formatting_sync() end, desc = "Format code" }
+maps.n["<leader>lf"] = { function() vim.lsp.buf.formatting_sync(nil, 2000) end, desc = "Format code" }
 maps.n["<leader>lh"] = { function() require("telescope.builtin").lsp_references{} end, desc = "Search references" }
 maps.n["<leader>li"] = { function() vim.lsp.buf.incoming_calls() end, desc = "Incoming calls" }
 maps.n["<leader>lo"] = { function() vim.lsp.buf.outgoing_calls() end, desc = "Outgoing calls" }
@@ -166,16 +167,15 @@ maps.v["<leader>dk"] = { function() require("dapui").eval() end, desc = "Show cu
 
 -- View
 init_table("n", "<leader>", "v", "View")
-maps.n["<leader>vd"] = { "<cmd>Trouble document_diagnostics<cr>", desc = "Document Diagnostics"}
-maps.n["<leader>ve"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" }
-maps.n["<leader>vg"] = { "<cmd>Gitsigns setloclist<cr>", desc = "Open changed hunk" }
-maps.n["<leader>vh"] = { "<cmd>Trouble lsp_references<cr>", desc = "Usage"}
+maps.n["<leader>vd"] = { "<cmd>Trouble document_diagnostics<cr>", desc = "Trouble Document Diagnostics"}
+maps.n["<leader>ve"] = { "<cmd>Neotree toggle<cr>", desc = "Tree Explorer" }
+maps.n["<leader>vg"] = { "<cmd>DiffviewOpen<cr>", desc = "Sidebar Diff Project" }
+maps.n["<leader>vh"] = { "<cmd>Trouble lsp_references<cr>", desc = "Trouble LSP Usage"}
 maps.n["<leader>vo"] = { "<cmd>SymbolsOutline<cr>", desc = "Symbols outline" }
-maps.n["<leader>vq"] = { "<cmd>Trouble quickfix<cr>", desc = "Quick Fix"}
+maps.n["<leader>vq"] = { "<cmd>Trouble quickfix<cr>", desc = "Trouble Quick Fix"}
 maps.n["<leader>vt"] = { "<cmd>Trouble<cr>", desc = "Toggle trouble" }
-maps.n["<leader>vT"] = { "<cmd>TodoTelescope<cr>", desc = "Todo toggle" }
 maps.n["<leader>vu"] = { "<cmd>UndotreeToggle<cr>", desc = "UndoTree toggle" }
-maps.n["<leader>vw"] = { "<cmd>Trouble workspace_diagnostics<cr>", desc = "Workspace Diagnostics"}
+maps.n["<leader>vw"] = { "<cmd>Trouble workspace_diagnostics<cr>", desc = "Trouble Workspace Diagnostics"}
 
 ------------------------------------------------------------------------
 

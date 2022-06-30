@@ -3,13 +3,10 @@ if not status_ok then
   return
 end
 
--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
-local formatting = null_ls.builtins.formatting
--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
+local formatting  = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
+local gitsigns    = null_ls.builtins.code_actions.gitsigns
 
--- https://github.com/prettier-solidity/prettier-plugin-solidity
--- npm install --save-dev prettier prettier-plugin-solidity
 null_ls.setup {
   debug = false,
   sources = {
@@ -17,8 +14,16 @@ null_ls.setup {
       extra_filetypes = { "toml", "solidity" },
       extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
     },
-    -- formatting.black.with { extra_args = { "--fast" } },
-    -- formatting.stylua,
+    diagnostics.jsonlint,
+    diagnostics.sqlfluff.with({ extra_args = { "--dialect", "mysql", "--exclude-rules", "L029,L016" } }),
+    diagnostics.tidy,
+
+    formatting.autopep8,
     formatting.google_java_format,
+    formatting.black,
+    formatting.jq,
+    formatting.sqlfluff.with({ extra_args = { "--dialect", "mysql", "--FIX-EVEN-UNPARSABLE" } }),
+
+    gitsigns,
   },
 }

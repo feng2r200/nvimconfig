@@ -11,7 +11,7 @@ tmux.setup({
     -- enables default keybindings (C-hjkl) for normal mode
     enable_default_keybindings = true,
     -- prevents unzoom tmux when navigating beyond vim border
-    persist_zoom = false,
+    persist_zoom = true,
   },
   resize = {
     -- enables default keybindings (A-hjkl) for normal mode
