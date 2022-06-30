@@ -15,7 +15,7 @@ null_ls.setup {
       extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
     },
     diagnostics.jsonlint,
-    diagnostics.sqlfluff.with({ extra_args = { "--dialect", "mysql", "--exclude-rules", "L029,L016" } }),
+    diagnostics.sqlfluff.with({ extra_args = { "--dialect", "mysql", "--exclude-rules", "L029,L016", "--nofail", "--ignore-local-config" } }),
     diagnostics.tidy,
 
     formatting.autopep8,
