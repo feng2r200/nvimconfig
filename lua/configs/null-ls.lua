@@ -3,27 +3,28 @@ if not status_ok then
   return
 end
 
-local formatting  = null_ls.builtins.formatting
-local diagnostics = null_ls.builtins.diagnostics
-local gitsigns    = null_ls.builtins.code_actions.gitsigns
+local formatting   = null_ls.builtins.formatting
+local diagnostics  = null_ls.builtins.diagnostics
+local code_actions = null_ls.builtins.code_actions
 
 null_ls.setup {
   debug = false,
   sources = {
-    formatting.prettier.with {
-      extra_filetypes = { "toml", "solidity" },
-      extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
-    },
+    diagnostics.flake8,
     diagnostics.jsonlint,
     diagnostics.sqlfluff.with({ extra_args = { "--ignore-local-config", "--dialect", "mysql", "--exclude-rules", "L029,L016" } }),
     diagnostics.tidy,
 
+    formatting.prettier.with {
+      extra_filetypes = { "toml", "solidity" },
+      extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
+    },
     formatting.autopep8,
     formatting.google_java_format,
     formatting.black,
     formatting.jq,
     formatting.sqlfluff.with({ extra_args = { "--dialect", "mysql", "--FIX-EVEN-UNPARSABLE" } }),
 
-    gitsigns,
+    code_actions.gitsigns,
   },
 }

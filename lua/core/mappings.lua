@@ -146,6 +146,7 @@ maps.n["gl"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagn
 
 init_table("n", "<leader>", "l", "LSP")
 maps.n["<leader>la"] = { function() vim.lsp.buf.code_action() end, desc = "LSP code action" }
+maps.v["<leader>la"] = { function() vim.lsp.buf.range_code_action() end, desc = "LSP code action" }
 maps.n["<leader>lf"] = { function() vim.lsp.buf.formatting_sync(nil, 2000) end, desc = "Format code" }
 maps.n["<leader>lh"] = { function() require("telescope.builtin").lsp_references{} end, desc = "Search references" }
 maps.n["<leader>li"] = { function() vim.lsp.buf.incoming_calls() end, desc = "Incoming calls" }
