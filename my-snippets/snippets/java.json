@@ -1,0 +1,7 @@
+{
+  "type comment": {
+    "prefix": "/**",
+    "body": ["/**", " * ${1:description}", " */"],
+    "description": "Create type comment"
+  }
+}
