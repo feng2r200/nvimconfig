@@ -61,6 +61,14 @@ cmd("BufWritePre", {
   command = "setlocal noundofile",
 })
 
+augroup("packer_conf", { clear = true })
+cmd("BufWritePost", {
+  desc = "Sync packer after modifying plugins.lua",
+  group = "packer_conf",
+  pattern = "plugins.lua",
+  command = "source <afile> | PackerSync",
+})
+
 augroup("filetype", { clear = true })
 cmd("FileType", {
   desc = "Set python,java tab",
