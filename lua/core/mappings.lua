@@ -137,6 +137,7 @@ maps.n["<leader>tv"] = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc 
 maps.n["K"]  = { function() vim.lsp.buf.hover() end, desc = "Hover symbol details" }
 maps.n["gd"] = { function() require("telescope.builtin").lsp_definitions{} end, desc = "Show the definition of current symbol" }
 maps.n["gD"] = { function() require("telescope.builtin").lsp_type_definitions{} end, desc = "Declaration of current symbol" }
+maps.n["gh"] = { function() require("telescope.builtin").lsp_references{} end, desc = "Search references" }
 maps.n["gI"] = { function() require("telescope.builtin").lsp_implementations{} end, desc = "Implementation of current symbol" }
 maps.n["gr"] = { function() vim.lsp.buf.rename() end, desc = "Rename current symbol" }
 
@@ -148,7 +149,6 @@ init_table("n", "<leader>", "l", "LSP")
 maps.n["<leader>la"] = { function() vim.lsp.buf.code_action() end, desc = "LSP code action" }
 maps.v["<leader>la"] = { function() vim.lsp.buf.range_code_action() end, desc = "LSP code action" }
 maps.n["<leader>lf"] = { function() vim.lsp.buf.formatting_sync(nil, 2000) end, desc = "Format code" }
-maps.n["<leader>lh"] = { function() require("telescope.builtin").lsp_references{} end, desc = "Search references" }
 maps.n["<leader>li"] = { function() vim.lsp.buf.incoming_calls() end, desc = "Incoming calls" }
 maps.n["<leader>lo"] = { function() vim.lsp.buf.outgoing_calls() end, desc = "Outgoing calls" }
 maps.n["<leader>ls"] = { function() vim.lsp.buf.signature_help() end, desc = "Signature help" }
