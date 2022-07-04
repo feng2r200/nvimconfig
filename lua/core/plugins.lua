@@ -24,14 +24,6 @@ local plugins = {
     end,
   },
 
-  -- Indent detection
-  ["Darazaki/indent-o-matic"] = {
-    event = "BufReadPost",
-    config = function()
-      require "configs.indent-o-matic"
-    end,
-  },
-
   -- Neovim UI Enhancer
   ["MunifTanjim/nui.nvim"] = { module = "nui" },
 
