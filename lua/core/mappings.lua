@@ -99,7 +99,6 @@ maps.n["<leader>S."] = { "<cmd>SessionManager! load_current_dir_session<cr>", de
 init_table("n", "<leader>", "f", "File")
 maps.n["<leader>fe"] = { function() require("telescope.builtin").oldfiles() end, desc = "Search history" }
 maps.n["<leader>ff"] = { function() require("telescope.builtin").find_files(require("telescope.themes").get_ivy()) end, desc = "Search files" }
-maps.n["<leader>fF"] = { function() require("telescope").extensions.file_browser.file_browser() end, desc = "File browser" }
 maps.n["<leader>fn"] = { "<cmd>enew<cr>", desc = "New File" }
 maps.n["<leader>fw"] = { function() require("telescope.builtin").live_grep(require("telescope.themes").get_ivy()) end, desc = "Search Text" }
 
@@ -169,6 +168,7 @@ maps.v["<leader>dk"] = { function() require("dapui").eval() end, desc = "Show cu
 
 -- View
 init_table("n", "<leader>", "v", "View")
+maps.n["<leader>vb"] = { function() require("telescope").extensions.file_browser.file_browser() end, desc = "File browser" }
 maps.n["<leader>vd"] = { "<cmd>Trouble document_diagnostics<cr>", desc = "Trouble Document Diagnostics"}
 maps.n["<leader>ve"] = { "<cmd>Neotree toggle<cr>", desc = "Tree Explorer" }
 maps.n["<leader>vg"] = { "<cmd>DiffviewOpen<cr>", desc = "Sidebar Diff Project" }
