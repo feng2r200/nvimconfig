@@ -1,7 +1,12 @@
 {
-  "type comment": {
-    "prefix": "/**",
+  "class comment": {
+    "prefix": "/**c",
+    "body": ["/**", " * ${1:description}", " * @author: ld", " * @date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}", " */"],
+    "description": "Create class comment"
+  },
+  "method comment": {
+    "prefix": "/**m",
     "body": ["/**", " * ${1:description}", " */"],
-    "description": "Create type comment"
+    "description": "Create method comment"
   }
 }
