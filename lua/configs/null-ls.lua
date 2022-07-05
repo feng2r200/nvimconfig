@@ -21,6 +21,9 @@ null_ls.setup {
     formatting.google_java_format,
     formatting.black,
     formatting.jq,
+    formatting.tidy.with {
+      extra_args = { "-xml", "-i" },
+    },
     formatting.sqlfluff.with({ extra_args = { "--dialect", "mysql", "--FIX-EVEN-UNPARSABLE" } }),
 
     code_actions.gitsigns,
