@@ -8,8 +8,9 @@ vim.cmd [[set shiftwidth=4]]
 vim.cmd [[packadd nvim-jdtls]]
 
 local java_path = {
-    ["8"] = "/usr/local/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home",
-    ["18"]= "/usr/local/Cellar/openjdk/18.0.1.1/libexec/openjdk.jdk/Contents/Home",
+    ["8"]  = "/usr/local/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home",
+    ["11"] = "/usr/local/Cellar/openjdk@11/11.0.15/libexec/openjdk.jdk/Contents/Home",
+    ["18"] = "/usr/local/Cellar/openjdk/18.0.1.1/libexec/openjdk.jdk/Contents/Home",
 }
 
 local get_cmd = function()
@@ -83,13 +84,13 @@ local config = {
                     globalSettings = os.getenv("HOME") .. "/.m2/settings.xml",
                 },
                 runtimes = {
-                    {name = "JavaSE-1.8", path=java_path["8"], default=true},
+                    {name = "JavaSE-11", path=java_path["11"], default=true},
                 },
                 updateBuildConfiguration = "interactive"
             },
             contentProvider = { preferred = 'fernflower' },
             foldingRange = { enabled = true},
-            home =java_path["8"],
+            home =java_path["11"],
             implementationsCodeLens = { enabled = true },
             import = {
                 maven = { enabled = true },
