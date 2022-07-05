@@ -76,6 +76,14 @@ local plugins = {
     end,
   },
 
+  ["s1n7ax/nvim-window-picker"] = {
+    after = "neo-tree.nvim",
+    tag = "v1.*",
+    config = function()
+      require "configs.window-picker"
+    end,
+  },
+
   -- Statusline
   ["feline-nvim/feline.nvim"] = {
     after = "nvim-web-devicons",
