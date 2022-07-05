@@ -66,6 +66,13 @@ maps.o["<Space>F"]   = { function() require"hop".hint_char1({ direction = requir
 maps[""]["<Space>t"] = { function() require"hop".hint_char1({ direction = require"hop.hint".HintDirection.AFTER_CURSOR, current_line_only = true }) end, desc = "Enhance t" }
 maps[""]["<Space>T"] = { function() require"hop".hint_char1({ direction = require"hop.hint".HintDirection.BEFORE_CURSOR, current_line_only = true }) end, desc = "Enhance T" }
 
+-- Close
+init_table("n", "<Space>", "c", "Close")
+maps.n["<Space>cw"] = { "<cmd>Bdelete<cr>", desc = "Close buffer" }
+maps.n["<Space>ct"] = { "<cmd>tabclose<cr>", desc = "Close tab" }
+maps.n["<Space>ch"] = { "<cmd>BufferLineCloseLeft<cr>", desc = "Close buffer left"}
+maps.n["<Space>cl"] = { "<cmd>BufferLineCloseRight<cr>", desc = "Close buffer right"}
+
 -- GitSigns
 init_table("n", "<Space>", "g", "Git")
 maps.n["<Space>gn"] = { function() require("gitsigns").next_hunk() end, desc = "Next git hunk" }
@@ -87,13 +94,6 @@ maps.n["<leader>Sf"] = { "<cmd>SessionManager! load_session<cr>", desc = "Search
 maps.n["<leader>Sl"] = { "<cmd>SessionManager! load_last_session<cr>", desc = "Load last session" }
 maps.n["<leader>Ss"] = { "<cmd>SessionManager! save_current_session<cr>", desc = "Save this session" }
 maps.n["<leader>S."] = { "<cmd>SessionManager! load_current_dir_session<cr>", desc = "Load current directory session" }
-
--- Close
-init_table("n", "<leader>", "C", "Close")
-maps.n["<leader>Cw"] = { "<cmd>Bdelete<cr>", desc = "Close buffer" }
-maps.n["<leader>Ct"] = { "<cmd>tabclose<cr>", desc = "Close tab" }
-maps.n["<leader>Ch"] = { "<cmd>BufferLineCloseLeft<cr>", desc = "Close buffer left"}
-maps.n["<leader>Cl"] = { "<cmd>BufferLineCloseRight<cr>", desc = "Close buffer right"}
 
 -- file
 init_table("n", "<leader>", "f", "File")
