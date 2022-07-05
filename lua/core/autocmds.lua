@@ -73,6 +73,6 @@ augroup("filetype", { clear = true })
 cmd("FileType", {
   desc = "Set python,java tab",
   group = "filetype",
-  pattern = { "python", "java" },
+  pattern = { "c", "cpp", "python", "java" },
   command = "set shiftwidth=4 tabstop=4",
 })
