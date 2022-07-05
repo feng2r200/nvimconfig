@@ -1,7 +1,7 @@
 {
   "class comment": {
     "prefix": "/**c",
-    "body": ["/**", " * ${1:description}", " * @author: ld", " * @date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}", " */"],
+    "body": ["/**", " * ${1:description}", " * @author: ${2:author}", " * @date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}", " */"],
     "description": "Create class comment"
   },
   "method comment": {
