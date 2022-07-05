@@ -35,6 +35,14 @@ local plugins = {
     end,
   },
 
+  -- FileType
+  ["nathom/filetype.nvim"] = {
+    event = "BufEnter",
+    config = function()
+      require "configs.filetype-nvim"
+    end,
+  },
+
   -- Icons
   ["kyazdani42/nvim-web-devicons"] = {
     event = "VimEnter",

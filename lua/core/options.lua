@@ -39,6 +39,8 @@ vim.opt.wrap = false -- Disable wrapping of lines longer than the width of windo
 vim.opt.writebackup = false -- Disable making a backup before overwriting a file
 
 vim.g.python3_host_prog = '/usr/local/bin/python3'
+vim.g.do_filetype_lua = 1 -- use filetype.lua
+vim.g.did_load_filetypes = 0 -- don't use filetype.vim
 vim.g.zipPlugin = false -- disable zip
 vim.g.load_black = false -- disable black
 vim.g.loaded_2html_plugin = true -- disable 2html
