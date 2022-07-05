@@ -8,5 +8,15 @@
     "prefix": "/**m",
     "body": ["/**", " * ${1:description}", " */"],
     "description": "Create method comment"
+  },
+  "enum": {
+    "prefix": "enum",
+    "body": ["public enum ${TM_FILENAME_BASE} {", "\t$0", "}"],
+    "description": "Public enum"
+  },
+  "interface": {
+    "prefix": "interface",
+    "body": ["public interface ${TM_FILENAME_BASE} {", "\t$0", "}"],
+    "description": "Public interface"
   }
 }
