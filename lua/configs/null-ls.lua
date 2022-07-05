@@ -24,7 +24,12 @@ null_ls.setup {
     formatting.tidy.with {
       extra_args = { "-xml", "-i" },
     },
-    formatting.sqlfluff.with({ extra_args = { "--dialect", "mysql", "--FIX-EVEN-UNPARSABLE" } }),
+    formatting.sqlfluff.with {
+      extra_args = { "--dialect", "mysql", "--FIX-EVEN-UNPARSABLE" },
+    },
+    formatting.stylua.with {
+      extra_args = { "--config-path", vim.fn.expand( vim.fn.stdpath "config" .. "/.stylua.toml" ) },
+    },
 
     code_actions.gitsigns,
   },
