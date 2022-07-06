@@ -133,7 +133,23 @@ maps.n["<leader>th"] = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", des
 maps.n["<leader>tv"] = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "ToggleTerm vertical split" }
 
 -- LSP
-maps.n["K"]  = { function() vim.lsp.buf.hover() end, desc = "Hover symbol details" }
+maps.n["K"]  = { function()
+  local filetype = vim.bo.filetype
+  if vim.tbl_contains({ "vim", "help" }, filetype) then
+    vim.cmd("h " .. vim.fn.expand "<cword>")
+  elseif vim.tbl_contains({ "man" }, filetype) then
+    vim.cmd("Man " .. vim.fn.expand "<cword>")
+  elseif vim.fn.expand "%:t" == "Cargo.toml" then
+    local crates_status, crates = pcall(require, "crates")
+    if crates_status then
+      crates.show_popup()
+    else
+      vim.lsp.buf.hover()
+    end
+  else
+    vim.lsp.buf.hover()
+  end
+end, desc = "Hover symbol details" }
 maps.n["gd"] = { function() require("telescope.builtin").lsp_definitions{} end, desc = "Show the definition of current symbol" }
 maps.n["gD"] = { function() require("telescope.builtin").lsp_type_definitions{} end, desc = "Declaration of current symbol" }
 maps.n["gh"] = { function() require("telescope.builtin").lsp_references{} end, desc = "Search references" }

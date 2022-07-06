@@ -14,6 +14,11 @@ vim.cmd [[packadd cmp-treesitter]]
 vim.cmd [[packadd cmp-under-comparator]]
 vim.cmd [[packadd cmp_luasnip]]
 
+local check_backspace = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
+end
+
 ---when inside a snippet, seeks to the nearest luasnip field if possible, and checks if it is jumpable
 ---@param dir number 1 for forward, -1 for backward; defaults to 1
 ---@return boolean true if a jumpable luasnip field is found while inside a snippet
@@ -117,6 +122,8 @@ local function jumpable(dir)
   end
 end
 
+vim.api.nvim_set_hl(0, "CmpItemKindCrate", { fg = "#F64D00" })
+
 local kind_icons = {
   Text          = "", Method    = "",    Function = "", Constructor  = "",
   Field         = "ﰠ", Variable  = "",  Class      = "",    Interface = "",
@@ -169,10 +176,17 @@ local cmp_config = {
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
   },
-  sources = cmp.config.sources(
-  { { name = "nvim_lsp" }, { name = "nvim_lua" }, { name = "luasnip" }, { name = "vsnip" } },
-  { { name = "path" }, { name = "tmux" }, { name = "buffer" }, { name = "treesitter"} }
-  ),
+  sources = cmp.config.sources({
+    { name = "crates", group_index = 1 },
+    { name = "nvim_lsp", group_index = 2 },
+    { name = "nvim_lua", group_index = 2 },
+    { name = "luasnip", group_index = 3 },
+    { name = "vsnip", group_index = 3 },
+    { name = "path", group_index = 4 },
+    { name = "tmux", group_index = 4 },
+    { name = "buffer", group_index = 4 },
+    { name = "treesitter", group_index = 4 }
+  }),
   mapping = cmp.mapping.preset.insert({
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<Up>"] = cmp.mapping.select_prev_item(),
@@ -181,7 +195,7 @@ local cmp_config = {
     ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-    ["<C-e>"] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close(), },
+    ["<C-c>"] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close(), },
     ["<CR>"] = cmp.mapping.confirm { select = true },
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
@@ -190,6 +204,8 @@ local cmp_config = {
         luasnip.expand()
       elseif jumpable(1) then
         luasnip.jump(1)
+      elseif check_backspace() then
+        fallback()
       else
         fallback()
       end
