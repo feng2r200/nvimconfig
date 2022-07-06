@@ -154,10 +154,9 @@ vim.api.nvim_set_keymap("n", "crc", ":lua require('jdtls').extract_constant()<CR
 vim.api.nvim_set_keymap("v", "crc", ":<Esc>lua require('jdtls').extract_constant(true)<CR>", { noremap = true, silent = true, desc = "Extract constant" })
 vim.api.nvim_set_keymap("v", "crm", ":<Esc>lua require('jdtls').extract_method(true)<CR>", { noremap = true, silent = true, desc = "Extract method" })
 
-
-vim.api.nvim_set_keymap("n", "<leader>jd", ":lua require('jdtls.dap').setup_dap_main_class_configs()<CR>", { noremap = true, silent = true, desc = "Setup main class" })
-vim.api.nvim_set_keymap("n", "<leader>jm", ":lua require('jdtls').test_class()<CR>", { noremap = true, silent = true, desc = "Test class" })
-vim.api.nvim_set_keymap("n", "<leader>jn", ":lua require('jdtls').test_nearest_method()<CR>", { noremap = true, silent = true, desc = "Test nearest method" })
+vim.api.nvim_set_keymap("n", "<leader>ljd", ":lua require('jdtls.dap').setup_dap_main_class_configs()<CR>", { noremap = true, silent = true, desc = "Setup main class" })
+vim.api.nvim_set_keymap("n", "<leader>ljm", ":lua require('jdtls').test_class()<CR>", { noremap = true, silent = true, desc = "Test class" })
+vim.api.nvim_set_keymap("n", "<leader>ljn", ":lua require('jdtls').test_nearest_method()<CR>", { noremap = true, silent = true, desc = "Test nearest method" })
 
 -- command
 vim.cmd [[ command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config() ]]

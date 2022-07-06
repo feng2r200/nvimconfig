@@ -17,7 +17,6 @@ return {
 		"--ranking-model=decision_forest",
 		-- 输入建议中，已包含头文件的项与还未包含头文件的项会以圆点加以区分
 		"--header-insertion-decorators",
-    "--offset-encoding=utf-16",
 		"-j=12",
 		"--pretty",
   }
