@@ -61,6 +61,7 @@ local custom_attach = function(client, bufnr)
     lsp_handlers.on_attach(client, bufnr)
     require("jdtls.setup").add_commands()
     require("jdtls").setup_dap({ hotcodereplace="auto" })
+    require("jdtls.dap").setup_dap_main_class_configs()
 end
 
 local capabilities = lsp_handlers.capabilities
@@ -91,6 +92,9 @@ local config = {
                 updateBuildConfiguration = "interactive"
             },
             contentProvider = { preferred = 'fernflower' },
+            eclipse = {
+              downloadSources = true,
+            },
             foldingRange = { enabled = true},
             home =java_path["18"],
             implementationsCodeLens = { enabled = true },
@@ -147,6 +151,11 @@ config.init_options = {
     bundles = bundles,
 }
 
+vim.cmd "command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_compile JdtCompile lua require('jdtls').compile(<f-args>)"
+vim.cmd "command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_set_runtime JdtSetRuntime lua require('jdtls').set_runtime(<f-args>)"
+vim.cmd "command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()"
+vim.cmd "command! -buffer JdtBytecode lua require('jdtls').javap()"
+
 -- Mappings.
 vim.api.nvim_set_keymap("n", "crv", "<cmd>lua require('jdtls').extract_variable()<CR>", { noremap = true, silent = true, desc = "Extract variable" })
 vim.api.nvim_set_keymap("v", "crv", "<cmd>lua require('jdtls').extract_variable(true)<CR>", { noremap = true, silent = true, desc = "Extract variable" })
@@ -175,9 +184,6 @@ if wk_status then
     nowait = true, -- use `nowait` when creating keymaps
   })
 end
-
--- command
-vim.cmd [[ command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config() ]]
 
 -- Setup
 require("jdtls").start_or_attach(config)
