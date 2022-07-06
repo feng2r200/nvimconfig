@@ -7,6 +7,8 @@ vim.cmd [[set shiftwidth=4]]
 
 vim.cmd [[packadd nvim-jdtls]]
 
+vim.cmd [[packadd nvim-dap]]
+
 local java_path = {
     ["8"]  = "/usr/local/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home",
     ["11"] = "/usr/local/Cellar/openjdk@11/11.0.15/libexec/openjdk.jdk/Contents/Home",
@@ -58,7 +60,7 @@ local lsp_handlers = require "lsp.handlers"
 local custom_attach = function(client, bufnr)
     lsp_handlers.on_attach(client, bufnr)
     require("jdtls.setup").add_commands()
-    require("jdtls").setup_dap({hotcodereplace="auto"})
+    require("jdtls").setup_dap({ hotcodereplace="auto" })
 end
 
 local capabilities = lsp_handlers.capabilities
@@ -84,13 +86,13 @@ local config = {
                     globalSettings = os.getenv("HOME") .. "/.m2/settings.xml",
                 },
                 runtimes = {
-                    {name = "JavaSE-11", path=java_path["11"], default=true},
+                    {name = "JavaSE-18", path=java_path["18"], default=true},
                 },
                 updateBuildConfiguration = "interactive"
             },
             contentProvider = { preferred = 'fernflower' },
             foldingRange = { enabled = true},
-            home =java_path["11"],
+            home =java_path["18"],
             implementationsCodeLens = { enabled = true },
             import = {
                 maven = { enabled = true },
@@ -133,10 +135,10 @@ config.on_init = function(client, _)
 end
 
 local bundles = {
-    vim.fn.glob(os.getenv("XDG_CONFIG_HOME") .. "/nvim/java-debug/com.microsoft.java.debug.plugin-*.jar"),
-};
-vim.list_extend(bundles, vim.split(vim.fn.glob(os.getenv("XDG_CONFIG_HOME") .. "/nvim/vscode-java-test/*.jar"), "\n"))
-vim.list_extend(bundles, vim.split(vim.fn.glob(os.getenv("XDG_CONFIG_HOME") .. "/nvim/vscode-java-decompiler/*.jar"), "\n"))
+  vim.fn.glob(vim.fn.stdpath("config") .. "/java-debug/com.microsoft.java.debug.plugin-*.jar"),
+}
+vim.list_extend(bundles, vim.split(vim.fn.glob(vim.fn.stdpath("config") .. "/vscode-java-test/*.jar"), "\n"))
+vim.list_extend(bundles, vim.split(vim.fn.glob(vim.fn.stdpath("config") .. "/vscode-java-decompiler/*.jar"), "\n"))
 
 local extendedClientCapabilities = require'jdtls'.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
@@ -146,13 +148,16 @@ config.init_options = {
 }
 
 -- Mappings.
-vim.api.nvim_set_keymap("n", "crv", ":lua require('jdtls').extract_variable()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "crv", ":<Esc>lua require('jdtls').extract_variable(true)<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "crc", ":lua require('jdtls').extract_constant()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "crc", ":<Esc>lua require('jdtls').extract_constant(true)<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "crm", ":<Esc>lua require('jdtls').extract_method(true)<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "crv", ":lua require('jdtls').extract_variable()<CR>", { noremap = true, silent = true, desc = "Extract variable" })
+vim.api.nvim_set_keymap("v", "crv", ":<Esc>lua require('jdtls').extract_variable(true)<CR>", { noremap = true, silent = true, desc = "Extract variable" })
+vim.api.nvim_set_keymap("n", "crc", ":lua require('jdtls').extract_constant()<CR>", { noremap = true, silent = true, desc = "Extract constant" })
+vim.api.nvim_set_keymap("v", "crc", ":<Esc>lua require('jdtls').extract_constant(true)<CR>", { noremap = true, silent = true, desc = "Extract constant" })
+vim.api.nvim_set_keymap("v", "crm", ":<Esc>lua require('jdtls').extract_method(true)<CR>", { noremap = true, silent = true, desc = "Extract method" })
 
-vim.api.nvim_set_keymap("n", "<leader>dn", ":lua require('jdtls').test_nearest_method()<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<leader>jd", ":lua require('jdtls.dap').setup_dap_main_class_configs()<CR>", { noremap = true, silent = true, desc = "Setup main class" })
+vim.api.nvim_set_keymap("n", "<leader>jm", ":lua require('jdtls').test_class()<CR>", { noremap = true, silent = true, desc = "Test class" })
+vim.api.nvim_set_keymap("n", "<leader>jn", ":lua require('jdtls').test_nearest_method()<CR>", { noremap = true, silent = true, desc = "Test nearest method" })
 
 -- command
 vim.cmd [[ command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config() ]]
