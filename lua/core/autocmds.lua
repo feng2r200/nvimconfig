@@ -1,10 +1,6 @@
 local cmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup
 
-augroup("neotree_start", { clear = true })
 cmd("BufEnter", {
-  desc = "Open Neo-Tree on startup with directory",
-  group = "neotree_start",
   callback = function()
     local stats = vim.loop.fs_stat(vim.api.nvim_buf_get_name(0))
     if stats and stats.type == "directory" then
@@ -13,66 +9,80 @@ cmd("BufEnter", {
   end,
 })
 
-augroup("feline_setup", { clear = true })
 cmd("ColorScheme", {
-  desc = "Reload feline on colorscheme change",
-  group = "feline_setup",
   callback = function()
     package.loaded["configs.feline"] = nil
     require "configs.feline"
   end,
 })
 
-augroup("yank", { clear = true })
 cmd("TextYankPost", {
-  desc = "Highlight on yank",
-  group = "yank",
   pattern = "*",
   command = [[silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=300})]],
 })
 
-augroup("formatopts", { clear = true })
 cmd("FileType", {
-  desc = "Format options configuration.",
-  group = "formatopts",
   pattern = "*",
   command = [[setlocal formatoptions-=c formatoptions-=r formatoptions-=o]],
 })
 
-augroup("wins", { clear = true })
 cmd("FocusGained", {
-  desc = "Check if file changed when its window is focus, more eager than 'autoread'",
-  group = "wins",
   pattern = "*",
   command = "checktime",
 })
 cmd("VimResized", {
-  desc = "Equalize window dimensions when resizing vim window",
-  group = "wins",
   pattern = "*",
   command = [[tabdo wincmd =]],
 })
 
-augroup("bufs", { clear = true })
 cmd("BufWritePre", {
-  desc = "Set no undo file buffers",
-  group = "bufs",
   pattern = { "/tmp/*", "COMMIT_EDITMSG", "MERGE_MSG", "*.tmp", "*.bak" },
   command = "setlocal noundofile",
 })
 
-augroup("packer_conf", { clear = true })
 cmd("BufWritePost", {
-  desc = "Sync packer after modifying plugins.lua",
-  group = "packer_conf",
   pattern = "plugins.lua",
   command = "source <afile> | PackerSync",
 })
 
-augroup("filetype", { clear = true })
 cmd("FileType", {
-  desc = "Set python,java tab",
-  group = "filetype",
   pattern = { "c", "cpp", "python", "java" },
   command = "set shiftwidth=4 tabstop=4",
 })
+cmd("FileType", {
+  pattern = { "qf", "help", "man", "lspinfo", "spectre_panel", "lir", "DressingSelect" },
+  callback = function()
+    vim.cmd [[
+      nnoremap <silent> <buffer> q :close<CR> 
+      set nobuflisted 
+    ]]
+  end,
+})
+cmd("FileType", {
+  pattern = { "gitcommit", "markdown" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
+  end,
+})
+cmd("FileType", {
+  pattern = { "lir" },
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+  end,
+})
+
+cmd("VimResized", {
+  callback = function()
+    vim.cmd "tabdo wincmd ="
+  end,
+})
+
+cmd({ "BufWritePost" }, {
+  pattern = { "*.java" },
+  callback = function()
+    vim.lsp.codelens.refresh()
+  end,
+})
+
