@@ -3,8 +3,6 @@ if not status_ok then
   return
 end
 
-local liblldb_path   = "/usr/local/opt/llvm/bin/lldb-vscode"
-
 vim.cmd([[packadd nvim-lspconfig]])
 
 local lsp_handlers = require "lsp.handlers"
@@ -78,11 +76,7 @@ local opts = {
   },
 
   dap = {
-    adapter = {
-      type = "executable",
-      command = liblldb_path,
-      name = "lldb",
-    }
+    adapter = require("dap").adapters.lldb
   },
 }
 
