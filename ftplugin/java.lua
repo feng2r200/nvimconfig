@@ -56,19 +56,19 @@ local get_cmd = function()
 end
 
 local lsp_handlers = require "lsp.handlers"
+local jdtls = require "jdtls"
 
 local custom_attach = function(client, bufnr)
     lsp_handlers.on_attach(client, bufnr)
-    require("jdtls.setup").add_commands()
-    require("jdtls").setup_dap({ hotcodereplace="auto" })
-    require("jdtls.dap").setup_dap_main_class_configs()
+    jdtls.setup_dap({ hotcodereplace="auto" })
+    jdtls.setup.add_commands()
 end
 
 local capabilities = lsp_handlers.capabilities
 
 local config = {
     cmd = get_cmd(),
-    root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', '.idea' }),
+    root_dir = jdtls.setup.find_root({'.git', 'mvnw', 'gradlew', '.idea' }),
     settings = {
         java = {
             codeGeneration = {
@@ -138,21 +138,30 @@ config.on_init = function(client, _)
     client.notify("workspace/didChangeConfiguration", { settings = config.settings})
 end
 
-local bundles = {
-  vim.fn.glob(vim.fn.stdpath("config") .. "/java-debug/com.microsoft.java.debug.plugin-*.jar"),
-}
-vim.list_extend(bundles, vim.split(vim.fn.glob(vim.fn.stdpath("config") .. "/vscode-java-test/*.jar"), "\n"))
-vim.list_extend(bundles, vim.split(vim.fn.glob(vim.fn.stdpath("config") .. "/vscode-java-decompiler/*.jar"), "\n"))
+local bundles = {}
+for _, jar_pattern in ipairs({
+  "/pack/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar",
+  "/pack/vscode-java-decompiler/server/*.jar",
+  "/pack/vscode-java-test/server/*.jar",
+}) do
+  for _, bundle in ipairs(vim.split(vim.fn.glob(vim.fn.stdpath("config") .. jar_pattern), '\n')) do
+    table.insert(bundles, bundle)
+  end
+end
 
-local extendedClientCapabilities = require'jdtls'.extendedClientCapabilities
+local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 config.init_options = {
     extendedClientCapabilities = extendedClientCapabilities,
     bundles = bundles,
 }
 
-vim.cmd "command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_compile JdtCompile lua require('jdtls').compile(<f-args>)"
-vim.cmd "command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_set_runtime JdtSetRuntime lua require('jdtls').set_runtime(<f-args>)"
+-- Setup
+jdtls.start_or_attach(config)
+
+-- command
+vim.cmd "command! -buffer -nargs=? -complete=custom,v:lua.require('jdtls')._complete_compile JdtCompile lua require('jdtls').compile(<f-args>)"
+vim.cmd "command! -buffer -nargs=? -complete=custom,v:lua.require('jdtls')._complete_set_runtime JdtSetRuntime lua require('jdtls').set_runtime(<f-args>)"
 vim.cmd "command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()"
 vim.cmd "command! -buffer JdtBytecode lua require('jdtls').javap()"
 
@@ -185,5 +194,3 @@ if wk_status then
   })
 end
 
--- Setup
-require("jdtls").start_or_attach(config)
