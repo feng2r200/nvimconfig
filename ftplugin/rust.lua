@@ -67,6 +67,9 @@ local opts = {
 
     settings = {
       ["rust-analyzer"] = {
+        cargo = {
+          autoReload = true,
+        },
         lens = {
           enable = true,
         },
