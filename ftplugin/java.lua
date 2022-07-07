@@ -175,10 +175,8 @@ vim.api.nvim_set_keymap("v", "crm", "<cmd>lua require('jdtls').extract_method(tr
 local wk_status, wk = pcall(require, "which-key")
 if wk_status then
   local mappings = {
-    L = {
-      name = "jdtls",
-
-      d = { "<cmd>lua require('jdtls.dap').setup_dap_main_class_configs()<CR>", "Dap main class" },
+    d = {
+      r = { "<cmd>lua require('jdtls.dap').setup_dap_main_class_configs(); require('dap').continue()<CR>", "Debug run" },
       m = { "<cmd>lua require('jdtls').test_class()<CR>", "Test class" },
       n = { "<cmd>lua require('jdtls').test_nearest_method()<CR>", "Test nearest method" },
     },
