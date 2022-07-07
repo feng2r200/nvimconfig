@@ -407,22 +407,15 @@ local plugins = {
 
   -- Debugger
   ["mfussenegger/nvim-dap"] = {
-    event = "BufReadPost",
     config = function()
       require "configs.dap-config"
     end,
   },
   ["rcarriga/nvim-dap-ui"] = {
     after = "nvim-dap",
-    config = function()
-      require "configs.dap-ui"
-    end,
   },
   ["theHamsta/nvim-dap-virtual-text"] = {
     after = "nvim-dap",
-    config = function()
-      require "configs.dap-virtual-text"
-    end
   },
 
   ["rlue/vim-barbaric"] = {
