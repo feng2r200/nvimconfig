@@ -3,10 +3,9 @@ if not status_ok then
   return
 end
 
-
 dap.adapters.lldb = {
   type = "executable",
-	command = "/usr/bin/lldb-vscode",
+	command = "/usr/local/opt/llvm/bin/lldb-vscode",
 	name = "lldb",
 }
 dap.configurations.cpp = {
