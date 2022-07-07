@@ -368,6 +368,9 @@ local plugins = {
 
   ["simrat39/rust-tools.nvim"] = {
     ft = "rust",
+    config = function()
+      require "configs.rust-config"
+    end
   },
   ["Saecki/crates.nvim"] = {
     event = { "BufRead Cargo.toml" },
