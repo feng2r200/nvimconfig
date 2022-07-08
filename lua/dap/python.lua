@@ -22,8 +22,7 @@ dap.configurations.python = {
 			elseif vim.fn.executable(cwd .. "/.env/bin/python") == 1 then
 				return cwd .. "/.env/bin/python"
 			else
-        return vim.u.platform_python_path
-			end
+        return "python"			end
 		end,
 	},
 }
