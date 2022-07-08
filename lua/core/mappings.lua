@@ -68,10 +68,10 @@ maps[""]["<Space>T"] = { function() require("hop").hint_char1({ direction = requ
 
 -- Close
 init_table("n", "<Space>", "c", "Close")
-maps.n["<Space>cw"] = { "<cmd>Bdelete<cr>", desc = "Close buffer" }
-maps.n["<Space>ct"] = { "<cmd>tabclose<cr>", desc = "Close tab" }
-maps.n["<Space>ch"] = { "<cmd>BufferLineCloseLeft<cr>", desc = "Close buffer left"}
-maps.n["<Space>cl"] = { "<cmd>BufferLineCloseRight<cr>", desc = "Close buffer right"}
+maps.n["<Space>cw"] = { "<cmd>Bdelete!<cr>", desc = "Close buffer" }
+maps.n["<Space>ct"] = { "<cmd>tabclose!<cr>", desc = "Close tab" }
+maps.n["<Space>ch"] = { "<cmd>BufferLineCloseLeft!<cr>", desc = "Close buffer left"}
+maps.n["<Space>cl"] = { "<cmd>BufferLineCloseRight!<cr>", desc = "Close buffer right"}
 
 -- GitSigns
 init_table("n", "<Space>", "g", "Git")
