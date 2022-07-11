@@ -93,5 +93,6 @@ nnoremap <leader>sa     :action Annotate<CR>
 nmap <Space>j           <Plug>(easymotion-j)
 nmap <Space>k           <Plug>(easymotion-k)
 
-nmap <leader>ve         :action ActivateProjectToolWindow<CR>
-nmap <leader>vo         :action ActivateStructureToolWindow<CR>
+map <leader>ve         :action ActivateProjectToolWindow<CR>
+map <leader>vo         :action ActivateStructureToolWindow<CR>
+map <leader>fe         :action RecentFiles<CR>
