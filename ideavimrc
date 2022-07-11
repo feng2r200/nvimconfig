@@ -52,8 +52,8 @@ nnoremap <C-k>          <c-w>k
 """ Editing source code
 nmap <BS>               :nohl<CR>
 
-nmap ]b gT
-nmap [b gt
+nmap ]b gt
+nmap [b gT
 
 vnoremap < <gv
 vnoremap > >gv
@@ -90,5 +90,8 @@ nnoremap <leader>lh     :action FindUsages<CR>
 nnoremap <leader>sa     :action Annotate<CR>
 
 """ Motion
-nmap <Space>j      <Plug>(easymotion-j)
-nmap <Space>k      <Plug>(easymotion-k)
+nmap <Space>j           <Plug>(easymotion-j)
+nmap <Space>k           <Plug>(easymotion-k)
+
+nmap <leader>ve         :action ActivateProjectToolWindow<CR>
+nmap <leader>vo         :action ActivateStructureToolWindow<CR>
