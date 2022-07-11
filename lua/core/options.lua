@@ -7,7 +7,7 @@ vim.opt.colorcolumn = "80,100"
 vim.opt.cursorline = true -- Highlight the text line of the cursor
 vim.opt.diffopt = "filler,iwhite,internal,algorithm:patience"
 vim.opt.expandtab = true -- Enable the use of space in tab
-vim.opt.fileencoding = "utf-8" -- File content encoding for the buffer
+vim.opt.fileencodings = {"utf-8", "gb18030", "utf-16", "big5"} -- File content encoding for the buffer
 vim.opt.fillchars = { eob = " " } -- Disable `~` on nonexistent lines
 vim.opt.grepprg = "rg --hidden --vimgrep --smart-case --"
 vim.opt.history = 2000 -- Number of commands to remember in a history table
