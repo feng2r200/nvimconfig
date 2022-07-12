@@ -73,7 +73,7 @@ if status_dapui_ok then
 
   local function debug_close()
     vim.api.nvim_command("DapVirtualTextDisable")
-    dap.repl.close()
+    -- dap.repl.close()
     dapui.close()
   end
 
