@@ -87,7 +87,7 @@ local config = {
                     globalSettings = os.getenv("HOME") .. "/.m2/settings.xml",
                 },
                 runtimes = {
-                    {name = "JavaSE-18", path=java_path["18"], default=true},
+                    {name = "JavaSE-1.8", path=java_path["8"], default=true},
                 },
                 updateBuildConfiguration = "interactive"
             },
@@ -96,7 +96,7 @@ local config = {
               downloadSources = true,
             },
             foldingRange = { enabled = true},
-            home =java_path["18"],
+            home =java_path["8"],
             implementationsCodeLens = { enabled = true },
             import = {
                 maven = { enabled = true },
