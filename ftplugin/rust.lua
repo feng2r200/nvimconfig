@@ -1,8 +1,7 @@
 local wk_status, wk = pcall(require, "which-key")
 if wk_status then
   local mappings = {
-    L = {
-      name = "Rust",
+    l = {
       r = { "<cmd>RustRunnables<Cr>", "Runnables" },
       m = { "<cmd>RustExpandMacro<Cr>", "Expand Macro" },
       c = { "<cmd>RustOpenCargo<Cr>", "Open Cargo" },
