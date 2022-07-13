@@ -2,19 +2,19 @@ local wk_status, wk = pcall(require, "which-key")
 if wk_status then
   local mappings = {
     l = {
-      r = { "<cmd>RustRunnables<Cr>", "Runnables" },
-      m = { "<cmd>RustExpandMacro<Cr>", "Expand Macro" },
-      c = { "<cmd>RustOpenCargo<Cr>", "Open Cargo" },
-      p = { "<cmd>RustParentModule<Cr>", "Parent Module" },
-      v = { "<cmd>RustViewCrateGraph<Cr>", "View Crate Graph" },
+      r = { "<cmd>RustRunnables<Cr>", "RustRunnables" },
+      m = { "<cmd>RustExpandMacro<Cr>", "RustExpandMacro" },
+      c = { "<cmd>RustOpenCargo<Cr>", "RustOpenCargo" },
+      p = { "<cmd>RustParentModule<Cr>", "RustParentModule" },
+      v = { "<cmd>RustViewCrateGraph<Cr>", "RustViewCrateGraph" },
       R = {
         "<cmd>lua require('rust-tools/workspace_refresh')._reload_workspace_from_cargo_toml()<Cr>",
-        "Reload Workspace",
+        "RustReloadWorkspace",
       },
     },
 
     d = {
-      r = { "<cmd>RustDebuggables<Cr>", "Debuggables" },
+      r = { "<cmd>RustDebuggables<Cr>", "RustDebuggables" },
     },
   }
 
