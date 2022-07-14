@@ -1,14 +1,4 @@
 {
-  "class comment": {
-    "prefix": "/**c",
-    "body": ["/**", " * ${1:description}", " *", " * @author: ${2:author}", " * @date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}", " */"],
-    "description": "Create class comment"
-  },
-  "method comment": {
-    "prefix": "/**m",
-    "body": ["/**", " * ${1:description}", " */"],
-    "description": "Create method comment"
-  },
   "enum": {
     "prefix": "enum",
     "body": ["public enum ${TM_FILENAME_BASE} {", "\t$0", "}"],
