@@ -182,6 +182,7 @@ maps.n["<leader>db"] = { function() require("dap").toggle_breakpoint() end, desc
 maps.n["<leader>dB"] = { function() require("dap").set_breakpoint(vim.fn.input '[Condition] > ') end, desc = "Set condition breakpoint" }
 maps.n["<leader>dk"] = { function() require("dapui").eval() end, desc = "Show cursor eval" }
 maps.v["<leader>dk"] = { function() require("dapui").eval() end, desc = "Show cursor eval" }
+maps.n["<leader>dt"] = { function() require("dap").repl.toggle() end, desc = "Toggle REPL" }
 maps.n["<leader>dr"] = { function() require("dap").continue() end, desc = "Debug run" }
 
 -- View
