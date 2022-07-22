@@ -31,7 +31,7 @@ local opts = {
     },
 
     inlay_hints = {
-      only_current_line = false,
+      only_current_line = true,
       only_current_line_autocmd = "CursorHold",
       show_parameter_hints = true,
       show_variable_name = true,

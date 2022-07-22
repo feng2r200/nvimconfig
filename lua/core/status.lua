@@ -117,7 +117,7 @@ end
 
 function M.provider.gps()
   return function ()
-    local gps_status_ok, gps = pcall(require, "nvim-gps")
+    local gps_status_ok, gps = pcall(require, "nvim-navic")
     return gps_status_ok and gps.get_location() or ""
   end
 end
@@ -147,7 +147,7 @@ end
 
 function M.conditional.gps_available()
   return function()
-    local gps_status_ok, gps = pcall(require, "nvim-gps")
+    local gps_status_ok, gps = pcall(require, "nvim-navic")
     return gps_status_ok and gps.is_available() or false
   end
 end

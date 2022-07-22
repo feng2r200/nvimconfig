@@ -68,7 +68,7 @@ local capabilities = lsp_handlers.capabilities
 
 local config = {
     cmd = get_cmd(),
-    root_dir = jdtls.setup.find_root({'.git', 'mvnw', 'gradlew', '.idea' }),
+    root_dir = jdtls.setup.find_root({'.git', 'mvnw', 'gradlew', '.idea', 'build.gradle' }),
     settings = {
         java = {
             codeGeneration = {
@@ -109,6 +109,11 @@ local config = {
             references = {
                 includeAccessors = true,
                 includeDecompiledSources = true,
+            },
+            inlayHints = {
+              parameterNames = {
+                enabled = "all", -- literals, all, none
+              },
             },
             rename = { enabled = true },
             selectionRange = { enabled = true },

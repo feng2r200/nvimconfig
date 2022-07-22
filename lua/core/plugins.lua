@@ -93,8 +93,9 @@ local plugins = {
   },
 
   -- gps
-  ["SmiteshP/nvim-gps"] = {
+  ["SmiteshP/nvim-navic"] = {
     after = "nvim-web-devicons",
+    requires = "neovim/nvim-lspconfig",
     config = function()
       require "configs.gps"
     end,
@@ -199,6 +200,25 @@ local plugins = {
         "Outline",
         "toggleterm",
       }
+    end
+  },
+  ["j-hui/fidget.nvim"] = {
+    event = "BufRead",
+    after = "nvim-lspconfig",
+    config = function()
+      require "configs.fidget-config"
+    end
+  },
+  ["nvim-lua/lsp_extensions.nvim"] = {
+    event = "BufRead",
+    after = "nvim-lspconfig",
+  },
+  ["christianchiarulli/lsp-inlayhints.nvim"] = {
+    event = "BufRead",
+    after = "nvim-lspconfig",
+    branch = "user-config",
+    config = function()
+      require "configs.lsp-inlayhints-config"
     end
   },
 
@@ -366,8 +386,9 @@ local plugins = {
     ft = "thrift",
   },
 
-  ["simrat39/rust-tools.nvim"] = {
+  ["christianchiarulli/rust-tools.nvim"] = {
     ft = "rust",
+    branch = "modularize_and_inlay_rewrite",
     config = function()
       require "configs.rust-config"
     end

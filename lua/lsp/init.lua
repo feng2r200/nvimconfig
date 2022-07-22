@@ -14,6 +14,7 @@ local enhance_server_opts = {
   ["jsonls"] = require "lsp.settings.jsonls",
   ["sqls"] = require "lsp.settings.sqls",
   ["sumneko_lua"] = require "lsp.settings.sumneko_lua",
+  ["pyright"] = require "lsp.settings.pyright",
 }
 
 local lsp_handlers = require "lsp.handlers"
