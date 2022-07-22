@@ -181,7 +181,7 @@ local wk_status, wk = pcall(require, "which-key")
 if wk_status then
   local mappings = {
     d = {
-      r = { "<cmd>lua require('jdtls.dap').setup_dap_main_class_configs(); require('dap').continue()<CR>", "Debug run" },
+      r = { "<cmd>lua require('dap').continue()<CR>", "Debug run" },
       m = { "<cmd>lua require('jdtls').test_class()<CR>", "Test class" },
       n = { "<cmd>lua require('jdtls').test_nearest_method()<CR>", "Test nearest method" },
     },
