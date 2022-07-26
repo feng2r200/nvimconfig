@@ -123,6 +123,8 @@ local function jumpable(dir)
 end
 
 vim.api.nvim_set_hl(0, "CmpItemKindCrate", { fg = "#F64D00" })
+vim.api.nvim_set_hl(0, "CmpItemKindTmux", { fg = "#CA42F0" })
+vim.api.nvim_set_hl(0, "CmpItemKindTs", { fg = "#6CC644" })
 
 local kind_icons = {
   Text          = "", Method    = "",    Function = "", Constructor  = "",
@@ -152,6 +154,15 @@ local cmp_config = {
   formatting = {
     format = function(entry, vim_item)
       vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+
+      if entry.source.name == "tmux" then
+        vim_item.kind_hl_group = "CmpItemKindTmux"
+      end
+
+      if entry.source.name == "treesitter" then
+        vim_item.kind_hl_group = "CmpItemKindTs"
+      end
+
       vim_item.menu = (source_menu)[entry.source.name]
       vim_item.dup  = duplicates[entry.source.name] or 0
       return vim_item
