@@ -386,7 +386,7 @@ local plugins = {
     ft = "thrift",
   },
 
-  ["christianchiarulli/rust-tools.nvim"] = {
+  ["simrat39/rust-tools.nvim"] = {
     ft = "rust",
     branch = "modularize_and_inlay_rewrite",
     config = function()
