@@ -178,6 +178,13 @@ local plugins = {
     end,
   },
 
+  -- Startup
+  ["goolord/alpha-nvim"] = {
+    config = function()
+      require "configs.alpha"
+    end
+  },
+
   -- Indentation
   ["lukas-reineke/indent-blankline.nvim"] = {
     event = "BufRead",

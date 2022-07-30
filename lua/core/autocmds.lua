@@ -1,11 +1,11 @@
 local cmd = vim.api.nvim_create_autocmd
 
-cmd("BufEnter", {
+cmd("User", {
+  pattern = { "AlphaReady" },
   callback = function()
-    local stats = vim.loop.fs_stat(vim.api.nvim_buf_get_name(0))
-    if stats and stats.type == "directory" then
-      require("neo-tree.setup.netrw").hijack()
-    end
+    vim.cmd [[
+      set laststatus=0 | autocmd BufUnload <buffer> set laststatus=3
+    ]]
   end,
 })
 
