@@ -166,8 +166,9 @@ maps.n["<leader>la"] = { function() vim.lsp.buf.code_action() end, desc = "LSP c
 maps.v["<leader>la"] = { function() vim.lsp.buf.range_code_action() end, desc = "LSP code action" }
 maps.n["<leader>lf"] = { function() vim.lsp.buf.formatting_sync(nil, 2000) end, desc = "Format code" }
 maps.v["<leader>lf"] = { function() vim.lsp.buf.formatting_sync(nil, 2000) end, desc = "Format code" }
-maps.n["<leader>li"] = { function() vim.lsp.buf.incoming_calls() end, desc = "Incoming calls" }
-maps.n["<leader>lo"] = { function() vim.lsp.buf.outgoing_calls() end, desc = "Outgoing calls" }
+maps.n["<leader>li"] = { function() vim.lsp.buf.incoming_calls() end, desc = "Incoming Calls" }
+maps.n["<leader>lo"] = { function() vim.lsp.buf.outgoing_calls() end, desc = "Outgoing Calls" }
+maps.n["<leader>lr"] = { "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "Run Codelens" }
 maps.n["<leader>ls"] = { function() vim.lsp.buf.signature_help() end, desc = "Signature help" }
 
 -- Debug
@@ -189,7 +190,7 @@ maps.n["<leader>dr"] = { function() require("dap").continue() end, desc = "Debug
 init_table("n", "<leader>", "v", "View")
 maps.n["<leader>vb"] = { function() require("telescope").extensions.file_browser.file_browser() end, desc = "File browser" }
 maps.n["<leader>vd"] = { "<cmd>Trouble document_diagnostics<cr>", desc = "Trouble Document Diagnostics"}
-maps.n["<leader>ve"] = { "<cmd>Neotree toggle<cr>", desc = "Tree Explorer" }
+maps.n["<leader>ve"] = { "<cmd>NvimTreeToggle<cr>", desc = "Tree Explorer" }
 maps.n["<leader>vg"] = { "<cmd>DiffviewOpen<cr>", desc = "Sidebar Diff Project" }
 maps.n["<leader>vh"] = { "<cmd>Trouble lsp_references<cr>", desc = "Trouble LSP Usage"}
 maps.n["<leader>vo"] = { "<cmd>SymbolsOutline<cr>", desc = "Symbols outline" }
@@ -217,7 +218,7 @@ local function set_mappings(map_table, base)
   end
 end
 
-set_mappings(maps)
+set_mappings(maps, { noremap = true, silent = true })
 
 ------------------------------------------------------------------------
 

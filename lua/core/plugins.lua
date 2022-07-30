@@ -9,90 +9,21 @@ local plugins = {
   -- Plugin manager
   ["wbthomason/packer.nvim"] = {},
 
-  -- Optimiser
-  ["lewis6991/impatient.nvim"] = {},
-
-  -- Lua functions
+  -- Lua Development
   ["nvim-lua/plenary.nvim"] = { module = "plenary" },
-
-  -- Popup API
   ["nvim-lua/popup.nvim"] = {},
 
-  ["navarasu/onedark.nvim"] = {
+  -- LSP
+  ["neovim/nvim-lspconfig"] = { event = "VimEnter" },
+  ["williamboman/mason.nvim"] = {
+    after = "nvim-lspconfig",
     config = function()
-      require "configs.nvim_onedark"
+      require "configs.lsp"
     end,
   },
-
-  -- Neovim UI Enhancer
-  ["MunifTanjim/nui.nvim"] = { module = "nui" },
-
-  -- Cursorhold fix
-  ["antoinemadec/FixCursorHold.nvim"] = {
-    event = { "BufRead", "BufNewFile" },
-    config = function()
-      vim.g.cursorhold_updatetime = 100
-    end,
-  },
-
-  -- FileType
-  ["nathom/filetype.nvim"] = {
-    event = "BufEnter",
-    config = function()
-      require "configs.filetype-nvim"
-    end,
-  },
-
-  -- Icons
-  ["kyazdani42/nvim-web-devicons"] = {
-    event = "VimEnter",
-    config = function()
-      require "configs.icons"
-    end,
-  },
-
-  -- Bufferline
-  ["akinsho/bufferline.nvim"] = {
-    after = "nvim-web-devicons",
-    config = function()
-      require "configs.bufferline"
-    end,
-  },
-
-  -- Better buffer closing
-  ["famiu/bufdelete.nvim"] = { cmd = { "Bdelete", "Bwipeout" } },
-
-  -- File explorer
-  ["nvim-neo-tree/neo-tree.nvim"] = {
-    branch = "v2.x",
-    module = "neo-tree",
-    cmd = "Neotree",
-    requires = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-    setup = function()
-      vim.g.neo_tree_remove_legacy_commands = true
-    end,
-    config = function()
-      require "configs.neo-tree"
-    end,
-  },
-
-  ["s1n7ax/nvim-window-picker"] = {
-    after = "neo-tree.nvim",
-    tag = "v1.*",
-    config = function()
-      require "configs.window-picker"
-    end,
-  },
-
-  -- Statusline
-  ["feline-nvim/feline.nvim"] = {
-    after = "nvim-web-devicons",
-    config = function()
-      require "configs.feline"
-    end,
-  },
-
-  -- gps
+  ["williamboman/mason-lspconfig.nvim"] = { after = "nvim-lspconfig" },
+  ["jose-elias-alvarez/null-ls.nvim"] = { event = { "BufRead", "BufNewFile" } },
+  ["ray-x/lsp_signature.nvim"] = { after = "nvim-lspconfig" },
   ["SmiteshP/nvim-navic"] = {
     after = "nvim-web-devicons",
     requires = "neovim/nvim-lspconfig",
@@ -100,90 +31,13 @@ local plugins = {
       require "configs.gps"
     end,
   },
-
-  -- Autoclose tags
-  ["windwp/nvim-ts-autotag"] = { after = "nvim-treesitter" },
-
-  -- Context based commenting
-  ["JoosepAlviste/nvim-ts-context-commentstring"] = { after = "nvim-treesitter" },
-
-  ["nvim-treesitter/nvim-treesitter-textobjects"] = { after = "nvim-treesitter" },
-
-  ["andymass/vim-matchup"] = {
-    after = "nvim-treesitter",
-    config = function() vim.cmd([[let g:matchup_matchparen_offscreen = {'method': 'popup'}]]) end
-  },
-
-  -- Syntax highlighting
-  ["nvim-treesitter/nvim-treesitter"] = {
-    run = ":TSUpdate",
-    event = { "BufRead", "BufNewFile" },
-    cmd = {
-      "TSInstall",
-      "TSInstallInfo",
-      "TSInstallSync",
-      "TSUninstall",
-      "TSUpdate",
-      "TSUpdateSync",
-      "TSDisableAll",
-      "TSEnableAll",
-    },
+  ["simrat39/symbols-outline.nvim"] = {
+    event = "BufReadPost",
     config = function()
-      require "configs.treesitter"
+      require "configs.symbols"
     end,
   },
-
-  -- Snippet collection
-  ["rafamadriz/friendly-snippets"] = { opt = true },
-
-  -- Snippet engine
-  ["L3MON4D3/LuaSnip"] = {
-    module = "luasnip",
-    wants = "friendly-snippets",
-    config = function()
-      require "configs.luasnip"
-    end,
-  },
-
-  -- Completion engine
-  ["hrsh7th/nvim-cmp"] = {
-    event = { "InsertEnter", "CmdlineEnter" },
-    config = function()
-      require "configs.cmp"
-    end,
-  },
-
-  ["lukas-reineke/cmp-under-comparator"] = {
-    after = "nvim-cmp",
-  },
-  ["saadparwaiz1/cmp_luasnip"] = {
-    after = "nvim-cmp",
-  },
-  ["hrsh7th/cmp-nvim-lsp"] = {
-    after = "nvim-cmp",
-  },
-  ["hrsh7th/cmp-nvim-lua"] = {
-    after = "nvim-cmp",
-  },
-  ["andersevenrud/cmp-tmux"] = {
-    after = "nvim-cmp",
-  },
-  ["hrsh7th/cmp-path"] = {
-    after = "nvim-cmp",
-  },
-  ["hrsh7th/cmp-buffer"] = {
-    after = "nvim-cmp",
-  },
-  ["hrsh7th/cmp-cmdline"] = {
-    after = "nvim-cmp",
-  },
-  ["ray-x/cmp-treesitter"] = {
-    after = "nvim-cmp",
-  },
-
-  -- Built-in LSP
-  ["neovim/nvim-lspconfig"] = { event = "VimEnter" },
-
+  ["b0o/SchemaStore.nvim"] = { module = "schemastore" },
   ["RRethy/vim-illuminate"] = {
     event = "BufRead",
     after = "nvim-lspconfig",
@@ -209,52 +63,58 @@ local plugins = {
       require "configs.fidget-config"
     end
   },
-  ["nvim-lua/lsp_extensions.nvim"] = {
-    event = "BufRead",
-    after = "nvim-lspconfig",
-  },
-  ["christianchiarulli/lsp-inlayhints.nvim"] = {
-    event = "BufRead",
-    after = "nvim-lspconfig",
-    branch = "user-config",
-    config = function()
-      require "configs.lsp-inlayhints-config"
-    end
-  },
 
-  -- LSP manager
-  ["williamboman/nvim-lsp-installer"] = {
-    after = "nvim-lspconfig",
+  -- Completion
+  ["hrsh7th/nvim-cmp"] = {
+    event = { "InsertEnter", "CmdlineEnter" },
     config = function()
-      require "configs.nvim-lsp-installer"
-      require "lsp"
+      require "configs.cmp"
     end,
   },
+  ["lukas-reineke/cmp-under-comparator"] = { after = "nvim-cmp", },
+  ["saadparwaiz1/cmp_luasnip"] = { after = "nvim-cmp", },
+  ["hrsh7th/cmp-nvim-lsp"] = { after = "nvim-cmp", },
+  ["hrsh7th/cmp-nvim-lua"] = { after = "nvim-cmp", },
+  ["andersevenrud/cmp-tmux"] = { after = "nvim-cmp", },
+  ["hrsh7th/cmp-path"] = { after = "nvim-cmp", },
+  ["hrsh7th/cmp-buffer"] = { after = "nvim-cmp", },
+  ["hrsh7th/cmp-cmdline"] = { after = "nvim-cmp", },
+  ["ray-x/cmp-treesitter"] = { after = "nvim-cmp", },
 
-  -- LSP symbols
-  ["simrat39/symbols-outline.nvim"] = {
-    event = "BufReadPost",
+  -- Snippet
+  ["L3MON4D3/LuaSnip"] = {
+    module = "luasnip",
+    wants = "friendly-snippets",
     config = function()
-      require "configs.symbols"
+      require "configs.luasnip"
     end,
   },
+  ["rafamadriz/friendly-snippets"] = { opt = true },
 
-  -- Formatting and linting
-  ["jose-elias-alvarez/null-ls.nvim"] = {
+  -- Syntax/Treesitter
+  ["nvim-treesitter/nvim-treesitter"] = {
+    run = ":TSUpdate",
     event = { "BufRead", "BufNewFile" },
+    cmd = {
+      "TSInstall", "TSInstallInfo", "TSInstallSync", "TSUninstall", "TSUpdate",
+      "TSUpdateSync", "TSDisableAll", "TSEnableAll",
+    },
     config = function()
-      require "configs.null-ls"
+      require "configs.treesitter"
     end,
   },
-
-  ["ray-x/lsp_signature.nvim"] = {
-    after = "nvim-lspconfig",
+  ["JoosepAlviste/nvim-ts-context-commentstring"] = { after = "nvim-treesitter" },
+  ["p00f/nvim-ts-rainbow"] = { after = "nvim-treesitter" },
+  ["windwp/nvim-ts-autotag"] = { after = "nvim-treesitter" },
+  ["nvim-treesitter/nvim-treesitter-textobjects"] = { after = "nvim-treesitter" },
+  ["kylechui/nvim-surround"] = {
+    after = "nvim-treesitter",
     config = function()
-      require "configs.signature"
+      require "configs.surround"
     end
   },
 
-  -- Fuzzy finder
+  -- Fuzzy Finder/Telescope
   ["nvim-telescope/telescope.nvim"] = {
     cmd = "Telescope",
     module = "telescope",
@@ -262,34 +122,10 @@ local plugins = {
       require "configs.telescope-config"
     end,
   },
-
-  -- Fuzzy finder syntax support
   ["nvim-telescope/telescope-fzf-native.nvim"] = { after = "telescope.nvim", run = "make" },
   ["nvim-telescope/telescope-file-browser.nvim"] = { after = "telescope.nvim" },
 
-  ["ahmedkhalf/project.nvim"] = {
-    after = "telescope.nvim",
-    config = function()
-      require "configs.project"
-    end
-  },
-
-  -- Git integration
-  ["lewis6991/gitsigns.nvim"] = {
-    event = "BufEnter",
-    config = function()
-      require "configs.gitsigns-config"
-    end,
-  },
-
-  ["sindrets/diffview.nvim"] = {
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewRefresh", "DiffviewFileHistory" },
-    config = function()
-      require "configs.diffview-config"
-    end
-  },
-
-  -- Color highlighting
+  -- Color
   ["norcalli/nvim-colorizer.lua"] = {
     event = { "BufRead", "BufNewFile" },
     config = function()
@@ -297,11 +133,85 @@ local plugins = {
     end,
   },
 
-  -- Autopairs
-  ["windwp/nvim-autopairs"] = {
-    event = "InsertEnter",
+  -- Colorschemes
+  ["navarasu/onedark.nvim"] = {
     config = function()
-      require "configs.autopairs"
+      require "configs.nvim_onedark"
+    end,
+  },
+
+  -- Utility
+  ["lewis6991/impatient.nvim"] = {},
+  ["antoinemadec/FixCursorHold.nvim"] = {
+    event = { "BufRead", "BufNewFile" },
+    config = function()
+      vim.g.cursorhold_updatetime = 100
+    end,
+  },
+  ["famiu/bufdelete.nvim"] = { cmd = { "Bdelete", "Bwipeout" } },
+
+  -- Icon
+  ["kyazdani42/nvim-web-devicons"] = { event = "VimEnter" },
+
+  -- Debugging
+  ["mfussenegger/nvim-dap"] = {
+    config = function()
+      require "configs.dap-config"
+    end,
+  },
+  ["rcarriga/nvim-dap-ui"] = { after = "nvim-dap", },
+  ["theHamsta/nvim-dap-virtual-text"] = { after = "nvim-dap", },
+
+  -- Tabline
+  ["akinsho/bufferline.nvim"] = {
+    after = "nvim-web-devicons",
+    config = function()
+      require "configs.bufferline"
+    end,
+  },
+
+  -- Statusline
+  ["feline-nvim/feline.nvim"] = {
+    after = "nvim-web-devicons",
+    config = function()
+      require "configs.feline"
+    end,
+  },
+
+  -- Indentation
+  ["lukas-reineke/indent-blankline.nvim"] = {
+    event = "BufRead",
+    config = function()
+      require "configs.indent-line"
+    end,
+  },
+
+  -- File Explorer
+  ["kyazdani42/nvim-tree.lua"] = {
+    event = {"BufRead", "BufNewFile" },
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require "configs.nvim-tree"
+    end,
+  },
+  ["folke/trouble.nvim"] = {
+    cmd = {"Trouble", "TroubleToggle", "TroubleRefresh"},
+    event = {"BufRead"},
+    config = function()
+      require "configs.trouble-config"
+    end,
+  },
+  ["mbbill/undotree"] = {
+    event = "BufReadPost",
+    cmd = "UndotreeToggle",
+  },
+
+  -- Comment
+  ["numToStr/Comment.nvim"] = {
+    module = { "Comment", "Comment.api" },
+    keys = { "gc", "gb", "g<", "g>" },
+    config = function()
+      require "configs.Comment"
     end,
   },
 
@@ -314,49 +224,92 @@ local plugins = {
     end,
   },
 
-  -- Commenting
-  ["numToStr/Comment.nvim"] = {
-    module = { "Comment", "Comment.api" },
-    keys = { "gc", "gb", "g<", "g>" },
+  -- Project
+  ["ahmedkhalf/project.nvim"] = {
+    after = "telescope.nvim",
     config = function()
-      require "configs.Comment"
+      require "configs.project"
+    end
+  },
+  ["nvim-pack/nvim-spectre"] = {
+    opt = true,
+    config = function ()
+      require "configs.spectre-config"
     end,
   },
 
-  -- Indentation
-  ["lukas-reineke/indent-blankline.nvim"] = {
-    event = "BufRead",
-    config = function()
-      require "configs.indent-line"
-    end,
-  },
-
-  -- Keymaps popup
-  ["folke/which-key.nvim"] = {
-    module = "which-key",
-    config = function()
-      require "configs.which-key"
-    end,
-  },
-
-  -- Smooth scrolling
-  ["declancm/cinnamon.nvim"] = {
-    event = { "BufRead", "BufNewFile" },
-    config = function()
-      require "configs.cinnamon"
-    end,
-  },
-
-  -- Get extra JSON schemas
-  ["b0o/SchemaStore.nvim"] = { module = "schemastore" },
-
-  -- Session manager
+  -- Session
   ["Shatur/neovim-session-manager"] = {
     module = "session_manager",
     cmd = "SessionManager",
     event = "BufWritePost",
     config = function()
       require "configs.session_manager"
+    end,
+  },
+
+  -- Quickfix
+  ["kevinhwang91/nvim-bqf"] = {
+    ft = "qf",
+    config = function()
+      require "configs.bqf"
+    end
+  },
+
+  -- Git
+  ["lewis6991/gitsigns.nvim"] = {
+    event = "BufEnter",
+    config = function()
+      require "configs.gitsigns-config"
+    end,
+  },
+  ["sindrets/diffview.nvim"] = {
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewRefresh", "DiffviewFileHistory" },
+    config = function()
+      require "configs.diffview-config"
+    end
+  },
+
+  -- Editing Support
+  ["windwp/nvim-autopairs"] = {
+    event = "InsertEnter",
+    config = function()
+      require "configs.autopairs"
+    end,
+  },
+  ["andymass/vim-matchup"] = {
+    after = "nvim-treesitter",
+    config = function() vim.cmd([[let g:matchup_matchparen_offscreen = {'method': 'popup'}]]) end
+  },
+  ["declancm/cinnamon.nvim"] = {
+    event = { "BufRead", "BufNewFile" },
+    config = function()
+      require "configs.cinnamon"
+    end,
+  },
+  ["junegunn/vim-easy-align"] = { cmd = "EasyAlign", },
+  ["ethanholz/nvim-lastplace"] = {
+    event = "BufRead",
+    config = function()
+      require "configs.nvim-lastplace"
+    end,
+  },
+  ["rlue/vim-barbaric"] = { event = {"BufRead", "BufNewFile"} },
+
+  -- Motion
+  ["phaazon/hop.nvim"] = {
+    event = { "BufNewFile", "BufReadPost" },
+    branch = "v1",
+    config = function()
+      require "configs.hop-config"
+    end,
+  },
+
+  -- Keybinding
+  ["folke/which-key.nvim"] = {
+    module = "which-key",
+    config = function()
+      require "configs.which-key"
     end,
   },
 
@@ -368,30 +321,19 @@ local plugins = {
     end,
   },
 
-  -- EasyAlign
-  ["junegunn/vim-easy-align"] = {
-    cmd = "EasyAlign",
+  -- Filetype
+  ["nathom/filetype.nvim"] = {
+    event = "BufEnter",
+    config = function()
+      require "configs.filetype-nvim"
+    end,
   },
-
-  -- File types
   ["mfussenegger/nvim-jdtls"] = {
     ft = "java",
   },
-
-  ["chrisbra/csv.vim"] = {
-    ft = "csv",
-  },
-
-  ["solarnz/thrift.vim"] = {
-    ft = "thrift",
-  },
-
   ["simrat39/rust-tools.nvim"] = {
     ft = "rust",
     branch = "modularize_and_inlay_rewrite",
-    config = function()
-      require "configs.rust-config"
-    end
   },
   ["Saecki/crates.nvim"] = {
     event = { "BufRead Cargo.toml" },
@@ -399,71 +341,15 @@ local plugins = {
       require "configs.crates-config"
     end,
   },
-
   ["iamcco/markdown-preview.nvim"] = {
     ft = "markdown",
     run = "cd app && yarn install",
   },
-
-  -- Last place
-  ["ethanholz/nvim-lastplace"] = {
-    event = "BufRead",
-    config = function()
-      require "configs.nvim-lastplace"
-    end,
+  ["solarnz/thrift.vim"] = {
+    ft = "thrift",
   },
-
-  -- Search and replace pane
-  ["nvim-pack/nvim-spectre"] = {
-    opt = true,
-    config = function ()
-      require "configs.spectre-config"
-    end,
-  },
-
-  ["phaazon/hop.nvim"] = {
-    event = { "BufNewFile", "BufReadPost" },
-    branch = "v1",
-    config = function()
-      require "configs.hop-config"
-    end,
-  },
-
-  -- Debugger
-  ["mfussenegger/nvim-dap"] = {
-    config = function()
-      require "configs.dap-config"
-    end,
-  },
-  ["rcarriga/nvim-dap-ui"] = {
-    after = "nvim-dap",
-  },
-  ["theHamsta/nvim-dap-virtual-text"] = {
-    after = "nvim-dap",
-  },
-
-  ["rlue/vim-barbaric"] = {
-    event = {"BufRead", "BufNewFile"}
-  },
-
-  ["kevinhwang91/nvim-bqf"] = {
-    ft = "qf",
-    config = function()
-      require "configs.bqf"
-    end
-  },
-
-  ["folke/trouble.nvim"] = {
-    cmd = {"Trouble", "TroubleToggle", "TroubleRefresh"},
-    event = {"BufRead"},
-    config = function()
-      require "configs.trouble-config"
-    end,
-  },
-
-  ["mbbill/undotree"] = {
-    event = "BufReadPost",
-    cmd = "UndotreeToggle",
+  ["chrisbra/csv.vim"] = {
+    ft = "csv",
   },
 
 }
@@ -504,11 +390,11 @@ packer.startup {
   end,
   config = {
     compile_path = compile_path,
-    display = {
-      open_fn = function()
-        return require("packer.util").float { border = "rounded" }
-      end,
-    },
+    -- display = {
+    --   open_fn = function()
+    --     return require("packer.util").float { border = "rounded" }
+    --   end,
+    -- },
     profile = {
       enable = true,
       threshold = 0.0001,

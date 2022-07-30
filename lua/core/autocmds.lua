@@ -86,3 +86,11 @@ cmd({ "BufWritePost" }, {
   end,
 })
 
+cmd({ "CursorHold", "ModeChanged" }, {
+  callback = function()
+    local luasnip = require "luasnip"
+    if luasnip.expand_or_jumpable() then
+      vim.cmd [[silent! lua require("luasnip").unlink_current()]]
+    end
+  end,
+})

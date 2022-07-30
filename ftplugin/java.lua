@@ -15,11 +15,11 @@ local java_path = {
 }
 
 local get_cmd = function()
-    local path = require "nvim-lsp-installer.core.path"
-    local platform = require "nvim-lsp-installer.core.platform"
-    local functional = require "nvim-lsp-installer.core.functional"
+    local path = require "kit.path"
+    local platform = require "kit.platform"
+    local functional = require "kit.functional"
 
-    local root_dir = path.concat {vim.fn.stdpath("data"), "lsp_servers", "jdtls"}
+    local root_dir = path.concat {vim.fn.stdpath("data"), "mason", "packages", "jdtls"}
 
     local executable = path.concat { java_path["18"], "bin", "java" } or "java"
     local jar = vim.fn.expand(path.concat { root_dir, "plugins", "org.eclipse.equinox.launcher_*.jar" })
@@ -54,7 +54,7 @@ local get_cmd = function()
     }
 end
 
-local lsp_handlers = require "lsp.handlers"
+local lsp_handlers = require "configs.lsp.handlers"
 local jdtls = require "jdtls"
 
 local custom_attach = function(client, bufnr)

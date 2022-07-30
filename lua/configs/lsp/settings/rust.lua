@@ -1,13 +1,6 @@
-local status_ok, rust_tools = pcall(require, "rust-tools")
-if not status_ok then
-  return
-end
+local lsp_handlers = require "configs.lsp.handlers"
 
-vim.cmd([[packadd nvim-lspconfig]])
-
-local lsp_handlers = require "lsp.handlers"
-
-local opts = {
+return {
   tools = {
     autoSetHints = true,
     hover_with_actions = true,
@@ -45,17 +38,10 @@ local opts = {
     },
 
     hover_actions = {
-      auto_focus = false,
+      auto_focus = true,
       border = "rounded",
       width = 60,
     },
-
-    crate_graph = {
-      backend = "x11",
-      output = nil,
-      pipe = nil,
-      full = true,
-    }
   },
 
   server = {
@@ -79,6 +65,4 @@ local opts = {
     adapter = require("dap").adapters.lldb
   },
 }
-
-rust_tools.setup(opts)
 

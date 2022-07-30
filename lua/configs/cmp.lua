@@ -163,6 +163,10 @@ local cmp_config = {
         vim_item.kind_hl_group = "CmpItemKindTs"
       end
 
+      if entry.source.name == "crates" then
+        vim_item.kind_hl_group = "CmpItemKindCrate"
+      end
+
       vim_item.menu = (source_menu)[entry.source.name]
       vim_item.dup  = duplicates[entry.source.name] or 0
       return vim_item

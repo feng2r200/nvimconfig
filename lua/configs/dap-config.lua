@@ -119,9 +119,9 @@ vim.fn.sign_define("DapBreakpointRejected", dap_breakpoint.rejected)
 -- dap.set_log_level("DEBUG")
 
 for _, dap_opt in ipairs {
-  "dap.python",
-  "dap.go",
-  "dap.cpp",
+  "configs.dap.python",
+  "configs.dap.go",
+  "configs.dap.cpp",
 } do
   local opt_status_ok, fault = pcall(require, dap_opt)
   if not opt_status_ok then

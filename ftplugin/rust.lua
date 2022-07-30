@@ -2,6 +2,7 @@ local wk_status, wk = pcall(require, "which-key")
 if wk_status then
   local mappings = {
     l = {
+      d = { "<cmd>RustOpenExternalDocs<cr>", "Open External Docs" },
       r = { "<cmd>RustRunnables<cr>", "RustRunnables" },
       m = { "<cmd>RustExpandMacro<cr>", "RustExpandMacro" },
       c = { "<cmd>RustOpenCargo<cr>", "RustOpenCargo" },

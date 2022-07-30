@@ -56,6 +56,11 @@ treesitter.setup({
   },
   autopairs = { enable = true },
   autotag = { enable = true },
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = nil,
+  },
   incremental_selection = { enable = true },
   indent = { enable = false },
   matchup = { enable = true },
