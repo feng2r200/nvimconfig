@@ -73,8 +73,6 @@ vnoremap crv            :action IntroduceVariable<CR>
 nnoremap [[             :action MethodUp<CR>
 nnoremap ]]             :action MethodDown<CR>
 
-noremap <C-A-l>         :action ReformatCode<CR>
-
 nnoremap ]d             :action GotoNextError<CR>
 nnoremap [d             :action GotoPreviousError<CR>
 
@@ -83,8 +81,8 @@ vnoremap gr             :action RenameElement<CR>
 
 """ Searching and Source Code Navigation
 nnoremap gd             :action GotoDeclaration<CR>
+nnoremap gh             :action FindUsages<CR>
 nnoremap gI             :action GotoImplementation<CR>
-nnoremap <leader>lh     :action FindUsages<CR>
 
 """ Tool windows
 nnoremap <leader>sa     :action Annotate<CR>
@@ -93,6 +91,22 @@ nnoremap <leader>sa     :action Annotate<CR>
 nmap <Space>j           <Plug>(easymotion-j)
 nmap <Space>k           <Plug>(easymotion-k)
 
-map <leader>ve         :action ActivateProjectToolWindow<CR>
-map <leader>vo         :action ActivateStructureToolWindow<CR>
-map <leader>fe         :action RecentFiles<CR>
+nnoremap <leader>ve         :action ActivateProjectToolWindow<CR>
+nnoremap <leader>vo         :action ActivateStructureToolWindow<CR>
+nnoremap <leader>fe         :action RecentFiles<CR>
+
+nnoremap <Space>b          :action RecentFiles<CR>
+nnoremap <Space>cw         :bdelete<CR>
+nnoremap <leader>fc        :action GotoClass<CR>
+nnoremap <leader>ff        :action GotoFile<CR>
+nnoremap <leader>ss        :action GotoSymbol<CR>
+
+nnoremap <C-t>         :action ActivateTerminalToolWindow<CR>
+
+nnoremap <leader>tg    :action ActivateVersionControlToolWindow<CR>
+
+nnoremap <leader>la    :action Generate<CR>
+nnoremap <leader>lf    :action ReformatCode<CR>
+vnoremap <leader>lf    :action ReformatCode<CR>
+nnoremap <leader>vw    :action ActivateProblemsViewToolWindow<CR>
+
