@@ -14,7 +14,7 @@ local plugins = {
   ["nvim-lua/popup.nvim"] = {},
 
   -- LSP
-  ["neovim/nvim-lspconfig"] = { event = "VimEnter" },
+  ["neovim/nvim-lspconfig"] = {},
   ["williamboman/mason.nvim"] = {
     after = "nvim-lspconfig",
     config = function()
