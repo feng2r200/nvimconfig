@@ -101,7 +101,7 @@ local function attach_signature(client, bufnr)
     -- to view the hiding contents
     max_width = 80, -- max_width of signature floating_window, line will be wrapped if exceed max_width
     handler_opts = {
-      border = "none"   -- double, rounded, single, shadow, none
+      border = "double"   -- double, rounded, single, shadow, none
     },
 
     always_trigger = false, -- sometime show signature on new line or in middle of parameter can be confusing, set it to false for #58
