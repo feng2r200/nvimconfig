@@ -110,3 +110,5 @@ nnoremap <leader>lf    :action ReformatCode<CR>
 vnoremap <leader>lf    :action ReformatCode<CR>
 nnoremap <leader>vw    :action ActivateProblemsViewToolWindow<CR>
 
+nnoremap <leader>db    :action ToggleLineBreakpoint<CR>
+nnoremap <leader>dl    :action ViewBreakpoints<CR>
