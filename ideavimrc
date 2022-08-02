@@ -112,3 +112,5 @@ nnoremap <leader>vw    :action ActivateProblemsViewToolWindow<CR>
 
 nnoremap <leader>db    :action ToggleLineBreakpoint<CR>
 nnoremap <leader>dl    :action ViewBreakpoints<CR>
+
+nnoremap <leader>Hp    :action RecentProjectListGroup<CR>
