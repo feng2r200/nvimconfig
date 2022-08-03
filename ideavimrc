@@ -114,3 +114,4 @@ nnoremap <leader>db    :action ToggleLineBreakpoint<CR>
 nnoremap <leader>dl    :action ViewBreakpoints<CR>
 
 nnoremap <leader>Hp    :action RecentProjectListGroup<CR>
+nnoremap <leader>dn    :action DebugClass<CR>
