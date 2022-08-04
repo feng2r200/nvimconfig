@@ -96,7 +96,7 @@ local config = {
             },
             foldingRange = { enabled = true},
             home =java_path["8"],
-            implementationsCodeLens = { enabled = true },
+            implementationsCodeLens = { enabled = false },
             import = {
                 maven = { enabled = true },
             },
@@ -104,7 +104,7 @@ local config = {
                 downloadSources = true,
                 updateSnapshots = true,
             },
-            referencesCodeLens = { enabled = true },
+            referencesCodeLens = { enabled = false },
             references = {
                 includeAccessors = true,
                 includeDecompiledSources = true,

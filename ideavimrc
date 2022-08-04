@@ -108,6 +108,7 @@ nnoremap <leader>tg    :action ActivateVersionControlToolWindow<CR>
 nnoremap <leader>la    :action Generate<CR>
 nnoremap <leader>lf    :action ReformatCode<CR>
 vnoremap <leader>lf    :action ReformatCode<CR>
+nnoremap <leader>ls    :action ParameterInfo<CR>
 nnoremap <leader>vw    :action ActivateProblemsViewToolWindow<CR>
 
 nnoremap <leader>db    :action ToggleLineBreakpoint<CR>
