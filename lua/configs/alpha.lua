@@ -31,7 +31,7 @@ dashboard.section.buttons.val = {
   button("<leader>ff", icons.documents.Files .. " Find file", ':lua require("telescope.builtin").find_files(require("telescope.themes").get_ivy())<cr>'),
 }
 
-dashboard.section.header.opts.hl = "Keyword"
+dashboard.section.header.opts.hl = "Include"
 dashboard.section.buttons.opts.hl = "Macro"
 dashboard.section.footer.opts.hl = "Type"
 

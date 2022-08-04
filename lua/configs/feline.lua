@@ -16,6 +16,7 @@ if vim.fn.has "nvim-0.8" == 1 then
       active = {
         {
           { provider = provider.get_filename(), enabled = conditional.has_filename() },
+          { provider = provider.modified_icon(), enabled = conditional.is_modified() },
           { provider = provider.spacer(2) },
           { provider = provider.gps(), enabled = conditional.gps_available() },
         }

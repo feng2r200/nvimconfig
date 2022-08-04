@@ -9,20 +9,6 @@ cmd("User", {
   end,
 })
 
-cmd({ "BufEnter" }, {
-  pattern = { "" },
-  callback = function()
-    local get_project_dir = function()
-      local cwd = vim.fn.getcwd()
-      local project_dir = vim.split(cwd, "/")
-      local project_name = project_dir[#project_dir]
-      return project_name
-    end
-
-    vim.opt.titlestring = get_project_dir()
-  end,
-})
-
 cmd("ColorScheme", {
   callback = function()
     package.loaded["configs.feline"] = nil
@@ -32,7 +18,7 @@ cmd("ColorScheme", {
 
 cmd({ "TextYankPost" }, {
   callback = function()
-    vim.highlight.on_yank { higroup = "Visual", timeout = 300 }
+    vim.highlight.on_yank { higroup = "IncSearch", timeout = 300 }
   end,
 })
 
@@ -105,7 +91,10 @@ cmd({ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" }, {
 
 cmd({ "CursorHold", "ModeChanged" }, {
   callback = function()
-    local luasnip = require "luasnip"
+    local status_ok, luasnip = pcall(require, "luasnip")
+    if not status_ok then
+      return
+    end
     if luasnip.expand_or_jumpable() then
       vim.cmd [[silent! lua require("luasnip").unlink_current()]]
     end

@@ -179,9 +179,21 @@ function M.provider.get_filename()
 end
 
 function M.conditional.has_filename()
-  return function ()
+  return function()
     local filename = vim.fn.expand "%:t"
     return not isempty(filename) or false
+  end
+end
+
+function M.provider.modified_icon()
+  return function()
+    return "[*]" or ""
+  end
+end
+
+function M.conditional.is_modified()
+  return function()
+    return vim.o.modified or false
   end
 end
 
