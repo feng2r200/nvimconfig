@@ -9,6 +9,20 @@ cmd("User", {
   end,
 })
 
+cmd({ "BufEnter" }, {
+  pattern = { "" },
+  callback = function()
+    local get_project_dir = function()
+      local cwd = vim.fn.getcwd()
+      local project_dir = vim.split(cwd, "/")
+      local project_name = project_dir[#project_dir]
+      return project_name
+    end
+
+    vim.opt.titlestring = get_project_dir()
+  end,
+})
+
 cmd("ColorScheme", {
   callback = function()
     package.loaded["configs.feline"] = nil
@@ -16,20 +30,23 @@ cmd("ColorScheme", {
   end,
 })
 
-cmd("TextYankPost", {
-  pattern = "*",
-  command = [[silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=300})]],
+cmd({ "TextYankPost" }, {
+  callback = function()
+    vim.highlight.on_yank { higroup = "Visual", timeout = 300 }
+  end,
 })
 
-cmd("FileType", {
-  pattern = "*",
-  command = [[setlocal formatoptions-=c formatoptions-=r formatoptions-=o]],
+cmd({ "BufWinEnter" }, {
+  callback = function()
+    vim.cmd "set formatoptions-=cro"
+  end,
 })
 
 cmd("FocusGained", {
   pattern = "*",
   command = "checktime",
 })
+
 cmd("VimResized", {
   pattern = "*",
   command = [[tabdo wincmd =]],

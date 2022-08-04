@@ -22,10 +22,8 @@ maps.n["<C-s>"] = { "<cmd>write<cr>", desc = "Force write" }
 maps.i["<C-s>"] = { "<esc><cmd>write<cr>i", desc = "Force write" }
 
 -- Navigate buffers
-maps.n["]b"] = { "<cmd>BufferLineCycleNext<cr>",  desc = "Next buffer tab" }
-maps.n["[b"] = { "<cmd>BufferLineCyclePrev<cr>",  desc = "Previous buffer tab" }
-maps.n[">b"] = { "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer tab right" }
-maps.n["<b"] = { "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer tab left" }
+maps.n["]b"] = { "<cmd>bnext<cr>",  desc = "Next buffer" }
+maps.n["[b"] = { "<cmd>bprevious<cr>",  desc = "Previous buffer" }
 
 -- Better window navigation
 maps.n["<C-h>"] = { function() require("tmux").move_left() end, desc = "Move to left split" }
