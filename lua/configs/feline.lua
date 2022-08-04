@@ -7,9 +7,25 @@ local C = require "onedark.colors"
 local hl = require("core.status").hl
 local provider = require("core.status").provider
 local conditional = require("core.status").conditional
--- stylua: ignore
+
+if vim.fn.has "nvim-0.8" == 1 then
+  feline.winbar.setup({
+    disable = { filetypes = { "^NvimTree$", "^neo%-tree$", "^dashboard$", "^alpha$", "^Outline$", "^aerial$" } },
+    theme = hl.group("Winbar", { fg = C.fg, bg = C.bg1 }),
+    components = {
+      active = {
+        {
+          { provider = provider.get_filename(), enabled = conditional.has_filename() },
+          { provider = provider.spacer(2) },
+          { provider = provider.gps(), enabled = conditional.gps_available() },
+        }
+      }
+    }
+  })
+end
+
 feline.setup({
-  disable = { filetypes = { "^NvimTree$", "^neo%-tree$", "^dashboard$", "^Outline$", "^aerial$" } },
+  disable = { filetypes = { "^NvimTree$", "^neo%-tree$", "^dashboard$", "^alpha$", "^Outline$", "^aerial$" } },
   theme = hl.group("StatusLine", { fg = C.fg, bg = C.bg1 }),
   components = {
     active = {
@@ -28,8 +44,6 @@ feline.setup({
         { provider = "diagnostic_warnings", hl = hl.fg("DiagnosticWarn", { fg = C.orange }), icon = "  " },
         { provider = "diagnostic_info", hl = hl.fg("DiagnosticInfo", { fg = C.fd }), icon = "  " },
         { provider = "diagnostic_hints", hl = hl.fg("DiagnosticHint", { fg = C.yellow }), icon = "  " },
-        { provider = provider.spacer(2), enabled = conditional.gps_available() },
-        { provider = provider.gps(), enabled = conditional.gps_available() },
       },
       {
         { provider = provider.lsp_progress, enabled = conditional.bar_width() },

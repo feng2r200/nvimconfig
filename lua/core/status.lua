@@ -152,4 +152,37 @@ function M.conditional.gps_available()
   end
 end
 
+local function isempty(s)
+  return s == nil or s == ""
+end
+
+function M.provider.get_filename()
+  return function()
+    local filename = vim.fn.expand "%:."
+    local extension = vim.fn.expand "%:e"
+
+    local file_icon, file_icon_color =
+    require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+
+    local hl_group = "FileIconColor" .. extension
+
+    vim.api.nvim_set_hl(0, hl_group, { fg = file_icon_color })
+    if isempty(file_icon) then
+      file_icon = ""
+      file_icon_color = ""
+    end
+
+    vim.api.nvim_set_hl(0, "Winbar", { fg = C.fg })
+
+    return " " .. "%#" .. hl_group .. "#" .. file_icon .. "%*" .. " " .. "%#Winbar#" .. filename .. "%*"
+  end
+end
+
+function M.conditional.has_filename()
+  return function ()
+    local filename = vim.fn.expand "%:t"
+    return not isempty(filename) or false
+  end
+end
+
 return M
