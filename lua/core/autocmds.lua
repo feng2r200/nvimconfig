@@ -82,7 +82,7 @@ cmd("VimResized", {
   end,
 })
 
-cmd({ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" }, {
+cmd({ "BufWritePost", "BufReadPost", "CursorHold", "InsertLeave" }, {
   pattern = { "*.java", "*.py", "*.rs" },
   callback = function()
     vim.lsp.codelens.refresh()
