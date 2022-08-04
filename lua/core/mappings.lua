@@ -50,6 +50,9 @@ maps.n["<F12>"] = { "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown preview" 
 -- Buffers
 maps.n["<Space>b"] = { function() require("telescope.builtin").buffers(require("telescope.themes").get_dropdown{previewer = false}) end, desc = "Search buffers" }
 
+init_table("n", "<leader>", "b", "List Last")
+maps.n["<leader>b."] = { "<cmd>Telescope resume<cr>", desc = "Reopen Last Packer" }
+
 -- motion
 maps.n["<Space>j"] = { "<cmd>HopLine<cr>", desc = "Hop line" }
 maps.n["<Space>k"] = { "<cmd>HopLine<cr>", desc = "Hop line" }
@@ -66,10 +69,8 @@ maps[""]["<Space>T"] = { function() require("hop").hint_char1({ direction = requ
 
 -- Close
 init_table("n", "<Space>", "c", "Close")
-maps.n["<Space>cw"] = { "<cmd>Bdelete!<cr>", desc = "Close buffer" }
+maps.n["<Space>cw"] = { "<cmd>bdelete<cr>", desc = "Close buffer" }
 maps.n["<Space>ct"] = { "<cmd>tabclose!<cr>", desc = "Close tab" }
-maps.n["<Space>ch"] = { "<cmd>BufferLineCloseLeft!<cr>", desc = "Close buffer left" }
-maps.n["<Space>cl"] = { "<cmd>BufferLineCloseRight!<cr>", desc = "Close buffer right" }
 maps.n["<Space>cq"] = { "<cmd>quit<cr>", desc = "Quit the current window" }
 
 -- GitSigns

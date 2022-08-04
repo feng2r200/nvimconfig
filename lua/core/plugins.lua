@@ -1,10 +1,3 @@
-local function echo(messages)
-  messages = messages or {{"\n"}}
-  if type(messages) == "table" then
-    vim.api.nvim_echo(messages, false, {})
-  end
-end
-
 local plugins = {
   -- Plugin manager
   ["wbthomason/packer.nvim"] = {},
@@ -148,7 +141,6 @@ local plugins = {
       vim.g.cursorhold_updatetime = 100
     end,
   },
-  ["famiu/bufdelete.nvim"] = { cmd = { "Bdelete", "Bwipeout" } },
 
   -- Icon
   ["kyazdani42/nvim-web-devicons"] = { event = "VimEnter" },
@@ -346,6 +338,13 @@ local plugins = {
   },
 
 }
+
+local function echo(messages)
+  messages = messages or {{"\n"}}
+  if type(messages) == "table" then
+    vim.api.nvim_echo(messages, false, {})
+  end
+end
 
 local function initialize_packer()
   local packer_avail, packer = pcall(require, "packer")
