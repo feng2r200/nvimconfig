@@ -132,7 +132,7 @@ M.on_attach = function(client, bufnr)
   vim.cmd("hi! LspReferenceWrite cterm=underline gui=underline")
   vim.cmd("hi! LspReferenceRead cterm=underline gui=underline")
 
-  client.resolved_capabilities.document_formatting = false
+  client.server_capabilities.document_formatting = false
 
   if client.name == "jdt.ls" then
     vim.lsp.codelens.refresh()
