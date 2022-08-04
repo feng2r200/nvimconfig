@@ -4,13 +4,6 @@ if not status_ok then
 end
 
 gps.setup({
-  icons = {
-    ["class-name"] = " ", -- Classes and class-like objects
-    ["function-name"] = " ", -- Functions
-    ["method-name"] = " ", -- Methods (functions inside class-like objects)
-    ["container-name"] = '⦿ ',
-    ["tag-name"] = '# '
-  },
   highlight = true,
   separator = " > ",
   depth_limit = 0,
