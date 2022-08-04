@@ -86,7 +86,7 @@ local plugins = {
     module = "luasnip",
     wants = "friendly-snippets",
     config = function()
-      require "configs.luasnip"
+      require "configs.luasnip-config"
     end,
   },
   ["rafamadriz/friendly-snippets"] = { opt = true },
@@ -161,14 +161,6 @@ local plugins = {
   },
   ["rcarriga/nvim-dap-ui"] = { after = "nvim-dap", },
   ["theHamsta/nvim-dap-virtual-text"] = { after = "nvim-dap", },
-
-  -- Tabline
-  ["akinsho/bufferline.nvim"] = {
-    after = "nvim-web-devicons",
-    config = function()
-      require "configs.bufferline"
-    end,
-  },
 
   -- Statusline
   ["feline-nvim/feline.nvim"] = {
@@ -329,12 +321,6 @@ local plugins = {
   },
 
   -- Filetype
-  ["nathom/filetype.nvim"] = {
-    event = "BufEnter",
-    config = function()
-      require "configs.filetype-nvim"
-    end,
-  },
   ["mfussenegger/nvim-jdtls"] = {
     ft = "java",
   },
