@@ -5,6 +5,7 @@ local plugins = {
   -- Lua Development
   ["nvim-lua/plenary.nvim"] = { module = "plenary" },
   ["nvim-lua/popup.nvim"] = {},
+  ["MunifTanjim/nui.nvim"] = {},
 
   -- LSP
   ["neovim/nvim-lspconfig"] = {},
