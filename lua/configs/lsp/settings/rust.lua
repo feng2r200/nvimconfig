@@ -3,7 +3,6 @@ local lsp_handlers = require "configs.lsp.handlers"
 return {
   tools = {
     autoSetHints = true,
-    hover_with_actions = true,
     executor = require("rust-tools/executors").termopen,
 
     on_initialized = function()
