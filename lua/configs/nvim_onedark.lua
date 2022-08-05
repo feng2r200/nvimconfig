@@ -10,9 +10,11 @@ onedark.setup {
   transparent = true,  -- Show/hide background
   term_colors = true, -- Change terminal color as per the selected theme style
   ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
+  cmp_itemkind_reverse = false,
+
   -- toggle theme style ---
   toggle_style_list = {'dark', 'darker', 'cool', 'deep', 'warm', 'warmer'}, -- List of styles to toggle between
-  toggle_style_key = '<leader>ts', -- Default keybinding to toggle
+  toggle_style_key = nil,
 
   -- Change code style ---
   -- Options are italic, bold, underline, none
@@ -27,7 +29,15 @@ onedark.setup {
 
   -- Custom Highlights --
   colors = {}, -- Override default colors
-  highlights = {} -- Override highlight groups
+  highlights = {
+    Visual = { fg = '#181a1f', bg = '#e5c07b', fmt = 'bold' },
+  }, -- Override highlight groups
+
+  diagnostics = {
+    darker = true,
+    undercurl = true,
+    background = true,
+  },
 }
 
 onedark.load()
