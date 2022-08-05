@@ -10,8 +10,8 @@ vim.cmd [[packadd nvim-jdtls]]
 vim.cmd [[packadd nvim-dap]]
 
 local java_path = {
-    ["8"]  = "/usr/local/Cellar/openjdk@8/1.8.0+345/libexec/openjdk.jdk/Contents/Home",
-    ["18"] = "/usr/local/Cellar/openjdk/18.0.2/libexec/openjdk.jdk/Contents/Home",
+    ["8"]  = "/Library/Java/JavaVirtualMachines/openjdk-8.jdk/Contents/Home",
+    ["last"] = "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home",
 }
 
 local get_cmd = function()
@@ -21,7 +21,7 @@ local get_cmd = function()
 
     local root_dir = path.concat {vim.fn.stdpath("data"), "mason", "packages", "jdtls"}
 
-    local executable = path.concat { java_path["18"], "bin", "java" } or "java"
+    local executable = path.concat { java_path["last"], "bin", "java" } or "java"
     local jar = vim.fn.expand(path.concat { root_dir, "plugins", "org.eclipse.equinox.launcher_*.jar" })
     local lombok = vim.fn.expand(path.concat { root_dir, "lombok.jar" })
     local workspace_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
