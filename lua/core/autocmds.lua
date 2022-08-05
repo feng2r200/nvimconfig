@@ -68,13 +68,6 @@ cmd("FileType", {
     vim.opt_local.spell = true
   end,
 })
-cmd("FileType", {
-  pattern = { "lir" },
-  callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-  end,
-})
 
 cmd("VimResized", {
   callback = function()
