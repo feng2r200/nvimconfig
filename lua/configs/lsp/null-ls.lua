@@ -11,7 +11,7 @@ null_ls.setup {
   debug = false,
   sources = {
     diagnostics.jsonlint,
-    diagnostics.sqlfluff.with({ extra_args = { "--ignore-local-config", "--dialect", "mysql", "--exclude-rules", "L001,L004,L009,L010,L016,L029,L031,L036,L059" } }),
+    diagnostics.sqlfluff.with({ extra_args = { "--ignore-local-config", "--dialect", "mysql", "--exclude-rules", "L001,L004,L006,L009,L010,L011,L016,L029,L031,L036,L059" } }),
     diagnostics.tidy,
 
     formatting.prettier.with {
