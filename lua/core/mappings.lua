@@ -163,8 +163,8 @@ maps.n["gl"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagn
 init_table("n", "<leader>", "l", "LSP")
 maps.n["<leader>la"] = { function() vim.lsp.buf.code_action() end, desc = "LSP code action" }
 maps.v["<leader>la"] = { function() vim.lsp.buf.range_code_action() end, desc = "LSP code action" }
-maps.n["<leader>lf"] = { function() vim.lsp.buf.formatting_sync(nil, 2000) end, desc = "Format code" }
-maps.v["<leader>lf"] = { function() vim.lsp.buf.formatting_sync(nil, 2000) end, desc = "Format code" }
+maps.n["<leader>lf"] = { function() vim.lsp.buf.format({ timeout_ms = 2000 }) end, desc = "Format code" }
+maps.v["<leader>lf"] = { function() vim.lsp.buf.format({ timeout_ms = 2000 }) end, desc = "Format code" }
 maps.n["<leader>li"] = { function() vim.lsp.buf.incoming_calls() end, desc = "Incoming Calls" }
 maps.n["<leader>lo"] = { function() vim.lsp.buf.outgoing_calls() end, desc = "Outgoing Calls" }
 maps.n["<leader>lr"] = { "<cmd>lua vim.lsp.codelens.refresh()<cr>", desc = "Refresh Codelens" }
