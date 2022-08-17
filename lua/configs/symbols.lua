@@ -1,5 +1,9 @@
--- https://github.com/simrat39/symbols-outline.nvim
-vim.g.symbols_outline = {
+local status_ok, symbols = pcall(require, "symbols-outline")
+if not status_ok then
+  return
+end
+
+symbols.setup({
   highlight_hovered_item = true,
   show_guides = true,
   auto_preview = false,
@@ -7,7 +11,7 @@ vim.g.symbols_outline = {
   relative_width = true,
   width = 25,
   auto_close = false,
-  show_numbers = true,
+  show_numbers = false,
   show_relative_numbers = false,
   show_symbol_details = true,
   preview_bg_highlight = 'Pmenu',
@@ -50,4 +54,4 @@ vim.g.symbols_outline = {
     Operator = {icon = "+", hl = "TSOperator"},
     TypeParameter = {icon = "𝙏", hl = "TSParameter"}
   }
-}
+})
