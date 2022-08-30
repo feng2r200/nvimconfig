@@ -1,0 +1,1 @@
+nnoremap <silent> <BS> :<C-u>nohlsearch<CR><C-l>
