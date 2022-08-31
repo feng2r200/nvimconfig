@@ -50,6 +50,7 @@ indent_blankline.setup({
   char = "▏",
   context_char = "▏",
   show_current_context = true,
+  show_current_context_start = true,
 })
 
 -- because lazy load indent-blankline so need readd this autocmd
