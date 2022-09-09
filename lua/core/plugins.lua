@@ -74,6 +74,7 @@ local plugins = {
   ["hrsh7th/cmp-buffer"] = { after = "nvim-cmp", },
   ["hrsh7th/cmp-cmdline"] = { after = "nvim-cmp", },
   ["ray-x/cmp-treesitter"] = { after = "nvim-cmp", },
+  ["rcarriga/cmp-dap"] = { after = "nvim-cmp" },
 
   -- Snippet
   ["L3MON4D3/LuaSnip"] = {

@@ -13,6 +13,7 @@ vim.cmd [[packadd cmp-tmux]]
 vim.cmd [[packadd cmp-treesitter]]
 vim.cmd [[packadd cmp-under-comparator]]
 vim.cmd [[packadd cmp_luasnip]]
+vim.cmd [[packadd cmp-dap]]
 
 local check_backspace = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -250,6 +251,10 @@ local cmp_config = {
       cmp.config.compare.order
     }
   },
+  enabled = function()
+    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+        or require("cmp_dap").is_dap_buffer()
+  end,
 }
 
 cmp.setup(cmp_config)
@@ -268,5 +273,10 @@ cmp.setup.cmdline(":", {
     { {name = "path"} },
     { {name = "cmdline"} }
   )
+})
+cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
+  sources = {
+    { name = "dap" },
+  },
 })
 
