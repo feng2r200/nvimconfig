@@ -69,7 +69,7 @@ maps[""]["<Space>T"] = { function() require("hop").hint_char1({ direction = requ
 
 -- Close
 init_table("n", "<Space>", "c", "Close")
-maps.n["<Space>cw"] = { function() require('close_buffers').delete({ type = 'this', force = true }) end, desc = "Close buffer" }
+maps.n["<Space>cw"] = { function() require('bufdelete').bufdelete(0, true) end, desc = "Close buffer" }
 maps.n["<Space>ct"] = { "<cmd>tabclose!<cr>", desc = "Close tab" }
 maps.n["<Space>cq"] = { "<cmd>quit<cr>", desc = "Quit the current window" }
 

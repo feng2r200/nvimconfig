@@ -143,7 +143,7 @@ local plugins = {
       vim.g.cursorhold_updatetime = 100
     end,
   },
-  ["kazhala/close-buffers.nvim"] = {},
+  ["famiu/bufdelete.nvim"] = {},
   ["gaborvecsei/memento.nvim"] = {},
 
   -- Icon
