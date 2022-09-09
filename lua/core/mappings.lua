@@ -69,7 +69,7 @@ maps[""]["<Space>T"] = { function() require("hop").hint_char1({ direction = requ
 
 -- Close
 init_table("n", "<Space>", "c", "Close")
-maps.n["<Space>cw"] = { "<cmd>bdelete!<cr>", desc = "Close buffer" }
+maps.n["<Space>cw"] = { function() require('close_buffers').delete({ type = 'this', force = true }) end, desc = "Close buffer" }
 maps.n["<Space>ct"] = { "<cmd>tabclose!<cr>", desc = "Close tab" }
 maps.n["<Space>cq"] = { "<cmd>quit<cr>", desc = "Quit the current window" }
 
@@ -97,7 +97,7 @@ maps.n["<leader>S."] = { "<cmd>SessionManager! load_current_dir_session<cr>", de
 
 -- file
 init_table("n", "<leader>", "f", "File")
-maps.n["<leader>fe"] = { function() require("telescope.builtin").oldfiles() end, desc = "Search history" }
+maps.n["<leader>fe"] = { function() require("memento").toggle() end, desc = "Search history" }
 maps.n["<leader>ff"] = { function() require("telescope.builtin").find_files(require("telescope.themes").get_ivy()) end, desc = "Search files" }
 maps.n["<leader>fn"] = { "<cmd>enew<cr>", desc = "New File" }
 maps.n["<leader>fw"] = { function() require("telescope.builtin").live_grep(require("telescope.themes").get_ivy()) end, desc = "Search Text" }

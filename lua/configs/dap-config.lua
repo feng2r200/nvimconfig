@@ -46,6 +46,13 @@ if status_dapui_ok then
       },
       {
         elements = {
+          "repl",
+        },
+        size = 0.25,
+        position = "bottom",
+      },
+      {
+        elements = {
           "console",
         },
         size = 0.25,

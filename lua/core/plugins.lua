@@ -143,6 +143,8 @@ local plugins = {
       vim.g.cursorhold_updatetime = 100
     end,
   },
+  ["kazhala/close-buffers.nvim"] = {},
+  ["gaborvecsei/memento.nvim"] = {},
 
   -- Icon
   ["kyazdani42/nvim-web-devicons"] = { event = "VimEnter" },
