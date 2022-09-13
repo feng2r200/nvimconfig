@@ -11,9 +11,11 @@ if dap_virtual_status_ok then
     highlight_changed_variables = true,
     highlight_new_as_changed = true,
     show_stop_reason = true,
-    commented = false,
+    commented = true,
+    only_first_definition = true,
+    all_references = false,
     virt_text_pos = 'eol',
-    all_frames = false,
+    all_frames = true,
     virt_lines = false,
     virt_text_win_col = nil
   }
@@ -47,12 +49,6 @@ if status_dapui_ok then
       {
         elements = {
           "repl",
-        },
-        size = 0.25,
-        position = "bottom",
-      },
-      {
-        elements = {
           "console",
         },
         size = 0.25,
@@ -70,6 +66,7 @@ if status_dapui_ok then
     windows = { indent = 1 },
     render = {
       max_type_length = nil,
+      max_value_lines = 100,
     },
   })
 
