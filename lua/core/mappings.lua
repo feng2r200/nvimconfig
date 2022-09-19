@@ -67,12 +67,6 @@ maps.o["<Space>F"]   = { function() require("hop").hint_char1({ direction = requ
 maps[""]["<Space>t"] = { function() require("hop").hint_char1({ direction = require"hop.hint".HintDirection.AFTER_CURSOR, current_line_only = true }) end, desc = "Enhance t" }
 maps[""]["<Space>T"] = { function() require("hop").hint_char1({ direction = require"hop.hint".HintDirection.BEFORE_CURSOR, current_line_only = true }) end, desc = "Enhance T" }
 
--- Close
-init_table("n", "<Space>", "c", "Close")
-maps.n["<Space>cw"] = { function() require('bufdelete').bufdelete(0, true) end, desc = "Close buffer" }
-maps.n["<Space>ct"] = { "<cmd>tabclose!<cr>", desc = "Close tab" }
-maps.n["<Space>cq"] = { "<cmd>quit<cr>", desc = "Quit the current window" }
-
 -- GitSigns
 init_table("n", "<Space>", "g", "Git")
 maps.n["<Space>gn"] = { function() require("gitsigns").next_hunk() end, desc = "Next git hunk" }
