@@ -18,8 +18,8 @@ end
 maps[""]["<Space>"] = "<Nop>"
 
 maps.n["<BS>"]  = { "<cmd>nohlsearch<cr>", desc = "No Highlight" }
-maps.n["<C-s>"] = { "<cmd>wall<cr>", desc = "Force write" }
-maps.i["<C-s>"] = { "<esc><cmd>wall<cr>i", desc = "Force write" }
+maps.n["<C-s>"] = { "<cmd>write<cr>", desc = "Force write" }
+maps.i["<C-s>"] = { "<esc><cmd>write<cr>i", desc = "Force write" }
 
 -- Navigate buffers
 maps.n["]b"] = { "<cmd>bnext<cr>",  desc = "Next buffer" }
