@@ -27,7 +27,7 @@ if status_dapui_ok then
     icons = { expanded = "▾", collapsed = "▸" },
     mappings = {
       -- Use a table to apply multiple mappings
-      expand = { "o", "<2-LeftMouse>", "<CR>" },
+      expand = { "o", "<CR>" },
       open = "O",
       remove = "d",
       edit = "e",

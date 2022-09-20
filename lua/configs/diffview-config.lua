@@ -78,7 +78,6 @@ diffview.setup {
       ["<up>"]          = cb("prev_entry"),
       ["<cr>"]          = cb("select_entry"), -- Open the diff for the selected entry.
       ["o"]             = cb("select_entry"),
-      ["<2-LeftMouse>"] = cb("select_entry"),
       ["<Space>"]       = cb("toggle_stage_entry"), -- Stage / unstage the selected entry.
       ["S"]             = cb("stage_all"), -- Stage all entries.
       ["U"]             = cb("unstage_all"), -- Unstage all entries.
@@ -106,7 +105,6 @@ diffview.setup {
       ["<up>"]          = cb("prev_entry"),
       ["<cr>"]          = cb("select_entry"),
       ["o"]             = cb("select_entry"),
-      ["<2-LeftMouse>"] = cb("select_entry"),
       ["<tab>"]         = cb("select_next_entry"),
       ["<s-tab>"]       = cb("select_prev_entry"),
       ["gf"]            = cb("goto_file"),
