@@ -75,13 +75,6 @@ cmd("VimResized", {
   end,
 })
 
-cmd({ "BufWritePost", "BufReadPost", "CursorHold", "InsertLeave" }, {
-  pattern = { "*.java", "*.py", "*.rs" },
-  callback = function()
-    vim.lsp.codelens.refresh()
-  end,
-})
-
 cmd({ "CursorHold", "ModeChanged" }, {
   callback = function()
     local status_ok, luasnip = pcall(require, "luasnip")
