@@ -49,7 +49,6 @@ if status_dapui_ok then
       {
         elements = {
           "repl",
-          "console",
         },
         size = 0.25,
         position = "bottom",
@@ -122,10 +121,17 @@ vim.fn.sign_define("DapBreakpointRejected", dap_breakpoint.rejected)
 
 -- dap.set_log_level("DEBUG")
 
+dap.defaults.fallback.external_terminal = {
+  command = '/usr/local/bin/alacritty';
+  args = {'--hold', '-e'};
+}
+dap.defaults.fallback.force_external_terminal = true
+
 for _, dap_opt in ipairs {
   "configs.dap.python",
   "configs.dap.go",
   "configs.dap.cpp",
+  "configs.dap.java",
 } do
   local opt_status_ok, fault = pcall(require, dap_opt)
   if not opt_status_ok then

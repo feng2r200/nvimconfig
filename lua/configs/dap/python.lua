@@ -18,6 +18,7 @@ dap.configurations.python = {
 		pythonPath = function()
       return "python"
 		end,
+		console = 'externalTerminal',
 	},
 }
 
