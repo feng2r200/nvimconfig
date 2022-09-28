@@ -26,16 +26,16 @@ maps.n["]b"] = { "<cmd>bnext<cr>",  desc = "Next buffer" }
 maps.n["[b"] = { "<cmd>bprevious<cr>",  desc = "Previous buffer" }
 
 -- Better window navigation
-maps.n["<C-h>"] = { function() require("tmux").move_left() end, desc = "Move to left split" }
-maps.n["<C-j>"] = { function() require("tmux").move_bottom() end, desc = "Move to below split" }
-maps.n["<C-k>"] = { function() require("tmux").move_top() end, desc = "Move to above split" }
-maps.n["<C-l>"] = { function() require("tmux").move_right() end, desc = "Move to right split" }
+maps.n["<C-w>h"] = { function() require("tmux").move_left() end, desc = "Move to left split" }
+maps.n["<C-w>j"] = { function() require("tmux").move_bottom() end, desc = "Move to below split" }
+maps.n["<C-w>k"] = { function() require("tmux").move_top() end, desc = "Move to above split" }
+maps.n["<C-w>l"] = { function() require("tmux").move_right() end, desc = "Move to right split" }
 
 -- Resize with arrows
-maps.n["<M-h>"] = { function() require("tmux").resize_left() end, desc = "Resize split left" }
-maps.n["<M-j>"] = { function() require("tmux").resize_bottom() end, desc = "Resize split down" }
-maps.n["<M-k>"] = { function() require("tmux").resize_top() end, desc = "Resize split up" }
-maps.n["<M-l>"] = { function() require("tmux").resize_right() end, desc = "Resize split right" }
+maps.n["<C-w><"] = { function() require("tmux").resize_left() end, desc = "Resize split left" }
+maps.n["<C-w>-"] = { function() require("tmux").resize_bottom() end, desc = "Resize split down" }
+maps.n["<C-w>+"] = { function() require("tmux").resize_top() end, desc = "Resize split up" }
+maps.n["<C-w>>"] = { function() require("tmux").resize_right() end, desc = "Resize split right" }
 
 -- Stay in indent mode
 maps.v["<C-j>"] = { ":m'>+1<cr>gv=gv", desc = "Move current line down"}
