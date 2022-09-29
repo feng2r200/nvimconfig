@@ -26,10 +26,10 @@ maps.n["]b"] = { "<cmd>bnext<cr>",  desc = "Next buffer" }
 maps.n["[b"] = { "<cmd>bprevious<cr>",  desc = "Previous buffer" }
 
 -- Better window navigation
-maps.n["<C-w>h"] = { function() require("tmux").move_left() end, desc = "Move to left split" }
-maps.n["<C-w>j"] = { function() require("tmux").move_bottom() end, desc = "Move to below split" }
-maps.n["<C-w>k"] = { function() require("tmux").move_top() end, desc = "Move to above split" }
-maps.n["<C-w>l"] = { function() require("tmux").move_right() end, desc = "Move to right split" }
+maps.n["<C-h>"] = { function() require("tmux").move_left() end, desc = "Move to left split" }
+maps.n["<C-j>"] = { function() require("tmux").move_bottom() end, desc = "Move to below split" }
+maps.n["<C-k>"] = { function() require("tmux").move_top() end, desc = "Move to above split" }
+maps.n["<C-l>"] = { function() require("tmux").move_right() end, desc = "Move to right split" }
 
 -- Resize with arrows
 maps.n["<C-w><"] = { function() require("tmux").resize_left() end, desc = "Resize split left" }
