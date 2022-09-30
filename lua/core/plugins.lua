@@ -276,12 +276,6 @@ local plugins = {
     after = "nvim-treesitter",
     config = function() vim.cmd([[let g:matchup_matchparen_offscreen = {'method': 'popup'}]]) end
   },
-  ["declancm/cinnamon.nvim"] = {
-    event = { "BufRead", "BufNewFile" },
-    config = function()
-      require "configs.cinnamon"
-    end,
-  },
   ["junegunn/vim-easy-align"] = { cmd = "EasyAlign", },
   ["ethanholz/nvim-lastplace"] = {
     event = "BufRead",
