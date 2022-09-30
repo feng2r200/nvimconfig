@@ -145,9 +145,9 @@ local source_menu = {
 }
 
 local duplicates = {
-  buffer     = 0, nvim_lsp   = 1, nvim_lua   = 0,
-  path       = 1, tmux       = 0, luasnip    = 1,
-  vsnip      = 0, treesitter = 0
+  buffer     = 1, nvim_lsp   = 0, nvim_lua   = 0,
+  path       = 3, tmux       = 3, luasnip    = 2,
+  vsnip      = 2, treesitter = 1
 }
 
 local cmp_config = {
