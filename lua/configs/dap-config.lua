@@ -123,7 +123,7 @@ vim.fn.sign_define("DapBreakpointRejected", dap_breakpoint.rejected)
 
 dap.defaults.fallback.external_terminal = {
   command = '/usr/local/bin/alacritty';
-  args = {'--hold', '-e'};
+  args = {'--hold', '--title', 'DapExternal', '-e'};
 }
 dap.defaults.fallback.force_external_terminal = true
 
