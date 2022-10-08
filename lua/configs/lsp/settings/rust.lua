@@ -1,5 +1,9 @@
 local lsp_handlers = require "configs.lsp.handlers"
 
+local extension_path = vim.env.HOME .. "/.vscode/extensions/vadimcn.vscode-lldb-1.7.4/"
+local codelldb_path = extension_path .. "adapter/codelldb"
+local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
+
 return {
   tools = {
     autoSetHints = true,
@@ -61,7 +65,7 @@ return {
   },
 
   dap = {
-    adapter = require("dap").adapters.lldb
+    adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path)
   },
 }
 
