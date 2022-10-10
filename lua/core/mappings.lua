@@ -174,6 +174,7 @@ maps.n["<F8>"] = { function() require("dap").step_out() end, desc = "Debug step 
 init_table("n", "<leader>", "d", "Debug")
 maps.n["<leader>db"] = { function() require("dap").toggle_breakpoint() end, desc = "Set breakpoint" }
 maps.n["<leader>dB"] = { function() require("dap").set_breakpoint(vim.fn.input '[Condition] > ') end, desc = "Set condition breakpoint" }
+maps.n["<leader>df"] = { function() require("dapui").float_element() end, desc = "Show Float Element" }
 maps.n["<leader>dk"] = { function() require("dapui").eval() end, desc = "Show cursor eval" }
 maps.v["<leader>dk"] = { function() require("dapui").eval() end, desc = "Show cursor eval" }
 maps.n["<leader>dl"] = { function() require("dap").list_breakpoints() end, desc = "List Breakpoints" }

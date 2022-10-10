@@ -24,7 +24,7 @@ end
 local status_dapui_ok, dapui = pcall(require, "dapui")
 if status_dapui_ok then
    dapui.setup ({
-    icons = { expanded = "▾", collapsed = "▸" },
+    icons = { expanded = "▾", collapsed = "▸", current_frame = "▸" },
     mappings = {
       -- Use a table to apply multiple mappings
       expand = { "o", "<CR>" },
@@ -34,13 +34,11 @@ if status_dapui_ok then
       repl = "r",
       toggle = "t",
     },
-    expand_lines = vim.fn.has("nvim-0.7"),
+    expand_lines = vim.fn.has("nvim-0.7") == 1,
     layouts = {
       {
         elements = {
-          { id = "scopes", size = 0.35 },
-          "breakpoints",
-          "stacks",
+          "scopes",
           "watches",
         },
         size = 40,
@@ -52,6 +50,20 @@ if status_dapui_ok then
         },
         size = 0.25,
         position = "bottom",
+      },
+    },
+    controls = {
+      enabled = false,
+      element = "repl",
+      icons = {
+        pause = "",
+        play = "",
+        step_into = "",
+        step_over = "",
+        step_out = "",
+        step_back = "",
+        run_last = "↻",
+        terminate = "□",
       },
     },
     floating = {
