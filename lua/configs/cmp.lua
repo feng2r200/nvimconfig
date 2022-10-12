@@ -10,7 +10,6 @@ vim.cmd [[packadd cmp-nvim-lsp]]
 vim.cmd [[packadd cmp-nvim-lua]]
 vim.cmd [[packadd cmp-path]]
 vim.cmd [[packadd cmp-tmux]]
-vim.cmd [[packadd cmp-treesitter]]
 vim.cmd [[packadd cmp-under-comparator]]
 vim.cmd [[packadd cmp_luasnip]]
 vim.cmd [[packadd cmp-dap]]
@@ -201,7 +200,6 @@ local cmp_config = {
     { name = "path", group_index = 4 },
     { name = "tmux", group_index = 4 },
     { name = "buffer", group_index = 4 },
-    { name = "treesitter", group_index = 4 }
   }),
   mapping = cmp.mapping.preset.insert({
     ["<C-p>"] = cmp.mapping.select_prev_item(),

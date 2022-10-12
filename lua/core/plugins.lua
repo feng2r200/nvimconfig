@@ -73,7 +73,6 @@ local plugins = {
   ["hrsh7th/cmp-path"] = { after = "nvim-cmp", },
   ["hrsh7th/cmp-buffer"] = { after = "nvim-cmp", },
   ["hrsh7th/cmp-cmdline"] = { after = "nvim-cmp", },
-  ["ray-x/cmp-treesitter"] = { after = "nvim-cmp", },
   ["rcarriga/cmp-dap"] = { after = "nvim-cmp" },
 
   -- Snippet
@@ -157,6 +156,14 @@ local plugins = {
   },
   ["rcarriga/nvim-dap-ui"] = { after = "nvim-dap", },
   ["theHamsta/nvim-dap-virtual-text"] = { after = "nvim-dap", },
+
+  -- Tabline
+  ["akinsho/bufferline.nvim"] = {
+    after = "nvim-web-devicons",
+    config = function()
+      require "configs.bufferline"
+    end,
+  },
 
   -- Statusline
   ["feline-nvim/feline.nvim"] = {
@@ -276,7 +283,6 @@ local plugins = {
     after = "nvim-treesitter",
     config = function() vim.cmd([[let g:matchup_matchparen_offscreen = {'method': 'popup'}]]) end
   },
-  ["junegunn/vim-easy-align"] = { cmd = "EasyAlign", },
   ["ethanholz/nvim-lastplace"] = {
     event = "BufRead",
     config = function()
