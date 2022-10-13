@@ -7,3 +7,6 @@
 [submodule "pack/vscode-java-decompiler"]
 	path = pack/vscode-java-decompiler
 	url = git@github.com:dgileadi/vscode-java-decompiler.git
+[submodule "pack/fernflower"]
+  path = pack/fernflower
+  url = git@github.com:fesh0r/fernflower.git

@@ -18,7 +18,6 @@ null_ls.setup {
       extra_filetypes = { "toml", "solidity" },
       extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
     },
-    formatting.google_java_format,
     formatting.black.with { extra_args = { "--fast" } },
     formatting.jq,
     formatting.tidy.with {

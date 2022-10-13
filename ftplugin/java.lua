@@ -6,149 +6,164 @@ vim.cmd [[set tabstop=4]]
 vim.cmd [[set shiftwidth=4]]
 
 vim.cmd [[packadd nvim-jdtls]]
-
 vim.cmd [[packadd nvim-dap]]
 
+local fn = vim.fn
+local path = require "kit.path"
+local platform = require "kit.platform"
+local functional = require "kit.functional"
+
+local home_dir = os.getenv "HOME"
+local std_data_dir = fn.stdpath "data"
+local nvim_dir = fn.stdpath "config"
+
+local rule_dir = nvim_dir .. "/rule/"
+local java_settings_url = rule_dir .. "settings.prefs"
+local java_format_style_rule = rule_dir .. "eclipse-java-google-style.xml"
+
 local java_path = {
-    ["8"]  = "/Library/Java/JavaVirtualMachines/openjdk-8.jdk/Contents/Home",
-    ["last"] = "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home",
+  ["8"] = "/Library/Java/JavaVirtualMachines/openjdk-8.jdk/Contents/Home",
+  ["last"] = "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home",
+}
+local executable = path.concat { java_path["last"], "bin", "java" } or "java"
+local java_debug_jar = {
+  fn.glob(nvim_dir .. "/pack/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"),
+  fn.glob(nvim_dir .. "/pack/vscode-java-decompiler/server/*.jar"),
+  fn.glob(nvim_dir .. "/pack/vscode-java-test/server/*.jar"),
 }
 
+local root_dir = path.concat { std_data_dir, "mason", "packages", "jdtls" }
+local launcher_jar = fn.expand(path.concat { root_dir, "plugins", "org.eclipse.equinox.launcher_*.jar" })
+local lombok_jar = fn.expand(path.concat { root_dir, "lombok.jar" })
+
+local workspace_root_dir = path.concat { std_data_dir, "eclipse" }
+local project_name = fn.fnamemodify(fn.getcwd(), ":p:h:t")
+local workspace_dir = path.concat { workspace_root_dir, project_name }
+
 local get_cmd = function()
-    local path = require "kit.path"
-    local platform = require "kit.platform"
-    local functional = require "kit.functional"
-
-    local root_dir = path.concat {vim.fn.stdpath("data"), "mason", "packages", "jdtls"}
-
-    local executable = path.concat { java_path["last"], "bin", "java" } or "java"
-    local jar = vim.fn.expand(path.concat { root_dir, "plugins", "org.eclipse.equinox.launcher_*.jar" })
-    local lombok = vim.fn.expand(path.concat { root_dir, "lombok.jar" })
-    local workspace_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-    local workspace_name = path.concat {vim.fn.stdpath("data"), "eclipse"}
-
-    return {
-        platform.is_win and ("%s.exe"):format(executable) or executable,
-        "-Declipse.application=org.eclipse.jdt.ls.core.id1",
-        "-Dosgi.bundles.defaultStartLevel=4",
-        "-Declipse.product=org.eclipse.jdt.ls.core.product",
-        "-Dlog.protocol=true",
-        "-Dlog.level=ALL",
-        "-Xms4g",
-        "-Xmx6G",
-        "-javaagent:" .. lombok,
-        "--add-modules=ALL-SYSTEM",
-        "--add-opens", "java.base/java.util=ALL-UNNAMED",
-        "--add-opens", "java.base/java.lang=ALL-UNNAMED",
-        "-jar", jar,
-        "-configuration",
-        path.concat {
-            root_dir,
-            functional.coalesce(
-                functional.when(platform.is_mac, "config_mac"),
-                functional.when(platform.is_linux, "config_linux"),
-                functional.when(platform.is_win, "config_win")
-            ),
-        },
-        "-data", path.concat { workspace_name, workspace_dir },
-    }
+  return {
+    platform.is_win and ("%s.exe"):format(executable) or executable,
+    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+    "-Dosgi.bundles.defaultStartLevel=4",
+    "-Declipse.product=org.eclipse.jdt.ls.core.product",
+    "-Dlog.protocol=true",
+    "-Dlog.level=ALL",
+    "-Xms4g",
+    "-Xmx6G",
+    "-javaagent:" .. lombok_jar,
+    "--add-modules=ALL-SYSTEM",
+    "--add-opens",
+    "java.base/java.util=ALL-UNNAMED",
+    "--add-opens",
+    "java.base/java.lang=ALL-UNNAMED",
+    "-jar",
+    launcher_jar,
+    "-configuration",
+    path.concat {
+      root_dir,
+      functional.coalesce(
+        functional.when(platform.is_mac, "config_mac"),
+        functional.when(platform.is_linux, "config_linux"),
+        functional.when(platform.is_win, "config_win")
+      ),
+    },
+    "-data",
+    workspace_dir,
+  }
 end
 
 local lsp_handlers = require "configs.lsp.handlers"
 local jdtls = require "jdtls"
 
 local custom_attach = function(client, bufnr)
-    lsp_handlers.on_attach(client, bufnr)
-    jdtls.setup_dap({ hotcodereplace="auto" })
-    jdtls.setup.add_commands()
+  lsp_handlers.on_attach(client, bufnr)
+  jdtls.setup_dap { hotcodereplace = "auto" }
+  jdtls.setup.add_commands()
 end
 
 local capabilities = lsp_handlers.capabilities
 
 local config = {
-    cmd = get_cmd(),
-    root_dir = jdtls.setup.find_root({'.git', 'mvnw', 'gradlew', '.idea', 'build.gradle' }),
-    settings = {
-        java = {
-            codeGeneration = {
-                toString = {
-                    template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}"
-                },
-                hashCodeEquals = {
-                    useInstanceof = true,
-                    useJava7Objects = true,
-                },
-                useBlocks = true,
-            },
-            completion = { enabled = false },
-            configuration = {
-                maven = {
-                    globalSettings = os.getenv("HOME") .. "/.m2/settings.xml",
-                },
-                runtimes = {
-                    {name = "JavaSE-1.8", path=java_path["8"], default=true},
-                },
-                updateBuildConfiguration = "interactive"
-            },
-            contentProvider = { preferred = 'fernflower' },
-            eclipse = {
-              downloadSources = true,
-            },
-            foldingRange = { enabled = true},
-            home =java_path["8"],
-            implementationsCodeLens = { enabled = false },
-            import = {
-                maven = { enabled = true },
-            },
-            maven = {
-                downloadSources = true,
-                updateSnapshots = true,
-            },
-            referencesCodeLens = { enabled = false },
-            references = {
-                includeAccessors = true,
-                includeDecompiledSources = true,
-            },
-            inlayHints = {
-              parameterNames = {
-                enabled = "all", -- literals, all, none
-              },
-            },
-            rename = { enabled = true },
-            selectionRange = { enabled = true },
-            signatureHelp = { enabled = true },
-            sources = {
-                organizeImports = {
-                    starThreshold = 9999,
-                    staticStarThreshold = 9999,
-                },
-            },
-            symbols = {
-                includeSourceMethodDeclarations = true,
-            },
-            trace = {
-                server = "messages"
-            }
-        }
+  cmd = get_cmd(),
+  root_dir = jdtls.setup.find_root { ".git", "mvnw", "gradlew", ".idea", "build.gradle" },
+  settings = {
+    ["java.settings.url"] = java_settings_url,
+    java = {
+      codeGeneration = {
+        toString = {
+          template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
+        },
+        hashCodeEquals = {
+          useInstanceof = true,
+          useJava7Objects = true,
+        },
+        useBlocks = true,
+      },
+      completion = { enabled = false },
+      configuration = {
+        maven = {
+          globalSettings = home_dir .. "/.m2/settings.xml",
+        },
+        runtimes = {
+          { name = "JavaSE-1.8", path = java_path["8"], default = true },
+        },
+        updateBuildConfiguration = "interactive",
+      },
+      contentProvider = { preferred = "fernflower" },
+      eclipse = { downloadSources = true },
+      foldingRange = { enabled = true },
+      home = java_path["8"],
+      implementationsCodeLens = { enabled = false },
+      import = { maven = { enabled = true } },
+      maven = {
+        downloadSources = true,
+        updateSnapshots = true,
+      },
+      referencesCodeLens = { enabled = false },
+      references = {
+        includeAccessors = true,
+        includeDecompiledSources = true,
+      },
+      inlayHints = {
+        parameterNames = {
+          enabled = "all", -- literals, all, none
+        },
+      },
+      rename = { enabled = true },
+      selectionRange = { enabled = true },
+      signatureHelp = { enabled = true },
+      sources = {
+        organizeImports = {
+          starThreshold = 9999,
+          staticStarThreshold = 9999,
+        },
+      },
+      symbols = { includeSourceMethodDeclarations = true },
+      trace = { server = "messages" },
+      format = {
+        settings = {
+          url = java_format_style_rule,
+          profile = "GoogleStyle",
+        },
+      },
     },
-    flags = {
-        allow_incremental_sync = true,
-    },
-    capabilities = capabilities,
-    on_attach = custom_attach,
+  },
+  flags = {
+    allow_incremental_sync = true,
+    debounce_text_changes = 150,
+    server_side_fuzzy_completion = true
+  },
+  capabilities = capabilities,
+  on_attach = custom_attach,
 }
 
 config.on_init = function(client, _)
-    client.notify("workspace/didChangeConfiguration", { settings = config.settings})
+  client.notify("workspace/didChangeConfiguration", { settings = config.settings })
 end
 
 local bundles = {}
-for _, jar_pattern in ipairs({
-  "/pack/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar",
-  "/pack/vscode-java-decompiler/server/*.jar",
-  "/pack/vscode-java-test/server/*.jar",
-}) do
-  for _, bundle in ipairs(vim.split(vim.fn.glob(vim.fn.stdpath("config") .. jar_pattern), '\n')) do
+for _, jar_pattern in ipairs(java_debug_jar) do
+  for _, bundle in ipairs(vim.split(jar_pattern, "\n")) do
     table.insert(bundles, bundle)
   end
 end
@@ -156,8 +171,8 @@ end
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 config.init_options = {
-    extendedClientCapabilities = extendedClientCapabilities,
-    bundles = bundles,
+  extendedClientCapabilities = extendedClientCapabilities,
+  bundles = bundles,
 }
 
 -- Setup
@@ -170,11 +185,36 @@ vim.cmd "command! -buffer JdtUpdateConfig lua require('jdtls').update_project_co
 vim.cmd "command! -buffer JdtBytecode lua require('jdtls').javap()"
 
 -- Mappings.
-vim.api.nvim_set_keymap("n", "crv", "<cmd>lua require('jdtls').extract_variable()<CR>", { noremap = true, silent = true, desc = "Extract variable" })
-vim.api.nvim_set_keymap("v", "crv", "<cmd>lua require('jdtls').extract_variable(true)<CR>", { noremap = true, silent = true, desc = "Extract variable" })
-vim.api.nvim_set_keymap("n", "crc", "<cmd>lua require('jdtls').extract_constant()<CR>", { noremap = true, silent = true, desc = "Extract constant" })
-vim.api.nvim_set_keymap("v", "crc", "<cmd>lua require('jdtls').extract_constant(true)<CR>", { noremap = true, silent = true, desc = "Extract constant" })
-vim.api.nvim_set_keymap("v", "crm", "<cmd>lua require('jdtls').extract_method(true)<CR>", { noremap = true, silent = true, desc = "Extract method" })
+vim.api.nvim_set_keymap(
+  "n",
+  "crv",
+  "<cmd>lua require('jdtls').extract_variable()<CR>",
+  { noremap = true, silent = true, desc = "Extract variable" }
+)
+vim.api.nvim_set_keymap(
+  "v",
+  "crv",
+  "<cmd>lua require('jdtls').extract_variable(true)<CR>",
+  { noremap = true, silent = true, desc = "Extract variable" }
+)
+vim.api.nvim_set_keymap(
+  "n",
+  "crc",
+  "<cmd>lua require('jdtls').extract_constant()<CR>",
+  { noremap = true, silent = true, desc = "Extract constant" }
+)
+vim.api.nvim_set_keymap(
+  "v",
+  "crc",
+  "<cmd>lua require('jdtls').extract_constant(true)<CR>",
+  { noremap = true, silent = true, desc = "Extract constant" }
+)
+vim.api.nvim_set_keymap(
+  "v",
+  "crm",
+  "<cmd>lua require('jdtls').extract_method(true)<CR>",
+  { noremap = true, silent = true, desc = "Extract method" }
+)
 
 local wk_status, wk = pcall(require, "which-key")
 if wk_status then
@@ -195,4 +235,3 @@ if wk_status then
     nowait = true, -- use `nowait` when creating keymaps
   })
 end
-
