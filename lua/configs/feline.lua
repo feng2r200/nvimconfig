@@ -4,9 +4,10 @@ if not status_ok then
 end
 
 local C = require "onedark.colors"
-local hl = require("core.status").hl
-local provider = require("core.status").provider
-local conditional = require("core.status").conditional
+local status_kit = require("kit.status")
+local hl = status_kit.hl
+local provider = status_kit.provider
+local conditional = status_kit.conditional
 
 if vim.fn.has "nvim-0.8" == 1 then
   feline.winbar.setup({
@@ -46,8 +47,6 @@ feline.setup({
       {
         { provider = provider.lsp_progress, enabled = conditional.bar_width() },
         { provider = provider.lsp_client_names(true), short_provider = provider.lsp_client_names(), enabled = conditional.bar_width(), icon = "   " },
-        { provider = provider.spacer(2), enabled = conditional.bar_width() },
-        { provider = provider.treesitter_status, enabled = conditional.bar_width(), hl = hl.fg("GitSignsAdd", { fg = C.green }) },
         { provider = provider.spacer(2) },
         { provider = "position" },
         { provider = provider.spacer(2) },

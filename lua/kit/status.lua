@@ -110,11 +110,6 @@ function M.provider.lsp_client_names(expand_null_ls)
   end
 end
 
-function M.provider.treesitter_status()
-  local ts = vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()]
-  return (ts and next(ts)) and " 綠TS" or ""
-end
-
 function M.provider.gps()
   return function ()
     local gps_status_ok, gps = pcall(require, "nvim-navic")
