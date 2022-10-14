@@ -71,9 +71,11 @@ maps[""]["<Space>T"] = { function() require("hop").hint_char1({ direction = requ
 
 -- GitSigns
 init_table("n", "<Space>", "g", "Git")
+maps.n["<Space>gd"] = { function() require("gitsigns").diffthis() end, desc = "Diff this" }
 maps.n["<Space>gn"] = { function() require("gitsigns").next_hunk() end, desc = "Next git hunk" }
 maps.n["<Space>gN"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous git hunk" }
 maps.n["<Space>gp"] = { function() require("gitsigns").preview_hunk() end, desc = "Preview git hunk" }
+maps.n["<Space>gP"] = { function() require("gitsigns").blame_line() end, desc = "Show Blame line" }
 
 init_table("n", "<leader>", "g", "Git")
 maps.n["<leader>gb"] = { function() require("telescope.builtin").git_branches() end, desc = "Git branchs" }
@@ -123,7 +125,6 @@ maps.n["<leader>Rs"] = { function() require("spectre").open_visual({select_word=
 maps.n["<C-t>"]      = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" }
 
 init_table("n", "<leader>", "t", "Terminal")
-maps.n["<leader>tg"] = { function() mivim.toggle_term_cmd "gitui" end, desc = "ToggleTerm gitui" }
 maps.n["<leader>tf"] = { "<cmd>ToggleTerm direction=float<cr>", desc = "ToggleTerm float" }
 maps.n["<leader>th"] = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "ToggleTerm horizontal split" }
 maps.n["<leader>tv"] = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "ToggleTerm vertical split" }
