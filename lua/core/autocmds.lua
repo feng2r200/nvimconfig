@@ -49,10 +49,6 @@ cmd("BufWritePost", {
 })
 
 cmd("FileType", {
-  pattern = { "c", "cpp", "python", "java" },
-  command = "set shiftwidth=4 tabstop=4",
-})
-cmd("FileType", {
   pattern = { "qf", "help", "man", "lspinfo", "spectre_panel", "lir", "DressingSelect" },
   callback = function()
     vim.cmd [[
