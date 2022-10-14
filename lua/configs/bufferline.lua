@@ -6,20 +6,23 @@ end
 bufferline.setup({
   options = {
     mode = "buffers", -- set to "tabs" to only show tabpages instead
-    numbers = "ordinal", -- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
+    numbers = "both", -- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
     close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
     right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
     left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
     middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
+    indicator = {
+      style = 'underline'
+    },
     left_trunc_marker = '',
     right_trunc_marker = '',
     buffer_close_icon = "",
     modified_icon = "",
     close_icon = "",
     offsets = {
-      { filetype = "NvimTree", text = "", padding = 1 },
-      { filetype = "neo-tree", text = "", padding = 1 },
-      { filetype = "Outline", text = "", padding = 1 },
+      { filetype = "NvimTree", text = "File Explorer", padding = 1 },
+      { filetype = "neo-tree", text = "File Explorer", padding = 1 },
+      { filetype = "Outline", text = "Outline", padding = 1 },
     },
     name_formatter = function(buf)  -- buf contains a "name", "path" and "bufnr"
       -- remove extension from markdown files for example
