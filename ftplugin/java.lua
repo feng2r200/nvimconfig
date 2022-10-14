@@ -9,9 +9,6 @@ vim.cmd [[packadd nvim-jdtls]]
 vim.cmd [[packadd nvim-dap]]
 
 local fn = vim.fn
-local path = require "kit.path"
-local platform = require "kit.platform"
-local functional = require "kit.functional"
 
 local home_dir = os.getenv "HOME"
 local std_data_dir = fn.stdpath "data"
@@ -25,24 +22,24 @@ local java_path = {
   ["8"] = "/Library/Java/JavaVirtualMachines/openjdk-8.jdk/Contents/Home",
   ["last"] = "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home",
 }
-local executable = path.concat { java_path["last"], "bin", "java" } or "java"
+local executable = java_path["last"] .. "/bin/java" or "java"
 local java_debug_jar = {
   fn.glob(nvim_dir .. "/pack/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"),
   fn.glob(nvim_dir .. "/pack/vscode-java-decompiler/server/*.jar"),
   fn.glob(nvim_dir .. "/pack/vscode-java-test/server/*.jar"),
 }
 
-local root_dir = path.concat { std_data_dir, "mason", "packages", "jdtls" }
-local launcher_jar = fn.expand(path.concat { root_dir, "plugins", "org.eclipse.equinox.launcher_*.jar" })
-local lombok_jar = fn.expand(path.concat { root_dir, "lombok.jar" })
+local root_dir = std_data_dir .. "/mason/packages/jdtls"
+local launcher_jar = fn.expand( root_dir .. "/plugins/org.eclipse.equinox.launcher_*.jar" )
+local lombok_jar = fn.expand( root_dir .. "/lombok.jar" )
 
-local workspace_root_dir = path.concat { std_data_dir, "eclipse" }
+local workspace_root_dir = std_data_dir .. "/eclipse/"
 local project_name = fn.fnamemodify(fn.getcwd(), ":p:h:t")
-local workspace_dir = path.concat { workspace_root_dir, project_name }
+local workspace_dir = workspace_root_dir .. project_name
 
 local get_cmd = function()
   return {
-    platform.is_win and ("%s.exe"):format(executable) or executable,
+    executable,
     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
     "-Dosgi.bundles.defaultStartLevel=4",
     "-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -59,14 +56,7 @@ local get_cmd = function()
     "-jar",
     launcher_jar,
     "-configuration",
-    path.concat {
-      root_dir,
-      functional.coalesce(
-        functional.when(platform.is_mac, "config_mac"),
-        functional.when(platform.is_linux, "config_linux"),
-        functional.when(platform.is_win, "config_win")
-      ),
-    },
+    root_dir .. "/config_mac",
     "-data",
     workspace_dir,
   }

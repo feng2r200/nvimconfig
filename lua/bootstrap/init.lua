@@ -1,6 +1,5 @@
-local path = require "kit.path"
 local nvim_config_dir = vim.fn.stdpath("config")
-local nvim_bin_dir = path.concat { nvim_config_dir, "bin" }
+local nvim_bin_dir = nvim_config_dir .. "/bin"
 
 
 local impatient_ok, _ = pcall(require, "impatient")
