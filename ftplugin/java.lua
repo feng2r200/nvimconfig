@@ -19,7 +19,7 @@ local nvim_dir = fn.stdpath "config"
 
 local rule_dir = nvim_dir .. "/rule/"
 local java_settings_url = rule_dir .. "settings.prefs"
-local java_format_style_rule = rule_dir .. "eclipse-java-google-style.xml"
+local java_format_style_rule = rule_dir .. "intellij-java-google-style.xml"
 
 local java_path = {
   ["8"] = "/Library/Java/JavaVirtualMachines/openjdk-8.jdk/Contents/Home",
