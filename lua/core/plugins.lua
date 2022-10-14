@@ -180,6 +180,13 @@ local plugins = {
     end
   },
 
+  -- Notify
+  ["rcarriga/nvim-notify"] = {
+    config = function()
+      require("notify").setup()
+    end
+  },
+
   -- Indentation
   ["lukas-reineke/indent-blankline.nvim"] = {
     event = "BufRead",
@@ -343,13 +350,6 @@ local plugins = {
 
 }
 
-local function echo(messages)
-  messages = messages or {{"\n"}}
-  if type(messages) == "table" then
-    vim.api.nvim_echo(messages, false, {})
-  end
-end
-
 local function initialize_packer()
   local packer_avail, packer = pcall(require, "packer")
   if not packer_avail then
@@ -363,7 +363,6 @@ local function initialize_packer()
       "https://github.com/wbthomason/packer.nvim",
       packer_path,
     }
-    echo { { "Initializing Packer...\n\n" } }
     vim.cmd "packadd packer.nvim"
     packer_avail, packer = pcall(require, "packer")
     if not packer_avail then
@@ -373,7 +372,6 @@ local function initialize_packer()
   return packer
 end
 
-local compile_path = vim.fn.stdpath "data" .. "/packer_compiled.lua"
 local packer = initialize_packer()
 packer.startup {
   function(use)
@@ -385,37 +383,13 @@ packer.startup {
     end
   end,
   config = {
-    compile_path = compile_path,
-    -- display = {
-    --   open_fn = function()
-    --     return require("packer.util").float { border = "rounded" }
-    --   end,
-    -- },
-    profile = {
-      enable = true,
-      threshold = 0.0001,
-    },
     git = {
       clone_timeout = 300,
       subcommands = {
-        update = "pull --rebase",
+        update = "pull --ff-only --progress --rebase",
       },
     },
     max_jobs = 20,
-    auto_clean = true,
-    compile_on_sync = true,
   },
 }
-
-local M = {}
-function M.compiled()
-  local run_me, _ = loadfile(compile_path)
-  if run_me then
-    run_me()
-  else
-    echo { { "Please run " }, { ":PackerSync", "Title" } }
-  end
-end
-
-M.compiled()
 
