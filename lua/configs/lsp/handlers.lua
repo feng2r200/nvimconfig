@@ -14,7 +14,7 @@ M.capabilities.textDocument.completion.completionItem.resolveSupport = { propert
 
 local status_ok_cmp_lsp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
 if status_ok_cmp_lsp then
-  M.capabilities = cmp_lsp.update_capabilities(M.capabilities)
+  M.capabilities = cmp_lsp.default_capabilities(M.capabilities)
 end
 
 M.setup = function()
