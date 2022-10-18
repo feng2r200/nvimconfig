@@ -11,11 +11,6 @@ treesitter.setup({
   },
   sync_install = false,
   ignore_install = {},
-  matchup = {
-    enable = true,
-    disable_virtual_text = false,
-    disable = {},
-  },
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = true,

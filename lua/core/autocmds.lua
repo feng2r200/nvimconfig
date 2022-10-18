@@ -43,6 +43,11 @@ cmd("BufWritePre", {
   command = "setlocal noundofile",
 })
 
+cmd("BufWritePost", {
+  pattern = "plugins.lua",
+  command = "source <afile> | PackerSync",
+})
+
 cmd("FileType", {
   pattern = { "qf", "help", "man", "lspinfo", "spectre_panel", "lir", "DressingSelect" },
   callback = function()

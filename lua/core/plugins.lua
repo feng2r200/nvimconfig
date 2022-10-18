@@ -6,6 +6,7 @@ local plugins = {
   ["nvim-lua/plenary.nvim"] = { module = "plenary" },
   ["nvim-lua/popup.nvim"] = {},
   ["MunifTanjim/nui.nvim"] = {},
+  ["anuvyklack/hydra.nvim"] = {},
 
   -- LSP
   ["neovim/nvim-lspconfig"] = {},
@@ -183,7 +184,7 @@ local plugins = {
   -- Notify
   ["rcarriga/nvim-notify"] = {
     config = function()
-      require("notify").setup()
+      require "configs.nvim-notify"
     end
   },
 
@@ -223,6 +224,12 @@ local plugins = {
       require "configs.Comment"
     end,
   },
+  ["danymat/neogen"] = {
+    module = "neogen",
+    config = function()
+      require "configs.neogen"
+    end
+  },
 
   -- Terminal
   ["akinsho/toggleterm.nvim"] = {
@@ -231,6 +238,24 @@ local plugins = {
     config = function()
       require "configs.toggleterm"
     end,
+  },
+
+  -- Tasks
+  ["jedrzejboczar/toggletasks.nvim"] = {
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "akinsho/toggleterm.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    config = function()
+      require "configs.toggletasks"
+    end,
+  },
+
+  -- Table mode
+  ["dhruvasagar/vim-table-mode"] = {
+    opt = true,
+    cmd = { "TableModeEnable" },
   },
 
   -- Project
@@ -266,6 +291,10 @@ local plugins = {
   },
 
   -- Git
+  ["tpope/vim-fugitive"] = {
+    opt = true,
+    cmd = { "Git" },
+  },
   ["lewis6991/gitsigns.nvim"] = {
     event = "BufEnter",
     config = function()
@@ -278,6 +307,13 @@ local plugins = {
       require "configs.diffview-config"
     end
   },
+  ["TimUntersberger/neogit"] = {
+    cmd = "Neogit",
+    config = function()
+      require "configs.neogit"
+    end,
+    requires = "nvim-lua/plenary.nvim"
+  },
 
   -- Editing Support
   ["windwp/nvim-autopairs"] = {
@@ -285,10 +321,6 @@ local plugins = {
     config = function()
       require "configs.autopairs"
     end,
-  },
-  ["andymass/vim-matchup"] = {
-    after = "nvim-treesitter",
-    config = function() vim.cmd([[let g:matchup_matchparen_offscreen = {'method': 'popup'}]]) end
   },
   ["ethanholz/nvim-lastplace"] = {
     event = "BufRead",
@@ -346,6 +378,9 @@ local plugins = {
   },
   ["chrisbra/csv.vim"] = {
     ft = "csv",
+  },
+  ["nanotee/sqls.nvim"] = {
+    ft = { "sql", "mysql" }
   },
 
 }
