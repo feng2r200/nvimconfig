@@ -1,6 +1,6 @@
 local lsp_handlers = require "configs.lsp.handlers"
 
-local extension_path = vim.env.HOME .. "/.config/vscode-lldb/"
+local extension_path = vim.fn.stdpath("config") .. "/pack/vscode-lldb/"
 local codelldb_path = extension_path .. "adapter/codelldb"
 local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
 

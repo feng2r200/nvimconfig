@@ -1,3 +1,4 @@
 .local_history/
 .local-history/
 /plugin/packer_compiled.lua
+pack/vscode-lldb
