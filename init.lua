@@ -2,9 +2,8 @@ if vim.g.vscode then
   return
 end
 
-require("bootstrap")
-
 for _, source in ipairs {
+  "bootstrap",
   "core.plugins",
   "core.mappings",
   "core.autocmds",

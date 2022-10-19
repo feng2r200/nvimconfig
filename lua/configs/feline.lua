@@ -4,7 +4,7 @@ if not status_ok then
 end
 
 local C = require "onedark.colors"
-local status_kit = require("kit.status")
+local status_kit = require("utils.status")
 local hl = status_kit.hl
 local provider = status_kit.provider
 local conditional = status_kit.conditional
