@@ -16,6 +16,11 @@ treesitter.setup({
     additional_vim_regex_highlighting = true,
     disable = {},
   },
+  matchup = {
+    enable = true,
+    disable_virtual_text = false,
+    disable = {},
+  },
   autopairs = { enable = true },
   indent = {
     enable = true,

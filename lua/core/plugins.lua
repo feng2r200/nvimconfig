@@ -56,6 +56,12 @@ local plugins = {
       require "configs.fidget-config"
     end
   },
+  ["andymass/vim-matchup"] = {
+    after = "nvim-treesitter",
+    config = function()
+      vim.cmd [[let g:matchup_matchparen_offscreen = {'method': 'popup'}]]
+    end,
+  },
 
   -- Completion
   ["hrsh7th/nvim-cmp"] = {
