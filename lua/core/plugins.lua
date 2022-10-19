@@ -5,8 +5,6 @@ local plugins = {
   -- Lua Development
   ["nvim-lua/plenary.nvim"] = { module = "plenary" },
   ["nvim-lua/popup.nvim"] = {},
-  ["MunifTanjim/nui.nvim"] = {},
-  ["anuvyklack/hydra.nvim"] = {},
 
   -- LSP
   ["neovim/nvim-lspconfig"] = {},
@@ -238,24 +236,6 @@ local plugins = {
     config = function()
       require "configs.toggleterm"
     end,
-  },
-
-  -- Tasks
-  ["jedrzejboczar/toggletasks.nvim"] = {
-    requires = {
-      "nvim-lua/plenary.nvim",
-      "akinsho/toggleterm.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-    config = function()
-      require "configs.toggletasks"
-    end,
-  },
-
-  -- Table mode
-  ["dhruvasagar/vim-table-mode"] = {
-    opt = true,
-    cmd = { "TableModeEnable" },
   },
 
   -- Project

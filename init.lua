@@ -6,7 +6,6 @@ require("bootstrap")
 
 for _, source in ipairs {
   "core.plugins",
-  "core.ui",
   "core.mappings",
   "core.autocmds",
   "core.options",
