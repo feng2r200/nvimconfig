@@ -1,6 +1,6 @@
-local cmd = vim.api.nvim_create_autocmd
+local autocmd = vim.api.nvim_create_autocmd
 
-cmd("User", {
+autocmd("User", {
   pattern = { "AlphaReady" },
   callback = function()
     vim.cmd [[
@@ -9,46 +9,25 @@ cmd("User", {
   end,
 })
 
-cmd("ColorScheme", {
+autocmd("ColorScheme", {
   callback = function()
     package.loaded["configs.feline"] = nil
     require "configs.feline"
   end,
 })
 
-cmd({ "TextYankPost" }, {
+autocmd({ "TextYankPost" }, {
   callback = function()
     vim.highlight.on_yank { higroup = "IncSearch", timeout = 300 }
   end,
 })
 
-cmd({ "BufWinEnter" }, {
-  callback = function()
-    vim.cmd "set formatoptions-=cro"
-  end,
-})
-
-cmd("FocusGained", {
-  pattern = "*",
-  command = "checktime",
-})
-
-cmd("VimResized", {
-  pattern = "*",
-  command = [[tabdo wincmd =]],
-})
-
-cmd("BufWritePre", {
-  pattern = { "/tmp/*", "COMMIT_EDITMSG", "MERGE_MSG", "*.tmp", "*.bak" },
-  command = "setlocal noundofile",
-})
-
-cmd("BufWritePost", {
+autocmd("BufWritePost", {
   pattern = "plugins.lua",
   command = "source <afile> | PackerSync",
 })
 
-cmd("FileType", {
+autocmd("FileType", {
   pattern = { "qf", "help", "man", "lspinfo", "spectre_panel", "lir", "DressingSelect" },
   callback = function()
     vim.cmd [[
@@ -57,21 +36,14 @@ cmd("FileType", {
     ]]
   end,
 })
-cmd("FileType", {
-  pattern = { "gitcommit", "markdown" },
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.spell = true
-  end,
-})
 
-cmd("VimResized", {
+autocmd("VimResized", {
   callback = function()
     vim.cmd "tabdo wincmd ="
   end,
 })
 
-cmd({ "CursorHold", "ModeChanged" }, {
+autocmd({ "CursorHold", "ModeChanged" }, {
   callback = function()
     local status_ok, luasnip = pcall(require, "luasnip")
     if not status_ok then
@@ -82,3 +54,4 @@ cmd({ "CursorHold", "ModeChanged" }, {
     end
   end,
 })
+
