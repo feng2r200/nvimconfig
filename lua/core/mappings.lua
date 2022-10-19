@@ -147,11 +147,12 @@ maps.n["K"]  = { function()
     vim.lsp.buf.hover()
   end
 end, desc = "Hover symbol details" }
-maps.n["gd"] = { function() require("telescope.builtin").lsp_definitions{} end, desc = "Show the definition of current symbol" }
-maps.n["gD"] = { function() require("telescope.builtin").lsp_type_definitions{} end, desc = "Declaration of current symbol" }
-maps.n["gh"] = { function() require("telescope.builtin").lsp_references{} end, desc = "Search references" }
-maps.n["gI"] = { function() require("telescope.builtin").lsp_implementations{} end, desc = "Implementation of current symbol" }
+maps.n["gd"] = { "<cmd> Trouble lsp_definitions<cr>", desc = "Show the definition of current symbol" }
+maps.n["gD"] = { "<cmd> Trouble lsp_type_definitions<cr>", desc = "Declaration of current symbol" }
+maps.n["gh"] = { "<cmd> Trouble lsp_references<cr>", desc = "Search references" }
+maps.n["gi"] = { "<cmd> Trouble lsp_implementations<cr>", desc = "Implementation of current symbol" }
 maps.n["gr"] = { function() vim.lsp.buf.rename() end, desc = "Rename current symbol" }
+maps.n["gs"] = { function() vim.lsp.buf.signature_help() end, desc = "Signature help" }
 
 maps.n["[d"] = { function() vim.diagnostic.goto_prev() end, desc = "Previous diagnostic" }
 maps.n["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" }
@@ -165,7 +166,7 @@ maps.v["<leader>lf"] = { function() vim.lsp.buf.format({ timeout_ms = 2000 }) en
 maps.n["<leader>li"] = { function() vim.lsp.buf.incoming_calls() end, desc = "Incoming Calls" }
 maps.n["<leader>lo"] = { function() vim.lsp.buf.outgoing_calls() end, desc = "Outgoing Calls" }
 maps.n["<leader>lr"] = { "<cmd>lua vim.lsp.codelens.refresh()<cr>", desc = "Refresh Codelens" }
-maps.n["<leader>ls"] = { function() vim.lsp.buf.signature_help() end, desc = "Signature help" }
+maps.n["<leader>le"] = { "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "Run Codelens" }
 
 -- Debug
 maps.n["<F4>"] = { function() require("dap").terminate() end, desc = "Debug terminate" }

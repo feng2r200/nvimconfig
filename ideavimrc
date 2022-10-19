@@ -82,7 +82,7 @@ vnoremap gr             :action RenameElement<CR>
 """ Searching and Source Code Navigation
 nnoremap gd             :action GotoDeclaration<CR>
 nnoremap gh             :action FindUsages<CR>
-nnoremap gI             :action GotoImplementation<CR>
+nnoremap gi             :action GotoImplementation<CR>
 
 """ Tool windows
 nnoremap <leader>sa     :action Annotate<CR>
