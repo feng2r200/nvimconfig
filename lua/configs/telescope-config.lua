@@ -4,7 +4,6 @@ if not status_ok then
 end
 
 vim.cmd [[packadd telescope-fzf-native.nvim]]
-vim.cmd [[packadd telescope-file-browser.nvim]]
 
 local actions = require "telescope.actions"
 
@@ -150,7 +149,5 @@ telescope.setup {
 }
 
 telescope.load_extension('fzf')
-telescope.load_extension('file_browser')
 telescope.load_extension('notify')
-telescope.load_extension("toggletasks")
 
