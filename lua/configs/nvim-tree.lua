@@ -45,7 +45,7 @@ nvim_tree.setup {
     highlight_opened_files = "none",
     root_folder_modifier = ":~",
     indent_markers = {
-      enable = false,
+      enable = true,
       inline_arrows = true,
       icons = { corner = "└ ", edge = "│ ", none = "  ", },
     },
@@ -110,7 +110,7 @@ nvim_tree.setup {
     exclude = {},
   },
   filesystem_watchers = { enable = true, debounce_delay = 50, },
-  git = { enable = true, ignore = true, show_on_dirs = true, timeout = 500, },
+  git = { enable = true, ignore = false, show_on_dirs = true, timeout = 500, },
   actions = {
     use_system_clipboard = true,
     change_dir = {
