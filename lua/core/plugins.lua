@@ -15,7 +15,12 @@ local plugins = {
     end,
   },
   ["williamboman/mason-lspconfig.nvim"] = { after = "nvim-lspconfig" },
-  ["jose-elias-alvarez/null-ls.nvim"] = { event = { "BufRead", "BufNewFile" } },
+  ["jose-elias-alvarez/null-ls.nvim"] = {
+    event = { "BufRead", "BufNewFile" },
+    config = function()
+      require "configs.null-ls"
+    end,
+  },
   ["ray-x/lsp_signature.nvim"] = { after = "nvim-lspconfig" },
   ["SmiteshP/nvim-navic"] = {
     after = "nvim-web-devicons",
@@ -47,14 +52,14 @@ local plugins = {
         "Outline",
         "toggleterm",
       }
-    end
+    end,
   },
   ["j-hui/fidget.nvim"] = {
     event = "BufRead",
     after = "nvim-lspconfig",
     config = function()
       require "configs.fidget-config"
-    end
+    end,
   },
   ["andymass/vim-matchup"] = {
     after = "nvim-treesitter",
@@ -70,14 +75,14 @@ local plugins = {
       require "configs.cmp"
     end,
   },
-  ["lukas-reineke/cmp-under-comparator"] = { after = "nvim-cmp", },
-  ["saadparwaiz1/cmp_luasnip"] = { after = "nvim-cmp", },
-  ["hrsh7th/cmp-nvim-lsp"] = { after = "nvim-cmp", },
-  ["hrsh7th/cmp-nvim-lua"] = { after = "nvim-cmp", },
-  ["andersevenrud/cmp-tmux"] = { after = "nvim-cmp", },
-  ["hrsh7th/cmp-path"] = { after = "nvim-cmp", },
-  ["hrsh7th/cmp-buffer"] = { after = "nvim-cmp", },
-  ["hrsh7th/cmp-cmdline"] = { after = "nvim-cmp", },
+  ["lukas-reineke/cmp-under-comparator"] = { after = "nvim-cmp" },
+  ["saadparwaiz1/cmp_luasnip"] = { after = "nvim-cmp" },
+  ["hrsh7th/cmp-nvim-lsp"] = { after = "nvim-cmp" },
+  ["hrsh7th/cmp-nvim-lua"] = { after = "nvim-cmp" },
+  ["andersevenrud/cmp-tmux"] = { after = "nvim-cmp" },
+  ["hrsh7th/cmp-path"] = { after = "nvim-cmp" },
+  ["hrsh7th/cmp-buffer"] = { after = "nvim-cmp" },
+  ["hrsh7th/cmp-cmdline"] = { after = "nvim-cmp" },
   ["rcarriga/cmp-dap"] = { after = "nvim-cmp" },
 
   -- Snippet
@@ -95,8 +100,14 @@ local plugins = {
     run = ":TSUpdate",
     event = { "BufRead", "BufNewFile" },
     cmd = {
-      "TSInstall", "TSInstallInfo", "TSInstallSync", "TSUninstall", "TSUpdate",
-      "TSUpdateSync", "TSDisableAll", "TSEnableAll",
+      "TSInstall",
+      "TSInstallInfo",
+      "TSInstallSync",
+      "TSUninstall",
+      "TSUpdate",
+      "TSUpdateSync",
+      "TSDisableAll",
+      "TSEnableAll",
     },
     config = function()
       require "configs.treesitter"
@@ -110,7 +121,7 @@ local plugins = {
     after = "nvim-treesitter",
     config = function()
       require "configs.surround"
-    end
+    end,
   },
 
   -- Fuzzy Finder/Telescope
@@ -159,8 +170,8 @@ local plugins = {
       require "configs.dap-config"
     end,
   },
-  ["rcarriga/nvim-dap-ui"] = { after = "nvim-dap", },
-  ["theHamsta/nvim-dap-virtual-text"] = { after = "nvim-dap", },
+  ["rcarriga/nvim-dap-ui"] = { after = "nvim-dap" },
+  ["theHamsta/nvim-dap-virtual-text"] = { after = "nvim-dap" },
 
   -- Tabline
   ["akinsho/bufferline.nvim"] = {
@@ -182,14 +193,14 @@ local plugins = {
   ["goolord/alpha-nvim"] = {
     config = function()
       require "configs.alpha"
-    end
+    end,
   },
 
   -- Notify
   ["rcarriga/nvim-notify"] = {
     config = function()
       require "configs.nvim-notify"
-    end
+    end,
   },
 
   -- Indentation
@@ -202,15 +213,15 @@ local plugins = {
 
   -- File Explorer
   ["kyazdani42/nvim-tree.lua"] = {
-    event = {"BufRead", "BufNewFile" },
+    event = { "BufRead", "BufNewFile" },
     requires = "kyazdani42/nvim-web-devicons",
     config = function()
       require "configs.nvim-tree"
     end,
   },
   ["folke/trouble.nvim"] = {
-    cmd = {"Trouble", "TroubleToggle", "TroubleRefresh"},
-    event = {"BufRead"},
+    cmd = { "Trouble", "TroubleToggle", "TroubleRefresh" },
+    event = { "BufRead" },
     config = function()
       require "configs.trouble-config"
     end,
@@ -232,7 +243,7 @@ local plugins = {
     module = "neogen",
     config = function()
       require "configs.neogen"
-    end
+    end,
   },
 
   -- Terminal
@@ -249,11 +260,11 @@ local plugins = {
     after = "telescope.nvim",
     config = function()
       require "configs.project"
-    end
+    end,
   },
   ["nvim-pack/nvim-spectre"] = {
     opt = true,
-    config = function ()
+    config = function()
       require "configs.spectre-config"
     end,
   },
@@ -273,7 +284,7 @@ local plugins = {
     ft = "qf",
     config = function()
       require "configs.bqf"
-    end
+    end,
   },
 
   -- Git
@@ -288,17 +299,24 @@ local plugins = {
     end,
   },
   ["sindrets/diffview.nvim"] = {
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewRefresh", "DiffviewFileHistory" },
+    cmd = {
+      "DiffviewOpen",
+      "DiffviewClose",
+      "DiffviewToggleFiles",
+      "DiffviewFocusFiles",
+      "DiffviewRefresh",
+      "DiffviewFileHistory",
+    },
     config = function()
       require "configs.diffview-config"
-    end
+    end,
   },
   ["TimUntersberger/neogit"] = {
     cmd = "Neogit",
     config = function()
       require "configs.neogit"
     end,
-    requires = "nvim-lua/plenary.nvim"
+    requires = "nvim-lua/plenary.nvim",
   },
 
   -- Editing Support
@@ -314,7 +332,7 @@ local plugins = {
       require "configs.nvim-lastplace"
     end,
   },
-  ["rlue/vim-barbaric"] = { event = {"BufRead", "BufNewFile"} },
+  ["rlue/vim-barbaric"] = { event = { "BufRead", "BufNewFile" } },
 
   -- Motion
   ["phaazon/hop.nvim"] = {
@@ -366,9 +384,8 @@ local plugins = {
     ft = "csv",
   },
   ["nanotee/sqls.nvim"] = {
-    ft = { "sql", "mysql" }
+    ft = { "sql", "mysql" },
   },
-
 }
 
 local function initialize_packer()
@@ -413,4 +430,3 @@ packer.startup {
     max_jobs = 20,
   },
 }
-

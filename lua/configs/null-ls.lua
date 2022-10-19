@@ -39,7 +39,7 @@ local unwrap = {
   filetypes = { "rust" },
   generator = {
     fn = function(params)
-      local diagnostics = {}
+      local diagnostic = {}
       -- sources have access to a params object
       -- containing info about the current file and editor state
       for i, line in ipairs(params.content) do
@@ -47,7 +47,7 @@ local unwrap = {
         if col and end_col then
           -- null-ls fills in undefined positions
           -- and converts source diagnostics into the required format
-          table.insert(diagnostics, {
+          table.insert(diagnostic, {
             row = i,
             col = col,
             end_col = end_col,
@@ -57,7 +57,7 @@ local unwrap = {
           })
         end
       end
-      return diagnostics
+      return diagnostic
     end,
   },
 }

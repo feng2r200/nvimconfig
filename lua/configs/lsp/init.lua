@@ -7,6 +7,5 @@ end
 
 require("configs.lsp.nvim-mason")
 require("configs.lsp.handlers").setup()
-require("configs.lsp.null-ls")
 
 return M
