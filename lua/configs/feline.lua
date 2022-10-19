@@ -3,27 +3,27 @@ if not status_ok then
   return
 end
 
-local C = require "onedark.colors"
-local status_kit = require("utils.status")
+local C = require "themes.colors"
+local status_kit = require "utils.status"
 local hl = status_kit.hl
 local provider = status_kit.provider
 local conditional = status_kit.conditional
 
 if vim.fn.has "nvim-0.8" == 1 then
-  feline.winbar.setup({
+  feline.winbar.setup {
     disable = { filetypes = { "^NvimTree$", "^neo%-tree$", "^dashboard$", "^alpha$", "^Outline$", "^aerial$" } },
     theme = hl.group("Winbar", { fg = C.fg, bg = C.bg1 }),
     components = {
       active = {
         {
           { provider = provider.gps(), enabled = conditional.gps_available() },
-        }
-      }
-    }
-  })
+        },
+      },
+    },
+  }
 end
 
-feline.setup({
+feline.setup {
   disable = { filetypes = { "^NvimTree$", "^neo%-tree$", "^dashboard$", "^alpha$", "^Outline$", "^aerial$" } },
   theme = hl.group("StatusLine", { fg = C.fg, bg = C.bg1 }),
   components = {
@@ -33,7 +33,10 @@ feline.setup({
         { provider = provider.spacer(2) },
         { provider = "git_branch", hl = hl.fg("Conditional", { fg = C.purple, style = "bold" }), icon = " " },
         { provider = provider.spacer(3), enabled = conditional.git_available },
-        { provider = { name = "file_type", opts = { filetype_icon = true, case = "lowercase" } }, enabled = conditional.has_filetype },
+        {
+          provider = { name = "file_type", opts = { filetype_icon = true, case = "lowercase" } },
+          enabled = conditional.has_filetype,
+        },
         { provider = provider.spacer(2), enabled = conditional.has_filetype },
         { provider = "git_diff_added", hl = hl.fg("GitSignsAdd", { fg = C.green }), icon = "  " },
         { provider = "git_diff_changed", hl = hl.fg("GitSignsChange", { fg = C.orange }), icon = " 柳" },
@@ -46,7 +49,12 @@ feline.setup({
       },
       {
         { provider = provider.lsp_progress, enabled = conditional.bar_width() },
-        { provider = provider.lsp_client_names(true), short_provider = provider.lsp_client_names(), enabled = conditional.bar_width(), icon = "   " },
+        {
+          provider = provider.lsp_client_names(true),
+          short_provider = provider.lsp_client_names(),
+          enabled = conditional.bar_width(),
+          icon = "   ",
+        },
         { provider = provider.spacer(2) },
         { provider = "position" },
         { provider = provider.spacer(2) },
@@ -58,5 +66,4 @@ feline.setup({
       },
     },
   },
-})
-
+}

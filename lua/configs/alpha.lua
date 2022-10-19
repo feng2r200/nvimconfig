@@ -11,7 +11,7 @@ local function button(sc, txt, keybind, keybind_opts)
   return b
 end
 
-local icons = require "configs.icons"
+local icons = require "themes.icons"
 
 dashboard.section.header.val = {
   [[                               __                ]],
@@ -26,9 +26,17 @@ dashboard.section.buttons.val = {
   button("<leader>Sf", icons.ui.Telescope .. " Find Session", "SessionManager! load_session<cr>"),
   button("<leader>fn", icons.ui.NewFile .. " New file", ":enew<cr>"),
   button("<leader>fe", icons.ui.History .. " Recent files", ':lua require("telescope.builtin").oldfiles()'),
-  button("<leader>fw", icons.ui.List .. " Find text", ':lua require("telescope.builtin").live_grep(require("telescope.themes").get_ivy())'),
+  button(
+    "<leader>fw",
+    icons.ui.List .. " Find text",
+    ':lua require("telescope.builtin").live_grep(require("telescope.themes").get_ivy())'
+  ),
   button("<leader>Hp", icons.git.Repo .. " Find project", ":Telescope projects<cr>"),
-  button("<leader>ff", icons.documents.Files .. " Find file", ':lua require("telescope.builtin").find_files(require("telescope.themes").get_ivy())<cr>'),
+  button(
+    "<leader>ff",
+    icons.documents.Files .. " Find file",
+    ':lua require("telescope.builtin").find_files(require("telescope.themes").get_ivy())<cr>'
+  ),
 }
 
 dashboard.section.header.opts.hl = "Include"

@@ -8,7 +8,7 @@ if not config_status_ok then
   return
 end
 
-local icons = require "configs.icons"
+local icons = require "themes.icons"
 
 local tree_cb = nvim_tree_config.nvim_tree_callback
 
@@ -34,8 +34,7 @@ nvim_tree.setup {
     signcolumn = "yes",
     mappings = {
       custom_only = false,
-      list = {
-      },
+      list = {},
     },
   },
   renderer = {
@@ -47,14 +46,14 @@ nvim_tree.setup {
     indent_markers = {
       enable = true,
       inline_arrows = true,
-      icons = { corner = "└ ", edge = "│ ", none = "  ", },
+      icons = { corner = "└ ", edge = "│ ", none = "  " },
     },
     icons = {
       webdev_colors = true,
       git_placement = "before",
       padding = " ",
       symlink_arrow = " ➛ ",
-      show = { file = true, folder = true, folder_arrow = true, git = true, },
+      show = { file = true, folder = true, folder_arrow = true, git = true },
       glyphs = {
         default = "",
         symlink = "",
@@ -92,12 +91,12 @@ nvim_tree.setup {
     ignore_list = {},
   },
   ignore_ft_on_setup = { "startify", "dashboard", "alpha", "aerial" },
-  system_open = { cmd = nil, args = {}, },
+  system_open = { cmd = nil, args = {} },
   diagnostics = {
     enable = false,
     show_on_dirs = false,
     debounce_delay = 50,
-    icons = { hint = "", info = "", warning = "", error = "", },
+    icons = { hint = "", info = "", warning = "", error = "" },
   },
   filters = {
     dotfiles = false,
@@ -109,8 +108,8 @@ nvim_tree.setup {
     },
     exclude = {},
   },
-  filesystem_watchers = { enable = true, debounce_delay = 50, },
-  git = { enable = true, ignore = false, show_on_dirs = true, timeout = 500, },
+  filesystem_watchers = { enable = true, debounce_delay = 50 },
+  git = { enable = true, ignore = false, show_on_dirs = true, timeout = 500 },
   actions = {
     use_system_clipboard = true,
     change_dir = {
@@ -138,7 +137,7 @@ nvim_tree.setup {
       close_window = true,
     },
   },
-  trash = { cmd = "trash", require_confirm = true, },
+  trash = { cmd = "trash", require_confirm = true },
   live_filter = {
     prefix = "[FILTER]: ",
     always_show_folders = true,
