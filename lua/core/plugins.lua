@@ -11,6 +11,7 @@ local plugins = {
   ["williamboman/mason.nvim"] = {
     after = "nvim-lspconfig",
     config = function()
+      require "configs.nvim-mason"
       require "configs.lsp"
     end,
   },
