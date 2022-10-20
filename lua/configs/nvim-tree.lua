@@ -29,8 +29,8 @@ nvim_tree.setup {
     hide_root_folder = false,
     side = "left",
     preserve_window_proportions = false,
-    number = false,
-    relativenumber = false,
+    number = true,
+    relativenumber = true,
     signcolumn = "yes",
     mappings = {
       custom_only = false,
