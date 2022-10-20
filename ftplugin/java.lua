@@ -45,6 +45,8 @@ local get_cmd = function()
     "-Declipse.product=org.eclipse.jdt.ls.core.product",
     "-Dlog.protocol=true",
     "-Dlog.level=ALL",
+    "-Dsun.zip.disableMemoryMapping=true",
+    "-XX:+UseZGC",
     "-Xms4g",
     "-Xmx6G",
     "-javaagent:" .. lombok_jar,
