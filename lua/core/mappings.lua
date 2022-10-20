@@ -52,6 +52,8 @@ maps.n["<F12>"] = { "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown preview" 
 -- Buffers
 maps.n["<Space>b"] = { function() require("telescope.builtin").buffers(require("telescope.themes").get_dropdown{previewer = false}) end, desc = "Search buffers" }
 
+maps.n["<Space>c"] = { "<cmd>TroubleToggle<cr>", desc = "Trouble toggle"}
+
 init_table("n", "<leader>", "b", "List Last")
 maps.n["<leader>b."] = { "<cmd>Telescope resume<cr>", desc = "Reopen Last Packer" }
 
