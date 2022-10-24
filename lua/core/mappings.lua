@@ -52,8 +52,6 @@ maps.n["<F12>"] = { "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown preview" 
 -- Buffers
 maps.n["<Space>b"] = { function() require("telescope.builtin").buffers(require("telescope.themes").get_dropdown{previewer = false}) end, desc = "Search buffers" }
 
-maps.n["<Space>c"] = { "<cmd>TroubleToggle<cr>", desc = "Trouble toggle"}
-
 init_table("n", "<leader>", "b", "List Last")
 maps.n["<leader>b."] = { "<cmd>Telescope resume<cr>", desc = "Reopen Last Packer" }
 
@@ -149,10 +147,10 @@ maps.n["K"]  = { function()
     vim.lsp.buf.hover()
   end
 end, desc = "Hover symbol details" }
-maps.n["gd"] = { "<cmd> Trouble lsp_definitions<cr>", desc = "Show the definition of current symbol" }
-maps.n["gD"] = { "<cmd> Trouble lsp_type_definitions<cr>", desc = "Declaration of current symbol" }
-maps.n["gh"] = { "<cmd> Trouble lsp_references<cr>", desc = "Search references" }
-maps.n["gi"] = { "<cmd> Trouble lsp_implementations<cr>", desc = "Implementation of current symbol" }
+maps.n["gd"] = { "<cmd> Telescope lsp_definitions<cr>", desc = "Show the definition of current symbol" }
+maps.n["gD"] = { "<cmd> Telescope lsp_type_definitions<cr>", desc = "Declaration of current symbol" }
+maps.n["gh"] = { "<cmd> Telescope lsp_references<cr>", desc = "Search references" }
+maps.n["gi"] = { "<cmd> Telescope lsp_implementations<cr>", desc = "Implementation of current symbol" }
 maps.n["gr"] = { function() vim.lsp.buf.rename() end, desc = "Rename current symbol" }
 maps.n["gs"] = { function() vim.lsp.buf.signature_help() end, desc = "Signature help" }
 
