@@ -9,31 +9,33 @@ if not status_ok_1 then
 end
 
 local servers = {
+  "cssls",
+  "cssmodules_ls",
+  "emmet_ls",
+  "html",
   "jdtls",
   "jsonls",
+  "solc",
   "sumneko_lua",
   "sqls",
+  "tflint",
+  "terraformls",
+  "tsserver",
   "pyright",
   "yamlls",
   "bashls",
   "clangd",
   "rust_analyzer",
+  "taplo",
+  "lemminx"
 }
 
 local settings = {
   ui = {
-    border = "none",
-    icons = {
-      package_installed = "✓",
-      package_uninstalled = "✗",
-      package_pending = "⟳",
-    },
     keymaps = {
       apply_language_filter = "f",
     },
   },
-  log_level = vim.log.levels.INFO,
-  max_concurrent_installers = 4,
 }
 
 mason.setup(settings)
