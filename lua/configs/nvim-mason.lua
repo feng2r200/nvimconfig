@@ -9,25 +9,15 @@ if not status_ok_1 then
 end
 
 local servers = {
-  "cssls",
-  "cssmodules_ls",
-  "emmet_ls",
-  "html",
   "jdtls",
   "jsonls",
-  "solc",
   "sumneko_lua",
   "sqls",
-  "tflint",
-  "terraformls",
-  "tsserver",
   "pyright",
   "yamlls",
   "bashls",
   "clangd",
   "rust_analyzer",
-  "taplo",
-  "lemminx"
 }
 
 local settings = {
