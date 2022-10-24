@@ -61,6 +61,13 @@ local plugins = {
       vim.cmd [[let g:matchup_matchparen_offscreen = {'method': 'popup'}]]
     end,
   },
+  ["j-hui/fidget.nvim"] = {
+    event = "BufReadPost",
+    after = "nvim-lspconfig",
+    config = function()
+      require("fidget").setup {}
+    end,
+  },
 
   -- Completion
   ["hrsh7th/nvim-cmp"] = {
