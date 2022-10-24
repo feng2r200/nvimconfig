@@ -65,7 +65,7 @@ local get_cmd = function()
   }
 end
 
-local lsp_handlers = require "configs.lsp.handlers"
+local lsp_handlers = require "lsp.handlers"
 local jdtls = require "jdtls"
 
 local custom_attach = function(client, bufnr)

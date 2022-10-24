@@ -12,7 +12,7 @@ local plugins = {
     after = "nvim-lspconfig",
     config = function()
       require "configs.nvim-mason"
-      require "configs.lsp"
+      require "lsp"
     end,
   },
   ["williamboman/mason-lspconfig.nvim"] = { after = "nvim-lspconfig" },
@@ -53,13 +53,6 @@ local plugins = {
         "Outline",
         "toggleterm",
       }
-    end,
-  },
-  ["j-hui/fidget.nvim"] = {
-    event = "BufRead",
-    after = "nvim-lspconfig",
-    config = function()
-      require "configs.fidget-config"
     end,
   },
   ["andymass/vim-matchup"] = {
