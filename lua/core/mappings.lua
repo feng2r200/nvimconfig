@@ -147,10 +147,10 @@ maps.n["K"]  = { function()
     vim.lsp.buf.hover()
   end
 end, desc = "Hover symbol details" }
-maps.n["gd"] = { "<cmd> Telescope lsp_definitions<cr>", desc = "Show the definition of current symbol" }
-maps.n["gD"] = { "<cmd> Telescope lsp_type_definitions<cr>", desc = "Declaration of current symbol" }
-maps.n["gh"] = { "<cmd> Telescope lsp_references<cr>", desc = "Search references" }
-maps.n["gi"] = { "<cmd> Telescope lsp_implementations<cr>", desc = "Implementation of current symbol" }
+maps.n["gd"] = { function() require("telescope.builtin").lsp_definitions{} end, desc = "Show the definition of current symbol" }
+maps.n["gD"] = { function() require("telescope.builtin").lsp_type_definitions{} end, desc = "Declaration of current symbol" }
+maps.n["gh"] = { function() require("telescope.builtin").lsp_references{} end, desc = "Search references" }
+maps.n["gi"] = { function() require("telescope.builtin").lsp_implementations{} end, desc = "Implementation of current symbol" }
 maps.n["gr"] = { function() vim.lsp.buf.rename() end, desc = "Rename current symbol" }
 maps.n["gs"] = { function() vim.lsp.buf.signature_help() end, desc = "Signature help" }
 
