@@ -20,9 +20,10 @@ local java_format_style_rule = rule_dir .. "intellij-java-google-style.xml"
 
 local java_path = {
   ["8"] = "/Library/Java/JavaVirtualMachines/openjdk-8.jdk/Contents/Home",
+  ["17"] = "/Library/Java/JavaVirtualMachines/openjdk-17.jdk/Contents/Home",
   ["last"] = "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home",
 }
-local executable = java_path["last"] .. "/bin/java" or "java"
+local executable = java_path["17"] .. "/bin/java" or "java"
 local java_debug_jar = {
   fn.glob(nvim_dir .. "/pack/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"),
   fn.glob(nvim_dir .. "/pack/vscode-java-decompiler/server/*.jar"),
@@ -77,7 +78,7 @@ local capabilities = lsp_handlers.capabilities
 
 local config = {
   cmd = get_cmd(),
-  root_dir = jdtls.setup.find_root { ".git", "mvnw", "gradlew", ".idea", "build.gradle" },
+  root_dir = vim.fs.dirname(vim.fs.find({ ".git", "mvnw", "gradlew", ".idea", "build.gradle" }, { upward = true })[1]),
   settings = {
     ["java.settings.url"] = java_settings_url,
     java = {
