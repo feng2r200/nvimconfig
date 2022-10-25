@@ -31,24 +31,16 @@ local executable = java_path["17"] .. "/bin/java" or "java"
 local vscode = require("utils.vscode")
 local java_vscode_jar = {}
 local vscode_java_debug_path = vscode.find_one("/vscjava.vscode-java-debug-*/server")
-if vscode_java_debug_path then
-  table.insert(java_vscode_jar, fn.glob(vscode_java_debug_path .. "/com.microsoft.java.debug.plugin-*.jar"))
-end
+table.insert(java_vscode_jar, fn.glob(vscode_java_debug_path .. "/com.microsoft.java.debug.plugin-*.jar"))
 
 local vscode_java_test_path = vscode.find_one("/vscjava.vscode-java-test-*/server")
-if vscode_java_test_path then
-  table.insert(java_vscode_jar, fn.glob(vscode_java_test_path .. "/*.jar"))
-end
+table.insert(java_vscode_jar, fn.glob(vscode_java_test_path .. "/*.jar"))
 
 local java_decompiler_path = vscode.find_one("/dgileadi.java-decompiler-*/server")
-if java_decompiler_path then
-  table.insert(java_vscode_jar, fn.glob(java_decompiler_path .. "/*.jar"))
-end
+table.insert(java_vscode_jar, fn.glob(java_decompiler_path .. "/*.jar"))
 
 local java_dependency_path = vscode.find_one("/vscjava.vscode-java-dependency-*/server")
-if java_dependency_path then
-  table.insert(java_vscode_jar, fn.glob(java_dependency_path .. "/*.jar"))
-end
+table.insert(java_vscode_jar, fn.glob(java_dependency_path .. "/*.jar"))
 
 local jdtls_dir = env.DATA_DIR .. "/mason/packages/jdtls"
 local jdtls_launcher = fn.expand( jdtls_dir .. "/plugins/org.eclipse.equinox.launcher_*.jar" )
