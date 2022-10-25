@@ -363,6 +363,9 @@ local plugins = {
   -- Filetype
   ["mfussenegger/nvim-jdtls"] = {
     ft = "java",
+    config = function ()
+      require("lsp.settings.java").init()
+    end
   },
   ["simrat39/rust-tools.nvim"] = {
     ft = "rust",

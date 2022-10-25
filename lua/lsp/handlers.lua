@@ -133,11 +133,6 @@ M.on_attach = function(client, bufnr)
   vim.cmd("hi! LspReferenceRead cterm=underline gui=underline")
 
   client.server_capabilities.document_formatting = false
-
-  if client.name == "jdt.ls" then
-    --[[ vim.lsp.codelens.refresh() ]]
-    require("jdtls.dap").setup_dap_main_class_configs()
-  end
 end
 
 return M
