@@ -1,4 +1,5 @@
 for _, source in ipairs {
+  "core.bootstrap",
   "core.plugins",
   "core.mappings",
   "core.autocmds",
