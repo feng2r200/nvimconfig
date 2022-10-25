@@ -1,3 +1,7 @@
+vim.opt_local.foldcolumn = "1"
+vim.opt_local.foldenable = true
+vim.opt_local.signcolumn = "yes"
+
 local wk_status, wk = pcall(require, "which-key")
 if wk_status then
   local mappings = {

@@ -3,16 +3,45 @@ if not status_ok then
   return
 end
 
-local formatting   = null_ls.builtins.formatting
-local diagnostics  = null_ls.builtins.diagnostics
+local formatting = null_ls.builtins.formatting
+local diagnostics = null_ls.builtins.diagnostics
 local code_actions = null_ls.builtins.code_actions
 
 null_ls.setup {
   debug = false,
   sources = {
+    diagnostics.shellcheck,
     diagnostics.jsonlint,
-    diagnostics.sqlfluff.with({ extra_args = { "--ignore-local-config", "--dialect", "mysql", "--exclude-rules", "L001,L004,L006,L009,L010,L011,L016,L029,L031,L036,L059" } }),
+    diagnostics.sqlfluff.with {
+      extra_args = {
+        "--ignore-local-config",
+        "--dialect",
+        "mysql",
+        "--exclude-rules",
+        "L001,L004,L006,L009,L010,L011,L016,L029,L031,L036,L059",
+      },
+    },
     diagnostics.tidy,
+
+    formatting.rustfmt.with {
+      extra_args = function(params)
+        local Path = require "plenary.path"
+        local cargo_toml = Path:new(params.root .. "/" .. "Cargo.toml")
+
+        if cargo_toml:exists() and cargo_toml:is_file() then
+          for _, line in ipairs(cargo_toml:readlines()) do
+            local edition = line:match [[^edition%s*=%s*%"(%d+)%"]]
+            if edition then
+              return { "--edition=" .. edition }
+            end
+          end
+        end
+        -- default edition when we don't find `Cargo.toml` or the `edition` in it.
+        return { "--edition=2021" }
+      end,
+    },
+
+    formatting.gofmt,
 
     formatting.prettier.with {
       extra_filetypes = { "toml", "solidity" },
@@ -27,10 +56,12 @@ null_ls.setup {
       extra_args = { "--dialect", "mysql", "--FIX-EVEN-UNPARSABLE" },
     },
     formatting.stylua.with {
-      extra_args = { "--config-path", vim.fn.expand( vim.fn.stdpath "config" .. "/.stylua.toml" ) },
+      extra_args = { "--config-path", vim.fn.expand(vim.fn.stdpath "config" .. "/.stylua.toml") },
     },
+    formatting.shfmt,
 
     code_actions.gitsigns,
+    code_actions.shellcheck,
   },
 }
 
@@ -52,7 +83,7 @@ local unwrap = {
             col = col,
             end_col = end_col,
             source = "unwrap",
-            message = "hey " .. os.getenv("USER") .. ", don't forget to handle this" ,
+            message = "hey " .. os.getenv "USER" .. ", don't forget to handle this",
             severity = 2,
           })
         end

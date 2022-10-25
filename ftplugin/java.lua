@@ -2,6 +2,10 @@
     Settings for mfussenegger/nvim-jdtls
 --]]
 
+vim.opt_local.foldcolumn = "1"
+vim.opt_local.foldenable = true
+vim.opt_local.signcolumn = "yes"
+
 -- command
 vim.cmd "command! -buffer -nargs=? -complete=custom,v:lua.require('jdtls')._complete_compile JdtCompile lua require('jdtls').compile(<f-args>)"
 vim.cmd "command! -buffer -nargs=? -complete=custom,v:lua.require('jdtls')._complete_set_runtime JdtSetRuntime lua require('jdtls').set_runtime(<f-args>)"
