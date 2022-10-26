@@ -57,9 +57,41 @@ return {
       ["rust-analyzer"] = {
         cargo = {
           autoReload = true,
+          features = "all",
+        },
+        completion = {
+          privateEditable = {
+            enable = true,
+          },
         },
         lens = {
           enable = true,
+          references = {
+            adt = {
+              enable = true,
+            },
+            enumVariant = {
+              enable = true
+            },
+            method = {
+              enable = true,
+            },
+            trait = {
+              enable = true,
+            },
+          },
+        },
+        inlayHints = {
+          closureReturnTypeHints = {
+            enable = "always",
+          },
+          lifetimeElisionHints = {
+            enable = "always",
+            useParameterNames = true,
+          },
+          reborrowHints = {
+            enable = "always",
+          },
         },
       },
     },
