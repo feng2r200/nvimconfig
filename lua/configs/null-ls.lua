@@ -10,7 +10,6 @@ local code_actions = null_ls.builtins.code_actions
 null_ls.setup {
   debug = false,
   sources = {
-    diagnostics.shellcheck,
     diagnostics.jsonlint,
     diagnostics.sqlfluff.with {
       extra_args = {
@@ -61,7 +60,6 @@ null_ls.setup {
     formatting.shfmt,
 
     code_actions.gitsigns,
-    code_actions.shellcheck,
   },
 }
 
