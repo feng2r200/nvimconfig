@@ -20,7 +20,6 @@ maps[""]["<Space>"] = "<Nop>"
 maps.n["<BS>"]  = { "<cmd>nohlsearch<cr>", desc = "No Highlight" }
 maps.n["<C-s>"] = { "<cmd>write<cr>", desc = "Force write" }
 maps.i["<C-s>"] = { "<esc><cmd>write<cr>i", desc = "Force write" }
-maps.n["<C-x>k"] = { "<cmd>Bdelete!<cr>", desc = "Bdelete!" }
 
 maps.c["<C-a>"] = { "<Home>", desc = "Command first letter" }
 maps.c["<C-b>"] = { "<Left>", desc = "Command left letter" }
