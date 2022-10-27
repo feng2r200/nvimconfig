@@ -25,7 +25,6 @@ local servers = {
   "yamlls",
   "bashls",
   "clangd",
-  "rust_analyzer",
   "taplo",
   "lemminx"
 }
@@ -41,6 +40,8 @@ local settings = {
 mason.setup(settings)
 mason_lspconfig.setup {
   ensure_installed = servers,
-  automatic_installation = true,
+  automatic_installation = {
+    exclude = { "rust_analyzer" },
+  },
 }
 

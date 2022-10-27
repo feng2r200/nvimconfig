@@ -57,7 +57,6 @@ return {
       ["rust-analyzer"] = {
         cargo = {
           autoReload = true,
-          features = "all",
         },
         lens = {
           enable = true,
