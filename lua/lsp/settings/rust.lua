@@ -59,11 +59,6 @@ return {
           autoReload = true,
           features = "all",
         },
-        completion = {
-          privateEditable = {
-            enable = true,
-          },
-        },
         lens = {
           enable = true,
         },
