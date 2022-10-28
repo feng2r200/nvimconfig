@@ -1,4 +1,4 @@
-local maps = { n = {}, i = {}, v = {}, o = {}, t = {}, c = {}, x = {}, [""] = {} }
+local maps = { n = {}, i = {}, v = {}, o = {}, t = {}, x = {}, [""] = {} }
 
 local mappings = {
   n = {
@@ -20,13 +20,6 @@ maps[""]["<Space>"] = "<Nop>"
 maps.n["<BS>"]  = { "<cmd>nohlsearch<cr>", desc = "No Highlight" }
 maps.n["<C-s>"] = { "<cmd>write<cr>", desc = "Force write" }
 maps.i["<C-s>"] = { "<esc><cmd>write<cr>i", desc = "Force write" }
-
-maps.c["<C-a>"] = { "<Home>", desc = "Command first letter" }
-maps.c["<C-b>"] = { "<Left>", desc = "Command left letter" }
-maps.c["<C-f>"] = { "<Right>", desc = "Command right letter" }
-maps.c["<C-e>"] = { "<End>", desc = "Command end letter" }
-maps.c["<C-d>"] = { "<Del>", desc = "Command delete letter" }
-maps.c["<C-h>"] = { "<End>", desc = "Command BS letter" }
 
 -- Navigate buffers
 maps.n["]b"] = { "<cmd>BufferLineCycleNext<cr>",  desc = "Next buffer tab" }
