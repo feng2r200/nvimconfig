@@ -59,6 +59,7 @@ maps.n["<F12>"] = { ":MarkdownPreviewToggle<cr>", desc = "Markdown preview" }
 
 -- Buffers
 maps.n["<Space>b"] = { function() require("telescope.builtin").buffers(require("telescope.themes").get_dropdown{previewer = false}) end, desc = "Search buffers" }
+maps.v["<Space>gu"] = { function() require("utils").camel_case_start() end, desc = "Camel Case" }
 
 -- motion
 maps.n["<Space>j"] = { "<cmd>HopLine<cr>", desc = "Hop line" }

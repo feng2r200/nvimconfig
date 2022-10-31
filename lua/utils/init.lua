@@ -152,10 +152,9 @@ M.camel_case_init = function()
   " command! -complete=customlist,coreutils#cmdline#complete -nargs=* -bang -range
   command!  -nargs=* -range
   \ CamelCase
-  \ lua require('kide.core.utils').camel_case_start(<range>, <line1>, <line2>)
+  \ lua require('utils').camel_case_start(<range>, <line1>, <line2>)
 ]])
 end
--- print(M.camel_case("helloWorldAaAaAxC"))
 
 M.get_visual_selection = function()
   vim.cmd('noau normal! "vy"')
@@ -176,21 +175,6 @@ end
 
 M.or_default = function(a, v)
   return a and a or v
-end
-
-M.Windows = "Windows"
-M.Linux = "Linux"
-M.Mac = "Mac"
-
-M.os_type = function()
-  local has = vim.fn.has
-  local t = M.Linux
-  if has("win32") == 1 or has("win64") == 1 then
-    t = M.Windows
-  elseif has("mac") == 1 then
-    t = M.Mac
-  end
-  return t
 end
 
 return M
