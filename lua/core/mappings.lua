@@ -9,7 +9,6 @@ local maps = setmetatable({}, {
 })
 
 local mappings = {}
-
 local function init_table(mode, prefix, idx, name)
   if not mappings[mode] then
     mappings[mode] = {}
