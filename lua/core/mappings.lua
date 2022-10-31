@@ -1,13 +1,14 @@
 local maps = { n = {}, i = {}, v = {}, o = {}, t = {}, x = {}, [""] = {} }
 
-local mappings = {
-  n = {
-    ["<leader>"] = {},
-    ["<Space>"] = {},
-  },
-}
+local mappings = {}
 
 local function init_table(mode, prefix, idx, name)
+  if not mappings[mode] then
+    mappings[mode] = {}
+  end
+  if not mappings[mode][prefix] then
+    mappings[mode][prefix] = {}
+  end
   if not mappings[mode][prefix][idx] then
     mappings[mode][prefix][idx] = { name = name }
   end
@@ -52,9 +53,6 @@ maps.n["<F12>"] = { "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown preview" 
 -- Buffers
 maps.n["<Space>b"] = { function() require("telescope.builtin").buffers(require("telescope.themes").get_dropdown{previewer = false}) end, desc = "Search buffers" }
 
-init_table("n", "<leader>", "b", "List Last")
-maps.n["<leader>b."] = { "<cmd>Telescope resume<cr>", desc = "Reopen Last Packer" }
-
 -- motion
 maps.n["<Space>j"] = { "<cmd>HopLine<cr>", desc = "Hop line" }
 maps.n["<Space>k"] = { "<cmd>HopLine<cr>", desc = "Hop line" }
@@ -78,12 +76,8 @@ maps.n["<Space>gp"] = { function() require("gitsigns").preview_hunk() end, desc 
 maps.n["<Space>gP"] = { function() require("gitsigns").blame_line() end, desc = "Show Blame line" }
 
 init_table("n", "<leader>", "g", "Git")
-maps.n["<leader>gb"] = { function() require("telescope.builtin").git_branches() end, desc = "Git branchs" }
-maps.n["<leader>gc"] = { function() require("telescope.builtin").git_commits() end, desc = "Git commits" }
-maps.n["<leader>gd"] = { "<cmd>DiffviewFileHistory %<cr>", desc = "Current file history" }
+maps.n["<leader>gh"] = { "<cmd>DiffviewFileHistory %<cr>", desc = "Current file history" }
 maps.n["<leader>gf"] = { "<cmd>DiffviewFileHistory<cr>", desc = "File History" }
-maps.n["<leader>gt"] = { function() require("telescope.builtin").git_status() end, desc = "Git status" }
-maps.n["<leader>gT"] = { function() require("telescope.builtin").git_stash() end, desc = "Git stash" }
 
 -- Session Manager
 init_table("n", "<leader>", "S", "Session")
