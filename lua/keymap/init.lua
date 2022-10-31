@@ -25,15 +25,15 @@ end
 
 maps[""]["<Space>"] = "<Nop>"
 
-maps.n["<BS>"]  = { "<cmd>nohlsearch<cr>", desc = "No Highlight" }
-maps.n["<C-s>"] = { "<cmd>write<cr>", desc = "Force write" }
-maps.i["<C-s>"] = { "<esc><cmd>write<cr>i", desc = "Force write" }
+maps.n["<BS>"]  = { ":nohlsearch<cr>", desc = "No Highlight" }
+maps.n["<C-s>"] = { ":write<cr>", desc = "Force write" }
+maps.i["<C-s>"] = { "<esc>:write<cr>i", desc = "Force write" }
 
 -- Navigate buffers
-maps.n["]b"] = { "<cmd>BufferLineCycleNext<cr>",  desc = "Next buffer tab" }
-maps.n["[b"] = { "<cmd>BufferLineCyclePrev<cr>",  desc = "Previous buffer tab" }
-maps.n[">b"] = { "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer tab right" }
-maps.n["<b"] = { "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer tab left" }
+maps.n["]b"] = { ":BufferLineCycleNext<cr>",  desc = "Next buffer tab" }
+maps.n["[b"] = { ":BufferLineCyclePrev<cr>",  desc = "Previous buffer tab" }
+maps.n[">b"] = { ":BufferLineMoveNext<cr>", desc = "Move buffer tab right" }
+maps.n["<b"] = { ":BufferLineMovePrev<cr>", desc = "Move buffer tab left" }
 
 -- Better window navigation
 maps.n["<C-h>"] = { function() require("tmux").move_left() end, desc = "Move to left split" }
@@ -53,7 +53,7 @@ maps.v["<C-k>"] = { ":m'<-2<cr>gv=gv", desc = "Move current line up"}
 maps.v["<"]     = { "<gv", desc = "unindent line" }
 maps.v[">"]     = { ">gv", desc = "indent line" }
 
-maps.n["<F12>"] = { "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown preview" }
+maps.n["<F12>"] = { ":MarkdownPreviewToggle<cr>", desc = "Markdown preview" }
 
 ------------------------------------------------------------------------
 
