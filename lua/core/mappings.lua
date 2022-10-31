@@ -1,4 +1,12 @@
-local maps = { n = {}, i = {}, v = {}, o = {}, t = {}, x = {}, [""] = {} }
+local binding = {}
+local maps = setmetatable({}, {
+  __index = function(_, key)
+    if not binding[key] then
+      binding[key] = {}
+    end
+    return binding[key]
+  end
+})
 
 local mappings = {}
 
@@ -219,7 +227,7 @@ local function set_mappings(map_table, base)
   end
 end
 
-set_mappings(maps, { noremap = true, silent = true })
+set_mappings(binding, { noremap = true, silent = true })
 
 ------------------------------------------------------------------------
 
