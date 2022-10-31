@@ -67,4 +67,22 @@ M.filter_format_lsp_client = function(client, bufnr)
   return client.name == cn
 end
 
+M.code_hover = function()
+  local filetype = vim.bo.filetype
+  if vim.tbl_contains({ "vim", "help" }, filetype) then
+    vim.cmd("h " .. vim.fn.expand "<cword>")
+  elseif vim.tbl_contains({ "man" }, filetype) then
+    vim.cmd("Man " .. vim.fn.expand "<cword>")
+  elseif vim.fn.expand "%:t" == "Cargo.toml" then
+    local crates_status, crates = pcall(require, "crates")
+    if crates_status then
+      crates.show_popup()
+    else
+      vim.lsp.buf.hover()
+    end
+  else
+    vim.lsp.buf.hover()
+  end
+end
+
 return M

@@ -59,6 +59,7 @@ maps.n["<F12>"] = { ":MarkdownPreviewToggle<cr>", desc = "Markdown preview" }
 
 -- Buffers
 maps.n["<Space>b"] = { function() require("telescope.builtin").buffers(require("telescope.themes").get_dropdown{previewer = false}) end, desc = "Search buffers" }
+
 maps.v["<Space>gu"] = { function() require("utils").camel_case_start() end, desc = "Camel Case" }
 
 -- motion
@@ -76,16 +77,13 @@ maps[""]["<Space>t"] = { function() require("hop").hint_char1({ direction = requ
 maps[""]["<Space>T"] = { function() require("hop").hint_char1({ direction = require"hop.hint".HintDirection.BEFORE_CURSOR, current_line_only = true }) end, desc = "Enhance T" }
 
 -- GitSigns
-init_table("n", "<Space>", "g", "Git")
-maps.n["<Space>gd"] = { function() require("gitsigns").diffthis() end, desc = "Diff this" }
-maps.n["<Space>gn"] = { function() require("gitsigns").next_hunk() end, desc = "Next git hunk" }
-maps.n["<Space>gN"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous git hunk" }
-maps.n["<Space>gp"] = { function() require("gitsigns").preview_hunk() end, desc = "Preview git hunk" }
-maps.n["<Space>gP"] = { function() require("gitsigns").blame_line() end, desc = "Show Blame line" }
-
 init_table("n", "<leader>", "g", "Git")
-maps.n["<leader>gh"] = { "<cmd>DiffviewFileHistory %<cr>", desc = "Current file history" }
-maps.n["<leader>gf"] = { "<cmd>DiffviewFileHistory<cr>", desc = "File History" }
+maps.n["<leader>gf"] = { function() require("gitsigns").next_hunk() end, desc = "Next git hunk" }
+maps.n["<leader>gb"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous git hunk" }
+maps.n["<leader>gd"] = { function() require("gitsigns").diffthis() end, desc = "Diff this" }
+maps.n["<leader>gc"] = { "<cmd>DiffviewFileHistory %<cr>", desc = "Current file history" }
+maps.n["<leader>gh"] = { "<cmd>DiffviewFileHistory<cr>", desc = "File History" }
+maps.n["<leader>gp"] = { function() require("gitsigns").preview_hunk() end, desc = "Preview git hunk" }
 
 -- Session Manager
 init_table("n", "<leader>", "S", "Session")
@@ -96,25 +94,19 @@ maps.n["<leader>Ss"] = { "<cmd>SessionManager! save_current_session<cr>", desc =
 maps.n["<leader>S."] = { "<cmd>SessionManager! load_current_dir_session<cr>", desc = "Load current directory session" }
 
 -- file
-init_table("n", "<leader>", "f", "File")
+init_table("n", "<leader>", "f", "Find or File")
+maps.n["<leader>fd"] = { function() require("telescope.builtin").diagnostics() end, desc = "Search diagnostics" }
 maps.n["<leader>fe"] = { function() require("memento").toggle() end, desc = "Search history" }
 maps.n["<leader>ff"] = { function() require("telescope.builtin").find_files(require("telescope.themes").get_ivy()) end, desc = "Search files" }
+maps.n["<leader>fm"] = { function() require("telescope.builtin").marks() end, desc = "Search marks" }
 maps.n["<leader>fn"] = { "<cmd>enew<cr>", desc = "New File" }
+maps.n["<leader>fr"] = { function() require("telescope.builtin").registers() end, desc = "Search registers" }
+maps.n["<leader>fs"] = { function() require("telescope.builtin").lsp_document_symbols() end, desc = "Search symbols" }
 maps.n["<leader>fw"] = { function() require("telescope.builtin").live_grep(require("telescope.themes").get_ivy()) end, desc = "Search Text" }
-
--- Search
-init_table("n", "<leader>", "s", "Search")
-maps.n["<leader>sd"] = { function() require("telescope.builtin").diagnostics() end, desc = "Search diagnostics" }
-maps.n["<leader>sm"] = { function() require("telescope.builtin").marks() end, desc = "Search marks" }
-maps.n["<leader>sr"] = { function() require("telescope.builtin").registers() end, desc = "Search registers" }
-maps.n["<leader>ss"] = { function() require("telescope.builtin").lsp_document_symbols() end, desc = "Search symbols" }
-maps.n["<leader>sw"] = { function() require("telescope.builtin").current_buffer_fuzzy_find() end, desc = "Fuzzy finder current buf"}
 
 -- Help
 init_table("n", "<leader>", "H", "Help")
-maps.n["<leader>Hh"] = { function() require("telescope.builtin").help_tags() end, desc = "Search help" }
 maps.n["<leader>Hj"] = { function() require("telescope.builtin").jumplist() end, desc = "Search jump list" }
-maps.n["<leader>Hm"] = { function() require("telescope.builtin").man_pages() end, desc = "Search man" }
 maps.n["<leader>Hp"] = { "<cmd>Telescope projects<cr>", desc = "List project" }
 
 -- Replace
@@ -132,23 +124,7 @@ maps.n["<leader>th"] = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", des
 maps.n["<leader>tv"] = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "ToggleTerm vertical split" }
 
 -- LSP
-maps.n["K"]  = { function()
-  local filetype = vim.bo.filetype
-  if vim.tbl_contains({ "vim", "help" }, filetype) then
-    vim.cmd("h " .. vim.fn.expand "<cword>")
-  elseif vim.tbl_contains({ "man" }, filetype) then
-    vim.cmd("Man " .. vim.fn.expand "<cword>")
-  elseif vim.fn.expand "%:t" == "Cargo.toml" then
-    local crates_status, crates = pcall(require, "crates")
-    if crates_status then
-      crates.show_popup()
-    else
-      vim.lsp.buf.hover()
-    end
-  else
-    vim.lsp.buf.hover()
-  end
-end, desc = "Hover symbol details" }
+maps.n["K"]  = { function() require("lsp.utils").code_hover() end, desc = "Hover symbol details" }
 maps.n["gd"] = { function() require("telescope.builtin").lsp_definitions{} end, desc = "Show the definition of current symbol" }
 maps.n["gD"] = { function() require("telescope.builtin").lsp_type_definitions{} end, desc = "Declaration of current symbol" }
 maps.n["gh"] = { function() require("telescope.builtin").lsp_references{} end, desc = "Search references" }
@@ -165,8 +141,7 @@ maps.n["<leader>la"] = { function() vim.lsp.buf.code_action() end, desc = "LSP c
 maps.v["<leader>la"] = { function() vim.lsp.buf.range_code_action() end, desc = "LSP code action" }
 maps.n["<leader>lf"] = { function()
   local bfn = vim.api.nvim_get_current_buf()
-  vim.lsp.buf.format({
-    bufnr = bfn,
+  vim.lsp.buf.format({ bufnr = bfn,
     filter = function(c)
       return require("lsp.utils").filter_format_lsp_client(c, bfn)
     end
@@ -198,15 +173,9 @@ maps.n["<leader>dr"] = { function() require("dap").continue() end, desc = "Debug
 -- View
 init_table("n", "<leader>", "v", "View")
 maps.n["<leader>vb"] = { function() require("telescope").extensions.file_browser.file_browser() end, desc = "File browser" }
-maps.n["<leader>vd"] = { "<cmd>Trouble document_diagnostics<cr>", desc = "Trouble Document Diagnostics"}
 maps.n["<leader>ve"] = { "<cmd>NvimTreeToggle<cr>", desc = "Tree Explorer" }
-maps.n["<leader>vg"] = { "<cmd>DiffviewOpen<cr>", desc = "Sidebar Diff Project" }
-maps.n["<leader>vh"] = { "<cmd>Trouble lsp_references<cr>", desc = "Trouble LSP Usage"}
 maps.n["<leader>vo"] = { "<cmd>SymbolsOutline<cr>", desc = "Symbols outline" }
-maps.n["<leader>vq"] = { "<cmd>Trouble quickfix<cr>", desc = "Trouble Quick Fix"}
-maps.n["<leader>vt"] = { "<cmd>Trouble<cr>", desc = "Toggle trouble" }
 maps.n["<leader>vu"] = { "<cmd>UndotreeToggle<cr>", desc = "UndoTree toggle" }
-maps.n["<leader>vw"] = { "<cmd>Trouble workspace_diagnostics<cr>", desc = "Trouble Workspace Diagnostics"}
 
 ------------------------------------------------------------------------
 

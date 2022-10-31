@@ -123,6 +123,9 @@ local function attach_signature(client, bufnr)
 end
 
 M.on_attach = function(client, bufnr)
+  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc()")
+  vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+
   lsp_highlight_document(client)
   attach_navic(client, bufnr)
   attach_signature(client, bufnr)
