@@ -17,7 +17,8 @@ local servers = {
   "clangd",
   "rust_analyzer",
   "taplo",
-  "lemminx"
+  "lemminx",
+  "marksman",
 }
 
 local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")

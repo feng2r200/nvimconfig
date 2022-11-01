@@ -26,7 +26,8 @@ local servers = {
   "bashls",
   "clangd",
   "taplo",
-  "lemminx"
+  "lemminx",
+  "marksman",
 }
 
 local settings = {
