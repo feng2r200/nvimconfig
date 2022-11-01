@@ -161,6 +161,9 @@ local plugins = {
   },
   ["famiu/bufdelete.nvim"] = {},
   ["gaborvecsei/memento.nvim"] = {},
+  ["Vonr/align.nvim"] = {
+    event = { "BufReadPost", "BufNewFile" },
+  },
 
   -- Icon
   ["kyazdani42/nvim-web-devicons"] = { event = "VimEnter" },

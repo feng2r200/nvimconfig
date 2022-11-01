@@ -136,6 +136,19 @@ maps.n["[d"] = { function() vim.diagnostic.goto_prev() end, desc = "Previous dia
 maps.n["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" }
 maps.n["gl"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" }
 
+maps.x["aa"] = { function() require("align").align_to_char(1, true) end, desc = "Align to char" }
+maps.x["as"] = { function() require("align").align_to_char(2, true, true) end, desc = "Align to chars" }
+maps.x["aw"] = { function() require("align").align_to_string(false, true, true) end, desc = "Align to string" }
+maps.x["ar"] = { function() require("align").align_to_string(true, true, true) end, desc = "Align to pattern" }
+maps.n["gaw"] = { function()
+  local a = require("align")
+  a.operator(a.align_to_string, { is_pattern = false, reverse = true, preview = true })
+end, desc = "Align a paragraph to string"}
+maps.n["gaa"] = { function()
+  local a = require("align")
+  a.operator(a.align_to_char, { reverse = true })
+end, desc = "Align a paragraph to char"}
+
 init_table("n", "<leader>", "l", "LSP")
 maps.n["<leader>la"] = { function() vim.lsp.buf.code_action() end, desc = "LSP code action" }
 maps.v["<leader>la"] = { function() vim.lsp.buf.range_code_action() end, desc = "LSP code action" }
