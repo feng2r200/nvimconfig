@@ -230,10 +230,6 @@ vim.lsp.handlers["$/progress"] = nil
 require("fidget").setup({})
 
 -- Setup
-M.setup = function()
-  jdtls.start_or_attach(config)
-end
-
 M.init = function ()
   vim.g.jdtls_dap_main_class_config_init = true
 
@@ -247,19 +243,22 @@ M.init = function ()
   vim.api.nvim_create_user_command("JdtWipeDataAndRestart", "lua require('jdtls.setup').wipe_data_and_restart()", {})
   vim.api.nvim_create_user_command("JdtShowLogs", "lua require('jdtls.setup').show_logs()", {})
 
+  -- command
+  vim.cmd "command! -buffer -nargs=? -complete=custom,v:lua.require('jdtls')._complete_compile JdtCompile lua require('jdtls').compile(<f-args>)"
+  vim.cmd "command! -buffer -nargs=? -complete=custom,v:lua.require('jdtls')._complete_set_runtime JdtSetRuntime lua require('jdtls').set_runtime(<f-args>)"
+  vim.cmd "command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()"
+  vim.cmd "command! -buffer JdtBytecode lua require('jdtls').javap()"
+
   local group = vim.api.nvim_create_augroup("nvim_jdtls_java", { clear = true })
   vim.api.nvim_create_autocmd({ "FileType" }, {
     group = group,
     pattern = { "java" },
     desc = "jdtls",
     callback = function(e)
-      -- vim.notify("load: " .. o.buf, vim.log.levels.INFO)
-      -- print(vim.inspect(e))
-      -- 忽略 telescope 预览的情况
       if e.file == "java" then
         -- ignore
       else
-        M.setup()
+        jdtls.start_or_attach(config)
       end
     end,
   })
