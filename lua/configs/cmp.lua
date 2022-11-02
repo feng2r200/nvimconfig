@@ -13,6 +13,7 @@ vim.cmd [[packadd cmp-tmux]]
 vim.cmd [[packadd cmp-under-comparator]]
 vim.cmd [[packadd cmp_luasnip]]
 vim.cmd [[packadd cmp-dap]]
+vim.cmd [[packadd cmp-tabnine]]
 
 local check_backspace = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -77,7 +78,7 @@ local function jumpable(dir)
       local n_next = node.next
       local next_pos = n_next and n_next.mark:pos_begin()
       local candidate = n_next ~= snippet and next_pos and (pos[1] < next_pos[1])
-          or (pos[1] == next_pos[1] and pos[2] < next_pos[2])
+        or (pos[1] == next_pos[1] and pos[2] < next_pos[2])
 
       -- Past unmarked exit node, exit early
       if n_next == nil or n_next == snippet.next then
@@ -127,26 +128,58 @@ vim.api.nvim_set_hl(0, "CmpItemKindTmux", { fg = "#CA42F0" })
 vim.api.nvim_set_hl(0, "CmpItemKindTs", { fg = "#6CC644" })
 
 local kind_icons = {
-  Text          = "", Method    = "",    Function = "", Constructor  = "",
-  Field         = "ﰠ", Variable  = "",  Class      = "",    Interface = "",
-  Module        = "", Property  = "",  Unit       = "",     Value    = "",
-  Enum          = "", Keyword   = "",   Snippet   = "",  Color       = "",
-  File          = "", Reference = "", Folder      = "",   EnumMember = "",
-  Constant      = "", Struct    = "פּ",    Event    = "",    Operator  = "",
+  Text = "",
+  Method = "",
+  Function = "",
+  Constructor = "",
+  Field = "ﰠ",
+  Variable = "",
+  Class = "",
+  Interface = "",
+  Module = "",
+  Property = "",
+  Unit = "",
+  Value = "",
+  Enum = "",
+  Keyword = "",
+  Snippet = "",
+  Color = "",
+  File = "",
+  Reference = "",
+  Folder = "",
+  EnumMember = "",
+  Constant = "",
+  Struct = "פּ",
+  Event = "",
+  Operator = "",
   TypeParameter = "",
 }
 
 local source_menu = {
-  buffer = "[BUF]",  nvim_lsp   = "[LSP]",   nvim_lua    = "[LUA]",
-  path   = "[PATH]", tmux       = "[TMUX]",  luasnip     = "[SNIP]",
-  vsnip  = "[SNIP]", treesitter = "[TS]",    emoji       = "[Emoji]",
-  calc   = "[Calc]", spell      = "[Spell]", cmp_tabnine = "[TN]",
+  buffer = "[BUF]",
+  nvim_lsp = "[LSP]",
+  nvim_lua = "[LUA]",
+  path = "[PATH]",
+  tmux = "[TMUX]",
+  luasnip = "[SNIP]",
+  vsnip = "[SNIP]",
+  treesitter = "[TS]",
+  emoji = "[Emoji]",
+  calc = "[Calc]",
+  spell = "[Spell]",
+  cmp_tabnine = "[TN]",
 }
 
 local duplicates = {
-  buffer     = 1, nvim_lsp   = 0, nvim_lua   = 0,
-  path       = 3, tmux       = 3, luasnip    = 2,
-  vsnip      = 2, treesitter = 1
+  nvim_lsp = 0,
+  cmp_tabnine = 0,
+  buffer = 1,
+  nvim_lua = 2,
+  luasnip = 3,
+  vsnip = 3,
+  path = 3,
+  tmux = 3,
+  treesitter = 4,
 }
 
 local cmp_config = {
@@ -168,7 +201,7 @@ local cmp_config = {
       end
 
       vim_item.menu = (source_menu)[entry.source.name]
-      vim_item.dup  = duplicates[entry.source.name] or 0
+      vim_item.dup = duplicates[entry.source.name] or 0
       return vim_item
     end,
   },
@@ -191,17 +224,18 @@ local cmp_config = {
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
   },
-  sources = cmp.config.sources({
+  sources = cmp.config.sources {
     { name = "crates", group_index = 1 },
     { name = "nvim_lsp", group_index = 2 },
-    { name = "nvim_lua", group_index = 2 },
+    { name = "cmp_tabnine", group_index = 2 },
+    { name = "nvim_lua", group_index = 3 },
     { name = "luasnip", group_index = 3 },
     { name = "vsnip", group_index = 3 },
     { name = "path", group_index = 4 },
     { name = "tmux", group_index = 4 },
     { name = "buffer", group_index = 4 },
-  }),
-  mapping = cmp.mapping.preset.insert({
+  },
+  mapping = cmp.mapping.preset.insert {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<Up>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
@@ -209,7 +243,7 @@ local cmp_config = {
     ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-    ["<C-c>"] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close(), },
+    ["<C-c>"] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close() },
     ["<CR>"] = cmp.mapping.confirm { select = true },
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
@@ -223,7 +257,7 @@ local cmp_config = {
       else
         fallback()
       end
-    end, { "i", "s", }),
+    end, { "i", "s" }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
@@ -232,8 +266,8 @@ local cmp_config = {
       else
         fallback()
       end
-    end, { "i", "s", }),
-  }),
+    end, { "i", "s" }),
+  },
   matching = {
     disallow_fuzzy_matching = false,
     disallow_partial_matching = false,
@@ -242,35 +276,49 @@ local cmp_config = {
   sorting = {
     priority_weight = 2,
     comparators = {
-      cmp.config.compare.offset, cmp.config.compare.exact,
-      cmp.config.compare.score, require("cmp-under-comparator").under,
-      cmp.config.compare.recently_used, cmp.config.compare.kind,
-      cmp.config.compare.sort_text, cmp.config.compare.length,
-      cmp.config.compare.order
-    }
+      require "cmp_tabnine.compare",
+      cmp.config.compare.offset,
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
+      require("cmp-under-comparator").under,
+      cmp.config.compare.recently_used,
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+    },
   },
   enabled = function()
-    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
-        or require("cmp_dap").is_dap_buffer()
+    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
   end,
 }
+
+local tabnine_ok, tabnine = pcall(require, "cmp_tabnine.config")
+if tabnine_ok then
+  tabnine.setup {
+    max_lines = 1000,
+    max_num_results = 20,
+    sort = true,
+    run_on_every_keystroke = true,
+    snippet_placeholder = "..",
+    ignored_file_types = {},
+    show_prediction_strength = false,
+  }
+end
 
 cmp.setup(cmp_config)
 
 cmp.setup.cmdline("/", {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = { {name = "buffer"} }
+  sources = { { name = "buffer" } },
 })
 cmp.setup.cmdline("?", {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = { {name = "buffer"} }
+  sources = { { name = "buffer" } },
 })
 cmp.setup.cmdline(":", {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources(
-    { {name = "path"} },
-    { {name = "cmdline"} }
-  )
+  sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 })
 cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
   sources = {
@@ -278,3 +326,11 @@ cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
   },
 })
 
+local prefetch = vim.api.nvim_create_augroup("prefetch", { clear = true })
+vim.api.nvim_create_autocmd("BufRead", {
+  group = prefetch,
+  pattern = { "*.py", "*.java", "*.rs" },
+  callback = function()
+    require("cmp_tabnine"):prefetch(vim.fn.expand "%:p")
+  end,
+})

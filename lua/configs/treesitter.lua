@@ -42,7 +42,7 @@ treesitter.setup({
   },
   textobjects = {
     select = {
-      enable = true,
+      enable = false,
       lookahead = true,
       keymaps = {
         ["af"] = "@function.outer",

@@ -85,6 +85,10 @@ local plugins = {
   ["hrsh7th/cmp-buffer"] = { after = "nvim-cmp" },
   ["hrsh7th/cmp-cmdline"] = { after = "nvim-cmp" },
   ["rcarriga/cmp-dap"] = { after = "nvim-cmp" },
+  ["tzachar/cmp-tabnine"] = {
+    after = "nvim-cmp",
+    run='./install.sh',
+  },
 
   -- Snippet
   ["L3MON4D3/LuaSnip"] = {
