@@ -5,7 +5,6 @@ end
 
 local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
-local code_actions = null_ls.builtins.code_actions
 
 null_ls.setup {
   debug = false,
@@ -58,8 +57,6 @@ null_ls.setup {
       extra_args = { "--config-path", vim.fn.expand(vim.fn.stdpath "config" .. "/.stylua.toml") },
     },
     formatting.shfmt,
-
-    code_actions.gitsigns,
   },
 }
 
