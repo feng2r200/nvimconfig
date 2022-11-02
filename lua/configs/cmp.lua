@@ -276,16 +276,16 @@ local cmp_config = {
   sorting = {
     priority_weight = 2,
     comparators = {
-      require "cmp_tabnine.compare",
-      cmp.config.compare.offset,
+      cmp.config.compare.recently_used,
       cmp.config.compare.exact,
       cmp.config.compare.score,
+      require "cmp_tabnine.compare",
+      cmp.config.compare.offset,
       require("cmp-under-comparator").under,
-      cmp.config.compare.recently_used,
       cmp.config.compare.kind,
+      cmp.config.compare.order,
       cmp.config.compare.sort_text,
       cmp.config.compare.length,
-      cmp.config.compare.order,
     },
   },
   enabled = function()
