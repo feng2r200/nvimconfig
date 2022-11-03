@@ -30,9 +30,9 @@ feline.setup {
     active = {
       {
         { provider = provider.spacer(), hl = hl.mode() },
-        { provider = provider.spacer(2) },
+        { provider = provider.spacer(1) },
         { provider = "git_branch", hl = hl.fg("Conditional", { fg = C.purple, style = "bold" }), icon = " " },
-        { provider = provider.spacer(3), enabled = conditional.git_available },
+        { provider = provider.spacer(2), enabled = conditional.git_available },
         {
           provider = { name = "file_type", opts = { filetype_icon = true, case = "lowercase" } },
           enabled = conditional.has_filetype,
@@ -48,7 +48,7 @@ feline.setup {
         { provider = "diagnostic_hints", hl = hl.fg("DiagnosticHint", { fg = C.yellow }), icon = "  " },
       },
       {
-        { provider = provider.lsp_progress, enabled = conditional.bar_width() },
+        --[[ { provider = provider.lsp_progress, enabled = conditional.bar_width() }, ]]
         {
           provider = provider.lsp_client_names(true),
           short_provider = provider.lsp_client_names(),
