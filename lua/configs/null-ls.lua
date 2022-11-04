@@ -38,13 +38,10 @@ null_ls.setup {
         return { "--edition=2021" }
       end,
     },
+    formatting.taplo,
 
     formatting.gofmt,
 
-    formatting.prettier.with {
-      extra_filetypes = { "toml", "solidity" },
-      extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
-    },
     formatting.black.with { extra_args = { "--fast" } },
     formatting.jq,
     formatting.tidy.with {
