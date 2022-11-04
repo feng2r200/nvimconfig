@@ -97,12 +97,12 @@ maps.n["<leader>S."] = { "<cmd>SessionManager! load_current_dir_session<cr>", de
 init_table("n", "<leader>", "f", "Find or File")
 maps.n["<leader>fd"] = { function() require("telescope.builtin").diagnostics() end, desc = "Search diagnostics" }
 maps.n["<leader>fe"] = { function() require("memento").toggle() end, desc = "Search history" }
-maps.n["<leader>ff"] = { function() require("telescope.builtin").find_files(require("telescope.themes").get_ivy()) end, desc = "Search files" }
+maps.n["<leader>ff"] = { function() require("telescope.builtin").find_files(require("telescope.themes").get_ivy({hidden=true})) end, desc = "Search files" }
 maps.n["<leader>fm"] = { function() require("telescope.builtin").marks() end, desc = "Search marks" }
 maps.n["<leader>fn"] = { "<cmd>enew<cr>", desc = "New File" }
 maps.n["<leader>fr"] = { function() require("telescope.builtin").registers() end, desc = "Search registers" }
 maps.n["<leader>fs"] = { function() require("telescope.builtin").lsp_document_symbols() end, desc = "Search symbols" }
-maps.n["<leader>fw"] = { function() require("telescope.builtin").live_grep(require("telescope.themes").get_ivy()) end, desc = "Search Text" }
+maps.n["<leader>fw"] = { function() require("telescope.builtin").live_grep(require("telescope.themes").get_ivy({hidden=true})) end, desc = "Search Text" }
 
 -- Help
 init_table("n", "<leader>", "H", "Help")
