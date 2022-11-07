@@ -303,6 +303,7 @@ if tabnine_ok then
     snippet_placeholder = "..",
     ignored_file_types = {
       markdown = true,
+      sql = true,
     },
     show_prediction_strength = false,
   }
