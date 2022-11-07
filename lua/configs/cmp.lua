@@ -301,7 +301,9 @@ if tabnine_ok then
     sort = true,
     run_on_every_keystroke = true,
     snippet_placeholder = "..",
-    ignored_file_types = {},
+    ignored_file_types = {
+      markdown = true,
+    },
     show_prediction_strength = false,
   }
 end
