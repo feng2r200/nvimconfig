@@ -98,6 +98,14 @@ treesitter.setup({
         ["<Space>,"] = "@parameter.inner",
       },
     },
+    lsp_interop = {
+      enable = true,
+      border = 'none',
+      peek_definition_code = {
+        ['<Space>df'] = "@function.outer",
+        ['<Space>dF'] = "@class.outer",
+      },
+    },
   },
 })
 
