@@ -297,24 +297,16 @@ local plugins = {
 
   -- Git
   ["tpope/vim-fugitive"] = {
-    opt = true,
-    cmd = { "Git" },
+    event = "BufReadPost",
   },
   ["lewis6991/gitsigns.nvim"] = {
-    event = "BufEnter",
+    event = "BufReadPost",
     config = function()
       require "configs.gitsigns-config"
     end,
   },
   ["sindrets/diffview.nvim"] = {
-    cmd = {
-      "DiffviewOpen",
-      "DiffviewClose",
-      "DiffviewToggleFiles",
-      "DiffviewFocusFiles",
-      "DiffviewRefresh",
-      "DiffviewFileHistory",
-    },
+    event = "BufReadPost",
     config = function()
       require "configs.diffview-config"
     end,

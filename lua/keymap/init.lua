@@ -84,6 +84,7 @@ maps.n["<leader>gd"] = { function() require("gitsigns").diffthis() end, desc = "
 maps.n["<leader>gc"] = { "<cmd>DiffviewFileHistory %<cr>", desc = "Current file history" }
 maps.n["<leader>gh"] = { "<cmd>DiffviewFileHistory<cr>", desc = "File History" }
 maps.n["<leader>gp"] = { function() require("gitsigns").preview_hunk() end, desc = "Preview git hunk" }
+maps.n["<leader>gz"] = { function() require("gitsigns").reset_hunk() end, desc = "Reset hunk"}
 
 -- Session Manager
 init_table("n", "<leader>", "S", "Session")
