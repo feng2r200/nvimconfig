@@ -172,13 +172,13 @@ local source_menu = {
 
 local duplicates = {
   nvim_lsp = 0,
-  cmp_tabnine = 0,
-  buffer = 1,
-  nvim_lua = 2,
-  luasnip = 3,
-  vsnip = 3,
-  path = 3,
+  cmp_tabnine = 1,
+  luasnip = 2,
+  vsnip = 2,
+  path = 2,
+  buffer = 3,
   tmux = 3,
+  nvim_lua = 4,
   treesitter = 4,
 }
 
@@ -228,12 +228,12 @@ local cmp_config = {
     { name = "crates", group_index = 1 },
     { name = "nvim_lsp", group_index = 2 },
     { name = "cmp_tabnine", group_index = 2 },
-    { name = "nvim_lua", group_index = 3 },
     { name = "luasnip", group_index = 3 },
     { name = "vsnip", group_index = 3 },
     { name = "path", group_index = 4 },
     { name = "tmux", group_index = 4 },
     { name = "buffer", group_index = 4 },
+    { name = "nvim_lua", group_index = 5 },
   },
   mapping = cmp.mapping.preset.insert {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
