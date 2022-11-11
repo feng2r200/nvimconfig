@@ -127,7 +127,7 @@ maps.n["<leader>tv"] = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc 
 -- LSP
 maps.n["K"]  = { function() require("lsp.utils").code_hover() end, desc = "Hover symbol details" }
 maps.n["gd"] = { function() require("telescope.builtin").lsp_definitions{} end, desc = "Show the definition of current symbol" }
-maps.n["gD"] = { function() require("telescope.builtin").lsp_type_definitions{} end, desc = "Declaration of current symbol" }
+maps.n["gy"] = { function() require("telescope.builtin").lsp_type_definitions{} end, desc = "Declaration of current symbol" }
 maps.n["gh"] = { function() require("telescope.builtin").lsp_references{} end, desc = "Search references" }
 maps.n["gi"] = { function() require("telescope.builtin").lsp_implementations{} end, desc = "Implementation of current symbol" }
 maps.n["gr"] = { function() vim.lsp.buf.rename() end, desc = "Rename current symbol" }
