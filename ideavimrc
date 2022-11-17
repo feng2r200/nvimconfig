@@ -84,9 +84,6 @@ nnoremap gd             :action GotoDeclaration<CR>
 nnoremap gh             :action FindUsages<CR>
 nnoremap gi             :action GotoImplementation<CR>
 
-""" Tool windows
-nnoremap <leader>sa     :action Annotate<CR>
-
 """ Motion
 nmap <Space>j           <Plug>(easymotion-j)
 nmap <Space>k           <Plug>(easymotion-k)
