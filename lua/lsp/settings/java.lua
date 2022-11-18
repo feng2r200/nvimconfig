@@ -133,6 +133,7 @@ local config = {
         },
         runtimes = {
           { name = "JavaSE-1.8", path = java_path["8"], default = true },
+          { name = "JavaSE-17", path = java_path["17"] },
         },
         updateBuildConfiguration = "interactive",
       },
