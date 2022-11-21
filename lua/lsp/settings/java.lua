@@ -67,6 +67,7 @@ local get_cmd = function()
     "-Dlog.protocol=true",
     "-Dlog.level=ALL",
     "-Dsun.zip.disableMemoryMapping=true",
+    "-XX:+UnlockExperimentalVMOptions",
     "-XX:+UseZGC",
     "-Xms4g",
     "-Xmx6G",
