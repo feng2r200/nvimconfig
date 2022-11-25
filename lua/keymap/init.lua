@@ -130,7 +130,7 @@ maps.n["gd"] = { function() require("telescope.builtin").lsp_definitions{} end, 
 maps.n["gy"] = { function() require("telescope.builtin").lsp_type_definitions{} end, desc = "Declaration of current symbol" }
 maps.n["gh"] = { function() require("telescope.builtin").lsp_references{} end, desc = "Search references" }
 maps.n["gi"] = { function() require("telescope.builtin").lsp_implementations{} end, desc = "Implementation of current symbol" }
-maps.n["gr"] = { function() vim.lsp.buf.rename() end, desc = "Rename current symbol" }
+maps.n["R"] = { function() vim.lsp.buf.rename() end, desc = "Rename current symbol" }
 maps.n["gs"] = { function() vim.lsp.buf.signature_help() end, desc = "Signature help" }
 
 maps.n["[d"] = { function() vim.diagnostic.goto_prev() end, desc = "Previous diagnostic" }

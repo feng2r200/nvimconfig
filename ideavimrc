@@ -76,8 +76,8 @@ nnoremap ]]             :action MethodDown<CR>
 nnoremap ]d             :action GotoNextError<CR>
 nnoremap [d             :action GotoPreviousError<CR>
 
-nnoremap gr             :action RenameElement<CR>
-vnoremap gr             :action RenameElement<CR>
+nnoremap R             :action RenameElement<CR>
+vnoremap R             :action RenameElement<CR>
 
 """ Searching and Source Code Navigation
 nnoremap gd             :action GotoDeclaration<CR>
