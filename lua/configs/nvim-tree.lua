@@ -14,7 +14,6 @@ local tree_cb = nvim_tree_config.nvim_tree_callback
 
 nvim_tree.setup {
   auto_reload_on_write = true,
-  create_in_closed_folder = true,
   disable_netrw = false,
   hijack_cursor = true,
   hijack_netrw = true,

@@ -25,6 +25,6 @@ dap.configurations.python = {
     name = "Launch file",
     program = "${file}", -- This configuration will launch the current file if used.
     pythonPath = get_python,
-    console = "externalTerminal",
+    console = "internalConsole",
   },
 }
