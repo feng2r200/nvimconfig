@@ -4,6 +4,9 @@ if not status_ok then
 end
 
 vim.cmd [[packadd telescope-fzf-native.nvim]]
+vim.cmd [[packadd telescope-ui-select.nvim]]
+vim.cmd [[packadd telescope-luasnip.nvim]]
+vim.cmd [[packadd LuaSnip]]
 
 local actions = require "telescope.actions"
 
@@ -31,6 +34,9 @@ end
 
 telescope.setup {
   defaults = {
+    sort_mru = true,
+    sort_lastused = true,
+    pickers = { buffers = { sort_lastused = true } },
     file_previewer = require("telescope.previewers").vim_buffer_cat.new,
     grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
     qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
@@ -145,9 +151,12 @@ telescope.setup {
       case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
       -- the default case_mode is "smart_case"
     },
+    ui_select = { require("telescope.themes").get_dropdown {} },
   },
 }
 
+telescope.load_extension('ui-select')
 telescope.load_extension('fzf')
 telescope.load_extension('notify')
+telescope.load_extension('luasnip')
 

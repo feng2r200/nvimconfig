@@ -30,8 +30,9 @@ ls.config.set_config({
 	end,
 })
 
+
 require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip.loaders.from_vscode").load({ paths = { "./my-snippets" } })
+require("luasnip.loaders.from_vscode").load({ paths = { vim.fn.stdpath "config" .. "/my-snippets" } })
 
 require("luasnip.loaders.from_lua").lazy_load()
 

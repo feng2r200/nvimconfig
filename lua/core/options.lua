@@ -12,6 +12,7 @@ vim.opt.ruler = false
 vim.opt.cursorline = true
 
 vim.opt.colorcolumn = "80,100"
+vim.opt.list = true
 
 vim.opt.incsearch = true
 vim.opt.ignorecase = true
