@@ -113,3 +113,6 @@ nnoremap <leader>dl    :action ViewBreakpoints<CR>
 
 nnoremap <leader>Hp    :action RecentProjectListGroup<CR>
 nnoremap <leader>dn    :action DebugClass<CR>
+
+nnoremap <Space>gn     :action VcsShowNextChangeMarker<CR>
+nnoremap <Space>gp     :action VcsShowPrevChangeMarker<CR>
