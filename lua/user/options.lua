@@ -1,5 +1,3 @@
-local autocmd = vim.api.nvim_create_autocmd
-
 vim.opt.title = true
 
 vim.opt.clipboard = "unnamedplus"
@@ -17,9 +15,10 @@ vim.opt.list = true
 vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.shortmess = vim.opt.shortmess + "c"
 
 vim.g.encoding = "utf-8"
-vim.opt.fileencodings = {"utf-8", "gb18030", "utf-16", "big5"}
+vim.opt.fileencodings = { "utf-8", "gb18030", "utf-16", "big5" }
 
 vim.opt.scrolloff = 3
 vim.opt.sidescrolloff = 3
@@ -29,35 +28,6 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.wrap = false
-
-autocmd("FileType", {
-  pattern = {
-    "lua",
-    "javascript",
-    "json",
-    "css",
-    "html",
-    "xml",
-    "yaml",
-    "http",
-    "markdown",
-    "lisp",
-    "sh",
-  },
-  callback = function()
-    vim.opt_local.tabstop = 2
-    vim.opt_local.shiftwidth = 2
-    vim.opt_local.expandtab = true
-  end,
-})
-
-autocmd("FileType", {
-  pattern = { "gitcommit", "markdown" },
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.spell = true
-  end,
-})
 
 vim.opt.autoindent = true
 vim.opt.smartindent = true
@@ -81,15 +51,17 @@ vim.opt.splitright = true
 vim.opt.termguicolors = true
 
 vim.opt.timeoutlen = 300
+vim.opt.ttimeoutlen = 0
 
-vim.opt.mouse = ""
+vim.opt.mouse = "nv"
 
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 
 vim.opt.backspace = vim.opt.backspace + { "nostop" }
 
-vim.opt.completeopt = { "menuone", "noselect" }
+vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
+vim.opt.wildignorecase = true
 
 vim.opt.fillchars = { eob = " " }
 
@@ -104,9 +76,21 @@ vim.opt.lazyredraw = true
 vim.opt.pumheight = 10
 vim.opt.signcolumn = "yes"
 
-vim.opt.wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**"
+vim.opt.wildignore = [[
+.git,.hg,.svn
+*.aux,*.out,*.toc
+*.o,*.obj,*.exe,*.dll,*.manifest,*.rbc,*.class,*.pyc
+*.ai,*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png,*.psd,*.webp
+*.avi,*.divx,*.mp4,*.webm,*.mov,*.m2ts,*.mkv,*.vob,*.mpg,*.mpeg
+*.mp3,*.oga,*.ogg,*.wav,*.flac
+*.eot,*.otf,*.ttf,*.woff
+*.doc,*.pdf,*.cbr,*.cbz
+*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.kgb
+*.swp,.lock,.DS_Store,._*
+*/tmp/*,**/tmp/**,*.so,*.swp,*.zip,**/node_modules/**,**/target/**,**.terraform/**",**/bower_modules/**
+]]
 
-vim.g.python3_host_prog = '/usr/local/bin/python3'
+vim.g.python3_host_prog = "/usr/local/bin/python3"
 vim.g.zipPlugin = false
 vim.g.load_black = false
 vim.g.loaded_2html_plugin = true
@@ -127,26 +111,3 @@ vim.g.loaded_zip = true
 vim.g.loaded_zipPlugin = true
 vim.g.loaded_vimball = true
 vim.g.loaded_vimballPlugin = true
-
-autocmd({ "BufWinEnter" }, {
-  callback = function()
-    vim.cmd "set formatoptions-=cro"
-  end,
-})
-
-autocmd("FocusGained", {
-  pattern = "*",
-  command = "checktime",
-})
-
-autocmd("BufWritePre", {
-  pattern = { "/tmp/*", "COMMIT_EDITMSG", "MERGE_MSG", "*.tmp", "*.bak" },
-  command = "setlocal noundofile",
-})
-
-autocmd("VimResized", {
-  callback = function()
-    vim.cmd "tabdo wincmd ="
-  end,
-})
-
