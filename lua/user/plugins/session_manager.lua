@@ -6,7 +6,12 @@ local M = {
 }
 
 M.config = function()
-  require "configs.session_manager"
+  local status_ok, session_manager = pcall(require, "session_manager")
+  if not status_ok then
+    return
+  end
+
+  session_manager.setup({ autosave_last_session = false })
 end
 
 return M
