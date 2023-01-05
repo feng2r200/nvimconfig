@@ -1,4 +1,4 @@
-local c = require('themes.colors')
+local c = require('user.utils.colors')
 local colors = {
     bg = c.bg0,
     fg = c.fg,

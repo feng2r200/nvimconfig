@@ -15,7 +15,7 @@ M.config = function()
     return
   end
 
-  local icons = require "themes.icons"
+  local icons = require "user.utils.icons"
 
   local tree_cb = nvim_tree_config.nvim_tree_callback
 

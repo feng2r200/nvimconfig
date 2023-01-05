@@ -19,7 +19,7 @@ M.config = function()
     return b
   end
 
-  local icons = require "themes.icons"
+  local icons = require "user.utils.icons"
 
   dashboard.section.header.val = {
     [[                               __                ]],

@@ -9,7 +9,7 @@ M.config = function()
     return
   end
 
-  local C = require "themes.colors"
+  local C = require "user.utils.colors"
   local status_kit = require "utils.status"
   local hl = status_kit.hl
   local provider = status_kit.provider

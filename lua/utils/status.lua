@@ -1,5 +1,5 @@
 local M = { hl = {}, provider = {}, conditional = {} }
-local C = require "themes.colors"
+local C = require "user.utils.colors"
 
 local function hl_by_name(name)
   return string.format("#%06x", vim.api.nvim_get_hl_by_name(name.group, true)[name.prop])
@@ -65,7 +65,7 @@ function M.hl.fg(hlgroup, base)
 end
 
 function M.hl.mode(base)
-  local lualine = require("themes.lualine")
+  local lualine = require("user.utils.lualine")
   return function()
     local lualine_opts = lualine[M.modes[vim.fn.mode()][2]:lower()]
     return M.hl.group(
