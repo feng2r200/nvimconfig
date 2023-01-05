@@ -1,234 +1,183 @@
-local binding = {}
-local maps = setmetatable({}, {
-  __index = function(_, key)
-    if not binding[key] then
-      binding[key] = {}
-    end
-    return binding[key]
-  end
-})
+local map = vim.keymap.set
+local default_options = { silent = true }
 
-local mappings = {}
-local function init_table(mode, prefix, idx, name)
-  if not mappings[mode] then
-    mappings[mode] = {}
-  end
-  if not mappings[mode][prefix] then
-    mappings[mode][prefix] = {}
-  end
-  if not mappings[mode][prefix][idx] then
-    mappings[mode][prefix][idx] = { name = name }
-  end
-end
+map("", "<Space>", "<Nop>", {})
 
-------------------------------------------------------------------------
+map("v", "<", "<gv", default_options)
+map("v", ">", ">gv", default_options)
 
-maps[""]["<Space>"] = "<Nop>"
+map("x", "<C-j>", ":m'>+1<cr>gv-gv", default_options)
+map("x", "<C-k>", ":m'<-2<cr>gv-gv", default_options)
 
-maps.n["<BS>"]  = { ":nohlsearch<cr>", desc = "No Highlight" }
-maps.n["<C-s>"] = { ":write<cr>", desc = "Force write" }
-maps.i["<C-s>"] = { "<esc>:write<cr>i", desc = "Force write" }
+map("n", "<BS>", ":nohlsearch<Bar>:echo<CR>", default_options)
 
--- Navigate buffers
-maps.n["]b"] = { ":BufferLineCycleNext<cr>",  desc = "Next buffer tab" }
-maps.n["[b"] = { ":BufferLineCyclePrev<cr>",  desc = "Previous buffer tab" }
-maps.n[">b"] = { ":BufferLineMoveNext<cr>", desc = "Move buffer tab right" }
-maps.n["<b"] = { ":BufferLineMovePrev<cr>", desc = "Move buffer tab left" }
+map("n", "<C-s>", ":write<cr>", default_options)
+map("i", "<C-s>", "<esc>:write<cr>i", default_options)
 
--- Better window navigation
-maps.n["<C-h>"] = { function() require("tmux").move_left() end, desc = "Move to left split" }
-maps.n["<C-j>"] = { function() require("tmux").move_bottom() end, desc = "Move to below split" }
-maps.n["<C-k>"] = { function() require("tmux").move_top() end, desc = "Move to above split" }
-maps.n["<C-l>"] = { function() require("tmux").move_right() end, desc = "Move to right split" }
+-- move over a closing element in insert mode
+map("i", "<C-l>", function() return require("user.utils.functions").escapePair() end, default_options)
 
--- Resize with arrows
-maps.n["<M-h>"] = { function() require("tmux").resize_left() end, desc = "Resize split left" }
-maps.n["<M-j>"] = { function() require("tmux").resize_bottom() end, desc = "Resize split down" }
-maps.n["<M-k>"] = { function() require("tmux").resize_top() end, desc = "Resize split up" }
-maps.n["<M-l>"] = { function() require("tmux").resize_right() end, desc = "Resize split right" }
+map("n", "<C-h>", function() require("tmux").move_left() end, default_options)
+map("n", "<C-j>", function() require("tmux").move_bottom() end, default_options)
+map("n", "<C-k>", function() require("tmux").move_top() end, default_options)
+map("n", "<C-l>", function() require("tmux").move_right() end, default_options)
 
--- Stay in indent mode
-maps.v["<C-j>"] = { ":m'>+1<cr>gv=gv", desc = "Move current line down"}
-maps.v["<C-k>"] = { ":m'<-2<cr>gv=gv", desc = "Move current line up"}
-maps.v["<"]     = { "<gv", desc = "unindent line" }
-maps.v[">"]     = { ">gv", desc = "indent line" }
+map("n", "<M-h>", function() require("tmux").resize_left() end, default_options)
+map("n", "<M-j>", function() require("tmux").resize_bottom() end, default_options)
+map("n", "<M-k>", function() require("tmux").resize_top() end, default_options)
+map("n", "<M-l>", function() require("tmux").resize_right() end, default_options)
 
-maps.n["<F12>"] = { ":MarkdownPreviewToggle<cr>", desc = "Markdown preview" }
+map("n", "<C-t>", "<cmd>ToggleTerm<cr>", default_options)
 
-------------------------------------------------------------------------
+map("n", "K", function() require("lsp.utils").code_hover() end, default_options)
+map("n", "R", function() vim.lsp.buf.rename() end, default_options)
 
--- Buffers
-maps.n["<Space>b"] = { function() require("telescope.builtin").buffers(require("telescope.themes").get_dropdown{previewer = false}) end, desc = "Search buffers" }
-
-maps.v["<Space>gu"] = { function() require("utils").camel_case_start() end, desc = "Camel Case" }
-
--- motion
-maps.n["<Space>j"] = { "<cmd>HopLine<cr>", desc = "Hop line" }
-maps.n["<Space>k"] = { "<cmd>HopLine<cr>", desc = "Hop line" }
-maps.n["<Space>w"] = { "<cmd>HopWord<cr>", desc = "Hop word" }
-maps.n["<Space>s"] = { "<cmd>HopChar1<cr>", desc = "Hop char1" }
+map("n", "<F4>", function() require("dap").terminate() end, default_options)
+map("n", "<F5>", function() require("dap").continue() end, default_options)
+map("n", "<F6>", function() require("dap").step_over() end, default_options)
+map("n", "<F7>", function() require("dap").step_into() end, default_options)
+map("n", "<F8>", function() require("dap").step_out() end, default_options)
 
 -- enhance f motion
-maps.n["<Space>f"]   = { function() require("hop").hint_char1({ direction = require"hop.hint".HintDirection.AFTER_CURSOR, current_line_only = true }) end, desc = "Enhance f" }
-maps.n["<Space>F"]   = { function() require("hop").hint_char1({ direction = require"hop.hint".HintDirection.BEFORE_CURSOR, current_line_only = true }) end, desc = "Enhance F" }
-maps.o["<Space>f"]   = { function() require("hop").hint_char1({ direction = require"hop.hint".HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true }) end, desc = "Enhance f" }
-maps.o["<Space>F"]   = { function() require("hop").hint_char1({ direction = require"hop.hint".HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true }) end, desc = "Enhance F" }
-maps[""]["<Space>t"] = { function() require("hop").hint_char1({ direction = require"hop.hint".HintDirection.AFTER_CURSOR, current_line_only = true }) end, desc = "Enhance t" }
-maps[""]["<Space>T"] = { function() require("hop").hint_char1({ direction = require"hop.hint".HintDirection.BEFORE_CURSOR, current_line_only = true }) end, desc = "Enhance T" }
+map("n", "<Space>f", function() require("hop").hint_char1 { direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true } end, default_options)
+map("n", "<Space>F", function() require("hop").hint_char1 { direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true } end, default_options)
+map("o", "<Space>f", function() require("hop").hint_char1 { direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true, } end, default_options)
+map("o", "<Space>F", function() require("hop").hint_char1 { direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true, } end, default_options)
+map("", "<Space>t", function() require("hop").hint_char1 { direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true } end, default_options)
+map("", "<Space>T", function() require("hop").hint_char1 { direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true } end, default_options)
 
--- GitSigns
-init_table("n", "<leader>", "g", "Git")
-maps.n["<leader>gf"] = { function() require("gitsigns").next_hunk() end, desc = "Next git hunk" }
-maps.n["<leader>gb"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous git hunk" }
-maps.n["<leader>gd"] = { function() require("gitsigns").diffthis() end, desc = "Diff this" }
-maps.n["<leader>gc"] = { "<cmd>DiffviewFileHistory %<cr>", desc = "Current file history" }
-maps.n["<leader>gh"] = { "<cmd>DiffviewFileHistory<cr>", desc = "File History" }
-maps.n["<leader>gp"] = { function() require("gitsigns").preview_hunk() end, desc = "Preview git hunk" }
-maps.n["<leader>gz"] = { function() require("gitsigns").reset_hunk() end, desc = "Reset hunk"}
+local wk = require "which-key"
 
--- Session Manager
-init_table("n", "<leader>", "S", "Session")
-maps.n["<leader>Sd"] = { "<cmd>SessionManager! delete_session<cr>", desc = "Delete session" }
-maps.n["<leader>Sf"] = { "<cmd>SessionManager! load_session<cr>", desc = "Search sessions" }
-maps.n["<leader>Sl"] = { "<cmd>SessionManager! load_last_session<cr>", desc = "Load last session" }
-maps.n["<leader>Ss"] = { "<cmd>SessionManager! save_current_session<cr>", desc = "Save this session" }
-maps.n["<leader>S."] = { "<cmd>SessionManager! load_current_dir_session<cr>", desc = "Load current directory session" }
+wk.register({
+  ["]b"] = { "<cmd>BufferLineCycleNext<cr>", "BufferLineCycleNext" },
+  ["[b"] = { "<cmd>BufferLineCyclePrev<cr>", "BufferLineCyclePrev" },
+  [">b"] = { "<cmd>BufferLineMoveNext<cr>", "BufferLineMoveNext" },
+  ["<b"] = { "<cmd>BufferLineMovePrev<cr>", "BufferLineMovePrev" },
 
--- file
-init_table("n", "<leader>", "f", "Find or File")
-maps.n["<leader>fd"] = { function() require("telescope.builtin").diagnostics() end, desc = "Search diagnostics" }
-maps.n["<leader>fe"] = { function() require("memento").toggle() end, desc = "Search history" }
-maps.n["<leader>ff"] = { function() require("telescope.builtin").find_files(require("telescope.themes").get_ivy({hidden=true})) end, desc = "Search files" }
-maps.n["<leader>fm"] = { function() require("telescope.builtin").marks() end, desc = "Search marks" }
-maps.n["<leader>fn"] = { "<cmd>enew<cr>", desc = "New File" }
-maps.n["<leader>fr"] = { function() require("telescope.builtin").registers() end, desc = "Search registers" }
-maps.n["<leader>fs"] = { function() require("telescope.builtin").lsp_document_symbols() end, desc = "Search symbols" }
-maps.n["<leader>fw"] = { function() require("telescope.builtin").live_grep(require("telescope.themes").get_ivy({hidden=true})) end, desc = "Search Text" }
+  ["gd"] = { function() require("telescope.builtin").lsp_definitions {} end, "Show the definition of current symbol" },
+  ["gy"] = { function() require("telescope.builtin").lsp_type_definitions {} end, "Declaration of current symbol" },
+  ["gh"] = { function() require("telescope.builtin").lsp_references {} end, "Search references" },
+  ["gi"] = { function() require("telescope.builtin").lsp_implementations {} end, "Implementation of current symbol" },
+  ["gs"] = { function() vim.lsp.buf.signature_help() end, "Signature help" },
 
--- Help
-init_table("n", "<leader>", "H", "Help")
-maps.n["<leader>Hj"] = { function() require("telescope.builtin").jumplist() end, desc = "Search jump list" }
-maps.n["<leader>Hp"] = { "<cmd>Telescope projects<cr>", desc = "List project" }
+  ["[d"] = { function() vim.diagnostic.goto_prev() end, "Previous diagnostic" },
+  ["]d"] = { function() vim.diagnostic.goto_next() end, "Next diagnostic" },
+  ["gl"] = { function() vim.diagnostic.open_float() end, "Hover diagnostics" },
 
--- Replace
-init_table("n", "<leader>", "R", "Replace")
-maps.n["<leader>Rf"] = { function() require("spectre").open_file_search() end, desc = "Replace File" }
-maps.n["<leader>Rp"] = { function() require("spectre").open() end, desc = "Replace Project" }
-maps.n["<leader>Rs"] = { function() require("spectre").open_visual({select_word=true}) end, desc = "Search" }
+  g = {
+    a = {
+      name = "Align",
+      w = { function() local a = require "align"; a.operator(a.align_to_string, { is_pattern = false, reverse = true, preview = true }) end, "Align a paragraph to string" },
+      a = { function() local a = require "align"; a.operator(a.align_to_char, { reverse = true }) end, "Align a paragraph to char" },
+    },
+  },
+}, { mode = "n", default_options })
 
--- Terminal
-maps.n["<C-t>"]      = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" }
+wk.register({
+  a = {
+    name = "Align",
+    a = { function() require("align").align_to_char(1, true) end, "Align to char" },
+    s = { function() require("align").align_to_char(2, true, true) end, "Align to chars" },
+    w = { function() require("align").align_to_string(false, true, true) end, "Align to string" },
+    r = { function() require("align").align_to_string(true, true, true) end, "Align to pattern" },
+  },
+}, { mode = "x", default_options})
 
-init_table("n", "<leader>", "t", "Terminal")
-maps.n["<leader>tf"] = { "<cmd>ToggleTerm direction=float<cr>", desc = "ToggleTerm float" }
-maps.n["<leader>th"] = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "ToggleTerm horizontal split" }
-maps.n["<leader>tv"] = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "ToggleTerm vertical split" }
+wk.register({
+  ["<tab>"] = { "<cmd>e#<cr>", "Prev buffer" },
+  b = { function() require("telescope.builtin").buffers(require("telescope.themes").get_dropdown { previewer = false }) end, "Search buffers" },
+  j = { "<cmd>HopLine<cr>", "Hop line" },
+  k = { "<cmd>HopLine<cr>", "Hop line" },
+  w = { "<cmd>HopWord<cr>", "Hop word" },
+  s = { "<cmd>HopChar1<cr>", "Hop char1" },
+}, { prefix = "<Space>", mode = "n", default_options })
 
--- LSP
-maps.n["K"]  = { function() require("lsp.utils").code_hover() end, desc = "Hover symbol details" }
-maps.n["gd"] = { function() require("telescope.builtin").lsp_definitions{} end, desc = "Show the definition of current symbol" }
-maps.n["gy"] = { function() require("telescope.builtin").lsp_type_definitions{} end, desc = "Declaration of current symbol" }
-maps.n["gh"] = { function() require("telescope.builtin").lsp_references{} end, desc = "Search references" }
-maps.n["gi"] = { function() require("telescope.builtin").lsp_implementations{} end, desc = "Implementation of current symbol" }
-maps.n["R"] = { function() vim.lsp.buf.rename() end, desc = "Rename current symbol" }
-maps.n["gs"] = { function() vim.lsp.buf.signature_help() end, desc = "Signature help" }
+wk.register({
+  d = {
+    name = "Debug",
+    b = { function() require("dap").toggle_breakpoint() end, "Set breakpoint" },
+    B = { function() require("dap").set_breakpoint(vim.fn.input "[Condition] > ") end, "Set condition breakpoint" },
+    f = { function() require("dapui").float_element() end, "Show Float Element" },
+    k = { function() require("dapui").eval() end, "Show cursor eval" },
+    l = { function() require("dap").list_breakpoints() end, "List Breakpoints" },
+    t = { function() require("dap").repl.toggle() end, "Toggle REPL" },
+    r = { function() require("dap").continue() end, "Debug run" },
+  },
+  g = {
+    name = "Git",
+    f = { function() require("gitsigns").next_hunk() end, "Next git hunk" },
+    b = { function() require("gitsigns").prev_hunk() end, "Previous git hunk" },
+    d = { function() require("gitsigns").diffthis() end, "Diff this" },
+    c = { "<cmd>DiffviewFileHistory %<cr>", "Current file history" },
+    h = { "<cmd>DiffviewFileHistory<cr>", "File History" },
+    p = { function() require("gitsigns").preview_hunk() end, "Preview git hunk" },
+    z = { function() require("gitsigns").reset_hunk() end, "Reset hunk" },
+  },
+  f = {
+    name = "Find",
+    d = { function() require("telescope.builtin").diagnostics() end, "Search diagnostics" },
+    e = { function() require("memento").toggle() end, "Search history" },
+    f = { function() require("telescope.builtin").find_files(require("telescope.themes").get_ivy { hidden = true }) end, "Search files" },
+    m = { function() require("telescope.builtin").marks() end, "Search marks" },
+    r = { function() require("telescope.builtin").registers() end, "Search registers" },
+    s = { function() require("telescope.builtin").lsp_document_symbols() end, "Search symbols" },
+    w = { function() require("telescope.builtin").live_grep(require("telescope.themes").get_ivy { hidden = true }) end, "Search Text" },
+  },
+  l = {
+    name = "LSP",
+    a = { function() vim.lsp.buf.code_action() end, "LSP code action" },
+    f = { function() local bfn = vim.api.nvim_get_current_buf(); vim.lsp.buf.format { bufnr = bfn, filter = function(c) return require("lsp.utils").filter_format_lsp_client(c, bfn) end, } end, "Format code" },
+    i = { function() vim.lsp.buf.incoming_calls() end, "Incoming Calls" },
+    o = { function() vim.lsp.buf.outgoing_calls() end, "Outgoing Calls" },
+    r = { "<cmd>lua vim.lsp.codelens.refresh()<cr>", "Refresh Codelens" },
+    e = { "<cmd>lua vim.lsp.codelens.run()<cr>", "Run Codelens" },
+  },
+  F = {
+    name = "File",
+    n = { "<cmd>enew<cr>", "New File" },
+  },
+  S = {
+    name = "Session",
+    d = { "<cmd>SessionManager! delete_session<cr>", "Delete session" },
+    f = { "<cmd>SessionManager! load_session<cr>", "Search sessions" },
+    l = { "<cmd>SessionManager! load_last_session<cr>", "Load last session" },
+    s = { "<cmd>SessionManager! save_current_session<cr>", "Save this session" },
+    ["."] = { "<cmd>SessionManager! load_current_dir_session<cr>", "Load current directory session" },
+  },
+  R = {
+    name = "Replace",
+    f = { function() require("spectre").open_file_search() end, "Replace File" },
+    p = { function() require("spectre").open() end, "Replace Project" },
+    s = { function() require("spectre").open_visual { select_word = true } end, "Search" },
+  },
+  H = {
+    name = "Help",
+    j = { function() require("telescope.builtin").jumplist() end, "Search jump list" },
+    p = { "<cmd>Telescope projects<cr>", "List project" },
+  },
+  t = {
+    name = "Terminal",
+    t = { "<cmd>ToggleTerm direction=float<cr>", "ToggleTerm float" },
+    h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "ToggleTerm horizontal split" },
+    v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "ToggleTerm vertical split" },
+  },
+  v = {
+    name = "View",
+    b = { function() require("telescope").extensions.file_browser.file_browser() end, "File browser" },
+    e = { "<cmd>NvimTreeToggle<cr>", "Tree Explorer" },
+    o = { "<cmd>SymbolsOutline<cr>", "Symbols outline" },
+    u = { "<cmd>UndotreeToggle<cr>", "UndoTree toggle" },
+  },
+}, { prefix = "<leader>", mode = "n", default_options })
 
-maps.n["[d"] = { function() vim.diagnostic.goto_prev() end, desc = "Previous diagnostic" }
-maps.n["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" }
-maps.n["gl"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" }
-
-maps.x["aa"] = { function() require("align").align_to_char(1, true) end, desc = "Align to char" }
-maps.x["as"] = { function() require("align").align_to_char(2, true, true) end, desc = "Align to chars" }
-maps.x["aw"] = { function() require("align").align_to_string(false, true, true) end, desc = "Align to string" }
-maps.x["ar"] = { function() require("align").align_to_string(true, true, true) end, desc = "Align to pattern" }
-maps.n["gaw"] = { function()
-  local a = require("align")
-  a.operator(a.align_to_string, { is_pattern = false, reverse = true, preview = true })
-end, desc = "Align a paragraph to string"}
-maps.n["gaa"] = { function()
-  local a = require("align")
-  a.operator(a.align_to_char, { reverse = true })
-end, desc = "Align a paragraph to char"}
-
-init_table("n", "<leader>", "l", "LSP")
-maps.n["<leader>la"] = { function() vim.lsp.buf.code_action() end, desc = "LSP code action" }
-maps.v["<leader>la"] = { function() vim.lsp.buf.range_code_action() end, desc = "LSP code action" }
-maps.n["<leader>lf"] = { function()
-  local bfn = vim.api.nvim_get_current_buf()
-  vim.lsp.buf.format({ bufnr = bfn,
-    filter = function(c)
-      return require("lsp.utils").filter_format_lsp_client(c, bfn)
-    end
-  })
-end, desc = "Format code" }
-maps.v["<leader>lf"] = { function() require("lsp.utils").format_range_operator() end, desc = "Format code" }
-maps.n["<leader>li"] = { function() vim.lsp.buf.incoming_calls() end, desc = "Incoming Calls" }
-maps.n["<leader>lo"] = { function() vim.lsp.buf.outgoing_calls() end, desc = "Outgoing Calls" }
-maps.n["<leader>lr"] = { "<cmd>lua vim.lsp.codelens.refresh()<cr>", desc = "Refresh Codelens" }
-maps.n["<leader>le"] = { "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "Run Codelens" }
-
--- Debug
-maps.n["<F4>"] = { function() require("dap").terminate() end, desc = "Debug terminate" }
-maps.n["<F5>"] = { function() require("dap").continue() end, desc = "Debug continue" }
-maps.n["<F6>"] = { function() require("dap").step_over() end, desc = "Debug step over" }
-maps.n["<F7>"] = { function() require("dap").step_into() end, desc = "Debug step into" }
-maps.n["<F8>"] = { function() require("dap").step_out() end, desc = "Debug step out" }
-
-init_table("n", "<leader>", "d", "Debug")
-maps.n["<leader>db"] = { function() require("dap").toggle_breakpoint() end, desc = "Set breakpoint" }
-maps.n["<leader>dB"] = { function() require("dap").set_breakpoint(vim.fn.input '[Condition] > ') end, desc = "Set condition breakpoint" }
-maps.n["<leader>df"] = { function() require("dapui").float_element() end, desc = "Show Float Element" }
-maps.n["<leader>dk"] = { function() require("dapui").eval() end, desc = "Show cursor eval" }
-maps.v["<leader>dk"] = { function() require("dapui").eval() end, desc = "Show cursor eval" }
-maps.n["<leader>dl"] = { function() require("dap").list_breakpoints() end, desc = "List Breakpoints" }
-maps.n["<leader>dt"] = { function() require("dap").repl.toggle() end, desc = "Toggle REPL" }
-maps.n["<leader>dr"] = { function() require("dap").continue() end, desc = "Debug run" }
-
--- View
-init_table("n", "<leader>", "v", "View")
-maps.n["<leader>vb"] = { function() require("telescope").extensions.file_browser.file_browser() end, desc = "File browser" }
-maps.n["<leader>ve"] = { "<cmd>NvimTreeToggle<cr>", desc = "Tree Explorer" }
-maps.n["<leader>vo"] = { "<cmd>SymbolsOutline<cr>", desc = "Symbols outline" }
-maps.n["<leader>vu"] = { "<cmd>UndotreeToggle<cr>", desc = "UndoTree toggle" }
-
-------------------------------------------------------------------------
-
-local function set_mappings(map_table, base)
-  for mode, mapping in pairs(map_table) do
-    for keymap, options in pairs(mapping) do
-      if options then
-        local cmd = options
-        if type(options) == "table" then
-          cmd = options[1]
-          options[1] = nil
-        else
-          options = {}
-        end
-        vim.keymap.set(mode, keymap, cmd, vim.tbl_deep_extend("force", options, base or {}))
-      end
-    end
-  end
-end
-
-set_mappings(binding, { noremap = true, silent = true })
-
-------------------------------------------------------------------------
-
-local status_ok, wk = pcall(require, "which-key")
-if not status_ok then
-  return
-end
-
-for mode, prefixes in pairs(mappings) do
-  for prefix, mapping_table in pairs(prefixes) do
-    wk.register(mapping_table, {
-      mode = mode,
-      prefix = prefix,
-      buffer = nil,
-      silent = true,
-      noremap = true,
-      nowait = true,
-    })
-  end
-end
+wk.register({
+  l = {
+    name = "LSP",
+    a = { function() vim.lsp.buf.range_code_action() end, "LSP code action" },
+    f = { function() require("lsp.utils").format_range_operator() end, "Format code" },
+  },
+  d = {
+    k = { function() require("dapui").eval() end, "Show cursor eval" },
+  },
+}, { prefix = "<leader>", mode = "v", default_options })
 
