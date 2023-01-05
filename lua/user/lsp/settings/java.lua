@@ -28,7 +28,7 @@ local java_path = {
 }
 local executable = java_path["17"] .. "/bin/java" or "java"
 
-local vscode = require("utils.vscode")
+local vscode = require("user.utils.vscode")
 local java_vscode_jar = {}
 local vscode_java_debug_path = vscode.find_one("/vscjava.vscode-java-debug-*/server")
 if vscode_java_debug_path then
@@ -85,7 +85,7 @@ local get_cmd = function()
   }
 end
 
-local lsp_handlers = require "lsp.handlers"
+local lsp_handlers = require "user.lsp.handlers"
 local jdtls = require "jdtls"
 
 local custom_attach = function(client, bufnr)

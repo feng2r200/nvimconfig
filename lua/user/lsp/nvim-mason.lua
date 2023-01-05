@@ -29,19 +29,19 @@ end
 local opts = {}
 
 local enhance_server_opts = {
-  ["clangd"]        = "lsp.settings.clangd",
-  ["emmet_ls"]      = "lsp.settings.emmet_ls",
-  ["jsonls"]        = "lsp.settings.jsonls",
-  ["pyright"]       = "lsp.settings.pyright",
-  ["rust_analyzer"] = "lsp.settings.rust",
-  ["solc"]          = "lsp.settings.solc",
-  ["sqls"]          = "lsp.settings.sqls",
-  ["sumneko_lua"]   = "lsp.settings.sumneko_lua",
-  ["tsserver"]      = "lsp.settings.tsserver",
-  ["yamlls"]        = "lsp.settings.yamlls",
+  ["clangd"]        = "user.lsp.settings.clangd",
+  ["emmet_ls"]      = "user.lsp.settings.emmet_ls",
+  ["jsonls"]        = "user.lsp.settings.jsonls",
+  ["pyright"]       = "user.lsp.settings.pyright",
+  ["rust_analyzer"] = "user.lsp.settings.rust",
+  ["solc"]          = "user.lsp.settings.solc",
+  ["sqls"]          = "user.lsp.settings.sqls",
+  ["sumneko_lua"]   = "user.lsp.settings.sumneko_lua",
+  ["tsserver"]      = "user.lsp.settings.tsserver",
+  ["yamlls"]        = "user.lsp.settings.yamlls",
 }
 
-local lsp_handlers = require("lsp.handlers")
+local lsp_handlers = require("user.lsp.handlers")
 for _, server in pairs(servers) do
   opts = {
     on_attach = lsp_handlers.on_attach,

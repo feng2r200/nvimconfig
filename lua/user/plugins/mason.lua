@@ -52,7 +52,7 @@ M.config = function()
     },
   }
 
-  require "lsp"
+  require "user.lsp"
 end
 
 return M

@@ -1,6 +1,6 @@
-local lsp_handlers = require "lsp.handlers"
+local lsp_handlers = require "user.lsp.handlers"
 
-local vscode = require("utils.vscode")
+local vscode = require("user.utils.vscode")
 local extension_path = vscode.find_one("/vadimcn.vscode-lldb-*")
 local codelldb_path = extension_path .. "/adapter/codelldb"
 local liblldb_path = extension_path .. "/lldb/lib/liblldb.dylib"

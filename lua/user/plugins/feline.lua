@@ -10,7 +10,7 @@ M.config = function()
   end
 
   local C = require "user.utils.colors"
-  local status_kit = require "utils.status"
+  local status_kit = require "user.utils.status"
   local hl = status_kit.hl
   local provider = status_kit.provider
   local conditional = status_kit.conditional
