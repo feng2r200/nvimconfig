@@ -38,5 +38,6 @@ packer.startup {
       },
     },
     max_jobs = 20,
+    autoremove = true,
   },
 }
