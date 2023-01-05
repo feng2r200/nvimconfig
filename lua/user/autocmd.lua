@@ -1,13 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
-autocmd("ColorScheme", {
-  callback = function()
-    package.loaded["configs.feline"] = nil
-    require "configs.feline"
-  end,
-})
-
 autocmd("BufEnter", {
   callback = function()
     vim.cmd "set formatoptions-=cro"

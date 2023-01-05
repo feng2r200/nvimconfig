@@ -11,7 +11,12 @@ local M = {
       "kylechui/nvim-surround",
       after = "nvim-treesitter",
       config = function()
-        require "configs.surround"
+        local status_ok, surround = pcall(require, "nvim-surround")
+        if not status_ok then
+          return
+        end
+
+        surround.setup {}
       end,
     },
   },
