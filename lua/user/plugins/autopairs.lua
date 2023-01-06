@@ -1,4 +1,4 @@
-local M = { "windwp/nvim-autopairs", event = "InsertEnter" }
+local M = { "windwp/nvim-autopairs" }
 
 M.config = function()
   local status_ok, npairs = pcall(require, "nvim-autopairs")
@@ -7,6 +7,8 @@ M.config = function()
   end
 
   npairs.setup({
+    enable_check_bracket_line = false,
+    ignored_next_char = "[%w%.]",
     check_ts = true,
     ts_config = {
       lua = { "string", "source" },
@@ -26,11 +28,6 @@ M.config = function()
       highlight_grey = "LineNr",
     },
   })
-
-  local cmp_status_ok, cmp = pcall(require, "cmp")
-  if cmp_status_ok then
-    cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done { map_char = { tex = "" } })
-  end
 end
 
 return M

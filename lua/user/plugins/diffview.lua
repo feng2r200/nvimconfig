@@ -1,14 +1,17 @@
-local M = { "sindrets/diffview.nvim", event = "BufReadPost" }
+local M = {
+  "sindrets/diffview.nvim",
+  cmd = {
+    "DiffviewOpen",
+    "DiffviewClose",
+    "DiffviewToggleFiles",
+    "DiffviewFocusFiles",
+  },
+}
 
 M.config = function()
-  local status_ok, diffview = pcall(require, "diffview")
-  if not status_ok then
-    return
-  end
-
   local cb = require("diffview.config").diffview_callback
 
-  diffview.setup {
+  require("diffview").setup {
     diff_binaries = false, -- Show diffs for binaries
     enhanced_diff_hl = false, -- See ':h diffview-config-enhanced_diff_hl'
     use_icons = true, -- Requires nvim-web-devicons
@@ -19,6 +22,31 @@ M.config = function()
     signs = {
       fold_closed = "",
       fold_open = "",
+    },
+    view = {
+      -- Configure the layout and behavior of different types of views.
+      -- Available layouts:
+      --  'diff1_plain'
+      --    |'diff2_horizontal'
+      --    |'diff2_vertical'
+      --    |'diff3_horizontal'
+      --    |'diff3_vertical'
+      --    |'diff3_mixed'
+      --    |'diff4_mixed'
+      -- For more info, see ':h diffview-config-view.x.layout'.
+      default = {
+        -- Config for changed files, and staged files in diff views.
+        layout = "diff2_horizontal",
+      },
+      merge_tool = {
+        -- Config for conflicted files in diff views during a merge or rebase.
+        layout = "diff3_horizontal",
+        disable_diagnostics = true, -- Temporarily disable diagnostics for conflict buffers while in the view.
+      },
+      file_history = {
+        -- Config for changed files in file history views.
+        layout = "diff2_horizontal",
+      },
     },
     file_panel = {
       win_config = {
@@ -35,12 +63,13 @@ M.config = function()
     file_history_panel = {
       win_config = {
         position = "bottom",
-        width = 35,
         height = 16,
+        win_opts = {},
       },
       log_options = {
         git = {
           single_file = {
+            diff_merges = "combined",
             max_count = 512,
             follow = true,
             all = false, -- Include all refs under 'refs/' including HEAD
@@ -49,6 +78,7 @@ M.config = function()
             reverse = false, -- List commits in reverse order
           },
           multi_file = {
+            diff_merges = "first-parent",
             max_count = 128,
             all = false, -- Include all refs under 'refs/' including HEAD
             merges = false, -- List only merge commits

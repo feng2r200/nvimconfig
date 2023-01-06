@@ -1,4 +1,10 @@
-local M = { "kevinhwang91/nvim-bqf", ft = "qf" }
+local M = {
+  "kevinhwang91/nvim-bqf",
+  ft = "qf",
+  dependencies = {
+    "junegunn/fzf",
+  },
+}
 
 M.config = function()
   local status_ok, bqf = pcall(require, "bqf")

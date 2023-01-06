@@ -1,22 +1,20 @@
 local M = {
   "hrsh7th/nvim-cmp",
-  event = { "InsertEnter", "CmdlineEnter" },
   requires = {
-    { "lukas-reineke/cmp-under-comparator", after = "nvim-cmp" },
-    { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
-    { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
-    { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
-    { "andersevenrud/cmp-tmux", after = "nvim-cmp" },
-    { "hrsh7th/cmp-path", after = "nvim-cmp" },
-    { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
-    { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
-    { "rcarriga/cmp-dap", after = "nvim-cmp" },
-    { "tzachar/cmp-tabnine", after = "nvim-cmp", run = "./install.sh" },
+    "lukas-reineke/cmp-under-comparator",
+    "saadparwaiz1/cmp_luasnip",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-nvim-lua",
+    "andersevenrud/cmp-tmux",
+    "hrsh7th/cmp-path",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-cmdline",
+    "rcarriga/cmp-dap",
+    { "tzachar/cmp-tabnine", run = "./install.sh" },
+    "hrsh7th/cmp-nvim-lsp-signature-help",
 
     -- Snippet
-    {
-      "L3MON4D3/LuaSnip",
-      module = "luasnip",
+    { "L3MON4D3/LuaSnip",
       config = function()
         local status_ok, ls = pcall(require, "luasnip")
         if not status_ok then
@@ -57,27 +55,13 @@ local M = {
         require("luasnip.loaders.from_lua").lazy_load()
       end,
     },
-    { "rafamadriz/friendly-snippets", opt = true },
+    "rafamadriz/friendly-snippets",
   },
 }
 
 M.config = function()
-  local cmp_status_ok, cmp = pcall(require, "cmp")
-  local snip_status_ok, luasnip = pcall(require, "luasnip")
-  if not (cmp_status_ok and snip_status_ok) then
-    return
-  end
-
-  vim.cmd [[packadd cmp-buffer]]
-  vim.cmd [[packadd cmp-cmdline]]
-  vim.cmd [[packadd cmp-nvim-lsp]]
-  vim.cmd [[packadd cmp-nvim-lua]]
-  vim.cmd [[packadd cmp-path]]
-  vim.cmd [[packadd cmp-tmux]]
-  vim.cmd [[packadd cmp-under-comparator]]
-  vim.cmd [[packadd cmp_luasnip]]
-  vim.cmd [[packadd cmp-dap]]
-  vim.cmd [[packadd cmp-tabnine]]
+  local cmp = require("cmp")
+  local luasnip = require("luasnip")
 
   local check_backspace = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -357,21 +341,19 @@ M.config = function()
     end,
   }
 
-  local tabnine_ok, tabnine = pcall(require, "cmp_tabnine.config")
-  if tabnine_ok then
-    tabnine.setup {
-      max_lines = 1000,
-      max_num_results = 20,
-      sort = true,
-      run_on_every_keystroke = true,
-      snippet_placeholder = "..",
-      ignored_file_types = {
-        markdown = true,
-        sql = true,
-      },
-      show_prediction_strength = false,
-    }
-  end
+  local tabnine = require("cmp_tabnine.config")
+  tabnine.setup {
+    max_lines = 1000,
+    max_num_results = 20,
+    sort = true,
+    run_on_every_keystroke = true,
+    snippet_placeholder = "..",
+    ignored_file_types = {
+      markdown = true,
+      sql = true,
+    },
+    show_prediction_strength = false,
+  }
 
   cmp.setup(cmp_config)
 
@@ -393,14 +375,16 @@ M.config = function()
     },
   })
 
-  local prefetch = vim.api.nvim_create_augroup("prefetch", { clear = true })
-  vim.api.nvim_create_autocmd("BufRead", {
-    group = prefetch,
-    pattern = { "*.py", "*.java", "*.rs" },
-    callback = function()
-      require("cmp_tabnine"):prefetch(vim.fn.expand "%:p")
-    end,
-  })
+  cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done { map_char = { tex = "" } })
 end
+
+local prefetch = vim.api.nvim_create_augroup("prefetch", { clear = true })
+vim.api.nvim_create_autocmd("BufRead", {
+  group = prefetch,
+  pattern = { "*.py", "*.java", "*.rs" },
+  callback = function()
+    require("cmp_tabnine"):prefetch(vim.fn.expand "%:p")
+  end,
+})
 
 return M

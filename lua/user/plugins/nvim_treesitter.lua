@@ -1,38 +1,39 @@
 local M = {
   "nvim-treesitter/nvim-treesitter",
   run = ":TSUpdate",
-  event = { "BufRead", "BufNewFile" },
+  event = { "BufReadPost", "BufNewFile" },
   requires = {
-    { "JoosepAlviste/nvim-ts-context-commentstring", after = "nvim-treesitter" },
-    { "p00f/nvim-ts-rainbow", after = "nvim-treesitter" },
-    { "windwp/nvim-ts-autotag", after = "nvim-treesitter" },
-    { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" },
-    {
-      "kylechui/nvim-surround",
-      after = "nvim-treesitter",
-      config = function()
-        local status_ok, surround = pcall(require, "nvim-surround")
-        if not status_ok then
-          return
-        end
-
-        surround.setup {}
-      end,
-    },
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    "p00f/nvim-ts-rainbow",
+    "windwp/nvim-ts-autotag",
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    "kylechui/nvim-surround",
+    "andymass/vim-matchup",
   },
 }
 
 M.config = function()
-  local status_ok, treesitter = pcall(require, "nvim-treesitter.configs")
-  if not status_ok then
-    return
-  end
-
-  treesitter.setup({
+  require("nvim-treesitter.configs").setup {
     ensure_installed = {
-      "bash", "c", "cpp", "css", "dockerfile", "lua", "go",
-      "gomod", "java", "json", "yaml", "latex", "make", "python",
-      "rust", "html", "javascript", "typescript", "vue",
+      "bash",
+      "c",
+      "cpp",
+      "css",
+      "dockerfile",
+      "lua",
+      "go",
+      "gomod",
+      "java",
+      "json",
+      "yaml",
+      "latex",
+      "make",
+      "python",
+      "rust",
+      "html",
+      "javascript",
+      "typescript",
+      "vue",
     },
     sync_install = false,
     ignore_install = {},
@@ -125,14 +126,18 @@ M.config = function()
       },
       lsp_interop = {
         enable = true,
-        border = 'none',
+        border = "none",
         peek_definition_code = {
-          ['<Space>df'] = "@function.outer",
-          ['<Space>dF'] = "@class.outer",
+          ["<Space>df"] = "@function.outer",
+          ["<Space>dF"] = "@class.outer",
         },
       },
     },
-  })
+  }
+
+  require("nvim-surround").setup {}
+
+  vim.cmd [[let g:matchup_matchparen_offscreen = {'method': 'popup'}]]
 end
 
 return M
