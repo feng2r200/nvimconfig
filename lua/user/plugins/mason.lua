@@ -1,42 +1,13 @@
 local M = {
   "williamboman/mason.nvim",
-  after = "nvim-lspconfig",
+  requires = {
+    "williamboman/mason-lspconfig.nvim",
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+  },
 }
 
 M.config = function()
-  local status_ok, mason = pcall(require, "mason")
-  if not status_ok then
-    return
-  end
-
-  local status_ok_1, mason_lspconfig = pcall(require, "mason-lspconfig")
-  if not status_ok_1 then
-    return
-  end
-
-  local servers = {
-    "cssls",
-    "cssmodules_ls",
-    "emmet_ls",
-    "html",
-    "jdtls",
-    "jsonls",
-    "solc",
-    "sumneko_lua",
-    "sqls",
-    "tflint",
-    "terraformls",
-    "tsserver",
-    "pyright",
-    "yamlls",
-    "bashls",
-    "clangd",
-    "taplo",
-    "lemminx",
-    "marksman",
-  }
-
-  local settings = {
+  require("mason").setup {
     ui = {
       keymaps = {
         apply_language_filter = "f",
@@ -44,15 +15,35 @@ M.config = function()
     },
   }
 
-  mason.setup(settings)
-  mason_lspconfig.setup {
-    ensure_installed = servers,
-    automatic_installation = {
-      exclude = { "rust_analyzer" },
-    },
-  }
+  require("mason-lspconfig").setup {}
 
-  require "user.lsp"
+  require("mason-tool-installer").setup {
+    ensure_installed = {
+      "bash-language-server",
+      "clangd",
+      "css-lsp",
+      "cssmodules-language-server",
+      "debugpy",
+      "dockerfile-language-server",
+      "emmet-ls",
+      "html-lsp",
+      "jdtls",
+      "json-lsp",
+      "lemminx",
+      "lua-language-server",
+      "marksman",
+      "pyright",
+      "solidity",
+      "sqls",
+      "taplo",
+      "terraform-ls",
+      "tflint",
+      "typescript-language-server",
+      "yaml-language-server",
+    },
+    auto_update = false,
+    run_on_start = false,
+  }
 end
 
 return M

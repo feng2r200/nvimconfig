@@ -105,12 +105,12 @@ wk.register({
   },
   g = {
     name = "Git",
-    f = { function() require("gitsigns").next_hunk() end, "Next git hunk" },
-    b = { function() require("gitsigns").prev_hunk() end, "Previous git hunk" },
+    n = { function() require("gitsigns").next_hunk() end, "Next git hunk" },
+    p = { function() require("gitsigns").prev_hunk() end, "Previous git hunk" },
     d = { function() require("gitsigns").diffthis() end, "Diff this" },
     c = { "<cmd>DiffviewFileHistory %<cr>", "Current file history" },
     h = { "<cmd>DiffviewFileHistory<cr>", "File History" },
-    p = { function() require("gitsigns").preview_hunk() end, "Preview git hunk" },
+    s = { function() require("gitsigns").preview_hunk() end, "Preview git hunk" },
     z = { function() require("gitsigns").reset_hunk() end, "Reset hunk" },
   },
   f = {

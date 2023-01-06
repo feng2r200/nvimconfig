@@ -4,13 +4,18 @@ return {
       format = {
         enable = false,
       },
+      filetypes = { "lua" },
       runtime = {
         version = 'LuaJIT',
         special = {
           reload = "require",
         },
       },
-      diagnostics = { globals = { "vim", "packer_plugins", "hs" }, },
+      diagnostics = {
+        enable = true,
+        globals = { "vim", "packer_plugins", "hs", "describe" },
+      },
+      completion = { enable = true, callSnippet = "Replace" },
       workspace = {
         library = {
           [vim.fn.expand "$VIMRUNTIME/lua"] = true,
