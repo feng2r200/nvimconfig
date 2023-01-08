@@ -1,7 +1,6 @@
 local M = {
   "nvim-treesitter/nvim-treesitter",
   run = ":TSUpdate",
-  event = { "BufReadPost", "BufNewFile" },
   requires = {
     "JoosepAlviste/nvim-ts-context-commentstring",
     "p00f/nvim-ts-rainbow",
