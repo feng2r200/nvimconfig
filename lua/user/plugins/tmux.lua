@@ -1,4 +1,4 @@
-local M = { "aserowy/tmux.nvim", event = "BufRead" }
+local M = { "aserowy/tmux.nvim" }
 
 M.config = function()
   local status_ok, tmux = pcall(require, "tmux")
