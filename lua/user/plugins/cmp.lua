@@ -218,15 +218,15 @@ M.config = function()
   }
 
   local duplicates = {
-    nvim_lsp = 0,
-    cmp_tabnine = 1,
+    nvim_lsp = 4,
+    cmp_tabnine = 3,
     luasnip = 2,
     vsnip = 2,
     path = 2,
-    buffer = 3,
-    tmux = 3,
-    nvim_lua = 4,
-    treesitter = 4,
+    buffer = 1,
+    tmux = 1,
+    nvim_lua = 0,
+    treesitter = 0,
   }
 
   local cmp_config = {
