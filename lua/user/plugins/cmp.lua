@@ -10,7 +10,6 @@ local M = {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-cmdline",
     "rcarriga/cmp-dap",
-    { "tzachar/cmp-tabnine", run = "./install.sh" },
     "hrsh7th/cmp-nvim-lsp-signature-help",
 
     -- Snippet
@@ -327,7 +326,6 @@ M.config = function()
         cmp.config.compare.recently_used,
         cmp.config.compare.exact,
         cmp.config.compare.score,
-        require "cmp_tabnine.compare",
         cmp.config.compare.offset,
         require("cmp-under-comparator").under,
         cmp.config.compare.kind,
@@ -339,20 +337,6 @@ M.config = function()
     enabled = function()
       return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
     end,
-  }
-
-  local tabnine = require("cmp_tabnine.config")
-  tabnine.setup {
-    max_lines = 1000,
-    max_num_results = 20,
-    sort = true,
-    run_on_every_keystroke = true,
-    snippet_placeholder = "..",
-    ignored_file_types = {
-      markdown = true,
-      sql = true,
-    },
-    show_prediction_strength = false,
   }
 
   cmp.setup(cmp_config)
@@ -377,14 +361,5 @@ M.config = function()
 
   cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done { map_char = { tex = "" } })
 end
-
-local prefetch = vim.api.nvim_create_augroup("prefetch", { clear = true })
-vim.api.nvim_create_autocmd("BufRead", {
-  group = prefetch,
-  pattern = { "*.py", "*.java", "*.rs" },
-  callback = function()
-    require("cmp_tabnine"):prefetch(vim.fn.expand "%:p")
-  end,
-})
 
 return M
