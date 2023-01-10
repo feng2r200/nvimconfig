@@ -8,6 +8,7 @@ local M = {
     "andersevenrud/cmp-tmux",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-buffer",
+    "lukas-reineke/cmp-rg",
     "hrsh7th/cmp-cmdline",
     "rcarriga/cmp-dap",
     "hrsh7th/cmp-nvim-lsp-signature-help",
@@ -180,7 +181,7 @@ M.config = function()
     Pmenu = { fg = "#C5CDD9", bg = "#22252A" },
 
     CmpItemAbbrDeprecated = { fg = "#7E8294", bg = "NONE", strikethrough = true },
-    CmpItemAbbrMatch = { fg = "#82AAFF", bg = "NONE", bold = true},
+    CmpItemAbbrMatch = { fg = "#82AAFF", bg = "NONE", bold = true },
     CmpItemAbbrMatchFuzzy = { fg = "#82AAFF", bg = "NONE", bold = true },
     CmpItemMenu = { fg = "#C792EA", bg = "NONE", italic = true },
 
@@ -235,6 +236,7 @@ M.config = function()
     calc = "[Calc]",
     spell = "[Spell]",
     cmp_tabnine = "[TN]",
+    rg = "[RG]",
   }
 
   local duplicates = {
@@ -243,6 +245,7 @@ M.config = function()
     luasnip = 2,
     vsnip = 2,
     path = 2,
+    rg = 1,
     buffer = 1,
     tmux = 1,
     nvim_lua = 0,
@@ -308,9 +311,10 @@ M.config = function()
       { name = "nvim_lua", group_index = 1 },
       { name = "luasnip", group_index = 2 },
       { name = "vsnip", group_index = 2 },
-      { name = "buffer", group_index = 3 },
+      { name = "buffer", group_index = 3, keyword_length = 5 },
       { name = "path", group_index = 3 },
-      { name = "tmux", group_index = 3 },
+      { name = "tmux", group_index = 3, keyword_length = 3 },
+      { name = "rg", group_index = 3, keyword_length = 5 },
     },
     mapping = cmp.mapping.preset.insert {
       ["<C-p>"] = cmp.mapping.select_prev_item(),
