@@ -1,5 +1,8 @@
 local M = {
-  "neovim/nvim-lspconfig"
+  "neovim/nvim-lspconfig",
+  requires = {
+    "onsails/lspkind-nvim",
+  },
 }
 
 M.config = function()

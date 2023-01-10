@@ -60,6 +60,7 @@ local M = {
 
 M.config = function()
   local cmp = require("cmp")
+  local lspkind = require("lspkind")
   local luasnip = require("luasnip")
 
   local check_backspace = function()
@@ -270,6 +271,9 @@ M.config = function()
     window = {
       completion = cmp.config.window.bordered(),
       documentation = cmp.config.window.bordered(),
+    },
+    view = {
+      entries = { name = "custom", selection_order = "near_cursor" },
     },
     sources = cmp.config.sources {
       { name = "nvim_lsp", group_index = 0 },
