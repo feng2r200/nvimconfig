@@ -13,43 +13,43 @@ local M = {
     "hrsh7th/cmp-nvim-lsp-signature-help",
 
     -- Snippet
-    { "L3MON4D3/LuaSnip",
+    {
+      "L3MON4D3/LuaSnip",
       config = function()
         local status_ok, ls = pcall(require, "luasnip")
         if not status_ok then
           return
         end
 
-        local types = require("luasnip.util.types")
+        local types = require "luasnip.util.types"
 
-        ls.config.set_config({
-	        history = false,
-	        update_events = "TextChanged,TextChangedI",
-	        delete_check_events = "TextChanged",
-	        ext_opts = {
-		        [types.choiceNode] = {
-			        active = {
-				        virt_text = { { "●", "Comment" } },
-			        },
-		        },
-		        [types.insertNode] = {
+        ls.config.set_config {
+          history = false,
+          update_events = "TextChanged,TextChangedI",
+          delete_check_events = "TextChanged",
+          ext_opts = {
+            [types.choiceNode] = {
               active = {
                 virt_text = { { "●", "Comment" } },
-              }
-		        },
-	        },
-	        ext_base_prio = 300,
-	        ext_prio_increase = 1,
-	        enable_autosnippets = true,
-	        store_selection_keys = "<Tab>",
-	        ft_func = function()
-		        return vim.split(vim.bo.filetype, ".", true)
-	        end,
-        })
-
+              },
+            },
+            [types.insertNode] = {
+              active = {
+                virt_text = { { "●", "Comment" } },
+              },
+            },
+          },
+          ext_base_prio = 300,
+          ext_prio_increase = 1,
+          enable_autosnippets = true,
+          store_selection_keys = "<Tab>",
+          ft_func = function()
+            return vim.split(vim.bo.filetype, ".", true)
+          end,
+        }
 
         require("luasnip.loaders.from_vscode").lazy_load()
-        require("luasnip.loaders.from_vscode").load({ paths = { vim.fn.stdpath "config" .. "/my-snippets" } })
+        require("luasnip.loaders.from_vscode").load { paths = { vim.fn.stdpath "config" .. "/my-snippets" } }
 
         require("luasnip.loaders.from_lua").lazy_load()
       end,
@@ -59,9 +59,9 @@ local M = {
 }
 
 M.config = function()
-  local cmp = require("cmp")
-  local lspkind = require("lspkind")
-  local luasnip = require("luasnip")
+  local cmp = require "cmp"
+  local lspkind = require "lspkind"
+  local luasnip = require "luasnip"
 
   local check_backspace = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -171,37 +171,56 @@ M.config = function()
     end
   end
 
-  vim.api.nvim_set_hl(0, "CmpItemKindCrate", { fg = "#F64D00" })
-  vim.api.nvim_set_hl(0, "CmpItemKindTmux", { fg = "#CA42F0" })
-  vim.api.nvim_set_hl(0, "CmpItemKindTs", { fg = "#6CC644" })
+  local hl_group = {
+    CmpItemKindCrate = { fg = "#F64D00" },
+    CmpItemKindTmux = { fg = "#CA42F0" },
+    CmpItemKindTs = { fg = "#6CC644" },
 
-  local kind_icons = {
-    Text = "",
-    Method = "",
-    Function = "",
-    Constructor = "",
-    Field = "ﰠ",
-    Variable = "",
-    Class = "",
-    Interface = "",
-    Module = "",
-    Property = "",
-    Unit = "",
-    Value = "",
-    Enum = "",
-    Keyword = "",
-    Snippet = "",
-    Color = "",
-    File = "",
-    Reference = "",
-    Folder = "",
-    EnumMember = "",
-    Constant = "",
-    Struct = "פּ",
-    Event = "",
-    Operator = "",
-    TypeParameter = "",
+    PmenuSel = { bg = "#282C34", fg = "NONE" },
+    Pmenu = { fg = "#C5CDD9", bg = "#22252A" },
+
+    CmpItemAbbrDeprecated = { fg = "#7E8294", bg = "NONE", strikethrough = true },
+    CmpItemAbbrMatch = { fg = "#82AAFF", bg = "NONE", bold = true},
+    CmpItemAbbrMatchFuzzy = { fg = "#82AAFF", bg = "NONE", bold = true },
+    CmpItemMenu = { fg = "#C792EA", bg = "NONE", italic = true },
+
+    CmpItemKindField = { fg = "#EED8DA", bg = "#B5585F" },
+    CmpItemKindProperty = { fg = "#EED8DA", bg = "#B5585F" },
+    CmpItemKindEvent = { fg = "#EED8DA", bg = "#B5585F" },
+
+    CmpItemKindText = { fg = "#C3E88D", bg = "#9FBD73" },
+    CmpItemKindEnum = { fg = "#C3E88D", bg = "#9FBD73" },
+    CmpItemKindKeyword = { fg = "#C3E88D", bg = "#9FBD73" },
+
+    CmpItemKindConstant = { fg = "#FFE082", bg = "#D4BB6C" },
+    CmpItemKindConstructor = { fg = "#FFE082", bg = "#D4BB6C" },
+    CmpItemKindReference = { fg = "#FFE082", bg = "#D4BB6C" },
+
+    CmpItemKindFunction = { fg = "#EADFF0", bg = "#A377BF" },
+    CmpItemKindStruct = { fg = "#EADFF0", bg = "#A377BF" },
+    CmpItemKindClass = { fg = "#EADFF0", bg = "#A377BF" },
+    CmpItemKindModule = { fg = "#EADFF0", bg = "#A377BF" },
+    CmpItemKindOperator = { fg = "#EADFF0", bg = "#A377BF" },
+
+    CmpItemKindVariable = { fg = "#C5CDD9", bg = "#7E8294" },
+    CmpItemKindFile = { fg = "#C5CDD9", bg = "#7E8294" },
+
+    CmpItemKindUnit = { fg = "#F5EBD9", bg = "#D4A959" },
+    CmpItemKindSnippet = { fg = "#F5EBD9", bg = "#D4A959" },
+    CmpItemKindFolder = { fg = "#F5EBD9", bg = "#D4A959" },
+
+    CmpItemKindMethod = { fg = "#DDE5F5", bg = "#6C8ED4" },
+    CmpItemKindValue = { fg = "#DDE5F5", bg = "#6C8ED4" },
+    CmpItemKindEnumMember = { fg = "#DDE5F5", bg = "#6C8ED4" },
+
+    CmpItemKindInterface = { fg = "#D8EEEB", bg = "#58B5A8" },
+    CmpItemKindColor = { fg = "#D8EEEB", bg = "#58B5A8" },
+    CmpItemKindTypeParameter = { fg = "#D8EEEB", bg = "#58B5A8" },
   }
+
+  for k, v in pairs(hl_group) do
+    vim.api.nvim_set_hl(0, k, v)
+  end
 
   local source_menu = {
     buffer = "[BUF]",
@@ -230,27 +249,30 @@ M.config = function()
     treesitter = 0,
   }
 
+  local source_hl_group = {
+    tmux = "CmpItemKindTmux",
+    treesitter = "CmpItemKindTs",
+    crates = "CmpItemKindCrate",
+  }
+
   local cmp_config = {
     preselect = cmp.PreselectMode.None,
     formatting = {
+      fields = { "kind", "abbr", "menu" },
       format = function(entry, vim_item)
-        vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+        local kind = lspkind.cmp_format {
+          before = function(ety, item)
+            item.kind_hl_group = source_hl_group[ety.source.name] or ""
 
-        if entry.source.name == "tmux" then
-          vim_item.kind_hl_group = "CmpItemKindTmux"
-        end
-
-        if entry.source.name == "treesitter" then
-          vim_item.kind_hl_group = "CmpItemKindTs"
-        end
-
-        if entry.source.name == "crates" then
-          vim_item.kind_hl_group = "CmpItemKindCrate"
-        end
-
-        vim_item.menu = (source_menu)[entry.source.name]
-        vim_item.dup = duplicates[entry.source.name] or 0
-        return vim_item
+            item.menu = (source_menu)[ety.source.name]
+            item.dup = duplicates[ety.source.name] or 0
+            return item
+          end,
+        }(entry, vim_item)
+        local strings = vim.split(kind.kind, "%s", { trimempty = true })
+        kind.kind = " " .. (strings[1] or "") .. " "
+        kind.menu = "    (" .. (strings[2] or "") .. ")"
+        return kind
       end,
     },
     snippet = {
@@ -269,7 +291,11 @@ M.config = function()
       select = false,
     },
     window = {
-      completion = cmp.config.window.bordered(),
+      completion = {
+        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:Visual,Search:None",
+        col_offset = -3,
+        side_padding = 0,
+      },
       documentation = cmp.config.window.bordered(),
     },
     view = {
