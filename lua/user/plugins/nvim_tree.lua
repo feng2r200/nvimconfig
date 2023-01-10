@@ -1,8 +1,13 @@
 local M = {
-  "kyazdani42/nvim-tree.lua",
+  "nvim-tree/nvim-tree.lua",
   event = { "BufRead", "BufNewFile" },
   requires = "kyazdani42/nvim-web-devicons",
 }
+
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+vim.opt.termguicolors = true
 
 M.config = function()
   local status_ok, nvim_tree = pcall(require, "nvim-tree")
@@ -28,6 +33,9 @@ M.config = function()
     ignore_buffer_on_setup = false,
     open_on_setup = false,
     open_on_tab = false,
+    remove_keymaps = {
+      "<C-k>",
+    },
     view = {
       adaptive_size = true,
       centralize_selection = false,
@@ -40,7 +48,9 @@ M.config = function()
       signcolumn = "yes",
       mappings = {
         custom_only = false,
-        list = {},
+        list = {
+          { key = "<C-p>", action = "toggle_file_info" },
+        },
       },
     },
     renderer = {
