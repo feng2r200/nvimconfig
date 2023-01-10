@@ -99,7 +99,7 @@ local capabilities = lsp_handlers.capabilities
 local config = {
   cmd = get_cmd(),
   filetypes = { "java" },
-  root_dir = vim.fs.dirname(vim.fs.find({ ".git", "mvnw", "gradlew", ".idea", "build.gradle" }, { upward = true })[1]),
+  root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", ".idea", "build.gradle", "pom.xml" }),
   settings = {
     ["java.settings.url"] = java_settings_url,
     java = {
