@@ -184,6 +184,7 @@ local config = {
       symbols = { includeSourceMethodDeclarations = true },
       trace = { server = "messages" },
       format = {
+        enabled = true,
         settings = {
           url = java_format_style_rule,
           profile = "GoogleStyle",
