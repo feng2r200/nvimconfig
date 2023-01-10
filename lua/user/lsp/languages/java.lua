@@ -55,7 +55,7 @@ local jdtls_launcher = fn.expand( jdtls_dir .. "/plugins/org.eclipse.equinox.lau
 local lombok_jar = fn.expand( jdtls_dir .. "/lombok.jar" )
 
 local workspace_root_dir = env.DATA_DIR .. "/eclipse/"
-local project_name = fn.fnamemodify(fn.getcwd(), ":p:h:t")
+local project_name = fn.fnamemodify(fn.getcwd(), ":p:h:gs?/?%?")
 local workspace_dir = workspace_root_dir .. project_name
 
 local get_cmd = function()
