@@ -302,7 +302,7 @@ M.config = function()
       documentation = cmp.config.window.bordered(),
     },
     view = {
-      entries = { name = "custom", selection_order = "near_cursor" },
+      entries = { name = "custom" },
     },
     sources = cmp.config.sources {
       { name = "nvim_lsp", group_index = 0 },
