@@ -103,6 +103,20 @@ local config = {
   settings = {
     ["java.settings.url"] = java_settings_url,
     java = {
+      templates = {
+        fileHeader = {
+          "/**",
+          " * @author: ${user}",
+          " * @date: ${date}",
+          " * @description: ${file_name}",
+          " */",
+        },
+        typeComment = {
+          "/**",
+          " * @description: ${type_name}",
+          " */",
+        },
+      },
       maxConcurrentBuilds = 8,
       project = {
         encoding = "UTF-8",

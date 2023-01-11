@@ -311,10 +311,10 @@ M.config = function()
       { name = "nvim_lua", group_index = 1 },
       { name = "luasnip", group_index = 2 },
       { name = "vsnip", group_index = 2 },
-      { name = "buffer", group_index = 3, keyword_length = 5 },
+      { name = "buffer", group_index = 3, keyword_length = 3 },
       { name = "path", group_index = 3 },
       { name = "tmux", group_index = 3, keyword_length = 3 },
-      { name = "rg", group_index = 3, keyword_length = 5 },
+      { name = "rg", group_index = 3, keyword_length = 3 },
     },
     mapping = cmp.mapping.preset.insert {
       ["<C-p>"] = cmp.mapping.select_prev_item(),
