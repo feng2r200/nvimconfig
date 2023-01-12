@@ -3,6 +3,9 @@ local default_options = { silent = true }
 
 map("", "<Space>", "<Nop>", {})
 
+map("n", "H", "^", {})
+map("n", "L", "$", {})
+
 map("v", "<", "<gv", default_options)
 map("v", ">", ">gv", default_options)
 
