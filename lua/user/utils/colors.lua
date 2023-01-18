@@ -1,5 +1,3 @@
-local M = {}
-
 local colors = {
   black = "#0e1013",
   bg0 = "#1f2329",
