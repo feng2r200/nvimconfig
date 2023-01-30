@@ -1,11 +1,11 @@
 local M = {
   "nvim-telescope/telescope.nvim",
-  cmd = "Telescope",
   requires = {
     { "nvim-telescope/telescope-fzf-native.nvim", after = "telescope.nvim", run = "make" },
     { "nvim-telescope/telescope-file-browser.nvim", after = "telescope.nvim" },
     { "benfowler/telescope-luasnip.nvim", after = "telescope.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim", after = "telescope.nvim" },
+    { "johmsalas/text-case.nvim", after = "telescope.nvim" },
   },
 }
 
@@ -23,8 +23,8 @@ M.config = function()
   local actions = require "telescope.actions"
 
   -- disable preview binaries
-  local previewers = require("telescope.previewers")
-  local Job = require("plenary.job")
+  local previewers = require "telescope.previewers"
+  local Job = require "plenary.job"
   local new_maker = function(filepath, bufnr, opts)
     filepath = vim.fn.expand(filepath)
     Job:new({
@@ -40,7 +40,7 @@ M.config = function()
             vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
           end)
         end
-      end
+      end,
     }):sync()
   end
 
@@ -82,7 +82,7 @@ M.config = function()
       borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
       color_devicons = true,
       use_less = true,
-      set_env = {["COLORTERM"] = "truecolor"},
+      set_env = { ["COLORTERM"] = "truecolor" },
 
       mappings = {
         i = {
@@ -157,20 +157,23 @@ M.config = function()
       -- !^music	inverse-prefix-exact-match	Items that do not start with music
       -- !.mp3$	inverse-suffix-exact-match	Items that do not end with .mp3
       fzf = {
-        fuzzy = true,                    -- false will only do exact matching
-        override_generic_sorter = true,  -- override the generic sorter
-        override_file_sorter = true,     -- override the file sorter
-        case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+        fuzzy = true, -- false will only do exact matching
+        override_generic_sorter = true, -- override the generic sorter
+        override_file_sorter = true, -- override the file sorter
+        case_mode = "smart_case", -- or "ignore_case" or "respect_case"
         -- the default case_mode is "smart_case"
       },
       ui_select = { require("telescope.themes").get_dropdown {} },
     },
   }
 
-  telescope.load_extension('ui-select')
-  telescope.load_extension('fzf')
-  telescope.load_extension('notify')
-  telescope.load_extension('luasnip')
+  telescope.load_extension "ui-select"
+  telescope.load_extension "fzf"
+  telescope.load_extension "notify"
+  telescope.load_extension "luasnip"
+
+  require("textcase").setup {}
+  require("telescope").load_extension "textcase"
 end
 
 return M
