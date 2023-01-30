@@ -30,8 +30,6 @@ M.config = function()
     hijack_cursor = true,
     hijack_netrw = true,
     hijack_unnamed_buffer_when_opening = false,
-    ignore_buffer_on_setup = false,
-    open_on_setup = false,
     open_on_tab = false,
     remove_keymaps = {
       "<C-k>",
@@ -106,7 +104,6 @@ M.config = function()
       update_cwd = false,
       ignore_list = {},
     },
-    ignore_ft_on_setup = { "startify", "dashboard", "alpha", "aerial" },
     system_open = { cmd = nil, args = {} },
     diagnostics = {
       enable = false,
