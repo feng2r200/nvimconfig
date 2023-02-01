@@ -23,7 +23,6 @@ M.config = function()
       "clangd",
       "css-lsp",
       "cssmodules-language-server",
-      "debugpy",
       "dockerfile-language-server",
       "emmet-ls",
       "html-lsp",
