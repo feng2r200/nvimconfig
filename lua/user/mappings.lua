@@ -14,9 +14,6 @@ map("x", "<C-k>", ":m'<-2<cr>gv-gv", default_options)
 
 map("n", "<BS>", ":nohlsearch<Bar>:echo<CR>", default_options)
 
-map("n", "<C-s>", ":write<cr>", default_options)
-map("i", "<C-s>", "<esc>:write<cr>i", default_options)
-
 -- move over a closing element in insert mode
 map("i", "<C-l>", function() return require("user.utils.functions").escapePair() end, default_options)
 
