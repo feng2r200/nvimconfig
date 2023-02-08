@@ -22,7 +22,7 @@ M.config = function()
           "--dialect",
           "mysql",
           "--exclude-rules",
-          "L001,L004,L006,L009,L010,L011,L016,L029,L031,L036,L059",
+          "L001,L003,L004,L006,L009,L010,L011,L016,L029,L031,L036,L059",
         },
       },
       diagnostics.tidy,
