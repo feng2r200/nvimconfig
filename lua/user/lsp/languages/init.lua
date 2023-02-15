@@ -11,7 +11,7 @@ M.servers = {
   "html",
   "jdtls",
   "solc",
-  "sumneko_lua",
+  "lua_ls",
   "sqls",
   "tflint",
   "terraformls",
