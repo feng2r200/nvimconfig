@@ -48,7 +48,7 @@ M.config = function()
     },
     autopairs = { enable = true },
     indent = {
-      enable = true,
+      enable = false,
       disable = {},
     },
     context_commentstring = {
