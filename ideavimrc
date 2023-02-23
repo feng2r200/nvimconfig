@@ -5,8 +5,6 @@ set textobj-entire
 set textobj-indent
 set highlightedyank
 set ideajoin
-set keep-english-in-normal-and-restore-in-insert
-set easymotion
 
 """ Plugin settings ------------------------------------------------------
 let g:argtextobj_pairs="[:],(:),<:>"
