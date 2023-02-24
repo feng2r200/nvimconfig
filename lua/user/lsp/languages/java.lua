@@ -69,7 +69,7 @@ local get_cmd = function()
     "-XX:+UseG1GC",
     "-Xms1g",
     "-Xmx2G",
-    "-XX:ReservedCodeCacheSize=256m",
+    "-XX:ReservedCodeCacheSize=1024m",
     "-XX:NewRatio=4",
     "-Xss16m",
     "-XX:ConcGCThreads=4",
