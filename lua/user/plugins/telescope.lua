@@ -54,7 +54,7 @@ M.config = function()
       qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
       buffer_previewer_maker = new_maker,
 
-      prompt_prefix = " ",
+      prompt_prefix = require("user.utils.icons").ui.Search,
       selection_caret = "❯ ",
       path_display = { "truncate" },
       selection_strategy = "reset",
