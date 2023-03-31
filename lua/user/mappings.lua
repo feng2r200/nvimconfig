@@ -54,10 +54,10 @@ wk.register({
   [">b"] = { "<cmd>BufferLineMoveNext<cr>", "BufferLineMoveNext" },
   ["<b"] = { "<cmd>BufferLineMovePrev<cr>", "BufferLineMovePrev" },
 
-  ["gd"] = { function() require("telescope.builtin").lsp_definitions {} end, "Show the definition of current symbol" },
-  ["gy"] = { function() require("telescope.builtin").lsp_type_definitions {} end, "Declaration of current symbol" },
-  ["gh"] = { function() require("telescope.builtin").lsp_references {} end, "Search references" },
-  ["gi"] = { function() require("telescope.builtin").lsp_implementations {} end, "Implementation of current symbol" },
+  ["gd"] = { function() require("telescope.builtin").lsp_definitions { jump_type = "vsplit" } end, "Show the definition of current symbol" },
+  ["gy"] = { function() require("telescope.builtin").lsp_type_definitions { jump_type = "vsplit" } end, "Declaration of current symbol" },
+  ["gh"] = { function() require("telescope.builtin").lsp_references { jump_type = "vsplit" } end, "Search references" },
+  ["gi"] = { function() require("telescope.builtin").lsp_implementations { jump_type = "vsplit" } end, "Implementation of current symbol" },
   ["gs"] = { function() vim.lsp.buf.signature_help() end, "Signature help" },
 
   ["[d"] = { function() vim.diagnostic.goto_prev() end, "Previous diagnostic" },

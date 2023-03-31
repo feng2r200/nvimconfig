@@ -59,7 +59,6 @@ M.config = function()
       formatting.stylua.with {
         extra_args = { "--config-path", vim.fn.expand(vim.fn.stdpath "config" .. "/.stylua.toml") },
       },
-      formatting.shfmt,
     },
   }
 end

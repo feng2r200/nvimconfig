@@ -57,17 +57,17 @@ autocmd("VimResized", {
   end,
 })
 
-autocmd({ "CursorHold", "ModeChanged" }, {
-  callback = function()
-    local status_ok, luasnip = pcall(require, "luasnip")
-    if not status_ok then
-      return
-    end
-    if luasnip.expand_or_jumpable() then
-      vim.cmd [[silent! lua require("luasnip").unlink_current()]]
-    end
-  end,
-})
+-- autocmd({ "CursorHold", "ModeChanged" }, {
+--   callback = function()
+--     local status_ok, luasnip = pcall(require, "luasnip")
+--     if not status_ok then
+--       return
+--     end
+--     if luasnip.expand_or_jumpable() then
+--       vim.cmd [[silent! lua require("luasnip").unlink_current()]]
+--     end
+--   end,
+-- })
 
 -- show cursor line only in active window
 local cursorGrp = augroup("CursorLine", { clear = true })

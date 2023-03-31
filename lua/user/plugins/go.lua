@@ -1,8 +1,5 @@
 local M = {
   "ray-x/go.nvim",
-  dependencies = {
-    "ray-x/guihua.lua",
-  },
 }
 
 function M.config()
