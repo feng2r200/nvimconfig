@@ -259,7 +259,7 @@ M.init = function ()
   vim.api.nvim_create_autocmd({ "BufReadCmd" }, {
     pattern = "jdt://*",
     callback = function(e)
-      require("jdtls").open_jdt_link(e.file)
+      require("jdtls").open_classfile(e.file)
     end,
   })
 
