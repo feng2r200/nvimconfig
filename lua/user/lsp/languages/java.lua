@@ -73,7 +73,6 @@ local get_cmd = function()
     "-Xmx2G",
     "-XX:ReservedCodeCacheSize=1024m",
     "-XX:NewRatio=4",
-    "-XX:SurvivorRatio=16",
     "-XX:MaxTenuringThreshold=15",
     "-XX:G1ReservePercent=10",
     "-Xss16m",
