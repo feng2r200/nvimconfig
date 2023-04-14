@@ -12,12 +12,11 @@ M.servers = {
   "jdtls",
   "solc",
   "lua_ls",
-  "sqls",
+  "sqlls",
   "tflint",
   "terraformls",
   "tsserver",
   "pyright",
-  "yamlls",
   "clangd",
   "rust_analyzer",
   "taplo",
@@ -32,10 +31,8 @@ M.enhance_server_opts = {
   ["pyright"] = languages_path .. ".pyright",
   ["rust_analyzer"] = languages_path .. ".rust",
   ["solc"] = languages_path .. ".solc",
-  ["sqls"] = languages_path .. ".sqls",
   ["sumneko_lua"] = languages_path .. ".sumneko_lua",
   ["tsserver"] = languages_path .. ".tsserver",
-  ["yamlls"] = languages_path .. ".yamlls",
 }
 
 return M
