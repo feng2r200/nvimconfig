@@ -1,4 +1,4 @@
-local M = { "phaazon/hop.nvim", event = { "BufNewFile", "BufReadPost" }, branch = "v1" }
+local M = { "phaazon/hop.nvim", event = { "BufNewFile", "BufReadPost" }, branch = "v2" }
 
 M.config = function()
   local status_ok, hop = pcall(require, "hop")
