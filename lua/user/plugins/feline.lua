@@ -29,6 +29,8 @@ M.config = function()
   --[[   } ]]
   --[[ end ]]
 
+  local icons = require("user.utils.icons")
+
   feline.setup {
     disable = { filetypes = { "^NvimTree$", "^neo%-tree$", "^dashboard$", "^alpha$", "^Outline$", "^aerial$" } },
     theme = hl.group("StatusLine", { fg = C.fg, bg = C.bg1 }),
@@ -37,21 +39,21 @@ M.config = function()
         {
           { provider = provider.spacer(), hl = hl.mode() },
           { provider = provider.spacer(1) },
-          { provider = "git_branch", hl = hl.fg("Conditional", { fg = C.purple, style = "bold" }), icon = " " },
+          { provider = "git_branch", hl = hl.fg("Conditional", { fg = C.purple, style = "bold" }), icon = icons.git.Git .. " " },
           { provider = provider.spacer(2), enabled = conditional.git_available },
           {
             provider = { name = "file_type", opts = { filetype_icon = true, case = "lowercase" } },
             enabled = conditional.has_filetype,
           },
           { provider = provider.spacer(2), enabled = conditional.has_filetype },
-          { provider = "git_diff_added", hl = hl.fg("GitSignsAdd", { fg = C.green }), icon = "  " },
-          { provider = "git_diff_changed", hl = hl.fg("GitSignsChange", { fg = C.orange }), icon = " 柳" },
-          { provider = "git_diff_removed", hl = hl.fg("GitSignsDelete", { fg = C.red }), icon = "  " },
+          { provider = "git_diff_added", hl = hl.fg("GitSignsAdd", { fg = C.green }), icon = " " .. icons.git.Add .. " " },
+          { provider = "git_diff_changed", hl = hl.fg("GitSignsChange", { fg = C.orange }), icon = " " .. icons.git.Mod .. " " },
+          { provider = "git_diff_removed", hl = hl.fg("GitSignsDelete", { fg = C.red }), icon = " " .. icons.git.Remove .. " " },
           { provider = provider.spacer(2), enabled = conditional.git_changed },
-          { provider = "diagnostic_errors", hl = hl.fg("DiagnosticError", { fg = C.red }), icon = "  " },
-          { provider = "diagnostic_warnings", hl = hl.fg("DiagnosticWarn", { fg = C.orange }), icon = "  " },
-          { provider = "diagnostic_info", hl = hl.fg("DiagnosticInfo", { fg = C.fd }), icon = "  " },
-          { provider = "diagnostic_hints", hl = hl.fg("DiagnosticHint", { fg = C.yellow }), icon = "  " },
+          { provider = "diagnostic_errors", hl = hl.fg("DiagnosticError", { fg = C.red }), icon = " " .. icons.diagnostics.Error .. " " },
+          { provider = "diagnostic_warnings", hl = hl.fg("DiagnosticWarn", { fg = C.orange }), icon = " " .. icons.diagnostics.Warning .. " " },
+          { provider = "diagnostic_info", hl = hl.fg("DiagnosticInfo", { fg = C.fd }), icon = " " .. icons.diagnostics.Information .. " " },
+          { provider = "diagnostic_hints", hl = hl.fg("DiagnosticHint", { fg = C.yellow }), icon = " " .. icons.diagnostics.Hint .. " " },
         },
         {
           --[[ { provider = provider.lsp_progress, enabled = conditional.bar_width() }, ]]
@@ -59,7 +61,7 @@ M.config = function()
             provider = provider.lsp_client_names(true),
             short_provider = provider.lsp_client_names(),
             enabled = conditional.bar_width(),
-            icon = "   ",
+            icon = " " .. icons.misc.Lsp .. " ",
           },
           { provider = provider.spacer(2) },
           { provider = "position" },

@@ -9,6 +9,8 @@ M.config = function()
     return
   end
 
+  local icons = require("user.utils.icons")
+
   bufferline.setup({
     options = {
       mode = "buffers", -- set to "tabs" to only show tabpages instead
@@ -20,11 +22,11 @@ M.config = function()
       indicator = {
         style = 'underline'
       },
-      left_trunc_marker = '',
-      right_trunc_marker = '',
-      buffer_close_icon = "",
-      modified_icon = "",
-      close_icon = "",
+      left_trunc_marker = icons.ui.LeftTruncMarker,
+      right_trunc_marker = icons.ui.RightTruncMarker,
+      buffer_close_icon = icons.ui.BufferClose,
+      modified_icon = icons.ui.Circle,
+      close_icon = icons.ui.Close,
       offsets = {
         { filetype = "NvimTree", text = "File Explorer", padding = 1 },
         { filetype = "neo-tree", text = "File Explorer", padding = 1 },
