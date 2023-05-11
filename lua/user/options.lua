@@ -90,7 +90,7 @@ vim.opt.wildignore = [[
 */tmp/*,**/tmp/**,*.so,*.swp,*.zip,**/node_modules/**,**/target/**,**.terraform/**",**/bower_modules/**
 ]]
 
-vim.g.python3_host_prog = "/usr/local/bin/python3"
+vim.g.python3_host_prog = "/opt/homebrew/bin/python3"
 vim.g.zipPlugin = false
 vim.g.load_black = false
 vim.g.loaded_2html_plugin = true
