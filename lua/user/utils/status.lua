@@ -162,8 +162,9 @@ function M.provider.get_filename()
     local hl_group = "FileIconColor" .. extension
 
     vim.api.nvim_set_hl(0, hl_group, { fg = file_icon_color })
+    local icons = require("user.utils.icons")
     if isempty(file_icon) then
-      file_icon = ""
+      file_icon = icons.documents.File
       file_icon_color = ""
     end
 

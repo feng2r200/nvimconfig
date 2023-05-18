@@ -15,19 +15,19 @@ M.config = function()
   local provider = status_kit.provider
   local conditional = status_kit.conditional
 
-  --[[ if vim.fn.has "nvim-0.8" == 1 then ]]
-  --[[   feline.winbar.setup { ]]
-  --[[     disable = { filetypes = { "^NvimTree$", "^neo%-tree$", "^dashboard$", "^alpha$", "^Outline$", "^aerial$" } }, ]]
-  --[[     theme = hl.group("Winbar", { fg = C.fg, bg = C.bg1 }), ]]
-  --[[     components = { ]]
-  --[[       active = { ]]
-  --[[         { ]]
-  --[[           { provider = provider.gps(), enabled = conditional.gps_available() }, ]]
-  --[[         }, ]]
-  --[[       }, ]]
-  --[[     }, ]]
-  --[[   } ]]
-  --[[ end ]]
+  if vim.fn.has "nvim-0.8" == 1 then
+    feline.winbar.setup {
+      disable = { filetypes = { "^NvimTree$", "^neo%-tree$", "^dashboard$", "^alpha$", "^Outline$", "^aerial$" } },
+      theme = hl.group("Winbar", { fg = C.fg, bg = C.bg1 }),
+      components = {
+        active = {
+          {
+            { provider = provider.gps(), enabled = conditional.gps_available() },
+          },
+        },
+      },
+    }
+  end
 
   local icons = require("user.utils.icons")
 

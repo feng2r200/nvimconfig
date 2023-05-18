@@ -2,7 +2,6 @@ local M = {
   "SmiteshP/nvim-navic",
   after = "nvim-web-devicons",
   requires = "neovim/nvim-lspconfig",
-  disable = true,
 }
 
 M.config = function()
