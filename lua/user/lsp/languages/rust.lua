@@ -1,7 +1,7 @@
 local lsp_handlers = require "user.lsp.handlers"
 
-local vscode = require("user.utils.vscode")
-local extension_path = vscode.find_one("/vadimcn.vscode-lldb-*")
+local install_root_dir = vim.fn.stdpath("data") .. "/mason"
+local extension_path = install_root_dir .. "packages/codelldb/extension"
 local codelldb_path = extension_path .. "/adapter/codelldb"
 local liblldb_path = extension_path .. "/lldb/lib/liblldb.dylib"
 
@@ -28,12 +28,13 @@ return {
     },
 
     inlay_hints = {
+      auto = true,
       only_current_line = false,
       only_current_line_autocmd = "CursorHold",
       show_parameter_hints = true,
       show_variable_name = true,
       parameter_hints_prefix = "<- ",
-      other_hints_prefix = " » ",
+      other_hints_prefix = " => ",
       max_len_align = false,
       max_len_align_padding = 1,
       right_align = false,
@@ -56,6 +57,7 @@ return {
     settings = {
       ["rust-analyzer"] = {
         cargo = {
+          allFeatures = true,
           autoReload = true,
         },
         lens = {
