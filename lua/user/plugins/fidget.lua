@@ -1,5 +1,6 @@
 local M = {
   "j-hui/fidget.nvim",
+  tag = "legacy",
   event = "BufReadPost",
   after = "nvim-lspconfig",
 }

@@ -18,7 +18,7 @@ vim.opt.smartcase = true
 vim.opt.shortmess = vim.opt.shortmess + "c"
 
 vim.g.encoding = "utf-8"
-vim.opt.fileencodings = { "utf-8", "gb18030", "utf-16", "big5" }
+vim.opt.fileencodings = { "utf-8", "ucs-bom", "gb18030", "utf-16", "big5", "chinese" }
 
 vim.opt.scrolloff = 3
 vim.opt.sidescrolloff = 3
