@@ -9,6 +9,7 @@ M.config = function()
     return
   end
 
+  local icons = require("user.utils.icons")
   symbols.setup({
     highlight_hovered_item = true,
     show_guides = true,
@@ -33,14 +34,14 @@ M.config = function()
     lsp_blacklist = {},
     symbol_blacklist = {},
     symbols = {
-      File = {icon = "", hl = "TSURI"},
-      Module = {icon = "", hl = "TSNamespace"},
-      Namespace = {icon = "", hl = "TSNamespace"},
-      Package = {icon = "", hl = "TSNamespace"},
+      File = {icon = icons.kind.File, hl = "TSURI"},
+      Module = {icon = icons.kind.Module, hl = "TSNamespace"},
+      Namespace = {icon = icons.kind.Folder, hl = "TSNamespace"},
+      Package = {icon = icons.ui.Package, hl = "TSNamespace"},
       Class = {icon = "𝓒", hl = "TSType"},
       Method = {icon = "ƒ", hl = "TSMethod"},
       Property = {icon = "", hl = "TSMethod"},
-      Field = {icon = "", hl = "TSField"},
+      Field = {icon = icons.kind.Field, hl = "TSField"},
       Constructor = {icon = "", hl = "TSConstructor"},
       Enum = {icon = "ℰ", hl = "TSType"},
       Interface = {icon = "ﰮ", hl = "TSType"},
@@ -50,13 +51,13 @@ M.config = function()
       String = {icon = "𝓐", hl = "TSString"},
       Number = {icon = "#", hl = "TSNumber"},
       Boolean = {icon = "⊨", hl = "TSBoolean"},
-      Array = {icon = "", hl = "TSConstant"},
+      Array = {icon = icons.type.Array, hl = "TSConstant"},
       Object = {icon = "⦿", hl = "TSType"},
       Key = {icon = "🔐", hl = "TSType"},
       Null = {icon = "NULL", hl = "TSType"},
       EnumMember = {icon = "", hl = "TSField"},
       Struct = {icon = "𝓢", hl = "TSType"},
-      Event = {icon = "🗲", hl = "TSType"},
+      Event = {icon = icons.kind.Event, hl = "TSType"},
       Operator = {icon = "+", hl = "TSOperator"},
       TypeParameter = {icon = "𝙏", hl = "TSParameter"}
     }
