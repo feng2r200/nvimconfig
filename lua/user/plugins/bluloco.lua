@@ -1,6 +1,7 @@
 local M = {
   "uloco/bluloco.nvim",
   requires = { "rktjmp/lush.nvim" },
+  disable = true,
 }
 
 M.config = function()
