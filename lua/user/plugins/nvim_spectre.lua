@@ -1,4 +1,4 @@
-local M = { "nvim-pack/nvim-spectre", opt = true }
+local M = { "nvim-pack/nvim-spectre" }
 
 M.config = function()
   -- https://github.com/nvim-pack/nvim-spectre

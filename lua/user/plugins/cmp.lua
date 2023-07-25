@@ -1,6 +1,6 @@
 local M = {
   "hrsh7th/nvim-cmp",
-  requires = {
+  dependencies = {
     "lukas-reineke/cmp-under-comparator",
     "saadparwaiz1/cmp_luasnip",
     "hrsh7th/cmp-nvim-lsp",

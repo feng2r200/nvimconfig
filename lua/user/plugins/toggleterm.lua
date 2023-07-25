@@ -1,4 +1,4 @@
-local M = { "akinsho/toggleterm.nvim", cmd = "ToggleTerm", module = { "toggleterm", "toggleterm.terminal" } }
+local M = { "akinsho/toggleterm.nvim", cmd = "ToggleTerm" }
 
 M.config = function()
   local status_ok, toggleterm = pcall(require, "toggleterm")

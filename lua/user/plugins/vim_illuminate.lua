@@ -1,7 +1,7 @@
 local M = {
   "RRethy/vim-illuminate",
   event = "BufRead",
-  after = "nvim-lspconfig",
+  dependencies = "nvim-lspconfig",
 }
 
 M.config = function()

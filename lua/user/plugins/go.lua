@@ -1,5 +1,6 @@
 local M = {
   "ray-x/go.nvim",
+  enabled = false,
 }
 
 function M.config()

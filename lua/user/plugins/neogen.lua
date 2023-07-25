@@ -1,4 +1,4 @@
-local M = { "danymat/neogen", module = "neogen" }
+local M = { "danymat/neogen" }
 
 M.config = function()
   local status_ok, neogen = pcall(require, "neogen")

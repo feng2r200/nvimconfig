@@ -1,6 +1,6 @@
 local M = {
   "akinsho/bufferline.nvim",
-  after = "nvim-web-devicons",
+  dependencies = "nvim-web-devicons",
 }
 
 M.config = function()

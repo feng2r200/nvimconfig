@@ -33,7 +33,7 @@ for _, server in pairs(servers) do
   end
 
   if server == "rust_analyzer" then
-    vim.cmd [[packadd rust-tools.nvim]]
+    -- vim.cmd [[packadd rust-tools.nvim]]
     local rust_tools_status_ok, rust_tools = pcall(require, "rust-tools")
     if not rust_tools_status_ok then
       return

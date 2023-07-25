@@ -1,7 +1,6 @@
 local M = {
   "SmiteshP/nvim-navic",
-  after = "nvim-web-devicons",
-  requires = "neovim/nvim-lspconfig",
+  dependencies = {"nvim-web-devicons", "neovim/nvim-lspconfig"},
 }
 
 M.config = function()

@@ -4,7 +4,8 @@ local M = {
 
 M.config = function()
   -- Lua
-  require("onedark").setup {
+  local colorscheme = require("onedark")
+  colorscheme.setup {
     -- Main options --
     style = "darker", -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
     transparent = true, -- Show/hide background
@@ -14,7 +15,7 @@ M.config = function()
 
     -- toggle theme style ---
     toggle_style_key = nil, -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
-    toggle_style_list = { "dark", "darker", "cool", "deep", "warm", "warmer", "light" }, -- List of styles to toggle between
+    toggle_style_list = { "darker" }, -- List of styles to toggle between
 
     -- Change code style ---
     -- Options are italic, bold, underline, none
@@ -25,11 +26,6 @@ M.config = function()
       functions = "bold",
       strings = "none",
       variables = "italic,bold",
-    },
-
-    -- Lualine options --
-    lualine = {
-      transparent = false, -- lualine center bar transparency
     },
 
     -- Custom Highlights --
@@ -43,7 +39,8 @@ M.config = function()
       background = true, -- use background color for virtual text
     },
   }
-  require("onedark").load()
+
+  colorscheme.load()
 end
 
 return M

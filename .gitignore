@@ -2,3 +2,4 @@
 .local-history/
 /plugin/packer_compiled.lua
 pack/vscode-lldb
+lazy-lock.json

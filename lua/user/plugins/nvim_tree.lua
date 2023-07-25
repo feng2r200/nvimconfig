@@ -1,7 +1,7 @@
 local M = {
   "nvim-tree/nvim-tree.lua",
   event = { "BufRead", "BufNewFile" },
-  requires = "kyazdani42/nvim-web-devicons",
+  dependencies = "kyazdani42/nvim-web-devicons",
 }
 
 vim.g.loaded_netrw = 1

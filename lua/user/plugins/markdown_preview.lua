@@ -1,3 +1,3 @@
-local M = { "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" }
+local M = { "iamcco/markdown-preview.nvim", ft = "markdown", build = "cd app && yarn install" }
 
 return M

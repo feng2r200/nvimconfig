@@ -1,7 +1,7 @@
 local M = { "Saecki/crates.nvim", event = { "BufRead Cargo.toml" } }
 
 M.config = function()
-  vim.cmd [[packadd crates.nvim]]
+  -- vim.cmd [[packadd crates.nvim]]
   local status_ok, crates = pcall(require, "crates")
   if not status_ok then
     return

@@ -1,9 +1,10 @@
 local M = {
   "williamboman/mason.nvim",
-  requires = {
+  dependencies = {
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
   },
+  build = ":MasonUpdate",
 }
 
 M.config = function()

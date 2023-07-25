@@ -1,4 +1,4 @@
-local M = { "TimUntersberger/neogit", cmd = "Neogit", requires = "nvim-lua/plenary.nvim" }
+local M = { "TimUntersberger/neogit", cmd = "Neogit", dependencies = "nvim-lua/plenary.nvim" }
 
 M.config = function()
   local status_ok, neogit = pcall(require, "neogit")

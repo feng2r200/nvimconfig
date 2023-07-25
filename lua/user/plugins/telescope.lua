@@ -1,11 +1,11 @@
 local M = {
   "nvim-telescope/telescope.nvim",
-  requires = {
-    { "nvim-telescope/telescope-fzf-native.nvim", after = "telescope.nvim", run = "make" },
-    { "nvim-telescope/telescope-file-browser.nvim", after = "telescope.nvim" },
-    { "benfowler/telescope-luasnip.nvim", after = "telescope.nvim" },
-    { "nvim-telescope/telescope-ui-select.nvim", after = "telescope.nvim" },
-    { "johmsalas/text-case.nvim", after = "telescope.nvim" },
+  dependencies = {
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    { "nvim-telescope/telescope-file-browser.nvim" },
+    { "benfowler/telescope-luasnip.nvim" },
+    { "nvim-telescope/telescope-ui-select.nvim" },
+    { "johmsalas/text-case.nvim" },
   },
 }
 
@@ -15,10 +15,10 @@ M.config = function()
     return
   end
 
-  vim.cmd [[packadd telescope-fzf-native.nvim]]
-  vim.cmd [[packadd telescope-ui-select.nvim]]
-  vim.cmd [[packadd telescope-luasnip.nvim]]
-  vim.cmd [[packadd LuaSnip]]
+  -- vim.cmd [[packadd telescope-fzf-native.nvim]]
+  -- vim.cmd [[packadd telescope-ui-select.nvim]]
+  -- vim.cmd [[packadd telescope-luasnip.nvim]]
+  -- vim.cmd [[packadd LuaSnip]]
 
   local actions = require "telescope.actions"
 

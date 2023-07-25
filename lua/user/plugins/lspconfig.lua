@@ -1,6 +1,6 @@
 local M = {
   "neovim/nvim-lspconfig",
-  requires = {
+  dependencies = {
     "onsails/lspkind-nvim",
   },
 }

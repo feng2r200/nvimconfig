@@ -1,6 +1,6 @@
 local M = {
   "ray-x/lsp_signature.nvim",
-  after = "nvim-lspconfig",
+  dependencies = "nvim-lspconfig",
 }
 
 return M

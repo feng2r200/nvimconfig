@@ -4,8 +4,8 @@
 
 local M = {}
 
-vim.cmd [[packadd nvim-jdtls]]
-vim.cmd [[packadd nvim-dap]]
+-- vim.cmd [[packadd nvim-jdtls]]
+-- vim.cmd [[packadd nvim-dap]]
 
 local fn = vim.fn
 

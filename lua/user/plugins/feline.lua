@@ -1,6 +1,6 @@
 local M = {
-  "feline-nvim/feline.nvim",
-  after = "nvim-web-devicons",
+  "freddiehaddad/feline.nvim",
+  dependencies = "nvim-web-devicons",
 }
 
 M.config = function()

@@ -1,13 +1,13 @@
 local M = {
   "nvim-treesitter/nvim-treesitter",
-  run = ":TSUpdate",
-  requires = {
+  build = ":TSUpdate",
+  dependencies = {
     "JoosepAlviste/nvim-ts-context-commentstring",
     "p00f/nvim-ts-rainbow",
     "windwp/nvim-ts-autotag",
     "nvim-treesitter/nvim-treesitter-textobjects",
     "kylechui/nvim-surround",
-    "andymass/vim-matchup",
+    -- "andymass/vim-matchup",
   },
 }
 
@@ -41,11 +41,11 @@ M.config = function()
       additional_vim_regex_highlighting = true,
       disable = {},
     },
-    matchup = {
-      enable = true,
-      disable_virtual_text = false,
-      disable = {},
-    },
+    -- matchup = {
+    --   enable = true,
+    --   disable_virtual_text = false,
+    --   disable = {},
+    -- },
     autopairs = { enable = true },
     indent = {
       enable = false,
@@ -136,7 +136,7 @@ M.config = function()
 
   require("nvim-surround").setup {}
 
-  vim.cmd [[let g:matchup_matchparen_offscreen = {'method': 'popup'}]]
+  -- vim.g.matchup_matchparen_offscreen = {method = "popup"}
 end
 
 return M

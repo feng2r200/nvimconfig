@@ -1,4 +1,4 @@
-local M = { "ahmedkhalf/project.nvim", after = "telescope.nvim" }
+local M = { "ahmedkhalf/project.nvim", dependencies = "telescope.nvim" }
 
 M.config = function()
   local status_ok, project = pcall(require, "project_nvim")
@@ -41,7 +41,7 @@ M.config = function()
     datapath = vim.fn.stdpath("data"),
   })
 
-  vim.cmd [[packadd telescope.nvim]]
+  -- vim.cmd [[packadd telescope.nvim]]
 
   local tele_status_ok, telescope = pcall(require, "telescope")
   if not tele_status_ok then
