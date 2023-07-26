@@ -2,12 +2,12 @@ local M = {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   dependencies = {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    "p00f/nvim-ts-rainbow",
-    "windwp/nvim-ts-autotag",
+    "nvim-treesitter/nvim-treesitter-refactor",
     "nvim-treesitter/nvim-treesitter-textobjects",
+    "theHamsta/nvim-treesitter-pairs",
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    "windwp/nvim-ts-autotag",
     "kylechui/nvim-surround",
-    -- "andymass/vim-matchup",
   },
 }
 
@@ -41,11 +41,24 @@ M.config = function()
       additional_vim_regex_highlighting = true,
       disable = {},
     },
-    -- matchup = {
-    --   enable = true,
-    --   disable_virtual_text = false,
-    --   disable = {},
-    -- },
+    pairs = {
+      enable = true,
+      disable = {},
+      highlight_pair_events = {}, -- e.g. {"CursorMoved"}, -- when to highlight the pairs, use {} to deactivate highlighting
+      highlight_self = false, -- whether to highlight also the part of the pair under cursor (or only the partner)
+      goto_right_end = false, -- whether to go to the end of the right partner or the beginning
+      fallback_cmd_normal = "call matchit#Match_wrapper('',1,'n')", -- What command to issue when we can't find a pair (e.g. "normal! %")
+      keymaps = {
+        goto_partner = "<leader>%",
+        delete_balanced = "X",
+      },
+      delete_balanced = {
+        only_on_first_char = false, -- whether to trigger balanced delete when on first character of a pair
+        fallback_cmd_normal = nil, -- fallback command when no pair found, can be nil
+        longest_partner = false, -- whether to delete the longest or the shortest pair when multiple found.
+        -- E.g. whether to delete the angle bracket or whole tag in  <pair> </pair>
+      },
+    },
     autopairs = { enable = true },
     indent = {
       enable = false,
@@ -59,11 +72,30 @@ M.config = function()
       enable = true,
       disable = {},
     },
-    rainbow = {
-      enable = true,
-      extended_mode = true,
-      max_file_lines = nil,
-      disable = {},
+    refactor = {
+      highlight_definitions = {
+        enable = true,
+        -- Set to false if you have an `updatetime` of ~100.
+        clear_on_cursor_move = true,
+      },
+      highlight_current_scope = { enable = true },
+      smart_rename = {
+        enable = true,
+        -- Assign keymaps to false to disable them, e.g. `smart_rename = false`.
+        keymaps = {
+          smart_rename = "grr",
+        },
+      },
+      navigation = {
+        enable = false,
+        keymaps = {
+          goto_definition = "gnd",
+          list_definitions = "gnD",
+          list_definitions_toc = "gO",
+          goto_next_usage = "<a-*>",
+          goto_previous_usage = "<a-#>",
+        },
+      },
     },
     textobjects = {
       select = {
