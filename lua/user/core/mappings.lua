@@ -11,9 +11,6 @@ map("x", "<C-k>", ":m'<-2<cr>gv-gv", default_options)
 
 map("n", "<BS>", ":nohlsearch<Bar>:echo<CR>", default_options)
 
--- move over a closing element in insert mode
-map("i", "<C-l>", function() return require("user.utils.functions").escapePair() end, default_options)
-
 map("n", "<C-h>", function() require("tmux").move_left() end, default_options)
 map("n", "<C-j>", function() require("tmux").move_bottom() end, default_options)
 map("n", "<C-k>", function() require("tmux").move_top() end, default_options)
