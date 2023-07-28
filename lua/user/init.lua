@@ -38,5 +38,5 @@ require("lazy").setup {
 
 require "user.core.globals"
 require "user.core.options"
-require "user.core.mappings"
-require "user.core.autocmd"
+require "user.core.keymaps"
+require "user.core.autocmds"
