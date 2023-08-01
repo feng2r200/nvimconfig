@@ -50,7 +50,7 @@ local options = {
   scrolloff = 6, -- is one of my fav
   sidescrolloff = 8,
   laststatus = 3,
-  lazyredraw = true,
+  lazyredraw = false,
   guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20",
   -- guicursor = "a:xxx",
   background = "dark",
@@ -99,6 +99,8 @@ vim.g.loaded_zip = true
 vim.g.loaded_zipPlugin = true
 vim.g.loaded_vimball = true
 vim.g.loaded_vimballPlugin = true
+
+vim.g.cursorhold_updatetime = 100
 
 vim.opt.shortmess:append "c"
 vim.opt.viewoptions:remove "curdir" -- disable saving current directory with views

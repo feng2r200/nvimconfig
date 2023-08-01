@@ -1,0 +1,27 @@
+local M = { "Saecki/crates.nvim", event = { "BufRead Cargo.toml" } }
+
+M.config = function()
+  -- vim.cmd [[packadd crates.nvim]]
+  local status_ok, crates = pcall(require, "crates")
+  if not status_ok then
+    return
+  end
+
+  crates.setup {
+    popup = {
+      style = "minimal",
+      border = "rounded",
+      show_version_date = true,
+      show_dependency_version = true,
+      max_height = 30,
+      min_width = 20,
+      padding = 1,
+    },
+    null_ls = {
+      enabled = true,
+      name = "crates.nvim",
+    },
+  }
+end
+
+return M

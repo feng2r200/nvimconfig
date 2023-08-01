@@ -4,15 +4,6 @@ local Icon = require "user.utils.icons"
 return {
   {
     "rcarriga/nvim-notify",
-    keys = {
-      {
-        "<leader>n",
-        function()
-          require("notify").dismiss { silent = true, pending = true }
-        end,
-        desc = "Delete all Notifications",
-      },
-    },
     opts = {
       icons = {
         ERROR = Icon.diagnostics.Error .. " ",
@@ -20,6 +11,7 @@ return {
         WARN = Icon.diagnostics.Warning .. " ",
       },
       timeout = 3000,
+      background_colour = "#000000",
       max_height = function()
         return math.floor(vim.o.lines * 0.75)
       end,
@@ -43,32 +35,32 @@ return {
       options = {
         mode = "buffers",
         numbers = "both",
-        diagnostics = false, --| "nvim_lsp" | "coc",
-        diagnostics_update_in_insert = false,
-        separator_style = "thin",
-        enforce_regular_tabs = false, --| true,
-        always_show_bufferline = true, -- | false,
-        sort_by = "directory", -- ,'id' | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
-        indicator = { style = "underline" },
         close_command = "Bdelete! %d",
-        max_name_length = 20,
-        max_prefix_length = 15,
-        tab_size = 23,
-        name_formatter = function(buf) -- buf contains a "name", "path" and "bufnr"
-          if buf.name:match "%.md" then
-            return vim.fn.fnamemodify(buf.name, ":t:r")
-          end
-        end,
+        indicator = { style = "underline" },
         offsets = {
           { filetype = "neo-tree", text = "EXPLORER", text_align = "center", separator = true },
           { filetype = "NvimTree", text = "EXPLORER", text_align = "center", separator = true },
           { filetype = "Outline", text = "OUTLINE", text_align = "center", separator = true },
         },
+        name_formatter = function(buf) -- buf contains a "name", "path" and "bufnr"
+          if buf.name:match "%.md" then
+            return vim.fn.fnamemodify(buf.name, ":t:r")
+          end
+        end,
+        max_name_length = 20,
+        max_prefix_length = 15,
+        tab_size = 23,
+        diagnostics = false, --| "nvim_lsp" | "coc",
+        diagnostics_update_in_insert = false,
         show_buffer_icons = true, --| false, -- disable filetype icons for buffers
         show_buffer_close_icons = true, --| false,
         show_close_icon = true, --| false,
         show_tab_indicators = true, -- | false,
         persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+        separator_style = "thin",
+        enforce_regular_tabs = false, --| true,
+        always_show_bufferline = true, -- | false,
+        sort_by = "directory", -- ,'id' | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
         hover = {
           enabled = true,
           delay = 0,
@@ -210,7 +202,7 @@ return {
     "akinsho/toggleterm.nvim",
     event = { "BufReadPost", "BufNewFile" },
     opts = {
-      open_mapping = [[<C-t>]],
+      open_mapping = [[<c-t>]],
       hide_numbers = true,
       shade_filetypes = {},
       shade_terminals = false,
@@ -232,7 +224,7 @@ return {
         NormalFloat = { link = "ToggleTerm" },
       },
       winbar = {
-        enabled = true,
+        enabled = false,
         name_formatter = function(term)
           return term.name
         end,
@@ -245,24 +237,6 @@ return {
   {
     "nvim-tree/nvim-web-devicons",
     lazy = true,
-  },
-
-  {
-    "anuvyklack/windows.nvim",
-    event = "WinNew",
-    dependencies = {
-      { "anuvyklack/middleclass" },
-      { "anuvyklack/animation.nvim", enabled = true },
-    },
-    opts = {
-      animation = { enable = true, duration = 150, fps = 60 },
-      autowidth = { enable = true },
-    },
-    init = function()
-      vim.o.winwidth = 30
-      vim.o.winminwidth = 30
-      vim.o.equalalways = true
-    end,
   },
 
   {
@@ -348,4 +322,382 @@ return {
       },
     },
   },
+
+  {
+    "aserowy/tmux.nvim",
+    opts = {
+      copy_sync = {
+        enable = false,
+      },
+      navigation = {
+        -- enables default keybindings (C-hjkl) for normal mode
+        enable_default_keybindings = true,
+        -- prevents unzoom tmux when navigating beyond vim border
+        persist_zoom = false,
+      },
+      resize = {
+        -- enables default keybindings (A-hjkl) for normal mode
+        enable_default_keybindings = true,
+        -- sets resize steps for x axis
+        resize_step_x = 2,
+        -- sets resize steps for y axis
+        resize_step_y = 2,
+      },
+    },
+  },
+
+  {
+    "kevinhwang91/nvim-bqf",
+    ft = "qf",
+    dependencies = {
+      "junegunn/fzf",
+    },
+    opts = {
+      auto_enable = true,
+      auto_resize_height = true, -- highly recommended enable
+      preview = {
+        win_height = 12,
+        win_vheight = 12,
+        delay_syntax = 80,
+        border_chars = { "┃", "┃", "━", "━", "┏", "┓", "┗", "┛", "█" },
+        should_preview_cb = function(bufnr, _)
+          local ret = true
+          local bufname = vim.api.nvim_buf_get_name(bufnr)
+          local fsize = vim.fn.getfsize(bufname)
+          if fsize > 100 * 1024 then
+            -- skip file size greater than 100k
+            ret = false
+          elseif bufname:match "^fugitive://" then
+            -- skip fugitive buffer
+            ret = false
+          end
+          return ret
+        end,
+      },
+      -- make `drop` and `tab drop` to become preferred
+      func_map = {
+        drop = "o",
+        openc = "O",
+        split = "<C-s>",
+        tabdrop = "<C-t>",
+        tabc = "",
+        ptogglemode = "z,",
+      },
+      filter = {
+        fzf = {
+          action_for = { ["ctrl-s"] = "split", ["ctrl-t"] = "tab drop" },
+          extra_opts = { "--bind", "ctrl-o:toggle-all", "--prompt", "> " },
+        },
+      },
+    },
+    config = function(_, opts)
+      vim.cmd [[
+      hi BqfPreviewBorder guifg=#F2CDCD ctermfg=71
+      hi link BqfPreviewRange Search
+      ]]
+    end,
+  },
+
+  {
+    "sindrets/diffview.nvim",
+    opts = {
+      diff_binaries = false, -- Show diffs for binaries
+      enhanced_diff_hl = false, -- See ':h diffview-config-enhanced_diff_hl'
+      use_icons = true, -- Requires nvim-web-devicons
+      icons = { -- Only applies when use_icons is true.
+        folder_closed = "",
+        folder_open = "",
+      },
+      signs = {
+        fold_closed = "",
+        fold_open = "",
+      },
+      view = {
+        -- Configure the layout and behavior of different types of views.
+        -- Available layouts:
+        --  'diff1_plain'
+        --    |'diff2_horizontal'
+        --    |'diff2_vertical'
+        --    |'diff3_horizontal'
+        --    |'diff3_vertical'
+        --    |'diff3_mixed'
+        --    |'diff4_mixed'
+        -- For more info, see ':h diffview-config-view.x.layout'.
+        default = {
+          -- Config for changed files, and staged files in diff views.
+          layout = "diff2_horizontal",
+        },
+        merge_tool = {
+          -- Config for conflicted files in diff views during a merge or rebase.
+          layout = "diff3_horizontal",
+          disable_diagnostics = true, -- Temporarily disable diagnostics for conflict buffers while in the view.
+        },
+        file_history = {
+          -- Config for changed files in file history views.
+          layout = "diff2_horizontal",
+        },
+      },
+      file_panel = {
+        win_config = {
+          position = "left", -- One of 'left', 'right', 'top', 'bottom'
+          width = 35, -- Only applies when position is 'left' or 'right'
+          height = 10, -- Only applies when position is 'top' or 'bottom'
+        },
+        listing_style = "tree", -- One of 'list' or 'tree'
+        tree_options = { -- Only applies when listing_style is 'tree'
+          flatten_dirs = true, -- Flatten dirs that only contain one single dir
+          folder_statuses = "only_folded", -- One of 'never', 'only_folded' or 'always'.
+        },
+      },
+      file_history_panel = {
+        win_config = {
+          position = "bottom",
+          height = 16,
+          win_opts = {},
+        },
+        log_options = {
+          git = {
+            single_file = {
+              diff_merges = "combined",
+              max_count = 512,
+              follow = true,
+              all = false, -- Include all refs under 'refs/' including HEAD
+              merges = false, -- List only merge commits
+              no_merges = false, -- List no merge commits
+              reverse = false, -- List commits in reverse order
+            },
+            multi_file = {
+              diff_merges = "first-parent",
+              max_count = 128,
+              all = false, -- Include all refs under 'refs/' including HEAD
+              merges = false, -- List only merge commits
+              no_merges = false, -- List no merge commits
+              reverse = false, -- List commits in reverse order
+            },
+          },
+        },
+      },
+      default_args = { -- Default args prepended to the arg-list for the listed commands
+        DiffviewOpen = {},
+        DiffviewFileHistory = {},
+      },
+      hooks = {}, -- See ':h diffview-config-hooks'
+    },
+    config = function(_, opts)
+      local cb = require("diffview.config").diffview_callback
+
+      opts.key_bindings = {
+        disable_defaults = false, -- Disable the default key bindings
+        -- The `view` bindings are active in the diff buffers, only when the current
+        -- tabpage is a Diffview.
+        view = {
+          ["<tab>"] = cb "select_next_entry", -- Open the diff for the next file
+          ["<s-tab>"] = cb "select_prev_entry", -- Open the diff for the previous file
+          ["gf"] = cb "goto_file", -- Open the file in a new split in previous tabpage
+          ["<C-w><C-f>"] = cb "goto_file_split", -- Open the file in a new split
+          ["<C-w>gf"] = cb "goto_file_tab", -- Open the file in a new tabpage
+          ["<leader>e"] = cb "focus_files", -- Bring focus to the files panel
+          ["<leader>b"] = cb "toggle_files", -- Toggle the files panel.
+        },
+        file_panel = {
+          ["j"] = cb "next_entry", -- Bring the cursor to the next file entry
+          ["<down>"] = cb "next_entry",
+          ["k"] = cb "prev_entry", -- Bring the cursor to the previous file entry.
+          ["<up>"] = cb "prev_entry",
+          ["<cr>"] = cb "select_entry", -- Open the diff for the selected entry.
+          ["o"] = cb "select_entry",
+          ["<Space>"] = cb "toggle_stage_entry", -- Stage / unstage the selected entry.
+          ["S"] = cb "stage_all", -- Stage all entries.
+          ["U"] = cb "unstage_all", -- Unstage all entries.
+          ["r"] = cb "restore_entry", -- Restore entry to the state on the left side.
+          ["R"] = cb "refresh_files", -- Update stats and entries in the file list.
+          ["<tab>"] = cb "select_next_entry",
+          ["<s-tab>"] = cb "select_prev_entry",
+          ["gf"] = cb "goto_file",
+          ["<C-w><C-f>"] = cb "goto_file_split",
+          ["<C-w>gf"] = cb "goto_file_tab",
+          ["i"] = cb "listing_style", -- Toggle between 'list' and 'tree' views
+          ["f"] = cb "toggle_flatten_dirs", -- Flatten empty subdirectories in tree listing style.
+          ["<leader>e"] = cb "focus_files",
+          ["<leader>b"] = cb "toggle_files",
+        },
+        file_history_panel = {
+          ["g!"] = cb "options", -- Open the option panel
+          ["<C-A-d>"] = cb "open_in_diffview", -- Open the entry under the cursor in a diffview
+          ["y"] = cb "copy_hash", -- Copy the commit hash of the entry under the cursor
+          ["zR"] = cb "open_all_folds",
+          ["zM"] = cb "close_all_folds",
+          ["j"] = cb "next_entry",
+          ["<down>"] = cb "next_entry",
+          ["k"] = cb "prev_entry",
+          ["<up>"] = cb "prev_entry",
+          ["<cr>"] = cb "select_entry",
+          ["o"] = cb "select_entry",
+          ["<tab>"] = cb "select_next_entry",
+          ["<s-tab>"] = cb "select_prev_entry",
+          ["gf"] = cb "goto_file",
+          ["<C-w><C-f>"] = cb "goto_file_split",
+          ["<C-w>gf"] = cb "goto_file_tab",
+          ["<leader>e"] = cb "focus_files",
+          ["<leader>b"] = cb "toggle_files",
+        },
+        option_panel = {
+          ["<tab>"] = cb "select",
+          ["q"] = cb "close",
+        },
+      }
+    end,
+  },
+
+  "onsails/lspkind-nvim",
+
+  {
+    "folke/trouble.nvim",
+    event = { "BufRead" },
+    opts = {
+      position = "bottom",
+      height = 10,
+      width = 50,
+      icons = true,
+      mode = "document_diagnostics", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
+      fold_open = "",
+      fold_closed = "",
+      action_keys = {
+        -- key mappings for actions in the trouble list
+        -- map to {} to remove a mapping, for example:
+        -- close = {},
+        close = "q",
+        cancel = "<esc>",
+        refresh = "r",
+        jump = { "<cr>", "<tab>" },
+        open_split = { "<c-x>" },
+        open_vsplit = { "<c-v>" },
+        open_tab = { "<c-t>" },
+        jump_close = { "o" },
+        toggle_mode = "m",
+        toggle_preview = "P",
+        hover = "K",
+        preview = "p",
+        close_folds = { "zM", "zm" },
+        open_folds = { "zR", "zr" },
+        toggle_fold = { "zA", "za" },
+        previous = "k",
+        next = "j",
+      },
+      indent_lines = true,
+      auto_open = false,
+      auto_close = false,
+      auto_preview = true,
+      auto_fold = false,
+      signs = {
+        error = Icon.diagnostics.Error,
+        warning = Icon.diagnostics.Warning,
+        hint = Icon.diagnostics.Hint,
+        information = Icon.diagnostics.Information,
+        other = Icon.diagnostics.Question,
+      },
+      use_lsp_diagnostic_signs = false,
+    },
+  },
+
+  { "mbbill/undotree", event = "BufReadPost", cmd = "UndotreeToggle" },
+
+  {
+    "simrat39/symbols-outline.nvim",
+    event = { "BufReadPost" },
+    opts = {
+      highlight_hovered_item = true,
+      show_guides = true,
+      auto_preview = false,
+      position = "right",
+      relative_width = true,
+      width = 25,
+      auto_close = false,
+      show_numbers = false,
+      show_relative_numbers = false,
+      show_symbol_details = true,
+      preview_bg_highlight = "Pmenu",
+      keymaps = { -- These keymaps can be a string or a table for multiple keys
+        close = { "<Esc>", "q" },
+        goto_location = "<Cr>",
+        focus_location = "o",
+        hover_symbol = "gh",
+        toggle_preview = "K",
+        rename_symbol = "r",
+        code_actions = "a",
+      },
+      lsp_blacklist = {},
+      symbol_blacklist = {},
+      symbols = {
+        File = { icon = Icon.kinds.File, hl = "TSURI" },
+        Module = { icon = Icon.kinds.Module, hl = "TSNamespace" },
+        Namespace = { icon = Icon.kinds.Folder, hl = "TSNamespace" },
+        Package = { icon = Icon.kinds.Package, hl = "TSNamespace" },
+        Class = { icon = Icon.kinds.Class, hl = "TSType" },
+        Method = { icon = Icon.kinds.Method, hl = "TSMethod" },
+        Property = { icon = Icon.kinds.Property, hl = "TSMethod" },
+        Field = { icon = Icon.kinds.Field, hl = "TSField" },
+        Constructor = { icon = Icon.kinds.Constructor, hl = "TSConstructor" },
+        Enum = { icon = Icon.kinds.Enum, hl = "TSType" },
+        Interface = { icon = Icon.kinds.Interface, hl = "TSType" },
+        Function = { icon = Icon.kinds.Function, hl = "TSFunction" },
+        Variable = { icon = Icon.kinds.Variable, hl = "TSConstant" },
+        Constant = { icon = Icon.kinds.Constant, hl = "TSConstant" },
+        String = { icon = Icon.kinds.String, hl = "TSString" },
+        Number = { icon = Icon.kinds.Number, hl = "TSNumber" },
+        Boolean = { icon = Icon.kinds.Boolean, hl = "TSBoolean" },
+        Array = { icon = Icon.kinds.Array, hl = "TSConstant" },
+        Object = { icon = Icon.kinds.Object, hl = "TSType" },
+        Key = { icon = Icon.kinds.Key, hl = "TSType" },
+        Null = { icon = Icon.kinds.Null, hl = "TSType" },
+        EnumMember = { icon = Icon.kinds.EnumMember, hl = "TSField" },
+        Struct = { icon = Icon.kinds.Struct, hl = "TSType" },
+        Event = { icon = Icon.kinds.Event, hl = "TSType" },
+        Operator = { icon = Icon.kinds.Operator, hl = "TSOperator" },
+        TypeParameter = { icon = Icon.kinds.TypeParameter, hl = "TSParameter" },
+      },
+    },
+  },
+
+  { "tpope/vim-fugitive", event = { "BufReadPost", "BufNewFile" } },
+
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    cmd = "Neotree",
+    dependencies = "mrbjarksen/neo-tree-diagnostics.nvim",
+    keys = {
+      {
+        "<leader>ve",
+        function()
+          require("neo-tree.command").execute({ toggle = true, position = "left", dir = require("user.util").get_root() })
+        end,
+        desc = "Explorer (root dir)",
+        remap = true,
+      },
+      {
+        "<leader>vE",
+        function()
+          require("neo-tree.command").execute({
+            toggle = true,
+            position = "float",
+            dir = Util.get_root(),
+          })
+        end,
+        desc = "Explorer Float (root dir)",
+      },
+    },
+    opts = require("user.config.neo_tree"),
+    init = function()
+      vim.g.neo_tree_remove_legacy_commands = 1
+      if vim.fn.argc() == 1 then
+        local stat = vim.loop.fs_stat(vim.fn.argv(0))
+        if stat and stat.type == "directory" then
+          require("neo-tree")
+          vim.cmd([[set showtabline=0]])
+        end
+      end
+    end,
+
+  },
+
 }

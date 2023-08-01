@@ -109,6 +109,20 @@ local default_icons = {
     conflict = "",
     deleted = "",
   },
+  neo_tree = {
+      filesystem = "󰉓",
+      buffers = "󰈙",
+      git_status = "",
+      diagnostics = "󰒡",
+
+      folder_closed = "",
+      folder_open = "",
+      folder_empty = "",
+      folder_empty_open = "",
+      default = " ",
+
+      symbol = "",
+  },
   ui = {
     ArrowClosed = "",
     ArrowOpen = "",

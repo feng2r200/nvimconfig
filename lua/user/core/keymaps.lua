@@ -158,7 +158,6 @@ wk.register({
   v = {
     name = "View",
     b = { function() require("telescope").extensions.file_browser.file_browser() end, "File browser" },
-    e = { "<cmd>NvimTreeToggle<cr>", "Tree Explorer" },
     o = { "<cmd>SymbolsOutline<cr>", "Symbols outline" },
     u = { "<cmd>UndotreeToggle<cr>", "UndoTree toggle" },
   },
