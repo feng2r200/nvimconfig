@@ -8,6 +8,7 @@ local M = {
     "JoosepAlviste/nvim-ts-context-commentstring",
     "windwp/nvim-ts-autotag",
     "kylechui/nvim-surround",
+    "andymass/vim-matchup",
   },
 }
 
@@ -58,6 +59,10 @@ M.config = function()
         longest_partner = false, -- whether to delete the longest or the shortest pair when multiple found.
         -- E.g. whether to delete the angle bracket or whole tag in  <pair> </pair>
       },
+    },
+    matchup = {
+      enable = true,
+      disable = {},
     },
     autopairs = { enable = true },
     indent = {
