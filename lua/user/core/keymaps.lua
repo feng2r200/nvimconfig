@@ -28,8 +28,8 @@ map("n", "R", function() vim.lsp.buf.rename() end, default_options)
 
 map("n", "<F4>", function() require("dap").terminate() end, default_options)
 map("n", "<F5>", function() require("dap").continue() end, default_options)
-map("n", "<F10>", function() require("dap").step_over() end, default_options)
-map("n", "<F11>", function() require("dap").step_into() end, default_options)
+map("n", "<F8>", function() require("dap").step_over() end, default_options)
+map("n", "<F7>", function() require("dap").step_into() end, default_options)
 map("n", "<F9>", function() require("dap").step_out() end, default_options)
 
 -- enhance f motion
