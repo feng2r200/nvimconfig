@@ -1,4 +1,4 @@
-local Util = require "user.utils.utils"
+local Util = require "user.util"
 local Icon = require "user.utils.icons"
 
 return {
@@ -95,7 +95,6 @@ return {
       show_end_of_line = false,
       space_char_blankline = " ",
       show_current_context = true,
-      show_trailing_blankline_indent = false,
       show_current_context_start = true,
       use_treesitter = true,
       filetype_exclude = {
@@ -117,28 +116,6 @@ return {
         "lsp-installer",
         "lspinfo",
       },
-      context_patterns = {
-        "class",
-        "return",
-        "function",
-        "method",
-        "^if",
-        "^while",
-        "jsx_element",
-        "^for",
-        "^object",
-        "^table",
-        "block",
-        "arguments",
-        "if_statement",
-        "else_clause",
-        "jsx_element",
-        "jsx_self_closing_element",
-        "try_statement",
-        "catch_clause",
-        "import_statement",
-        "operation_type",
-      },
     },
     config = function()
       -- because lazy load indent-blankline so need readd this autocmd
@@ -150,8 +127,6 @@ return {
     "echasnovski/mini.indentscope",
     lazy = true,
     enabled = true,
-    version = false,
-    -- event = "BufReadPre",
     opts = {
       symbol = "▏",
       options = { try_as_border = false },
@@ -263,10 +238,8 @@ return {
     },
   },
 
-  -- better vim.ui
   {
     "stevearc/dressing.nvim",
-    lazy = false,
     opts = {
       input = {
         win_options = { winblend = 0 },
@@ -287,7 +260,6 @@ return {
     end,
   },
 
-  -- noicer ui
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -321,81 +293,6 @@ return {
         },
       },
     },
-  },
-
-  {
-    "aserowy/tmux.nvim",
-    opts = {
-      copy_sync = {
-        enable = false,
-      },
-      navigation = {
-        -- enables default keybindings (C-hjkl) for normal mode
-        enable_default_keybindings = true,
-        -- prevents unzoom tmux when navigating beyond vim border
-        persist_zoom = false,
-      },
-      resize = {
-        -- enables default keybindings (A-hjkl) for normal mode
-        enable_default_keybindings = true,
-        -- sets resize steps for x axis
-        resize_step_x = 2,
-        -- sets resize steps for y axis
-        resize_step_y = 2,
-      },
-    },
-  },
-
-  {
-    "kevinhwang91/nvim-bqf",
-    ft = "qf",
-    dependencies = {
-      "junegunn/fzf",
-    },
-    opts = {
-      auto_enable = true,
-      auto_resize_height = true, -- highly recommended enable
-      preview = {
-        win_height = 12,
-        win_vheight = 12,
-        delay_syntax = 80,
-        border_chars = { "┃", "┃", "━", "━", "┏", "┓", "┗", "┛", "█" },
-        should_preview_cb = function(bufnr, _)
-          local ret = true
-          local bufname = vim.api.nvim_buf_get_name(bufnr)
-          local fsize = vim.fn.getfsize(bufname)
-          if fsize > 100 * 1024 then
-            -- skip file size greater than 100k
-            ret = false
-          elseif bufname:match "^fugitive://" then
-            -- skip fugitive buffer
-            ret = false
-          end
-          return ret
-        end,
-      },
-      -- make `drop` and `tab drop` to become preferred
-      func_map = {
-        drop = "o",
-        openc = "O",
-        split = "<C-s>",
-        tabdrop = "<C-t>",
-        tabc = "",
-        ptogglemode = "z,",
-      },
-      filter = {
-        fzf = {
-          action_for = { ["ctrl-s"] = "split", ["ctrl-t"] = "tab drop" },
-          extra_opts = { "--bind", "ctrl-o:toggle-all", "--prompt", "> " },
-        },
-      },
-    },
-    config = function(_, opts)
-      vim.cmd [[
-      hi BqfPreviewBorder guifg=#F2CDCD ctermfg=71
-      hi link BqfPreviewRange Search
-      ]]
-    end,
   },
 
   {
@@ -549,59 +446,6 @@ return {
     end,
   },
 
-  "onsails/lspkind-nvim",
-
-  {
-    "folke/trouble.nvim",
-    event = { "BufRead" },
-    opts = {
-      position = "bottom",
-      height = 10,
-      width = 50,
-      icons = true,
-      mode = "document_diagnostics", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
-      fold_open = "",
-      fold_closed = "",
-      action_keys = {
-        -- key mappings for actions in the trouble list
-        -- map to {} to remove a mapping, for example:
-        -- close = {},
-        close = "q",
-        cancel = "<esc>",
-        refresh = "r",
-        jump = { "<cr>", "<tab>" },
-        open_split = { "<c-x>" },
-        open_vsplit = { "<c-v>" },
-        open_tab = { "<c-t>" },
-        jump_close = { "o" },
-        toggle_mode = "m",
-        toggle_preview = "P",
-        hover = "K",
-        preview = "p",
-        close_folds = { "zM", "zm" },
-        open_folds = { "zR", "zr" },
-        toggle_fold = { "zA", "za" },
-        previous = "k",
-        next = "j",
-      },
-      indent_lines = true,
-      auto_open = false,
-      auto_close = false,
-      auto_preview = true,
-      auto_fold = false,
-      signs = {
-        error = Icon.diagnostics.Error,
-        warning = Icon.diagnostics.Warning,
-        hint = Icon.diagnostics.Hint,
-        information = Icon.diagnostics.Information,
-        other = Icon.diagnostics.Question,
-      },
-      use_lsp_diagnostic_signs = false,
-    },
-  },
-
-  { "mbbill/undotree", event = "BufReadPost", cmd = "UndotreeToggle" },
-
   {
     "simrat39/symbols-outline.nvim",
     event = { "BufReadPost" },
@@ -659,45 +503,56 @@ return {
     },
   },
 
-  { "tpope/vim-fugitive", event = { "BufReadPost", "BufNewFile" } },
-
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    cmd = "Neotree",
-    dependencies = "mrbjarksen/neo-tree-diagnostics.nvim",
-    keys = {
-      {
-        "<leader>ve",
-        function()
-          require("neo-tree.command").execute({ toggle = true, position = "left", dir = require("user.util").get_root() })
-        end,
-        desc = "Explorer (root dir)",
-        remap = true,
+    "folke/trouble.nvim",
+    event = { "BufRead" },
+    opts = {
+      position = "bottom",
+      height = 10,
+      width = 50,
+      icons = true,
+      mode = "document_diagnostics", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
+      fold_open = "",
+      fold_closed = "",
+      action_keys = {
+        -- key mappings for actions in the trouble list
+        -- map to {} to remove a mapping, for example:
+        -- close = {},
+        close = "q",
+        cancel = "<esc>",
+        refresh = "r",
+        jump = { "<cr>", "<tab>" },
+        open_split = { "<c-x>" },
+        open_vsplit = { "<c-v>" },
+        open_tab = { "<c-t>" },
+        jump_close = { "o" },
+        toggle_mode = "m",
+        toggle_preview = "P",
+        hover = "K",
+        preview = "p",
+        close_folds = { "zM", "zm" },
+        open_folds = { "zR", "zr" },
+        toggle_fold = { "zA", "za" },
+        previous = "k",
+        next = "j",
       },
-      {
-        "<leader>vE",
-        function()
-          require("neo-tree.command").execute({
-            toggle = true,
-            position = "float",
-            dir = Util.get_root(),
-          })
-        end,
-        desc = "Explorer Float (root dir)",
+      indent_lines = true,
+      auto_open = false,
+      auto_close = false,
+      auto_preview = true,
+      auto_fold = false,
+      signs = {
+        error = Icon.diagnostics.Error,
+        warning = Icon.diagnostics.Warning,
+        hint = Icon.diagnostics.Hint,
+        information = Icon.diagnostics.Information,
+        other = Icon.diagnostics.Question,
       },
+      use_lsp_diagnostic_signs = false,
     },
-    opts = require("user.config.neo_tree"),
-    init = function()
-      vim.g.neo_tree_remove_legacy_commands = 1
-      if vim.fn.argc() == 1 then
-        local stat = vim.loop.fs_stat(vim.fn.argv(0))
-        if stat and stat.type == "directory" then
-          require("neo-tree")
-          vim.cmd([[set showtabline=0]])
-        end
-      end
-    end,
-
   },
 
+  "gaborvecsei/memento.nvim",
+
+  { "mbbill/undotree", event = "BufReadPost", cmd = "UndotreeToggle" },
 }

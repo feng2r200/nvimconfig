@@ -1,4 +1,4 @@
-require("user.utils.utils").on_attach(function(client, buffer)
+require("user.util").on_attach(function(client, buffer)
   require("user.config.lsp.navic").attach(client, buffer)
   require("user.config.lsp.inlayhints").attach(client, buffer)
   require("user.config.lsp.highlight").attach(client, buffer)

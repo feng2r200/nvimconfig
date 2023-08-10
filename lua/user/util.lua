@@ -79,7 +79,6 @@ end
 M.telescope_theme = function(type)
   if type == nil then
     return {
-      borderchars = M.generate_borderchars("thick"),
       layout_config = {
         width = 80,
         height = 0.5,
@@ -88,7 +87,6 @@ M.telescope_theme = function(type)
   end
   return require("telescope.themes")["get_" .. type]({
     cwd = M.get_root(),
-    borderchars = M.generate_borderchars("thick", nil, { top = "█", top_left = "█", top_right = "█" }),
   })
 end
 

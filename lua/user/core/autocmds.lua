@@ -1,5 +1,5 @@
 local autocmd = vim.api.nvim_create_autocmd
-local Util = require "user.utils.utils"
+local Util = require "user.util"
 
 -- Highlight on yank
 autocmd({ "TextYankPost" }, {

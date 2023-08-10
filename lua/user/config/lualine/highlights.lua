@@ -1,5 +1,5 @@
 local M = {}
-local util = require("user.utils.utils")
+local util = require("user.util")
 
 local function draw(groups)
   if groups == nil then
