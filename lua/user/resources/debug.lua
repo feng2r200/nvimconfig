@@ -141,10 +141,10 @@ M.config = function()
   dap.defaults.fallback.force_external_terminal = true
 
   for _, dap_opt in ipairs {
-    "user.resources.dap.python",
-    "user.resources.dap.go",
-    "user.resources.dap.cpp",
-    "user.resources.dap.java",
+    "user.resources.config.dap.python",
+    "user.resources.config.dap.go",
+    "user.resources.config.dap.cpp",
+    "user.resources.config.dap.java",
   } do
     local opt_status_ok, fault = pcall(require, dap_opt)
     if not opt_status_ok then
