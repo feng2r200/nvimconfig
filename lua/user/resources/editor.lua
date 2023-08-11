@@ -37,7 +37,7 @@ return {
         desc = "Explorer Float (root dir)",
       },
     },
-    opts = require "user.config.neo_tree",
+    opts = require "user.resources.config.neo_tree",
     init = function()
       vim.g.neo_tree_remove_legacy_commands = 1
       if vim.fn.argc() == 1 then

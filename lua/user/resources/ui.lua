@@ -80,7 +80,7 @@ return {
       colorful = true,
     },
     config = function(_, opts)
-      local lualine_config = require "user.config.lualine"
+      local lualine_config = require "user.resources.config.lualine"
       lualine_config.setup(opts)
       lualine_config.load()
     end,

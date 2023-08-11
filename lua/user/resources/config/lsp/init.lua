@@ -1,8 +1,8 @@
 require("user.util").on_attach(function(client, buffer)
-  require("user.config.lsp.navic").attach(client, buffer)
-  require("user.config.lsp.inlayhints").attach(client, buffer)
-  require("user.config.lsp.highlight").attach(client, buffer)
-  require("user.config.lsp.signature").attach(client, buffer)
+  require("user.resources.config.lsp.navic").attach(client, buffer)
+  require("user.resources.config.lsp.inlayhints").attach(client, buffer)
+  require("user.resources.config.lsp.highlight").attach(client, buffer)
+  require("user.resources.config.lsp.signature").attach(client, buffer)
 
   client.server_capabilities.document_formatting = false
 end)
@@ -15,9 +15,9 @@ for name, icon in pairs(require("user.utils.icons").diagnostics) do
   name = "DiagnosticSign" .. firstUpper(name)
   vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
 end
-vim.diagnostic.config(require("user.config.lsp.diagnostics")["on"])
+vim.diagnostic.config(require("user.resources.config.lsp.diagnostics")["on"])
 
-local servers = require "user.config.lsp.servers"
+local servers = require "user.resources.config.lsp.servers"
 local ext_capabilites = vim.lsp.protocol.make_client_capabilities()
 ext_capabilites.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
 ext_capabilites.textDocument.completion.completionItem.snippetSupport = true

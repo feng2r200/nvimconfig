@@ -79,7 +79,7 @@ local config = {
   async_directory_scan = "always",
 }
 
-config.filesystem.components = require("user.config.neo_tree.sources.filesystem.components")
+config.filesystem.components = require("user.resources.config.neo_tree.sources.filesystem.components")
 local function hideCursor()
   vim.cmd([[
     setlocal guicursor=n:block-Cursor
