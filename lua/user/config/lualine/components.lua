@@ -91,9 +91,9 @@ M.diff = {
     removed = "SLDiffDelete",
   },
   symbols = {
-    added = icons.git.added .. " ",
-    modified = icons.git.modified .. " ",
-    removed = icons.git.removed .. " ",
+    added = icons.git.Add .. " ",
+    modified = icons.git.Mod .. " ",
+    removed = icons.git.Remove .. " ",
   }, -- changes diff symbols
   fmt = function(str)
     if str == "" then
@@ -138,7 +138,6 @@ M.filetype = {
     local filetype_str = ""
 
     if str == "toggleterm" then
-      -- 
       filetype_str = "ToggleTerm " .. vim.api.nvim_buf_get_var(0, "toggle_number")
     elseif str == "TelescopePrompt" then
       filetype_str = ""

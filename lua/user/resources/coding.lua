@@ -458,4 +458,12 @@ return {
     event = { "InsertEnter" },
     dependencies = "nvim-lspconfig",
   },
+
+  {
+    "glepnir/lspsaga.nvim",
+    lazy = true,
+    config = function()
+      require("lspsaga").setup({})
+    end,
+  },
 }
