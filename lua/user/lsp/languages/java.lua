@@ -28,7 +28,7 @@ local java_path = {
 }
 local executable = java_path["17"] .. "/bin/java" or "java"
 
-local vscode = require("user.utils.vscode")
+local vscode = require("user.lsp.vscode")
 local java_vscode_jar = {}
 local vscode_java_debug_path = vscode.find_one("/vscjava.vscode-java-debug-*/server")
 if vscode_java_debug_path then

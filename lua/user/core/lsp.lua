@@ -10,7 +10,7 @@ M.format_range_operator = function()
     vim.lsp.buf.format({
       bufnr = bfn,
       filter = function(c)
-        return require("user.utils.lsp").filter_format_lsp_client(c, bfn)
+        return require("user.core.lsp").filter_format_lsp_client(c, bfn)
       end,
       range = {
         start,

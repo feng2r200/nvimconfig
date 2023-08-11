@@ -1,4 +1,4 @@
-local Icon = require "user.utils.icons"
+local Icon = require "user.core.icons"
 
 return {
   {

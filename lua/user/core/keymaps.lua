@@ -23,7 +23,7 @@ map("n", "<M-l>", function() require("tmux").resize_right() end, default_options
 
 map("n", "<C-t>", "<cmd>ToggleTerm<cr>", default_options)
 
-map("n", "K", function() require("user.utils.lsp").code_hover() end, default_options)
+map("n", "K", function() require("user.core.lsp").code_hover() end, default_options)
 map("n", "R", function() vim.lsp.buf.rename() end, default_options)
 
 map("n", "<F4>", function() require("dap").terminate() end, default_options)
@@ -120,7 +120,7 @@ wk.register({
   l = {
     name = "LSP",
     a = { function() vim.lsp.buf.code_action() end, "LSP code action" },
-    f = { function() local bfn = vim.api.nvim_get_current_buf(); vim.lsp.buf.format { bufnr = bfn, filter = function(c) return require("user.utils.lsp").filter_format_lsp_client(c, bfn) end, } end, "Format code" },
+    f = { function() local bfn = vim.api.nvim_get_current_buf(); vim.lsp.buf.format { bufnr = bfn, filter = function(c) return require("user.core.lsp").filter_format_lsp_client(c, bfn) end, } end, "Format code" },
     i = { function() vim.lsp.buf.incoming_calls() end, "Incoming Calls" },
     o = { function() vim.lsp.buf.outgoing_calls() end, "Outgoing Calls" },
     r = { "<cmd>lua vim.lsp.codelens.refresh()<cr>", "Refresh Codelens" },
@@ -167,7 +167,7 @@ wk.register({
   l = {
     name = "LSP",
     a = { function() vim.lsp.buf.range_code_action() end, "LSP code action" },
-    f = { function() require("user.utils.lsp").format_range_operator() end, "Format code" },
+    f = { function() require("user.core.lsp").format_range_operator() end, "Format code" },
   },
   d = {
     k = { function() require("dapui").eval() end, "Show cursor eval" },

@@ -17,7 +17,7 @@ if status_ok_cmp_lsp then
   M.capabilities = cmp_lsp.default_capabilities(M.capabilities)
 end
 
-local icons = require("user.utils.icons")
+local icons = require("user.core.icons")
 
 M.setup = function()
   local signs = {

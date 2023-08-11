@@ -1,5 +1,5 @@
 local Util = require("user.util")
-local Icons = require("user.utils.icons")
+local Icons = require("user.core.icons")
 
 local config = {
   close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab

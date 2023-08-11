@@ -1,5 +1,5 @@
 local Util = require "user.util"
-local Icons = require "user.utils.icons"
+local Icons = require "user.core.icons"
 
 return {
   {

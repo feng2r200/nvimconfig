@@ -8,7 +8,7 @@ require("user.util").on_attach(function(client, buffer)
 end)
 
 -- diagnostics
-for name, icon in pairs(require("user.utils.icons").diagnostics) do
+for name, icon in pairs(require("user.core.icons").diagnostics) do
   local function firstUpper(s)
     return s:sub(1, 1):upper() .. s:sub(2)
   end

@@ -22,7 +22,7 @@ return {
       -- NOTE: all LSP and formatting related options are disabeld.
       -- NOTE: LSP is handled by lsp.lua and formatting is handled by null-ls.lua
       -- NOTE: via `lsp_on_attach` the custom callback used by all other LSPs is called
-      local icons = require "user.utils.icons"
+      local icons = require "user.core.icons"
 
       require("go").setup {
         go = "go", -- go command, can be go[default] or go1.18beta1
