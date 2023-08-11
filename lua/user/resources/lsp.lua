@@ -5,10 +5,11 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+      "lvimuser/lsp-inlayhints.nvim",
       "onsails/lspkind-nvim",
     },
     config = function()
-      require "user.lsp"
+      require("user.resources.config.lsp")
     end,
   },
 

@@ -11,7 +11,7 @@ return {
     "mfussenegger/nvim-jdtls",
     ft = "java",
     config = function()
-      require("user.lsp.languages.java").init()
+      require("user.resources.config.lsp.java").init()
     end,
   },
 
@@ -42,7 +42,7 @@ return {
         --   lsp_cfg = {settings={gopls={matcher='CaseInsensitive', ['local'] = 'your_local_module_path', gofumpt = true }}}
         lsp_gofumpt = false, -- true: set default gofmt in gopls format to gofumpt
         lsp_diag_underline = false,
-        lsp_on_attach = require("user.lsp.handlers").on_attach, -- nil: use on_attach function defined in go/lsp.lua,
+        -- lsp_on_attach = require("user.lsp.handlers").on_attach, -- nil: use on_attach function defined in go/lsp.lua,
         --      when lsp_cfg is true
         -- if lsp_on_attach is a function: use this function as on_attach function for gopls
         lsp_codelens = true, -- set to false to disable codelens, true by default
@@ -55,7 +55,7 @@ return {
         -- set to true: use gopls to format
         -- false if you want to use other formatter tool(e.g. efm, nulls)
         lsp_inlay_hints = {
-          enable = true,
+          enable = false,
           -- Only show inlay hints for the current line
           only_current_line = false,
           -- Event which triggers a refersh of the inlay hints.

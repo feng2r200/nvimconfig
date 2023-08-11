@@ -1,17 +1,104 @@
 local servers = {
   rust_analyzer = {
     disabled = true,
+    opts = function(capabilities)
+      local install_root_dir = vim.fn.stdpath "data" .. "/mason"
+      local extension_path = install_root_dir .. "packages/codelldb/extension"
+      local codelldb_path = extension_path .. "/adapter/codelldb"
+      local liblldb_path = extension_path .. "/lldb/lib/liblldb.dylib"
+
+      return {
+        tools = {
+          autoSetHints = true,
+          executor = require("rust-tools/executors").termopen,
+
+          on_initialized = function()
+            --[[ vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" }, { ]]
+            --[[   pattern = { "*.rs" }, ]]
+            --[[   callback = function() ]]
+            --[[     vim.lsp.codelens.refresh() ]]
+            --[[   end, ]]
+            --[[ }) ]]
+          end,
+
+          runnables = {
+            use_telescope = true,
+          },
+
+          debuggables = {
+            use_telescope = true,
+          },
+
+          inlay_hints = {
+            auto = false,
+            only_current_line = false,
+            only_current_line_autocmd = "CursorHold",
+            show_parameter_hints = true,
+            show_variable_name = true,
+            parameter_hints_prefix = "<- ",
+            other_hints_prefix = " => ",
+            max_len_align = false,
+            max_len_align_padding = 1,
+            right_align = false,
+            right_align_padding = 7,
+            highlight = "Comment",
+          },
+
+          hover_actions = {
+            auto_focus = true,
+            border = "rounded",
+            width = 60,
+          },
+        },
+
+        server = {
+          standalone = false,
+          -- on_attach = lsp_handlers.on_attach,
+          capabilities = capabilities,
+
+          settings = {
+            ["rust-analyzer"] = {
+              cargo = {
+                allFeatures = true,
+                autoReload = true,
+              },
+              lens = {
+                enable = true,
+              },
+            },
+          },
+        },
+
+        dap = {
+          adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
+        },
+      }
+    end,
   },
   clangd = {},
   cssls = {},
   html = {},
-  jsonls = {},
+  jsonls = {
+    init_options = {
+      provideFormatter = false,
+    },
+    settings = {
+      json = {
+        schemas = function()
+          return require("schemastore").json.schemas()
+        end,
+      },
+    },
+    setup = {
+      commands = {},
+    },
+  },
   sqlls = {},
   intelephense = {}, -- php language server
   jdtls = {
     disabled = true,
   },
-  lua_ls = {
+  sumneko_lua = {
     settings = {
       Lua = {
         format = {
@@ -98,11 +185,9 @@ local servers = {
     root_dir = function()
       return vim.fs.dirname(vim.fs.find({ ".git", ".env" }, { upward = true })[1])
     end,
-    capabilities = (function()
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
-      return capabilities
-    end)(),
+    before_init = function(_, config)
+      config.settings.python.pythonPath = require("user.util").get_python_path(config.root_dir)
+    end,
     settings = {
       python = {
         analysis = {
