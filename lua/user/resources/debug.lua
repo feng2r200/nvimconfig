@@ -23,6 +23,7 @@ M.config = function()
     virt_text_win_col = nil,
   }
 
+  local icons = require("user.core.icons")
   local dapui = require "dapui"
   dapui.setup {
     icons = { expanded = "▾", collapsed = "▸", current_frame = "▸" },
@@ -56,16 +57,6 @@ M.config = function()
     controls = {
       enabled = false,
       element = "repl",
-      icons = {
-        pause = "",
-        play = "",
-        step_into = "",
-        step_over = "",
-        step_out = "",
-        step_back = "",
-        run_last = "↻",
-        terminate = "□",
-      },
     },
     floating = {
       max_height = nil,
@@ -109,19 +100,19 @@ M.config = function()
 
   local dap_breakpoint = {
     error = {
-      text = "🛑",
+      text = icons.ui.BigUnfilledCircle,
       texthl = "LspDiagnosticsSignError",
       linehl = "",
       numhl = "",
     },
     rejected = {
-      text = "",
+      text = icons.ui.BufferClose,
       texthl = "LspDiagnosticsSignHint",
       linehl = "",
       numhl = "",
     },
     stopped = {
-      text = "⭐️",
+      text = icons.ui.Bug,
       texthl = "LspDiagnosticsSignInformation",
       linehl = "DiagnosticUnderlineInfo",
       numhl = "LspDiagnosticsSignInformation",
@@ -135,7 +126,7 @@ M.config = function()
   -- dap.set_log_level("DEBUG")
 
   dap.defaults.fallback.external_terminal = {
-    command = "/usr/local/bin/alacritty",
+    command = "/opt/homebrew/bin/alacritty",
     args = { "--hold", "--title", "DapExternal", "-e" },
   }
   dap.defaults.fallback.force_external_terminal = true
