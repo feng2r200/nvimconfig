@@ -317,11 +317,16 @@ return {
       animation = { enable = true, duration = 150, fps = 60 },
       autowidth = { enable = true },
     },
-    keys = { { "<leader>m", "<cmd>WindowsMaximize<CR>", desc = "Zoom window" } },
+    keys = {
+      { "<C-w>z", "<cmd>WindowsMaximize<CR>", desc = "Zoom window" },
+      { '<C-w>_', "<cmd>WindowsMaximizeVertically", desc = "Max vertically window" },
+      { '<C-w>|', "<cmd>WindowsMaximizeHorizontally", desc = "Max horizontally window" },
+      { '<C-w>=', "<cmd>WindowsEqualize", desc = "Equalize window" },
+    },
     init = function()
       vim.o.winwidth = 30
       vim.o.winminwidth = 30
-      vim.o.equalalways = true
+      vim.o.equalalways = false
     end,
   },
 
