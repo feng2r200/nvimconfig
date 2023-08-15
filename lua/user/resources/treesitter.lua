@@ -49,8 +49,8 @@ return {
         goto_right_end = false, -- whether to go to the end of the right partner or the beginning
         fallback_cmd_normal = "call matchit#Match_wrapper('',1,'n')", -- What command to issue when we can't find a pair (e.g. "normal! %")
         keymaps = {
-          goto_partner = "<leader>%",
-          delete_balanced = "X",
+          goto_partner = nil,
+          delete_balanced = nil,
         },
         delete_balanced = {
           only_on_first_char = false, -- whether to trigger balanced delete when on first character of a pair

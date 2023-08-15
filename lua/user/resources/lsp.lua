@@ -8,8 +8,36 @@ return {
       "lvimuser/lsp-inlayhints.nvim",
       "onsails/lspkind-nvim",
     },
+    keys = {
+      { "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Signature help", },
+      { "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Previous diagnostic", },
+      { "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "Next diagnostic", },
+      { "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", desc = "Hover diagnostics", },
+      { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "LSP code action", },
+      { "<leader>la", "<cmd>lua vim.lsp.buf.range_code_action()<cr>", mode = "v", desc = "LSP code action", },
+      {
+        "<leader>lf",
+        function()
+          local bfn = vim.api.nvim_get_current_buf()
+          vim.lsp.buf.format {
+            bufnr = bfn,
+            filter = function(c)
+              return require("user.core.lsp").filter_format_lsp_client(c, bfn)
+            end,
+          }
+        end,
+        desc = "Format code",
+      },
+      { "<leader>lf", "<cmd>lua require('user.core.lsp').format_range_operator()<cr>", mode = "v", desc = "Format code", },
+      { "<leader>li", "<cmd>lua vim.lsp.buf.incoming_calls()<cr>", desc = "Incoming Calls", },
+      { "<leader>lo", "<cmd>lua vim.lsp.buf.outgoing_calls()<cr>", desc = "Outgoing Calls", },
+      { "<leader>lr", "<cmd>lua vim.lsp.codelens.refresh()<cr>", desc = "Refresh Codelens" },
+      { "<leader>lR", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "Run Codelens" },
+      { "K", "<cmd>lua require('user.core.lsp').code_hover()<cr>", desc = "Code hover", },
+      { "R", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename", },
+    },
     config = function()
-      require("user.resources.config.lsp")
+      require "user.resources.config.lsp"
     end,
   },
 

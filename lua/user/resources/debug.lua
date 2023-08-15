@@ -1,5 +1,24 @@
 local M = {
   "mfussenegger/nvim-dap",
+  keys = {
+    { "<F4>", "<cmd> lua require('dap').terminate()<cr>" },
+    { "<F5>", "<cmd> lua require('dap').continue()<cr>" },
+    { "<F8>", "<cmd> lua require('dap').step_over()<cr>" },
+    { "<F7>", "<cmd> lua require('dap').step_into()<cr>" },
+    { "<F9>", "<cmd> lua require('dap').step_out()<cr>" },
+    { "<leader>db", "<cmd> lua require('dap').toggle_breakpoint()<cr>", desc = "Set breakpoint" },
+    {
+      "<leader>dB",
+      "<cmd> lua require('dap').set_breakpoint(vim.fn.input '[Condition] > ')<cr>",
+      desc = "Set condition breakpoint",
+    },
+    { "<leader>df", "<cmd> lua require('dapui').float_element()<cr>", desc = "Show Float Element" },
+    { "<leader>dk", "<cmd> lua require('dapui').eval()<cr>", desc = "Show cursor eval" },
+    { "<leader>dl", "<cmd> lua require('dap').list_breakpoints()<cr>", desc = "List Breakpoints" },
+    { "<leader>dt", "<cmd> lua require('dap').repl.toggle()<cr>", desc = "Toggle REPL" },
+    { "<leader>dr", "<cmd> lua require('dap').continue()<cr>", desc = "Debug run" },
+    { "<leader>dk", "<cmd> lua require('dapui').eval()<cr>", desc = "Show cursor eval", mode = "v" },
+  },
   dependencies = {
     "rcarriga/nvim-dap-ui",
     "theHamsta/nvim-dap-virtual-text",
@@ -23,7 +42,7 @@ M.config = function()
     virt_text_win_col = nil,
   }
 
-  local icons = require("user.core.icons")
+  local icons = require "user.core.icons"
   local dapui = require "dapui"
   dapui.setup {
     icons = { expanded = "▾", collapsed = "▸", current_frame = "▸" },

@@ -56,6 +56,75 @@ return {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       { "johmsalas/text-case.nvim" },
     },
+    keys = {
+      {
+        "<Space>b",
+        function()
+          require("telescope.builtin").buffers(require("telescope.themes").get_dropdown { previewer = false })
+        end,
+        desc = "Search Buffers",
+      },
+      { "<Space><tab>", "<cmd>e#<cr>", desc = "Prev buffer" },
+      {
+        "gd",
+        "<cmd> lua require('telescope.builtin').lsp_definitions()<cr>",
+        desc = "Show the definition of current symbol",
+      },
+      {
+        "gy",
+        "<cmd> lua require('telescope.builtin').lsp_type_definitions()<cr>",
+        desc = "Declaration of current symbol",
+      },
+      {
+        "gh",
+        "<cmd> lua require('telescope.builtin').lsp_references()<cr>",
+        desc = "Search references",
+      },
+      {
+        "gi",
+        "<cmd> lua require('telescope.builtin').lsp_implementations()<cr>",
+        desc = "Implementation of current symbol",
+      },
+      {
+        "<leader>fd",
+        "<cmd> lua require('telescope.builtin').diagnostics()<cr>",
+        desc = "Search diagnostics",
+      },
+      {
+        "<leader>ff",
+        function()
+          require("telescope.builtin").find_files(require("telescope.themes").get_ivy { hidden = true })
+        end,
+        desc = "Search files",
+      },
+      {
+        "<leader>fm",
+        "<cmd> lua require('telescope.builtin').marks()<cr>",
+        desc = "Search marks",
+      },
+      {
+        "<leader>fr",
+        "<cmd> lua require('telescope.builtin').registers()<cr>",
+        desc = "Search registers",
+      },
+      {
+        "<leader>fs",
+        "<cmd> lua require('telescope.builtin').lsp_document_symbols()<cr>",
+        desc = "Search symbols",
+      },
+      {
+        "<leader>fw",
+        function()
+          require("telescope.builtin").live_grep(require("telescope.themes").get_ivy { hidden = true })
+        end,
+        desc = "Search Text",
+      },
+      {
+        "<leader>fj",
+        "<cmd> lua require('telescope.builtin').jumplist()<cr>",
+        desc = "Search jump list",
+      },
+    },
     config = function()
       local actions = require "telescope.actions"
 
@@ -318,11 +387,34 @@ return {
         -- most people should not need to change this
       },
     },
+    config = function(_, opts)
+      local wk = require "which-key"
+      wk.setup(opts)
+      local keymaps = {
+        ["<leader>d"] = { name = "+Debug" },
+        ["<leader>t"] = { name = "+Terminal" },
+        ["<leader>v"] = { name = "+View" },
+        ["<leader>f"] = { name = "+File" },
+        ["<leader>l"] = { name = "+LSP" },
+        ["<leader>s"] = { name = "+Search & Replace" },
+      }
+      wk.register(keymaps)
+    end,
   },
 
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
+    keys = {
+      { "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", desc = "Next git hunk" },
+      { "<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", desc = "Previous git hunk" },
+      { "<leader>gd", "<cmd>lua require 'gitsigns'.diffthis()<cr>", desc = "Diff this" },
+      { "<leader>gp", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", desc = "Preview git hunk" },
+      { "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", desc = "Reset hunk" },
+      { "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset buffer" },
+      { "<leader>gs", "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", desc = "Stage Hunk" },
+      { "<leader>gu", "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", desc = "Undo Stage Hunk" },
+    },
     opts = {
       signs = {
         add = { text = Icons.gitsigns.add },
@@ -468,6 +560,17 @@ return {
 
   {
     "aserowy/tmux.nvim",
+    lazy = false,
+    keys = {
+      { "<C-h>", "<cmd> lua require('tmux').move_left()<cr>", remap = true },
+      { "<C-j>", "<cmd> lua require('tmux').move_bottom()<cr>", remap = true },
+      { "<C-k>", "<cmd> lua require('tmux').move_top()<cr>", remap = true },
+      { "<C-l>", "<cmd> lua require('tmux').move_right()<cr>", remap = true },
+      { "<M-h>", "<cmd> lua require('tmux').resize_left()<cr>", remap = true },
+      { "<M-j>", "<cmd> lua require('tmux').resize_bottom()<cr>", remap = true },
+      { "<M-k>", "<cmd> lua require('tmux').resize_top()<cr>", remap = true },
+      { "<M-l>", "<cmd> lua require('tmux').resize_right()<cr>", remap = true },
+    },
     opts = {
       copy_sync = {
         enable = false,
@@ -489,7 +592,88 @@ return {
     },
   },
 
-  { "phaazon/hop.nvim", event = { "BufNewFile", "BufReadPost" }, branch = "v2" },
+  {
+    "phaazon/hop.nvim",
+    event = { "BufNewFile", "BufReadPost" },
+    branch = "v2",
+    keys = {
+      {
+        "<Space>f",
+        function()
+          require("hop").hint_char1 {
+            direction = require("hop.hint").HintDirection.AFTER_CURSOR,
+            current_line_only = true,
+          }
+        end,
+        mode = "n",
+        desc = "Find char after cursor",
+      },
+      {
+        "<Space>F",
+        function()
+          require("hop").hint_char1 {
+            direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
+            current_line_only = true,
+          }
+        end,
+        mode = "n",
+        desc = "Find char before cursor",
+      },
+      {
+        "<Space>f",
+        function()
+          require("hop").hint_char1 {
+            direction = require("hop.hint").HintDirection.AFTER_CURSOR,
+            current_line_only = true,
+            inclusive_jump = true,
+          }
+        end,
+        mode = "o",
+        desc = "Find char after cursor",
+      },
+      {
+        "<Space>F",
+        function()
+          require("hop").hint_char1 {
+            direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
+            current_line_only = true,
+            inclusive_jump = true,
+          }
+        end,
+        mode = "o",
+        desc = "Find char before cursor",
+      },
+      {
+        "<Space>t",
+        function()
+          require("hop").hint_char1 {
+            direction = require("hop.hint").HintDirection.AFTER_CURSOR,
+            current_line_only = true,
+          }
+        end,
+        mode = "",
+        desc = "Jump tail after cursor",
+      },
+      {
+        "<Space>T",
+        function()
+          require("hop").hint_char1 {
+            direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
+            current_line_only = true,
+          }
+        end,
+        mode = "",
+        desc = "Jump tail before cursor",
+      },
+      { "<Space>j", "<cmd>HopLine<cr>", desc = "Jump line" },
+      { "<Space>k", "<cmd>HopLine<cr>", desc = "Jump line" },
+      { "<Space>w", "<cmd>HopWord<cr>", desc = "Jump word" },
+      { "<Space>s", "<cmd>HopChar1<cr>", desc = "Jump Char" },
+    },
+    config = function()
+      require("hop").setup {}
+    end,
+  },
 
   { "antoinemadec/FixCursorHold.nvim", event = { "BufRead", "BufNewFile" } },
 }

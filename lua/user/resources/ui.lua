@@ -31,6 +31,12 @@ return {
   {
     "akinsho/bufferline.nvim",
     event = { "BufReadPost", "BufNewFile" },
+    keys = {
+      { "]b", "<cmd>BufferLineCycleNext<cr>", "BufferLineCycleNext" },
+      { "[b", "<cmd>BufferLineCyclePrev<cr>", "BufferLineCyclePrev" },
+      { ">b", "<cmd>BufferLineMoveNext<cr>", "BufferLineMoveNext" },
+      { "<b", "<cmd>BufferLineMovePrev<cr>", "BufferLineMovePrev" },
+    },
     opts = {
       options = {
         mode = "buffers",
@@ -176,8 +182,13 @@ return {
   {
     "akinsho/toggleterm.nvim",
     event = { "BufReadPost", "BufNewFile" },
+    keys = {
+      { "<leader>tt", "<cmd>ToggleTerm direction=float<cr>", desc = "ToggleTerm float" },
+      { "<leader>th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "ToggleTerm horizontal split" },
+      { "<leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "ToggleTerm vertical split" },
+    },
     opts = {
-      open_mapping = [[<c-t>]],
+      open_mapping = nil,
       hide_numbers = true,
       shade_filetypes = {},
       shade_terminals = false,
@@ -296,7 +307,30 @@ return {
   },
 
   {
+    "anuvyklack/windows.nvim",
+    event = "WinNew",
+    dependencies = {
+      { "anuvyklack/middleclass" },
+      { "anuvyklack/animation.nvim", enabled = true },
+    },
+    opts = {
+      animation = { enable = true, duration = 150, fps = 60 },
+      autowidth = { enable = true },
+    },
+    keys = { { "<leader>m", "<cmd>WindowsMaximize<CR>", desc = "Zoom window" } },
+    init = function()
+      vim.o.winwidth = 30
+      vim.o.winminwidth = 30
+      vim.o.equalalways = true
+    end,
+  },
+
+  {
     "sindrets/diffview.nvim",
+    keys = {
+      { "<leader>gc", "<cmd>DiffviewFileHistory %<cr>", desc = "Current file history" },
+      { "<leader>gh", "<cmd>DiffviewFileHistory<cr>", desc = "File History" },
+    },
     opts = {
       diff_binaries = false, -- Show diffs for binaries
       enhanced_diff_hl = false, -- See ':h diffview-config-enhanced_diff_hl'
@@ -449,6 +483,9 @@ return {
   {
     "simrat39/symbols-outline.nvim",
     event = { "BufReadPost" },
+    keys = {
+      { "<leader>vo", "<cmd>SymbolsOutline<cr>", desc = "Symbols outline" },
+    },
     opts = {
       highlight_hovered_item = true,
       show_guides = true,
@@ -552,7 +589,19 @@ return {
     },
   },
 
-  "gaborvecsei/memento.nvim",
+  {
+    "gaborvecsei/memento.nvim",
+    keys = {
+      { "<leader>fe", "<cmd>lua require('memento').toggle()<cr>", desc = "Search history" },
+    },
+  },
 
-  { "mbbill/undotree", event = "BufReadPost", cmd = "UndotreeToggle" },
+  {
+    "mbbill/undotree",
+    event = "BufReadPost",
+    cmd = "UndotreeToggle",
+    keys = {
+      { "<leader>vu", "<cmd>UndotreeToggle<cr>", desc = "UndoTree toggle" },
+    },
+  },
 }

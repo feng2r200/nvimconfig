@@ -129,33 +129,59 @@ return {
 
   {
     "nvim-pack/nvim-spectre",
+    keys = {
+      { "<leader>S", "<cmd> lua require('spectre').toggle()<cr>", desc = "Replace Project" },
+      {
+        "<leader>sw",
+        "<cmd> lua require('spectre').open_visual { select_word = true }<cr>",
+        desc = "Search current word",
+      },
+      {
+        "<leader>sw",
+        "<cmd> lua require('spectre').open_visual()<cr>",
+        mode = "v",
+        desc = "Search current word",
+      },
+      {
+        "<leader>sp",
+        "<cmd> lua require('spectre').open_file_search { select_word = true }<cr>",
+        desc = "Search on current file",
+      },
+    },
     opts = {
+      color_devicons = true,
+      open_cmd = "vnew",
       mapping = {
-        -- 删除选中
         ["toggle_line"] = {
           map = "dd",
           cmd = "<cmd>lua require('spectre').toggle_line()<CR>",
           desc = "toggle current item",
         },
-        -- 前往文件
         ["enter_file"] = {
           map = "o",
           cmd = "<cmd>lua require('spectre.actions').select_entry()<CR>",
           desc = "goto current file",
         },
-        -- 查看菜单（忽略大小写、忽略隐藏文件）
+        ["send_to_qf"] = {
+          map = "<leader>q",
+          cmd = "<cmd>lua require('spectre.actions').send_to_qf()<CR>",
+          desc = "send all items to quickfix",
+        },
+        ["replace_cmd"] = {
+          map = "<leader>c",
+          cmd = "<cmd>lua require('spectre.actions').replace_cmd()<CR>",
+          desc = "input replace command",
+        },
         ["show_option_menu"] = {
           map = "<leader>o",
           cmd = "<cmd>lua require('spectre').show_options()<CR>",
           desc = "show option",
         },
-        -- 开始替换
         ["run_replace"] = {
           map = "<leader>r",
           cmd = "<cmd>lua require('spectre.actions').run_replace()<CR>",
           desc = "replace all",
         },
-        -- 显示差异
         ["change_view_mode"] = {
           map = "<leader>v",
           cmd = "<cmd>lua require('spectre').change_view()<CR>",
