@@ -18,7 +18,7 @@ require("lazy").setup {
     lazy = false,
     version = "*",
   },
-  install = { colorscheme = { "navarasu/onedark.nvim" } },
+  install = { colorscheme = { "Mofiqul/vscode.nvim" } },
   checker = { enabled = false, notify = false },
   performance = {
     rtp = {
