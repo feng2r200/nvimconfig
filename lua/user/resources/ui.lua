@@ -199,15 +199,6 @@ return {
       float_opts = {
         border = "curved",
         winblend = 0,
-        highlights = {
-          border = "Normal",
-          background = "Normal",
-        },
-      },
-      highlights = {
-        FloatBorder = { link = "ToggleTermBorder" },
-        Normal = { link = "ToggleTerm" },
-        NormalFloat = { link = "ToggleTerm" },
       },
       winbar = {
         enabled = false,
