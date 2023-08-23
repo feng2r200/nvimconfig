@@ -2,8 +2,6 @@
     Settings for mfussenegger/nvim-jdtls
 --]]
 
-local M = {}
-
 local fn = vim.fn
 
 local env = {
@@ -219,7 +217,7 @@ local config = {
     debounce_text_changes = 150,
     server_side_fuzzy_completion = true
   },
-  -- capabilities = capabilities,
+  capabilities = require("user.resources.config.lsp.capabilities"),
   -- on_attach = custom_attach,
 }
 
@@ -254,6 +252,7 @@ vim.lsp.handlers["$/progress"] = nil
 require("fidget").setup({})
 
 -- Setup
+local M = {}
 M.init = function ()
   vim.g.jdtls_dap_main_class_config_init = true
 

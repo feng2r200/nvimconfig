@@ -101,7 +101,13 @@ return {
     end,
   },
 
-  { "simrat39/rust-tools.nvim", ft = "rust" },
+  {
+    "simrat39/rust-tools.nvim",
+    ft = "rust",
+    config = function ()
+      require("user.resources.config.lsp.rust").init()
+    end
+  },
 
   {
     "Saecki/crates.nvim",

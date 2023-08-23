@@ -25,19 +25,7 @@ for name, icon in pairs(require("user.core.icons").diagnostics) do
 end
 vim.diagnostic.config(require("user.resources.config.lsp.diagnostics")["on"])
 
-local ext_capabilites = vim.lsp.protocol.make_client_capabilities()
-ext_capabilites.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
-ext_capabilites.textDocument.completion.completionItem.snippetSupport = true
-ext_capabilites.textDocument.completion.completionItem.preselectSupport = true
-ext_capabilites.textDocument.completion.completionItem.insertReplaceSupport = true
-ext_capabilites.textDocument.completion.completionItem.labelDetailsSupport = true
-ext_capabilites.textDocument.completion.completionItem.deprecatedSupport = true
-ext_capabilites.textDocument.completion.completionItem.commitCharactersSupport = true
-ext_capabilites.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
-ext_capabilites.textDocument.completion.completionItem.resolveSupport =
-  { properties = { "documentation", "detail", "additionalTextEdits" } }
-
-local capabilities = require("user.util").capabilities(ext_capabilites)
+local capabilities = require("user.resources.config.lsp.capabilities")
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
@@ -45,17 +33,6 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 local servers = require "user.resources.config.lsp.servers"
 local function setup(server)
   if servers[server] and servers[server].disabled then
-    if server == "rust_analyzer" then
-      local rust_tools_status_ok, rust_tools = pcall(require, "rust-tools")
-      if not rust_tools_status_ok then
-        return
-      end
-
-      local server_opts = servers[server].opts(capabilities)
-      rust_tools.setup(server_opts)
-      return
-    end
-
     return
   end
 
