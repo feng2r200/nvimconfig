@@ -194,8 +194,6 @@ return {
     end,
   },
 
-  { "rlue/vim-barbaric", event = { "BufRead", "BufNewFile" } },
-
   "famiu/bufdelete.nvim",
 
   { "tpope/vim-fugitive", event = { "BufReadPost", "BufNewFile" } },
