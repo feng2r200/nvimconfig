@@ -106,8 +106,6 @@ vim.opt.viewoptions:remove "curdir" -- disable saving current directory with vie
 vim.opt.backspace:append { "nostop" }
 
 vim.opt.list = true
--- vim.opt.listchars:append "space:⋅"
--- vim.opt.listchars:append "eol:↴"
 
 vim.opt.wildignore = [[
 .git,.hg,.svn

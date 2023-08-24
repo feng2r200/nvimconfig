@@ -3,6 +3,7 @@ local Icon = require "user.core.icons"
 return {
   {
     "L3MON4D3/LuaSnip",
+    lazy = true,
     dependencies = { "rafamadriz/friendly-snippets" },
     config = function()
       local types = require "luasnip.util.types"
@@ -41,15 +42,17 @@ return {
 
   {
     "danymat/neogen",
+    lazy = true,
     opt = {
       snippet_engine = "luasnip",
-      enabled = true, --if you want to disable Neogen
-      input_after_comment = true, -- (default: true) automatic jump (with insert mode) on inserted annotation
+      enabled = true,
+      input_after_comment = true,
     },
   },
 
   {
     "windwp/nvim-autopairs",
+    lazy = true,
     opts = {
       enable_check_bracket_line = false,
       ignored_next_char = "[%w%.]",

@@ -52,6 +52,7 @@ return {
 
   {
     "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
     dependencies = {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       { "johmsalas/text-case.nvim" },
@@ -406,13 +407,42 @@ return {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
     keys = {
-      { "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", desc = "Next git hunk" },
-      { "<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", desc = "Previous git hunk" },
+      {
+        "]c",
+        function()
+          if vim.wo.diff then
+            return "]c"
+          end
+          vim.schedule(function()
+            require("gitsigns").next_hunk()
+          end)
+          return "<Ignore>"
+        end,
+        desc = "Next git hunk",
+        expr = true,
+      },
+      {
+        "[c",
+        function()
+          if vim.wo.diff then
+            return "[c"
+          end
+          vim.schedule(function()
+            require("gitsigns").prev_hunk()
+          end)
+          return "<Ignore>"
+        end,
+        desc = "Previous git hunk",
+        expr = true,
+      },
+      { "<leader>gb", "<cmd>lua require 'gitsigns'.toggle_current_line_blame()<cr>", desc = "Show blame" },
       { "<leader>gd", "<cmd>lua require 'gitsigns'.diffthis()<cr>", desc = "Diff this" },
+      { "<leader>gD", "<cmd>lua require 'gitsigns'.diffthis('~')<cr>", desc = "Diff this" },
       { "<leader>gp", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", desc = "Preview git hunk" },
       { "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", desc = "Reset hunk" },
       { "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset buffer" },
       { "<leader>gs", "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", desc = "Stage Hunk" },
+      { "<leader>gt", "<cmd>lua require 'gitsigns'.setqflist()<cr>", desc = "Quickfix show hunks" },
       { "<leader>gu", "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", desc = "Undo Stage Hunk" },
     },
     opts = {
@@ -430,7 +460,7 @@ return {
       word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
       watch_gitdir = { interval = 1000, follow_files = true },
       attach_to_untracked = true,
-      current_line_blame = true,
+      current_line_blame = false,
       current_line_blame_opts = {
         virt_text = true,
         virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
@@ -453,6 +483,7 @@ return {
         row = 0,
         col = 1,
       },
+      trouble = true,
       yadm = {
         enable = false,
       },

@@ -61,13 +61,6 @@ autocmd({ "BufEnter", "BufWinEnter" }, {
   end,
 })
 
-autocmd({ "FileType" }, {
-  pattern = { "help" },
-  callback = function()
-    vim.cmd [[wincmd L]]
-  end,
-})
-
 autocmd({ "TermOpen" }, {
   pattern = { "*" },
   callback = function()
@@ -102,33 +95,6 @@ autocmd({ "InsertEnter", "WinLeave" }, {
   group = cursorGrp,
   pattern = "*",
   command = "set nocursorline",
-})
-
--- when there is no buffer left show Alpha dashboard
--- requires "famiu/bufdelete.nvim" and "goolord/alpha-nvim"
-autocmd("User", {
-  group = Util.augroup "alpha_on_empty",
-  pattern = { "BDeletePost*" },
-  callback = function(event)
-    local fallback_name = vim.api.nvim_buf_get_name(event.buf)
-    local fallback_ft = vim.api.nvim_buf_get_option(event.buf, "filetype")
-    local fallback_on_empty = fallback_name == "" and fallback_ft == ""
-
-    if fallback_on_empty then
-      -- require("neo-tree").close_all()
-      vim.api.nvim_command "Alpha"
-      vim.api.nvim_command(event.buf .. "bwipeout")
-    end
-  end,
-})
-
-autocmd("User", {
-  pattern = { "AlphaReady" },
-  callback = function()
-    vim.cmd [[
-      set laststatus=0 | autocmd BufUnload <buffer> set laststatus=3
-    ]]
-  end,
 })
 
 -- Enable spell checking for certain file types

@@ -4,7 +4,6 @@ return {
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
-      "nvim-treesitter/nvim-treesitter-refactor",
       "nvim-treesitter/nvim-treesitter-textobjects",
       "theHamsta/nvim-treesitter-pairs",
       "JoosepAlviste/nvim-ts-context-commentstring",
@@ -61,12 +60,12 @@ return {
       },
       matchup = {
         enable = true,
-        disable = {},
+        disable = { "java" },
       },
       autopairs = { enable = true },
       indent = {
-        enable = false,
-        disable = {},
+        enable = true,
+        disable = { "java" },
       },
       context_commentstring = {
         enable = true,
@@ -75,31 +74,6 @@ return {
       autotag = {
         enable = true,
         disable = {},
-      },
-      refactor = {
-        highlight_definitions = {
-          enable = true,
-          -- Set to false if you have an `updatetime` of ~100.
-          clear_on_cursor_move = true,
-        },
-        highlight_current_scope = { enable = false },
-        smart_rename = {
-          enable = true,
-          -- Assign keymaps to false to disable them, e.g. `smart_rename = false`.
-          keymaps = {
-            smart_rename = "grr",
-          },
-        },
-        navigation = {
-          enable = false,
-          keymaps = {
-            goto_definition = "gnd",
-            list_definitions = "gnD",
-            list_definitions_toc = "gO",
-            goto_next_usage = "<a-*>",
-            goto_previous_usage = "<a-#>",
-          },
-        },
       },
       textobjects = {
         select = {
@@ -122,7 +96,7 @@ return {
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
       require("nvim-surround").setup {}
-      vim.g.matchup_matchparen_offscreen = {method = "popup"}
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
     end,
   },
 }
