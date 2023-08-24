@@ -37,7 +37,7 @@ M.branch = {
     local icon = hl_str(" " .. icons.git.Git .. " ", "SLGitIcon", "SLBranchName")
     return hl_str(config.separator_icon.left, "SLSeparator")
       .. hl_str(icon, "SLGitIcon")
-      .. hl_str(truncate(str, 10), "SLBranchName")
+      .. hl_str(truncate(str, 20), "SLBranchName")
       .. hl_str(config.separator_icon.right, "SLSeparator", "SLSeparator")
   end,
 }
