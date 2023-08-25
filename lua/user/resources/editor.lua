@@ -114,6 +114,13 @@ return {
         desc = "Search symbols",
       },
       {
+        "<leader>fS",
+        function()
+          require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown { previewer = false })
+        end,
+        desc = "Fuzzy find current buffer",
+      },
+      {
         "<leader>fw",
         function()
           require("telescope.builtin").live_grep(require("telescope.themes").get_ivy { hidden = true })
