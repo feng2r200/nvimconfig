@@ -393,7 +393,7 @@ return {
       wk.setup(opts)
       local keymaps = {
         ["<leader>d"] = { name = "+Debug" },
-        ["<leader>t"] = { name = "+Terminal" },
+        ["<leader>T"] = { name = "+Terminal" },
         ["<leader>v"] = { name = "+View" },
         ["<leader>f"] = { name = "+File" },
         ["<leader>l"] = { name = "+LSP" },
