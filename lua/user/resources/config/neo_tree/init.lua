@@ -48,6 +48,7 @@ local config = {
     diagnostics = { symbols = Icons.diagnostics },
   },
   window = {
+    position = "right",
     width = 40,
     mappings = {
       ["<1-LeftMouse>"] = "open",
