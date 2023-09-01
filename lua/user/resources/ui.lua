@@ -310,9 +310,9 @@ return {
     },
     keys = {
       { "<C-w>z", "<cmd>WindowsMaximize<CR>", desc = "Zoom window" },
-      { '<C-w>_', "<cmd>WindowsMaximizeVertically", desc = "Max vertically window" },
-      { '<C-w>|', "<cmd>WindowsMaximizeHorizontally", desc = "Max horizontally window" },
-      { '<C-w>=', "<cmd>WindowsEqualize", desc = "Equalize window" },
+      { "<C-w>_", "<cmd>WindowsMaximizeVertically", desc = "Max vertically window" },
+      { "<C-w>|", "<cmd>WindowsMaximizeHorizontally", desc = "Max horizontally window" },
+      { "<C-w>=", "<cmd>WindowsEqualize", desc = "Equalize window" },
     },
     init = function()
       vim.o.winwidth = 30
@@ -323,6 +323,7 @@ return {
 
   {
     "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
     keys = {
       { "<leader>gc", "<cmd>DiffviewFileHistory %<cr>", desc = "Current file history" },
       { "<leader>gh", "<cmd>DiffviewFileHistory<cr>", desc = "File History" },
@@ -356,7 +357,7 @@ return {
         },
         merge_tool = {
           -- Config for conflicted files in diff views during a merge or rebase.
-          layout = "diff3_horizontal",
+          layout = "diff4_mixed",
           disable_diagnostics = true, -- Temporarily disable diagnostics for conflict buffers while in the view.
         },
         file_history = {
