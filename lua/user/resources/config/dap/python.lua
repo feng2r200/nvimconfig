@@ -16,6 +16,9 @@ dap.adapters.python = {
   type = "executable",
   command = get_python(),
   args = { "-m", "debugpy.adapter" },
+  options = {
+    source_filetype = "python",
+  },
 }
 
 dap.configurations.python = {
@@ -24,7 +27,19 @@ dap.configurations.python = {
     request = "launch",
     name = "Launch file",
     program = "${file}", -- This configuration will launch the current file if used.
-    pythonPath = get_python,
+    pythonPath = get_python(),
+    console = "internalConsole",
+  },
+  {
+    type = "python",
+    request = "launch",
+    name = "Launch file with arguments",
+    program = "${file}",
+    args = function()
+      local args_string = vim.fn.input "Arguments: "
+      return vim.split(args_string, " +")
+    end,
+    pythonPath = get_python(),
     console = "internalConsole",
   },
 }
