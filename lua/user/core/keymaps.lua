@@ -9,3 +9,5 @@ map("v", ">", ">gv", default_options)
 
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" } )
 
+map("t", "<esc>", "<C-\\><C-n>", default_options)
+
