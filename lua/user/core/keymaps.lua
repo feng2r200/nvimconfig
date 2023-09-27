@@ -7,6 +7,8 @@ map("", "<C-t>", "<Nop>", {})
 map("v", "<", "<gv", default_options)
 map("v", ">", ">gv", default_options)
 
+map("n", "<BS>", "<cmd>nohlsearch<cr>", default_options)
+
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" } )
 
 map("t", "<esc>", "<C-\\><C-n>", default_options)
