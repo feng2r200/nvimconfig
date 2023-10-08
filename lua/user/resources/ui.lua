@@ -94,6 +94,7 @@ return {
 
   {
     "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
     event = { "BufReadPost", "BufNewFile" },
     opts = {
       char = "▏",
@@ -124,8 +125,7 @@ return {
       },
     },
     config = function()
-      -- because lazy load indent-blankline so need readd this autocmd
-      vim.cmd "autocmd CursorMoved * IndentBlanklineRefresh"
+      require("ibl").setup()
     end,
   },
 
