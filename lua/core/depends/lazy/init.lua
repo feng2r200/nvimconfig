@@ -15,8 +15,8 @@ local function get_lazy_options()
     checker = { enabled = false, notify = false },
     performance = {
       disabled_plugins = {
-        -- "netrw",
-        -- "netrwPlugin",
+        "netrw",
+        "netrwPlugin",
         "netrwSettings",
         "netrwFileHandlers",
         "2html_plugin",
