@@ -1,23 +1,15 @@
-local api = require "utils.api"
-
+local map = vim.keymap.set
 local default_options = { silent = true }
 
-local M = {}
+map("", "<Space>", "<Nop>", {})
+map("", "<C-t>", "<Nop>", {})
 
-api.map.unregister("", "<Space>", {})
-api.map.unregister("", "<C-t>", {})
+map("v", "<", "<gv", default_options)
+map("v", ">", ">gv", default_options)
 
-api.map.bulk_register {
-  { mode = { "v" }, lhs = "<", rhs = "<gv", options = default_options, description = "Reduce indentation" },
-  { mode = { "v" }, lhs = ">", rhs = ">gv", options = default_options, description = "Increase indentation" },
-  { mode = { "n" }, lhs = "<leader>fn", rhs = "<cmd>enew<cr>", options = default_options, description = "New File" },
-  {
-    mode = { "t" },
-    lhs = "<esc>",
-    rhs = "<C-\\><C-n>",
-    options = default_options,
-    description = "Escape terminal insert mode",
-  },
-}
+map("n", "<BS>", "<cmd>nohlsearch<cr>", default_options)
 
-return M
+map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" } )
+
+map("t", "<esc>", "<C-\\><C-n>", default_options)
+
