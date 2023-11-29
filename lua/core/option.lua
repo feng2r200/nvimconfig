@@ -132,3 +132,4 @@ vim.cmd [[set foldopen-=hor]]
 
 vim.env.PATH = vim.fn.stdpath("config") .. "/bin" .. ":" .. vim.env.PATH
 
+vim.g.skip_ts_context_commentstring_module = true

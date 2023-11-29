@@ -36,8 +36,6 @@ set ideamarks=true
 set selectmode+=ideaselection
 
 """ Idea key mapping ---------------------------------------------------
-nmap <C-s>              :write<CR>
-imap <C-s>              <Esc>:w<CR>i
 
 """ Navigation
 sethandler <C-j>        a:vim
