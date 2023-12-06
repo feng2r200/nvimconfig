@@ -8,7 +8,12 @@ local function get_python()
   if vim.fn.executable(cwd .. "/.env/bin/python") == 1 then
     return cwd .. "/.env/bin/python"
   else
-    return "/usr/local/bin/python3"
+    local which_python = vim.fn.trim(vim.fn.system "which python")
+    if which_python ~= "" then
+      return which_python
+    else
+      return "/usr/local/bin/python3"
+    end
   end
 end
 
