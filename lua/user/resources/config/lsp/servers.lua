@@ -25,7 +25,8 @@ local servers = {
   jdtls = {
     disabled = true,
   },
-  sumneko_lua = {
+  -- sumneko_lua = {
+  lua_ls = {
     settings = {
       Lua = {
         format = {
