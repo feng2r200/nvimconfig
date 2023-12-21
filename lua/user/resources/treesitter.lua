@@ -60,7 +60,7 @@ return {
       },
       matchup = {
         enable = true,
-        disable = { "java" },
+        disable = { "java", "bash" },
       },
       autopairs = { enable = true },
       indent = {
