@@ -9,7 +9,7 @@ return {
       "JoosepAlviste/nvim-ts-context-commentstring",
       "windwp/nvim-ts-autotag",
       "kylechui/nvim-surround",
-      -- "andymass/vim-matchup",
+      { "andymass/vim-matchup", ft = { "py", "python" } },
     },
     opts = {
       ensure_installed = {},
@@ -22,7 +22,7 @@ return {
       },
       pairs = {
         enable = true,
-        disable = {"sh", "bash"},
+        disable = { "sh", "bash" },
         highlight_pair_events = {}, -- e.g. {"CursorMoved"}, -- when to highlight the pairs, use {} to deactivate highlighting
         highlight_self = false, -- whether to highlight also the part of the pair under cursor (or only the partner)
         goto_right_end = false, -- whether to go to the end of the right partner or the beginning
@@ -39,7 +39,7 @@ return {
         },
       },
       matchup = {
-        enable = false,
+        enable = true,
         disable = { "java", "bash", "sh" },
       },
       autopairs = { enable = true },
