@@ -4,6 +4,7 @@ local Icon = require "user.core.icons"
 return {
   {
     "rcarriga/nvim-notify",
+    enabled = false,
     opts = {
       icons = {
         ERROR = Icon.diagnostics.Error .. " ",
