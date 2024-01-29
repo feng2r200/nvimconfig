@@ -18,7 +18,7 @@ return {
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = true,
-        disable = {},
+        disable = {"vimdoc"},
       },
       pairs = {
         enable = true,
