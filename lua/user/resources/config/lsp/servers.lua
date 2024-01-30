@@ -2,6 +2,7 @@ local servers = {
   rust_analyzer = {
     disabled = true,
   },
+  bashls = {},
   clangd = {},
   cssls = {},
   html = {},
