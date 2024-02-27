@@ -112,7 +112,7 @@ local servers = {
 
   pyright = {
     root_dir = function()
-      return vim.fs.dirname(vim.fs.find({ ".git", ".env" }, { upward = true })[1])
+      return require("user.util").get_root()
     end,
     before_init = function(_, config)
       config.settings.python.pythonPath = require("user.util").get_python_path(config.root_dir)

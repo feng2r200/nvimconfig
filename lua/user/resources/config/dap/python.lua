@@ -3,23 +3,12 @@ if not status_ok then
   return
 end
 
-local function get_python()
-  local cwd = vim.fn.getcwd()
-  if vim.fn.executable(cwd .. "/.env/bin/python") == 1 then
-    return cwd .. "/.env/bin/python"
-  else
-    local which_python = vim.fn.trim(vim.fn.system "which python")
-    if which_python ~= "" then
-      return which_python
-    else
-      return "/usr/local/bin/python3"
-    end
-  end
-end
+local root_path = require("user.util").get_root()
+local python_path = require("user.util").get_python_path(root_path)
 
 dap.adapters.python = {
   type = "executable",
-  command = get_python(),
+  command = python_path,
   args = { "-m", "debugpy.adapter" },
   options = {
     source_filetype = "python",
@@ -32,7 +21,7 @@ dap.configurations.python = {
     request = "launch",
     name = "Launch file",
     program = "${file}", -- This configuration will launch the current file if used.
-    pythonPath = get_python(),
+    pythonPath = python_path,
     console = "internalConsole",
   },
   {
@@ -44,7 +33,7 @@ dap.configurations.python = {
       local args_string = vim.fn.input "Arguments: "
       return vim.split(args_string, " +")
     end,
-    pythonPath = get_python(),
+    pythonPath = python_path,
     console = "internalConsole",
   },
 }
