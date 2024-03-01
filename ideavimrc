@@ -1,0 +1,114 @@
+let mapleader="\\"
+""" Plugins --------------------------------------------------------------
+set argtextobj
+set textobj-entire
+set textobj-indent
+set highlightedyank
+set ideajoin
+
+""" Plugin settings ------------------------------------------------------
+let g:argtextobj_pairs="[:],(:),<:>"
+let g:highlightedyank_highlight_duration="1000"
+let g:EasyMotion_override_acejump=0
+let g:EasyMotion_do_mapping=0
+
+""" Common settings ------------------------------------------------------
+set showmode
+set showcmd
+set so=5
+set incsearch
+set hlsearch
+set nu
+set relativenumber
+set ignorecase smartcase
+set history=1000
+set ttimeoutlen=50
+set visualbell
+set cursorline=true
+set cursorcolumn=true
+
+set clipboard+=unnamed,unnamedplus,ideaput
+
+""" Idea specific settings -----------------------------------------------
+set ideastatusicon=gray
+set idearefactormode=keep
+set ideamarks=true
+set selectmode+=ideaselection
+
+""" Idea key mapping ---------------------------------------------------
+
+""" Navigation
+sethandler <C-j>        a:vim
+sethandler <C-k>        a:vim
+nnoremap <C-h>          <c-w>h
+nnoremap <C-l>          <c-w>l
+nnoremap <C-j>          <c-w>j
+nnoremap <C-k>          <c-w>k
+
+""" Editing source code
+nmap <BS>               :nohl<CR>
+
+nmap ]b gt
+nmap [b gT
+
+vnoremap < <gv
+vnoremap > >gv
+
+nnoremap <C-o>          :action Back<CR>
+nnoremap <C-i>          :action Forward<CR>
+vnoremap <C-j>          :action MoveStatementDown<CR>
+vnoremap <C-k>          :action MoveStatementUp<CR>
+
+nnoremap gcc            :action CommentByLineComment<CR>
+nnoremap gbc            :action CommentByBlockComment<CR>
+vnoremap gbc            :action CommentByBlockComment<CR>
+
+nnoremap crv            :action IntroduceVariable<CR>
+vnoremap crv            :action IntroduceVariable<CR>
+
+nnoremap [[             :action MethodUp<CR>
+nnoremap ]]             :action MethodDown<CR>
+
+nnoremap ]d             :action GotoNextError<CR>
+nnoremap [d             :action GotoPreviousError<CR>
+
+nnoremap R             :action RenameElement<CR>
+vnoremap R             :action RenameElement<CR>
+
+""" Searching and Source Code Navigation
+nnoremap gd             :action GotoDeclaration<CR>
+nnoremap gh             :action FindUsages<CR>
+nnoremap gi             :action GotoImplementation<CR>
+
+""" Motion
+nmap <Space>j           <Plug>(easymotion-j)
+nmap <Space>k           <Plug>(easymotion-k)
+
+nnoremap <leader>ve         :action ActivateProjectToolWindow<CR>
+nnoremap <leader>vo         :action ActivateStructureToolWindow<CR>
+nnoremap <leader>fe         :action RecentFiles<CR>
+
+nnoremap <Space>b          :action RecentFiles<CR>
+nnoremap <Space>cw         :bdelete<CR>
+nnoremap <leader>fc        :action GotoClass<CR>
+nnoremap <leader>ff        :action GotoFile<CR>
+nnoremap <leader>ss        :action GotoSymbol<CR>
+
+nnoremap <C-t>         :action ActivateTerminalToolWindow<CR>
+
+nnoremap <leader>tg    :action ActivateVersionControlToolWindow<CR>
+
+nnoremap <leader>la    :action Generate<CR>
+nnoremap <leader>lf    :action ReformatCode<CR>
+vnoremap <leader>lf    :action ReformatCode<CR>
+nnoremap gs    :action ParameterInfo<CR>
+nnoremap <leader>vw    :action ActivateProblemsViewToolWindow<CR>
+
+nnoremap <leader>db    :action ToggleLineBreakpoint<CR>
+nnoremap <leader>dl    :action ViewBreakpoints<CR>
+
+nnoremap <leader>Hp    :action RecentProjectListGroup<CR>
+nnoremap <leader>dn    :action DebugClass<CR>
+
+nnoremap ]c     :action VcsShowNextChangeMarker<CR>
+nnoremap [c     :action VcsShowPrevChangeMarker<CR>
