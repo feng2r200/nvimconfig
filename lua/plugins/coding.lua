@@ -10,10 +10,10 @@ return {
       table.insert(opts.sources, { name = "tmux", group_index = 3 })
 
       local cmp = require("cmp")
-      opts.preselect = cmp.PreselectMode.None
 
+      opts.preselect = cmp.PreselectMode.None
       opts.mapping = vim.tbl_extend("force", opts.mapping, {
-        ["<C-c>"] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close() },
+        ["<C-c>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
         ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { "i", "c" }),
         ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { "i", "c" }),
       })
