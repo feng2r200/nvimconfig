@@ -107,9 +107,6 @@ return {
       "mfussenegger/nvim-dap-python",
       -- stylua: ignore
       keys = {
-        { "<F8>", "<cmd> lua require('dap').step_over()<cr>" },
-        { "<F7>", "<cmd> lua require('dap').step_into()<cr>" },
-        { "<F9>", "<cmd> lua require('dap').step_out()<cr>" },
         { "<leader>dPt", function() require('dap-python').test_method() end, desc = "Debug Method", ft = "python" },
         { "<leader>dPc", function() require('dap-python').test_class() end, desc = "Debug Class", ft = "python" },
       },

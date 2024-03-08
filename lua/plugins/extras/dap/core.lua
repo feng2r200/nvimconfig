@@ -23,7 +23,59 @@ return {
         { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
         { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
       },
-      opts = {},
+      opts = {
+        mappings = {
+          -- Use a table to apply multiple mappings
+          expand = { "o", "<CR>" },
+          open = "O",
+          remove = "d",
+          edit = "e",
+          repl = "r",
+          toggle = "t",
+        },
+        expand_lines = true,
+        layouts = {
+          {
+            elements = {
+              {
+                id = "scopes",
+                size = 0.25,
+              },
+              {
+                id = "breakpoints",
+                size = 0.25,
+              },
+              {
+                id = "stacks",
+                size = 0.25,
+              },
+              {
+                id = "watches",
+                size = 0.25,
+              },
+            },
+            position = "left",
+            size = 40,
+          },
+          {
+            elements = {
+              "console",
+            },
+            position = "bottom",
+            size = 0.125,
+          },
+          {
+            elements = {
+              "repl",
+            },
+            position = "bottom",
+            size = 0.5,
+          },
+        },
+        controls = {
+          enabled = false,
+        },
+      },
       config = function(_, opts)
         -- setup dap config by VsCode launch.json file
         -- require("dap.ext.vscode").load_launchjs()
@@ -84,6 +136,9 @@ return {
 
   -- stylua: ignore
   keys = {
+    { "<F8>", function() require('dap').step_over() end, desc = "Step over" },
+    { "<F7>", function() require('dap').step_into() end, desc = "Step into" },
+    { "<F9>", function() require('dap').step_out() end, desc = "Step out" },
     { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
     { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
     { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
