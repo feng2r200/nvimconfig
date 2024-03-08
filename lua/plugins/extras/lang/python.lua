@@ -24,7 +24,7 @@ return {
             },
             python = {
               analysis = {
-                ignore = { '*' },
+                ignore = { "*" },
                 -- indexing = true,
                 -- typeCheckingMode = "basic",
                 -- diagnosticMode = "workspace",
@@ -46,6 +46,12 @@ return {
           },
         },
         ruff_lsp = {
+          root_dir = function()
+            return require("plugins.extras.util").get_root()
+          end,
+          before_init = function(_, config)
+            config.settings.python.pythonPath = require("plugins.extras.util").get_python_path(config.root_dir)
+          end,
           keys = {
             {
               "<leader>co",
@@ -83,11 +89,14 @@ return {
     },
     opts = {
       adapters = {
-        ["neotest-python"] = {
-          -- Here you can specify the settings for the adapter, i.e.
-          -- runner = "pytest",
-          -- python = ".venv/bin/python",
-        },
+        ["neotest-python"] = function()
+          local root_path = require("plugins.extras.util").get_root()
+          local path = require("plugins.extras.util").get_python_path(root_path)
+          return {
+            runner = "pytest",
+            python = path,
+          }
+        end,
       },
     },
   },
@@ -98,32 +107,20 @@ return {
       "mfussenegger/nvim-dap-python",
       -- stylua: ignore
       keys = {
+        { "<F8>", "<cmd> lua require('dap').step_over()<cr>" },
+        { "<F7>", "<cmd> lua require('dap').step_into()<cr>" },
+        { "<F9>", "<cmd> lua require('dap').step_out()<cr>" },
         { "<leader>dPt", function() require('dap-python').test_method() end, desc = "Debug Method", ft = "python" },
         { "<leader>dPc", function() require('dap-python').test_class() end, desc = "Debug Class", ft = "python" },
       },
       config = function()
-        -- local path = require("mason-registry").get_package("debugpy"):get_install_path()
-        local path = require("plugins.extras.util").get_python_path(require("plugins.extras.util").get_root())
-        require("dap-python").setup(path .. "/venv/bin/python")
+        local root_path = require("plugins.extras.util").get_root()
+        local path = require("plugins.extras.util").get_python_path(root_path)
+        require("dap-python").setup(path)
+        require("dap-python").resolve_python = function()
+          return path
+        end
       end,
     },
-  },
-  {
-    "linux-cultist/venv-selector.nvim",
-    cmd = "VenvSelect",
-    opts = function(_, opts)
-      if require("lazyvim.util").has("nvim-dap-python") then
-        opts.dap_enabled = true
-      end
-      return vim.tbl_deep_extend("force", opts, {
-        name = {
-          "venv",
-          ".venv",
-          "env",
-          ".env",
-        },
-      })
-    end,
-    keys = { { "<leader>cv", "<cmd>:VenvSelect<cr>", desc = "Select VirtualEnv" } },
   },
 }
