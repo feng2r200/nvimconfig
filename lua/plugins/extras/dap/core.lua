@@ -14,7 +14,6 @@ return {
   "mfussenegger/nvim-dap",
 
   dependencies = {
-
     -- fancy UI for the debugger
     {
       "rcarriga/nvim-dap-ui",
@@ -91,6 +90,22 @@ return {
         dap.listeners.before.event_exited["dapui_config"] = function()
           dapui.close({})
         end
+      end,
+    },
+
+    -- cmp for dap REPL
+    {
+      "rcarriga/cmp-dap",
+      dependencies = {
+        "nvim-cmp",
+      },
+      config = function()
+        local cmp = require("cmp")
+        cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
+          sources = {
+            { name = "dap" },
+          },
+        })
       end,
     },
 
