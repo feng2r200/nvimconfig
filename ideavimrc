@@ -9,8 +9,6 @@ set ideajoin
 """ Plugin settings ------------------------------------------------------
 let g:argtextobj_pairs="[:],(:),<:>"
 let g:highlightedyank_highlight_duration="1000"
-let g:EasyMotion_override_acejump=0
-let g:EasyMotion_do_mapping=0
 
 """ Common settings ------------------------------------------------------
 set showmode
@@ -46,7 +44,7 @@ nnoremap <C-j>          <c-w>j
 nnoremap <C-k>          <c-w>k
 
 """ Editing source code
-nmap <BS>               :nohl<CR>
+nmap <ESC>               :nohl<CR>
 
 nmap ]b gt
 nmap [b gT
@@ -63,8 +61,8 @@ nnoremap gcc            :action CommentByLineComment<CR>
 nnoremap gbc            :action CommentByBlockComment<CR>
 vnoremap gbc            :action CommentByBlockComment<CR>
 
-nnoremap crv            :action IntroduceVariable<CR>
-vnoremap crv            :action IntroduceVariable<CR>
+nnoremap <leader>cxv            :action IntroduceVariable<CR>
+vnoremap <leader>cxv            :action IntroduceVariable<CR>
 
 nnoremap [[             :action MethodUp<CR>
 nnoremap ]]             :action MethodDown<CR>
@@ -77,13 +75,10 @@ vnoremap R             :action RenameElement<CR>
 
 """ Searching and Source Code Navigation
 nnoremap gd             :action GotoDeclaration<CR>
-nnoremap gh             :action FindUsages<CR>
-nnoremap gi             :action GotoImplementation<CR>
+nnoremap gr             :action FindUsages<CR>
+nnoremap gI             :action GotoImplementation<CR>
 
 """ Motion
-nmap <Space>j           <Plug>(easymotion-j)
-nmap <Space>k           <Plug>(easymotion-k)
-
 nnoremap <leader>ve         :action ActivateProjectToolWindow<CR>
 nnoremap <leader>vo         :action ActivateStructureToolWindow<CR>
 nnoremap <leader>fe         :action RecentFiles<CR>
