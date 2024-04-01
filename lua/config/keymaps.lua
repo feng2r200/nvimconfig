@@ -8,6 +8,12 @@ local map = vim.keymap.set
 map("", "<Space>", "<Nop>", {})
 map("", "<C-t>", "<Nop>", {})
 
+-- better up/down
+vim.keymap.del({ "n", "x" }, "j")
+vim.keymap.del({ "n", "x" }, "k")
+vim.keymap.del({ "n", "x" }, "<Down>")
+vim.keymap.del({ "n", "x" }, "<Up>")
+
 -- buffers
 vim.keymap.del("n", "<S-h>")
 vim.keymap.del("n", "<S-l>")
