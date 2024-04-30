@@ -1,0 +1,17 @@
+{
+  "enum": {
+    "prefix": "enum",
+    "body": ["public enum ${TM_FILENAME_BASE} {", "\t$0", "}"],
+    "description": "Public enum"
+  },
+  "interface": {
+    "prefix": "interface",
+    "body": ["public interface ${TM_FILENAME_BASE} {", "\t$0", "}"],
+    "description": "Public interface"
+  },
+  "Private_static_final_field": {
+    "prefix": "private_static_final_field",
+    "body": ["private static final ${1:String} ${2:name};"],
+    "description": "Private static final field"
+  }
+}

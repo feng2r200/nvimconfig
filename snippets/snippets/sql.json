@@ -1,0 +1,43 @@
+{
+  "createt": {
+    "prefix": "createt",
+    "body": ["create table if not exists ${1:tableName} (",
+      "\tid bigint unsigned not null auto_increment primary key,",
+      "\t${2:attribute(s)}",
+      "\tcreate_time datetime not null default current_timestamp,",
+      "\tupdate_time timestamp not null default current_timestamp on update current_timestamp,",
+      "\tdel_flag tinyint not null default 0",
+      ") engine = innodb default charset = utf8 collate = utf8_general_ci comment = '${3:commentstr}';"],
+    "description": "Create regular table"
+  },
+  "creates": {
+    "prefix": "creates",
+    "body": ["create schema if not exists ${1:schemaName} default charset utf8 collate utf8_general_ci;"],
+    "description": "Create regular schema"
+  },
+  "addcolumn": {
+    "prefix": "addcolumn",
+    "body": ["${1:column} ${2:type} not null default ${3:defVal} comment '${4:commentStr}',"],
+    "description": "Add a column in table create."
+  },
+  "charsetutf8mb4": {
+    "prefix": "charsetutf8mb4",
+    "body": ["charset utf8mb4"],
+    "description": "column charset use utf8mb4"
+  },
+  "uniquekey": {
+    "prefix": "uniquekey",
+    "body": ["unique uniq_${1:columnName}(${2:columnName})"],
+    "description": "create unique key"
+  },
+  "indexkey": {
+    "prefix": "indexkey",
+    "body": ["index idx_${1:columnName}(${2:columnName})"],
+    "description": "create index key"
+  },
+  "createindex": {
+    "prefix": "createindex",
+    "body": ["create index idx_${1:columnName} on ${2:tableName}(${3:columnName});"],
+    "description": "create index"
+  }
+}

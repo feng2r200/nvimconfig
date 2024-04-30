@@ -1,0 +1,15 @@
+/benchmarks/
+/spell/
+/.stignore
+/.stfolder
+/.stversions
+/doc/tags
+tt.*
+.tests
+debug
+.repro
+*.log
+/data
+/lazy-lock.json
+/lazyvim.json
+/.neoconf.json
