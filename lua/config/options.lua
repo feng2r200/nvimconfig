@@ -1,5 +1,5 @@
 -- Keyboard leaders
-vim.g.mapleader = '\\'
+vim.g.mapleader = "\\"
 
 -- Enable LazyVim auto format
 vim.g.autoformat = false
@@ -18,7 +18,9 @@ vim.g.structure_status = false
 -- * the name of a detector function like `lsp` or `cwd`
 -- * a pattern or array of patterns like `.git` or `lua`.
 -- * a function with signature `function(buf) -> string|string[]`
-vim.g.root_spec = { 'lsp', { '.git', 'lua' }, 'cwd' }
+vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
+
+vim.g.lazygit_config = true
 
 -- General
 -- ===
@@ -26,8 +28,7 @@ vim.g.root_spec = { 'lsp', { '.git', 'lua' }, 'cwd' }
 
 local opt = vim.opt
 
-opt.title = true
-opt.titlestring = '%<%F%=%l/%L - nvim'
+opt.autowrite = true -- Enable auto write
 opt.mouse = 'nv'               -- Enable mouse in normal and visual modes only
 opt.virtualedit = 'block'      -- Position cursor anywhere in visual block
 opt.confirm = true             -- Confirm unsaved changes before exiting buffer
@@ -121,7 +122,8 @@ opt.showmode = false      -- Don't show mode in cmd window
 opt.scrolloff = 4         -- Keep at least 2 lines above/below
 opt.sidescrolloff = 8     -- Keep at least 5 lines left/right
 opt.numberwidth = 2       -- Minimum number of columns to use for the line number
-opt.number = false        -- Don't show line numbers
+opt.number = true        -- Don't show line numbers
+opt.relativenumber = true -- Relative line numbers
 opt.ruler = false         -- Disable default status ruler
 opt.list = true           -- Show hidden characters
 opt.cursorline = true     -- Highlight the text line under the cursor
@@ -140,15 +142,6 @@ opt.winminheight = 1      -- Minimum height for inactive window
 opt.pumblend = 10         -- Popup blend
 opt.pumheight = 10        -- Maximum number of items to show in the popup menu
 
-opt.showbreak = '⤷  ' -- ↪	⤷
-opt.listchars = {
-	tab = '  ',
-	extends = '⟫',
-	precedes = '⟪',
-	conceal = '',
-	nbsp = '␣',
-	trail = '·'
-}
 opt.fillchars = {
 	foldopen = '󰅀', -- 󰅀 
 	foldclose = '', -- 󰅂 
