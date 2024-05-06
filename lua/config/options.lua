@@ -4,9 +4,6 @@ vim.g.mapleader = "\\"
 -- Enable LazyVim auto format
 vim.g.autoformat = false
 
--- Enable elite-mode (hjkl mode. arrow-keys resize window)
-vim.g.elite_mode = false
-
 -- When enabled, 'q' closes any window
 vim.g.window_q_mapping = true
 

@@ -9,41 +9,15 @@ map('n', '<leader>mx', '<cmd>LazyExtras<CR>', { desc = 'Open Plugin Extras' })
 
 -- Navigation {{{
 
--- Moves through display-lines, unless count is provided
-map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-
-if vim.g.elite_mode then
-	-- Elite-mode: Arrow-keys resize window
-	map('n', '<Up>', '<cmd>resize +1<cr>', { desc = 'Increase window height' })
-	map('n', '<Down>', '<cmd>resize -1<cr>', { desc = 'Decrease window height' })
-	map('n', '<Left>', '<cmd>vertical resize +1<cr>', { desc = 'Increase window width' })
-	map('n', '<Right>', '<cmd>vertical resize -1<cr>', { desc = 'Decrease window width' })
-else
-	-- Moves through display-lines, unless count is provided
-	map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-	map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-
-	-- Resize window using <ctrl> arrow keys
-	map('n', '<C-Up>', '<cmd>resize +1<cr>', { desc = 'Increase window height' })
-	map('n', '<C-Down>', '<cmd>resize -1<cr>', { desc = 'Decrease window height' })
-	map('n', '<C-Right>', '<cmd>vertical resize +1<cr>', { desc = 'Increase window width' })
-	map('n', '<C-Left>', '<cmd>vertical resize -1<cr>', { desc = 'Decrease window width' })
-end
+-- Resize window using <ctrl> arrow keys
+map('n', '<C-Up>', '<cmd>resize +1<cr>', { desc = 'Increase window height' })
+map('n', '<C-Down>', '<cmd>resize -1<cr>', { desc = 'Decrease window height' })
+map('n', '<C-Right>', '<cmd>vertical resize +1<cr>', { desc = 'Increase window width' })
+map('n', '<C-Left>', '<cmd>vertical resize -1<cr>', { desc = 'Decrease window width' })
 
 -- Easier line-wise movement
 map('n', 'gh', 'g^', { desc = 'Jump to first screen character' })
 map('n', 'gl', 'g$', { desc = 'Jump to last screen character' })
-
--- Navigation in command line
-map('c', '<C-h>', '<Home>')
-map('c', '<C-l>', '<End>')
-map('c', '<C-f>', '<Right>')
-map('c', '<C-b>', '<Left>')
-
--- Scroll step sideways
-map('n', 'zl', 'z4l')
-map('n', 'zh', 'z4h')
 
 -- Toggle fold or select option from popup menu
 map('n', '<CR>', function()
@@ -72,31 +46,9 @@ map('n', '<leader>`', '<cmd>e #<CR>', { desc = 'Switch to Other Buffer' })
 -- }}}
 -- Selection {{{
 
-map('n', '<Leader><Leader>', 'V', { desc = 'Visual Mode' })
-map('x', '<Leader><Leader>', '<Esc>', { desc = 'Exit Visual Mode' })
-
--- Select last paste
-map('n', 'gpp', "'`['.strpart(getregtype(), 0, 1).'`]'", { expr = true, desc = 'Select Paste' })
-
--- Quick substitute within selected area
-map('x', 'sg', ':s//gc<Left><Left><Left>', { desc = 'Substitute Within Selection' })
-
--- C-r: Easier search and replace visual/select mode
-map(
-	'x',
-	'<C-r>',
-	":<C-u>%s/\\V<C-R>=v:lua.require'util.edit'.get_visual_selection()<CR>"
-		.. '//gc<Left><Left><Left>',
-	{ desc = 'Replace Selection' }
-)
-
 -- Re-select blocks after indenting in visual/select mode
 map('x', '<', '<gv', { desc = 'Indent Right and Re-select' })
 map('x', '>', '>gv|', { desc = 'Indent Left and Re-select' })
-
--- Use tab for indenting in visual/select mode
-map('x', '<Tab>', '>gv|', { desc = 'Indent Left' })
-map('x', '<S-Tab>', '<gv', { desc = 'Indent Right' })
 
 -- Better block-wise operations on selected area
 local blockwise_force = function(key)
