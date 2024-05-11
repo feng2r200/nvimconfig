@@ -1,10 +1,6 @@
 local RafiUtil = require('util')
 local map = vim.keymap.set
 
--- Package-manager
-map('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Open Lazy UI' })
-map('n', '<leader>mx', '<cmd>LazyExtras<CR>', { desc = 'Open Plugin Extras' })
-
 -- stylua: ignore start
 
 -- Navigation {{{
