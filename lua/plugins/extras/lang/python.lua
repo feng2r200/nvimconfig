@@ -21,16 +21,9 @@ return {
           settings = {
             python = {
               analysis = {
-                -- ignore = { "*" },
-                indexing = true,
-                typeCheckingMode = "basic",
-                -- diagnosticMode = "workspace",
+                typeCheckingMode = "off",
                 autoImportCompletions = true,
                 autoSearchPaths = true,
-                -- inlayHints = {
-                --   variableTypes = true,
-                --   functionReturnTypes = true,
-                -- },
                 useLibraryCodeForTypes = true,
               },
             },
