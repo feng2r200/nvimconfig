@@ -93,22 +93,6 @@ return {
       end,
     },
 
-    -- cmp for dap REPL
-    {
-      "rcarriga/cmp-dap",
-      dependencies = {
-        "nvim-cmp",
-      },
-      config = function()
-        local cmp = require("cmp")
-        cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
-          sources = {
-            { name = "dap" },
-          },
-        })
-      end,
-    },
-
     -- virtual text for the debugger
     {
       "theHamsta/nvim-dap-virtual-text",

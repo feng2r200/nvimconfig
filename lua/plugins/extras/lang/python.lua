@@ -19,84 +19,23 @@ return {
             config.settings.python.pythonPath = require("plugins.extras.util").get_python_path(config.root_dir)
           end,
           settings = {
-            pyright = {
-              disableOrganizeImports = true,
-            },
             python = {
               analysis = {
-                ignore = { "*" },
-                -- indexing = true,
-                -- typeCheckingMode = "basic",
+                -- ignore = { "*" },
+                indexing = true,
+                typeCheckingMode = "basic",
                 -- diagnosticMode = "workspace",
-                -- autoImportCompletions = true,
-                -- autoSearchPaths = true,
+                autoImportCompletions = true,
+                autoSearchPaths = true,
                 -- inlayHints = {
                 --   variableTypes = true,
                 --   functionReturnTypes = true,
                 -- },
-                -- useLibraryCodeForTypes = true,
-                -- diagnosticSeverityOverrides = {
-                --   reportGeneralTypeIssues = "none",
-                --   reportOptionalMemberAccess = "none",
-                --   reportOptionalSubscript = "none",
-                --   reportPrivateImportUsage = "none",
-                -- },
+                useLibraryCodeForTypes = true,
               },
             },
           },
         },
-        ruff_lsp = {
-          root_dir = function()
-            return require("plugins.extras.util").get_root()
-          end,
-          before_init = function(_, config)
-            config.settings.python.pythonPath = require("plugins.extras.util").get_python_path(config.root_dir)
-          end,
-          keys = {
-            {
-              "<leader>co",
-              function()
-                vim.lsp.buf.code_action({
-                  apply = true,
-                  context = {
-                    only = { "source.organizeImports" },
-                    diagnostics = {},
-                  },
-                })
-              end,
-              desc = "Organize Imports",
-            },
-          },
-        },
-      },
-      setup = {
-        ruff_lsp = function()
-          require("lazyvim.util").lsp.on_attach(function(client, _)
-            if client.name == "ruff_lsp" then
-              -- Disable hover in favor of Pyright
-              client.server_capabilities.hoverProvider = false
-            end
-          end)
-        end,
-      },
-    },
-  },
-  {
-    "nvim-neotest/neotest",
-    optional = true,
-    dependencies = {
-      "nvim-neotest/neotest-python",
-    },
-    opts = {
-      adapters = {
-        ["neotest-python"] = function()
-          local root_path = require("plugins.extras.util").get_root()
-          local path = require("plugins.extras.util").get_python_path(root_path)
-          return {
-            runner = "pytest",
-            python = path,
-          }
-        end,
       },
     },
   },
