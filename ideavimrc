@@ -76,7 +76,7 @@ vnoremap R             :action RenameElement<CR>
 """ Searching and Source Code Navigation
 nnoremap gd             :action GotoDeclaration<CR>
 nnoremap gr             :action FindUsages<CR>
-nnoremap gI             :action GotoImplementation<CR>
+nnoremap gi             :action GotoImplementation<CR>
 
 """ Motion
 nnoremap <leader>ve         :action ActivateProjectToolWindow<CR>

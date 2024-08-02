@@ -1,35 +1,396 @@
+-- Plugins: UI
+
 return {
-  {
-    "akinsho/bufferline.nvim",
-    opts = {
-      options = {
-        always_show_bufferline = true,
-      },
-    },
-  },
+	-- Icon provider
+	{
+		'echasnovski/mini.icons',
+		lazy = true,
+		opts = {
+			file = {
+				['.keep'] = { glyph = '󰊢', hl = 'MiniIconsGrey' },
+				['devcontainer.json'] = { glyph = '', hl = 'MiniIconsAzure' },
+			},
+			filetype = {
+				dotenv = { glyph = '', hl = 'MiniIconsYellow' },
+			},
+		},
+		init = function()
+			---@diagnostic disable-next-line: duplicate-set-field
+			package.preload['nvim-web-devicons'] = function()
+				require('mini.icons').mock_nvim_web_devicons()
+				return package.loaded['nvim-web-devicons']
+			end
+		end,
+	},
 
-  {
-    "folke/noice.nvim",
-    opts = {
-      cmdline = {
-        view = "cmdline",
-      },
-    },
-  },
+	-- UI Component Library
+	{ 'MunifTanjim/nui.nvim', lazy = false },
 
-  { "goolord/alpha-nvim", enabled = false },
+	-- Fancy notification manager
+	{
+		'rcarriga/nvim-notify',
+		priority = 9000,
+		keys = {
+			{
+				'<leader>un',
+				function()
+					require('notify').dismiss({ silent = true, pending = true })
+				end,
+				desc = 'Dismiss All Notifications',
+			},
+		},
+		opts = {
+			stages = 'static',
+			timeout = 3000,
+			max_height = function()
+				return math.floor(vim.o.lines * 0.75)
+			end,
+			max_width = function()
+				return math.floor(vim.o.columns * 0.75)
+			end,
+			on_open = function(win)
+				vim.api.nvim_win_set_config(win, { zindex = 100 })
+			end,
+		},
+		init = function()
+			-- When noice is not enabled, install notify on VeryLazy
+			if not LazyVim.has('noice.nvim') then
+				LazyVim.on_very_lazy(function()
+					vim.notify = require('notify')
+				end)
+			end
+		end,
+	},
 
-  { "nvimdev/dashboard-nvim", enabled = false },
+	-- Snazzy tab/bufferline
+	{
+		'akinsho/bufferline.nvim',
+		event = 'VeryLazy',
+		enabled = not vim.g.started_by_firenvim,
+		-- stylua: ignore
+		keys = {
+			{ '<leader>bp', '<Cmd>BufferLineTogglePin<CR>', desc = 'Toggle Pin' },
+			{ '<leader>bP', '<Cmd>BufferLineGroupClose ungrouped<CR>', desc = 'Delete Non-Pinned Buffers' },
+			{ '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete Other Buffers' },
+			{ '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete Buffers to the Right' },
+			{ '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete Buffers to the Left' },
+			{ '<leader>tp', '<Cmd>BufferLinePick<CR>', desc = 'Tab Pick' },
+			{ '[B', '<cmd>BufferLineMovePrev<cr>', desc = 'Move buffer prev' },
+			{ ']B', '<cmd>BufferLineMoveNext<cr>', desc = 'Move buffer next' },
+		},
+		opts = {
+			options = {
+				mode = 'tabs',
+				separator_style = 'slant',
+				show_close_icon = false,
+				show_buffer_close_icons = false,
+				diagnostics = 'nvim_lsp',
+				-- show_tab_indicators = true,
+				-- enforce_regular_tabs = true,
+				always_show_bufferline = true,
+				-- indicator = {
+				-- 	style = 'underline',
+				-- },
+				close_command = function(n)
+					LazyVim.ui.bufremove(n)
+				end,
+				right_mouse_command = function(n)
+					LazyVim.ui.bufremove(n)
+				end,
+				diagnostics_indicator = function(_, _, diag)
+					local icons = LazyVim.config.icons.diagnostics
+					local ret = (diag.error and icons.Error .. diag.error .. ' ' or '')
+						.. (diag.warning and icons.Warn .. diag.warning or '')
+					return vim.trim(ret)
+				end,
+				custom_areas = {
+					right = function()
+						local result = {}
+						local root = LazyVim.root()
+						table.insert(result, {
+							text = '%#BufferLineTab# ' .. vim.fn.fnamemodify(root, ':t'),
+						})
+
+						-- Session indicator
+						if vim.v.this_session ~= '' then
+							table.insert(result, { text = '%#BufferLineTab#  ' })
+						end
+						return result
+					end,
+				},
+				offsets = {
+					{
+						filetype = 'neo-tree',
+						text = 'Neo-tree',
+						highlight = 'Directory',
+						text_align = 'center',
+					},
+				},
+				---@param opts bufferline.IconFetcherOpts
+				get_element_icon = function(opts)
+					return LazyVim.config.icons.ft[opts.filetype]
+				end,
+			},
+		},
+		config = function(_, opts)
+			require('bufferline').setup(opts)
+			-- Fix bufferline when restoring a session
+			vim.api.nvim_create_autocmd({ 'BufAdd', 'BufDelete' }, {
+				callback = function()
+					vim.schedule(function()
+						---@diagnostic disable-next-line: undefined-global
+						pcall(nvim_bufferline)
+					end)
+				end,
+			})
+		end,
+	},
+
+	-- Replaces the UI for messages, cmdline and the popupmenu
+	{
+		'folke/noice.nvim',
+		event = 'VeryLazy',
+		enabled = not vim.g.started_by_firenvim,
+		-- stylua: ignore
+		keys = {
+			{ '<leader>sn', '', desc = '+noice' },
+			{ '<S-Enter>', function() require('noice').redirect(tostring(vim.fn.getcmdline())) end, mode = 'c', desc = 'Redirect Cmdline' },
+			{ '<leader>snl', function() require('noice').cmd('last') end, desc = 'Noice Last Message' },
+			{ '<leader>snh', function() require('noice').cmd('history') end, desc = 'Noice History' },
+			{ '<leader>sna', function() require('noice').cmd('all') end, desc = 'Noice All' },
+			{ '<leader>snt', function() require('noice').cmd('pick') end, desc = 'Noice Picker (Telescope/FzfLua)' },
+			{ '<C-f>', function() if not require('noice.lsp').scroll(4) then return '<C-f>' end end, silent = true, expr = true, desc = 'Scroll Forward', mode = {'i', 'n', 's'} },
+			{ '<C-b>', function() if not require('noice.lsp').scroll(-4) then return '<C-b>' end end, silent = true, expr = true, desc = 'Scroll Backward', mode = {'i', 'n', 's'}},
+		},
+		---@type NoiceConfig
+		opts = {
+			lsp = {
+				override = {
+					['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+					['vim.lsp.util.stylize_markdown'] = true,
+					['cmp.entry.get_documentation'] = true,
+				},
+			},
+			messages = {
+				view_search = false,
+			},
+			routes = {
+				-- See :h ui-messages
+				{
+					filter = {
+						event = 'msg_show',
+						any = {
+							{ find = '%d+L, %d+B' },
+							{ find = '^%d+ changes?; after #%d+' },
+							{ find = '^%d+ changes?; before #%d+' },
+							{ find = '^Hunk %d+ of %d+$' },
+							{ find = '^%d+ fewer lines;?' },
+							{ find = '^%d+ more lines?;?' },
+							{ find = '^%d+ line less;?' },
+							{ find = '^Already at newest change' },
+							{ kind = 'wmsg' },
+							{ kind = 'emsg', find = 'E486' },
+							{ kind = 'quickfix' },
+						},
+					},
+					view = 'mini',
+				},
+				{
+					filter = {
+						event = 'msg_show',
+						any = {
+							{ find = '^%d+ lines .ed %d+ times?$' },
+							{ find = '^%d+ lines yanked$' },
+							{ kind = 'emsg', find = 'E490' },
+							{ kind = 'search_count' },
+						},
+					},
+					opts = { skip = true },
+				},
+				{
+					filter = {
+						event = 'notify',
+						any = {
+							{ find = '^No code actions available$' },
+							{ find = '^No information available$' },
+						},
+					},
+					view = 'mini',
+				},
+			},
+			presets = {
+				bottom_search = true,
+				command_palette = true,
+				long_message_to_split = true,
+				lsp_doc_border = true,
+			},
+		},
+		config = function(_, opts)
+			-- HACK: noice shows messages from before it was enabled,
+			-- but this is not ideal when Lazy is installing plugins,
+			-- so clear the messages in this case.
+			if vim.o.filetype == 'lazy' then
+				vim.cmd([[messages clear]])
+			end
+			require('noice').setup(opts)
+		end,
+	},
+
+	-- Visually display indent levels
+	{
+		'lukas-reineke/indent-blankline.nvim',
+		main = 'ibl',
+		event = 'LazyFile',
+		keys = {
+			{ '<Leader>ue', '<cmd>IBLToggle<CR>', desc = 'Toggle indent-lines' },
+		},
+		opts = {
+			indent = {
+				-- See more characters at :h ibl.config.indent.char
+				char = '│', -- ▏│
+				tab_char = '│',
+			},
+			scope = { enabled = false },
+			exclude = {
+				filetypes = {
+					'alpha',
+					'checkhealth',
+					'dashboard',
+					'git',
+					'gitcommit',
+					'help',
+					'lazy',
+					'lazyterm',
+					'lspinfo',
+					'man',
+					'mason',
+					'neo-tree',
+					'notify',
+					'Outline',
+					'TelescopePrompt',
+					'TelescopeResults',
+					'terminal',
+					'toggleterm',
+					'Trouble',
+				},
+			},
+		},
+	},
+
+	-- Visualize and operate on indent scope
+	{
+		'echasnovski/mini.indentscope',
+		event = 'LazyFile',
+		opts = function(_, opts)
+			opts.symbol = '│' -- ▏│
+			opts.options = { try_as_border = true }
+			opts.draw = {
+				delay = 0,
+				animation = require('mini.indentscope').gen_animation.none(),
+			}
+		end,
+		init = function()
+			vim.api.nvim_create_autocmd('FileType', {
+				pattern = {
+					'alpha',
+					'dashboard',
+					'fzf',
+					'help',
+					'lazy',
+					'lazyterm',
+					'man',
+					'mason',
+					'neo-tree',
+					'notify',
+					'Outline',
+					'toggleterm',
+					'Trouble',
+					'trouble',
+				},
+				callback = function()
+					vim.b['miniindentscope_disable'] = true
+				end,
+			})
+		end,
+	},
+
+	-- Create key bindings that stick
+	{
+		'folke/which-key.nvim',
+		event = 'VeryLazy',
+		cmd = 'WhichKey',
+		opts_extend = { 'spec' },
+		opts = {
+			icons = {
+				breadcrumb = '»',
+				separator = '󰁔  ', -- ➜
+			},
+			delay = function(ctx)
+				return ctx.plugin and 0 or 400
+			end,
+			spec = {
+				{
+					mode = { 'n', 'v' },
+					{ ';', group = '+telescope' },
+					{ ';d', group = '+lsp' },
+					{ 'g', group = '+goto' },
+					{ 'gz', group = '+surround' },
+					{ ']', group = '+next' },
+					{ '[', group = '+prev' },
+
+					{ '<leader>b', group = 'buffer' },
+					{ '<leader>c', group = 'code' },
+					{ '<leader>ch', group = 'calls' },
+					{ '<leader>f', group = 'file/find' },
+					{ '<leader>fw', group = 'workspace' },
+					{ '<leader>g', group = 'git' },
+					{ '<leader>h', group = 'hunks' },
+					{ '<leader>ht', group = 'toggle' },
+					{ '<leader>m', group = 'tools' },
+					{ '<leader>md', group = 'diff' },
+					{ '<leader>q', group = 'quit/session' },
+					{ '<leader>s', group = 'search' },
+					{ '<leader>sn', group = 'noice' },
+					{ '<leader>t', group = 'toggle/tools' },
+					{ '<leader>u', group = 'ui' },
+					{ '<leader>x', group = 'diagnostics/quickfix' },
+					{ '<leader>z', group = 'notes' },
+				},
+			},
+		},
+		config = function(_, opts)
+			local wk = require('which-key')
+			wk.setup(opts)
+		end,
+	},
+
+	-- Hint and fix deviating indentation
+	{
+		'tenxsoydev/tabs-vs-spaces.nvim',
+		event = { 'BufReadPost', 'BufNewFile' },
+		opts = {},
+	},
+
+	-- Highlight words quickly
+	{
+		't9md/vim-quickhl',
+		-- stylua: ignore
+		keys = {
+			{ '<Leader>mt', '<Plug>(quickhl-manual-this)', mode = { 'n', 'x' }, desc = 'Highlight word' },
+		},
+	},
 
   {
     "kevinhwang91/nvim-bqf",
     ft = "qf",
+		cmd = 'BqfAutoToggle',
+		event = 'QuickFixCmdPost',
     dependencies = {
       "junegunn/fzf",
     },
     opts = {
       auto_enable = true,
-      auto_resize_height = true, -- highly recommended enable
+      auto_resize_height = true,
       preview = {
         win_height = 12,
         win_vheight = 12,
@@ -51,18 +412,25 @@ return {
       },
       -- make `drop` and `tab drop` to become preferred
       func_map = {
-        drop = "o",
-        openc = "O",
-        split = "<C-s>",
-        tabdrop = "<C-t>",
-        tabc = "",
-        ptogglemode = "z,",
-      },
-      filter = {
-        fzf = {
-          action_for = { ["ctrl-s"] = "split", ["ctrl-t"] = "tab drop" },
-          extra_opts = { "--bind", "ctrl-o:toggle-all", "--prompt", "> " },
-        },
+				tab = 'st',
+				split = 'sv',
+				vsplit = 'sg',
+
+				stoggleup = 'K',
+				stoggledown = 'J',
+
+				ptoggleitem = 'p',
+				ptoggleauto = 'P',
+				ptogglemode = 'zp',
+
+				pscrollup = '<C-b>',
+				pscrolldown = '<C-f>',
+
+				prevfile = 'gk',
+				nextfile = 'gj',
+
+				prevhist = '<S-Tab>',
+				nexthist = '<Tab>',
       },
     },
     config = function()
@@ -94,162 +462,6 @@ return {
       vim.o.winwidth = 30
       vim.o.winminwidth = 30
       vim.o.equalalways = false
-    end,
-  },
-
-  {
-    "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
-    keys = {
-      { "<leader>gc", "<cmd>DiffviewFileHistory %<cr>", desc = "Current file history" },
-      { "<leader>gh", "<cmd>DiffviewFileHistory<cr>", desc = "File History" },
-    },
-    opts = {
-      diff_binaries = false, -- Show diffs for binaries
-      enhanced_diff_hl = false, -- See ':h diffview-config-enhanced_diff_hl'
-      use_icons = true, -- Requires nvim-web-devicons
-      icons = { -- Only applies when use_icons is true.
-        folder_closed = "",
-        folder_open = "",
-      },
-      signs = {
-        fold_closed = "",
-        fold_open = "",
-      },
-      view = {
-        -- Configure the layout and behavior of different types of views.
-        -- Available layouts:
-        --  'diff1_plain'
-        --    |'diff2_horizontal'
-        --    |'diff2_vertical'
-        --    |'diff3_horizontal'
-        --    |'diff3_vertical'
-        --    |'diff3_mixed'
-        --    |'diff4_mixed'
-        -- For more info, see ':h diffview-config-view.x.layout'.
-        default = {
-          -- Config for changed files, and staged files in diff views.
-          layout = "diff2_horizontal",
-        },
-        merge_tool = {
-          -- Config for conflicted files in diff views during a merge or rebase.
-          layout = "diff4_mixed",
-          disable_diagnostics = true, -- Temporarily disable diagnostics for conflict buffers while in the view.
-        },
-        file_history = {
-          -- Config for changed files in file history views.
-          layout = "diff2_horizontal",
-        },
-      },
-      file_panel = {
-        win_config = {
-          position = "left", -- One of 'left', 'right', 'top', 'bottom'
-          width = 35, -- Only applies when position is 'left' or 'right'
-          height = 10, -- Only applies when position is 'top' or 'bottom'
-        },
-        listing_style = "tree", -- One of 'list' or 'tree'
-        tree_options = { -- Only applies when listing_style is 'tree'
-          flatten_dirs = true, -- Flatten dirs that only contain one single dir
-          folder_statuses = "only_folded", -- One of 'never', 'only_folded' or 'always'.
-        },
-      },
-      file_history_panel = {
-        win_config = {
-          position = "bottom",
-          height = 16,
-          win_opts = {},
-        },
-        log_options = {
-          git = {
-            single_file = {
-              diff_merges = "combined",
-              max_count = 512,
-              follow = true,
-              all = false, -- Include all refs under 'refs/' including HEAD
-              merges = false, -- List only merge commits
-              no_merges = false, -- List no merge commits
-              reverse = false, -- List commits in reverse order
-            },
-            multi_file = {
-              diff_merges = "first-parent",
-              max_count = 128,
-              all = false, -- Include all refs under 'refs/' including HEAD
-              merges = false, -- List only merge commits
-              no_merges = false, -- List no merge commits
-              reverse = false, -- List commits in reverse order
-            },
-          },
-        },
-      },
-      default_args = { -- Default args prepended to the arg-list for the listed commands
-        DiffviewOpen = {},
-        DiffviewFileHistory = {},
-      },
-      hooks = {}, -- See ':h diffview-config-hooks'
-    },
-    config = function(_, opts)
-      local cb = require("diffview.config").diffview_callback
-
-      opts.key_bindings = {
-        disable_defaults = false, -- Disable the default key bindings
-        -- The `view` bindings are active in the diff buffers, only when the current
-        -- tabpage is a Diffview.
-        view = {
-          ["<tab>"] = cb("select_next_entry"), -- Open the diff for the next file
-          ["<s-tab>"] = cb("select_prev_entry"), -- Open the diff for the previous file
-          ["gf"] = cb("goto_file"), -- Open the file in a new split in previous tabpage
-          ["<C-w><C-f>"] = cb("goto_file_split"), -- Open the file in a new split
-          ["<C-w>gf"] = cb("goto_file_tab"), -- Open the file in a new tabpage
-          ["<leader>e"] = cb("focus_files"), -- Bring focus to the files panel
-          ["<leader>b"] = cb("toggle_files"), -- Toggle the files panel.
-        },
-        file_panel = {
-          ["j"] = cb("next_entry"), -- Bring the cursor to the next file entry
-          ["<down>"] = cb("next_entry"),
-          ["k"] = cb("prev_entry"), -- Bring the cursor to the previous file entry.
-          ["<up>"] = cb("prev_entry"),
-          ["<cr>"] = cb("select_entry"), -- Open the diff for the selected entry.
-          ["o"] = cb("select_entry"),
-          ["<Space>"] = cb("toggle_stage_entry"), -- Stage / unstage the selected entry.
-          ["S"] = cb("stage_all"), -- Stage all entries.
-          ["U"] = cb("unstage_all"), -- Unstage all entries.
-          ["r"] = cb("restore_entry"), -- Restore entry to the state on the left side.
-          ["R"] = cb("refresh_files"), -- Update stats and entries in the file list.
-          ["<tab>"] = cb("select_next_entry"),
-          ["<s-tab>"] = cb("select_prev_entry"),
-          ["gf"] = cb("goto_file"),
-          ["<C-w><C-f>"] = cb("goto_file_split"),
-          ["<C-w>gf"] = cb("goto_file_tab"),
-          ["i"] = cb("listing_style"), -- Toggle between 'list' and 'tree' views
-          ["f"] = cb("toggle_flatten_dirs"), -- Flatten empty subdirectories in tree listing style.
-          ["<leader>e"] = cb("focus_files"),
-          ["<leader>b"] = cb("toggle_files"),
-        },
-        file_history_panel = {
-          ["g!"] = cb("options"), -- Open the option panel
-          ["<C-A-d>"] = cb("open_in_diffview"), -- Open the entry under the cursor in a diffview
-          ["y"] = cb("copy_hash"), -- Copy the commit hash of the entry under the cursor
-          ["zR"] = cb("open_all_folds"),
-          ["zM"] = cb("close_all_folds"),
-          ["j"] = cb("next_entry"),
-          ["<down>"] = cb("next_entry"),
-          ["k"] = cb("prev_entry"),
-          ["<up>"] = cb("prev_entry"),
-          ["<cr>"] = cb("select_entry"),
-          ["o"] = cb("select_entry"),
-          ["<tab>"] = cb("select_next_entry"),
-          ["<s-tab>"] = cb("select_prev_entry"),
-          ["gf"] = cb("goto_file"),
-          ["<C-w><C-f>"] = cb("goto_file_split"),
-          ["<C-w>gf"] = cb("goto_file_tab"),
-          ["<leader>e"] = cb("focus_files"),
-          ["<leader>b"] = cb("toggle_files"),
-        },
-        option_panel = {
-          ["<tab>"] = cb("select"),
-          ["q"] = cb("close"),
-        },
-      }
     end,
   },
 }

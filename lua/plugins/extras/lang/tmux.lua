@@ -1,5 +1,50 @@
+LazyVim.on_very_lazy(function()
+	vim.filetype.add({
+		filename = { Tmuxfile = 'tmux' },
+	})
+end)
+
 return {
-  -- tmux support
+	desc = 'Tmux syntax, navigator (<C-h/j/k/l>), and completion.',
+	recommended = function()
+		return vim.env.TMUX ~= nil
+	end,
+
+	-----------------------------------------------------------------------------
+	{
+		'nvim-treesitter/nvim-treesitter',
+		opts = function(_, opts)
+			if type(opts.ensure_installed) == 'table' then
+				vim.list_extend(opts.ensure_installed, { 'tmux' })
+			end
+
+			-- Setup filetype settings
+			vim.api.nvim_create_autocmd('FileType', {
+				group = vim.api.nvim_create_augroup('user_ftplugin_tmux', {}),
+				pattern = 'tmux',
+				callback = function()
+					-- Open 'man tmux' in a vertical split with word under cursor.
+					local function open_doc()
+						local cword = vim.fn.expand('<cword>')
+						require('man').open_page(0, { silent = true }, { 'tmux' })
+						vim.fn.search(cword)
+					end
+
+					vim.opt_local.iskeyword:append('-')
+
+					vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '')
+						.. (vim.b.undo_ftplugin ~= nil and ' | ' or '')
+						.. 'setlocal iskeyword<'
+						.. '| sil! nunmap <buffer> gK'
+
+					vim.keymap.set('n', 'gK', open_doc, { buffer = 0 })
+				end,
+			})
+		end,
+	},
+
+	-----------------------------------------------------------------------------
+	-- Seamless navigation between tmux panes and vim splits
   {
     "aserowy/tmux.nvim",
     lazy = false,
@@ -32,30 +77,5 @@ return {
         resize_step_y = 2,
       },
     },
-  },
-
-  {
-    "hrsh7th/cmp-cmdline",
-    dependencies = {
-        "nvim-cmp",
-    },
-    config = function()
-      local cmp = require("cmp")
-      cmp.setup.cmdline("/", {
-        preselect = cmp.PreselectMode.None,
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = { { name = "buffer" } },
-      })
-      cmp.setup.cmdline("?", {
-        preselect = cmp.PreselectMode.None,
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = { { name = "buffer" } },
-      })
-      cmp.setup.cmdline(":", {
-        preselect = cmp.PreselectMode.None,
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
-      })
-    end
   },
 }
