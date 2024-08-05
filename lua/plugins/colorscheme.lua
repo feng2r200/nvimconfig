@@ -6,13 +6,17 @@ return {
     enabled = true,
     priority = 1000,
     opts = {
+      colors = {
+        onedark = { bg = "#101011" },
+      },
       options = {
-        cursorline = true,
         transparency = true,
         lualine_transparency = true,
       },
     },
-    config = function()
+    config = function(_, opts)
+      require("onedarkpro").setup(vim.tbl_deep_extend("force", opts, {}))
+
       vim.cmd.colorscheme("onedark_vivid")
     end,
   },

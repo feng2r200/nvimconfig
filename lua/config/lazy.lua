@@ -20,8 +20,8 @@ require("lazy").setup({
     { import = "plugins" },
     { import = "lazyvim.plugins.xtras" },
 
-    { import = "plugins.extras.ui.barbecue" },
     { import = "plugins.extras.dap.core" },
+    { import = "plugins.extras.editor.rest" },
 
     { import = "plugins.extras.lang.go" },
     { import = "plugins.extras.lang.markdown" },
@@ -29,6 +29,10 @@ require("lazy").setup({
     { import = "plugins.extras.lang.python" },
     { import = "plugins.extras.lang.sql" },
     { import = "plugins.extras.lang.tmux" },
+
+    { import = "plugins.extras.lsp.gtd" },
+    { import = "plugins.extras.ui.barbecue" },
+    { import = "plugins.extras.ui.symbols-outline" },
 
     { import = "lazyvim.plugins.extras.lang.rust" },
     { import = "lazyvim.plugins.extras.lang.typescript" },
