@@ -18,8 +18,9 @@ require("lazy").setup({
   spec = {
     { import = "plugins.lazyvim" },
     { import = "plugins" },
-    { import = 'lazyvim.plugins.xtras' },
+    { import = "lazyvim.plugins.xtras" },
 
+    { import = "plugins.extras.ui.barbecue" },
     { import = "plugins.extras.dap.core" },
 
     { import = "plugins.extras.lang.go" },
@@ -28,6 +29,7 @@ require("lazy").setup({
     { import = "plugins.extras.lang.python" },
     { import = "plugins.extras.lang.sql" },
     { import = "plugins.extras.lang.tmux" },
+
     { import = "lazyvim.plugins.extras.lang.rust" },
     { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.lang.yaml" },

@@ -1,6 +1,5 @@
 -- Options are automatically loaded before lazy.nvim startup
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
 vim.g.mapleader = "\\"
 
 vim.g.autoformat = false
@@ -53,8 +52,7 @@ local opt = vim.opt
 
 opt.title = true
 opt.titlestring = '%<%F%=%l/%L - nvim'
-opt.mouse = 'a'               -- Enable mouse mode
--- opt.mouse = 'nv'               -- Enable mouse in normal and visual modes only
+opt.mouse = 'nv'               -- Enable mouse in normal and visual modes only
 opt.virtualedit = 'block'      -- Position cursor anywhere in visual block
 opt.confirm = true             -- Confirm unsaved changes before exiting buffer
 opt.conceallevel = 2           -- Hide * markup for bold and italic, but not markers with substitutions
@@ -87,8 +85,6 @@ opt.shiftround = true          -- Round indent to multiple of 'shiftwidth'
 opt.sessionoptions:remove({ 'blank', 'buffers', 'terminal' })
 opt.sessionoptions:append({ 'globals', 'skiprtp' })
 
-opt.autowrite = true -- Enable auto write
-opt.autoread = true
 opt.undofile = true
 opt.undolevels = 10000
 opt.writebackup = false
@@ -147,6 +143,7 @@ opt.showmode = false      -- Don't show mode in cmd window
 opt.laststatus = 3        -- Global statusline
 opt.scrolloff = 4         -- Keep at least 2 lines above/below
 opt.sidescrolloff = 8     -- Keep at least 5 lines left/right
+opt.numberwidth = 2       -- Minimum number of columns to use for the line number
 opt.number = true
 opt.relativenumber = true
 opt.ruler = false         -- Disable default status ruler
@@ -208,8 +205,9 @@ end
 -- Misc
 -- ===
 
--- Disable python/perl/ruby/node providers
-vim.g.loaded_python3_provider = 0
+vim.g.python3_host_prog = "/opt/homebrew/bin/python3"
+
+-- Disable perl/ruby/node providers
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
@@ -248,4 +246,3 @@ vim.filetype.add({
 })
 
 -- vim: set ts=2 sw=0 tw=80 noet :
-
