@@ -321,29 +321,4 @@ return {
 		end,
 	},
 
-	-----------------------------------------------------------------------------
-  {
-    "hrsh7th/cmp-cmdline",
-    dependencies = {
-        "nvim-cmp",
-    },
-    config = function()
-      local cmp = require("cmp")
-      cmp.setup.cmdline("/", {
-        preselect = cmp.PreselectMode.None,
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = { { name = "buffer" } },
-      })
-      cmp.setup.cmdline("?", {
-        preselect = cmp.PreselectMode.None,
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = { { name = "buffer" } },
-      })
-      cmp.setup.cmdline(":", {
-        preselect = cmp.PreselectMode.None,
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
-      })
-    end
-  },
 }

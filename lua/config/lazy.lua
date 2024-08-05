@@ -30,7 +30,6 @@ require("lazy").setup({
     { import = "plugins.extras.lang.sql" },
     { import = "plugins.extras.lang.tmux" },
 
-    { import = "plugins.extras.lsp.gtd" },
     { import = "plugins.extras.ui.barbecue" },
     { import = "plugins.extras.ui.symbols-outline" },
 
