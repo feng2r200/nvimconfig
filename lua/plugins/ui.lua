@@ -330,10 +330,11 @@ return {
 			spec = {
 				{
 					mode = { 'n', 'v' },
-					{ ';', group = '+telescope' },
-					{ ';d', group = '+lsp' },
+					{ '<Space>', group = '+telescope' },
+					{ '<Space>d', group = '+lsp' },
 					{ 'g', group = '+goto' },
 					{ 'gz', group = '+surround' },
+					{ 'gp', group = "+glance" },
 					{ ']', group = '+next' },
 					{ '[', group = '+prev' },
 
@@ -347,13 +348,11 @@ return {
 					{ '<leader>ht', group = 'toggle' },
 					{ '<leader>m', group = 'tools' },
 					{ '<leader>md', group = 'diff' },
-					{ '<leader>q', group = 'quit/session' },
 					{ '<leader>s', group = 'search' },
 					{ '<leader>sn', group = 'noice' },
 					{ '<leader>t', group = 'toggle/tools' },
 					{ '<leader>u', group = 'ui' },
 					{ '<leader>x', group = 'diagnostics/quickfix' },
-					{ '<leader>z', group = 'notes' },
 				},
 			},
 		},
