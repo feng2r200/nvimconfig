@@ -1,6 +1,8 @@
 -- Plugins: UI
 
 return {
+
+	-----------------------------------------------------------------------------
 	-- Icon provider
 	{
 		'echasnovski/mini.icons',
@@ -23,9 +25,11 @@ return {
 		end,
 	},
 
+	-----------------------------------------------------------------------------
 	-- UI Component Library
 	{ 'MunifTanjim/nui.nvim', lazy = false },
 
+	-----------------------------------------------------------------------------
 	-- Fancy notification manager
 	{
 		'rcarriga/nvim-notify',
@@ -62,6 +66,7 @@ return {
 		end,
 	},
 
+	-----------------------------------------------------------------------------
 	-- Snazzy tab/bufferline
 	{
 		'akinsho/bufferline.nvim',
@@ -80,7 +85,7 @@ return {
 		},
 		opts = {
 			options = {
-				mode = 'buffers',
+				mode = 'tabs',
 				separator_style = 'slant',
 				show_close_icon = false,
 				show_buffer_close_icons = false,
@@ -145,6 +150,7 @@ return {
 		end,
 	},
 
+	-----------------------------------------------------------------------------
 	-- Replaces the UI for messages, cmdline and the popupmenu
 	{
 		'folke/noice.nvim',
@@ -235,6 +241,7 @@ return {
 		end,
 	},
 
+	-----------------------------------------------------------------------------
 	-- Visually display indent levels
 	{
 		'lukas-reineke/indent-blankline.nvim',
@@ -276,6 +283,7 @@ return {
 		},
 	},
 
+	-----------------------------------------------------------------------------
 	-- Visualize and operate on indent scope
 	{
 		'echasnovski/mini.indentscope',
@@ -313,6 +321,7 @@ return {
 		end,
 	},
 
+	-----------------------------------------------------------------------------
 	-- Create key bindings that stick
 	{
 		'folke/which-key.nvim',
@@ -362,6 +371,7 @@ return {
 		end,
 	},
 
+	-----------------------------------------------------------------------------
 	-- Hint and fix deviating indentation
 	{
 		'tenxsoydev/tabs-vs-spaces.nvim',
@@ -369,6 +379,7 @@ return {
 		opts = {},
 	},
 
+	-----------------------------------------------------------------------------
 	-- Highlight words quickly
 	{
 		't9md/vim-quickhl',
@@ -378,38 +389,19 @@ return {
 		},
 	},
 
-  {
-    "kevinhwang91/nvim-bqf",
-    ft = "qf",
+	-----------------------------------------------------------------------------
+	-- Better quickfix window
+	{
+		'kevinhwang91/nvim-bqf',
+		ft = 'qf',
 		cmd = 'BqfAutoToggle',
 		event = 'QuickFixCmdPost',
-    dependencies = {
-      "junegunn/fzf",
-    },
-    opts = {
-      auto_enable = true,
-      auto_resize_height = true,
-      preview = {
-        win_height = 12,
-        win_vheight = 12,
-        delay_syntax = 80,
-        border_chars = { "┃", "┃", "━", "━", "┏", "┓", "┗", "┛", "█" },
-        should_preview_cb = function(bufnr, _)
-          local ret = true
-          local bufname = vim.api.nvim_buf_get_name(bufnr)
-          local fsize = vim.fn.getfsize(bufname)
-          if fsize > 100 * 1024 then
-            -- skip file size greater than 100k
-            ret = false
-          elseif bufname:match("^fugitive://") then
-            -- skip fugitive buffer
-            ret = false
-          end
-          return ret
-        end,
-      },
+		dependencies = { "junegunn/fzf", },
+		opts = {
+			auto_resize_height = true,
+			auto_enable = true,
       -- make `drop` and `tab drop` to become preferred
-      func_map = {
+			func_map = {
 				tab = 'st',
 				split = 'sv',
 				vsplit = 'sg',
@@ -429,15 +421,37 @@ return {
 
 				prevhist = '<S-Tab>',
 				nexthist = '<Tab>',
-      },
-    },
-    config = function()
+			},
+			preview = {
+				auto_preview = true,
+				win_height = 12,
+				win_vheight = 12,
+				delay_syntax = 80,
+				border_chars = { "┃", "┃", "━", "━", "┏", "┓", "┗", "┛", "█" },
+				should_preview_cb = function(bufnr)
+					local ret = true
+					local bufname = vim.api.nvim_buf_get_name(bufnr)
+					local fsize = vim.fn.getfsize(bufname)
+					if fsize > 100 * 1024 then
+						-- skip file size greater than 100k
+						ret = false
+					elseif bufname:match("^fugitive://") then
+						-- skip fugitive buffer
+						ret = false
+					end
+					return ret
+				end,
+			},
+		},
+		config = function()
       vim.cmd([[
       hi BqfPreviewBorder guifg=#F2CDCD ctermfg=71
       hi link BqfPreviewRange Search
       ]])
     end,
   },
+
+	-----------------------------------------------------------------------------
 
   {
     "anuvyklack/windows.nvim",

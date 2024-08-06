@@ -155,17 +155,13 @@ return {
 		keys = {
 			-- General pickers
 			{ '<localleader>r', '<cmd>Telescope resume<CR>', desc = 'Resume Last' },
-			{ '<localleader>p', '<cmd>Telescope pickers<CR>', desc = 'Pickers' },
 			{ '<localleader>f', '<cmd>Telescope find_files<CR>', desc = 'Find Files' },
 			{ '<localleader>g', '<cmd>Telescope live_grep<CR>', desc = 'Grep' },
 			{ '<localleader>b', '<cmd>Telescope buffers<CR>', desc = 'Buffers' },
-			{ '<localleader>h', '<cmd>Telescope highlights<CR>', desc = 'Highlights' },
 			{ '<localleader>j', '<cmd>Telescope jumplist<CR>', desc = 'Jump List' },
 			{ '<localleader>m', '<cmd>Telescope marks<CR>', desc = 'Marks' },
-			{ '<localleader>o', '<cmd>Telescope vim_options<CR>', desc = 'Neovim Options' },
 			{ '<localleader>t', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', desc = 'Workspace Symbols' },
 			{ '<localleader>v', '<cmd>Telescope registers<CR>', desc = 'Registers' },
-			{ '<localleader>u', '<cmd>Telescope spell_suggest<CR>', desc = 'Spell Suggest' },
 			{ '<localleader>x', '<cmd>Telescope oldfiles<CR>', desc = 'Old Files' },
 			{ '<localleader>;', '<cmd>Telescope command_history<CR>', desc = 'Command History' },
 			{ '<localleader>:', '<cmd>Telescope commands<CR>', desc = 'Commands' },
