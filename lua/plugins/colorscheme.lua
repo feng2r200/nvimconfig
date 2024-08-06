@@ -9,6 +9,14 @@ return {
       colors = {
         onedark = { bg = "#101011" },
       },
+      highlights = {},
+      styles = {
+        keywords = "bold",
+      },
+      plugins = {
+        nvim_lsp = false,
+        treesitter = false,
+      },
       options = {
         transparency = true,
         lualine_transparency = true,
@@ -20,4 +28,5 @@ return {
       vim.cmd.colorscheme("onedark_vivid")
     end,
   },
+
 }
