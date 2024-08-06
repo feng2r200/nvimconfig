@@ -228,7 +228,7 @@ return {
 		cmd = 'Glance',
 		keys = {
 			{ 'gpd', '<cmd>Glance definitions<CR>', desc = "Glance definitions" },
-			{ 'gpr', '<cmd>Glance references<CR>', deac = "Glance references" },
+			{ 'gpr', '<cmd>Glance references<CR>', desc = "Glance references" },
 			{ 'gpy', '<cmd>Glance type_definitions<CR>', desc = "Glance type_definitions" },
 			{ 'gpi', '<cmd>Glance implementations<CR>', desc = "Glance implementations" },
 		},
