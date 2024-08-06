@@ -180,7 +180,7 @@ return {
 		---@param opts TSConfig
 		config = function(_, opts)
 			if type(opts.ensure_installed) == 'table' then
-				---@diagnostic disable-next-line: inject-field
+				---@diagnostic disable-next-line: param-type-mismatch
 				opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
 			end
 			require('nvim-treesitter.configs').setup(opts)

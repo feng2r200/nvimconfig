@@ -120,7 +120,7 @@ end
 -- Enable indent-guides in telescope preview
 vim.api.nvim_create_autocmd("User", {
   pattern = "TelescopePreviewerLoaded",
-  group = vim.api.nvim_create_augroup("rafi_telescope", {}),
+  group = vim.api.nvim_create_augroup("user_telescope", {}),
   callback = function(args)
     if args.buf ~= vim.api.nvim_win_get_buf(0) then
       return
@@ -269,6 +269,20 @@ return {
         return require("trouble.sources.telescope").open(...)
       end
 
+      local function find_command()
+        if 1 == vim.fn.executable("rg") then
+          return { "rg", "--files", "--color", "never", "-g", "!.git" }
+        elseif 1 == vim.fn.executable("fd") then
+          return { "fd", "--type", "f", "--color", "never", "-E", ".git" }
+        elseif 1 == vim.fn.executable("fdfind") then
+          return { "fdfind", "--type", "f", "--color", "never", "-E", ".git" }
+        elseif 1 == vim.fn.executable("find") and vim.fn.has("win32") == 0 then
+          return { "find", ".", "-type", "f" }
+        elseif 1 == vim.fn.executable("where") then
+          return { "where", "/r", ".", "*" }
+        end
+      end
+
       -- Transform to Telescope proper actions.
       myactions = transform_mod(myactions)
 
@@ -284,18 +298,6 @@ return {
       table.insert(vimgrep_args, "!**/.git/*")
 
       local path_sep = jit and (jit.os == "Windows" and "\\" or "/") or package.config:sub(1, 1)
-
-      local find_args = {
-        "rg",
-        "--vimgrep",
-        "--files",
-        "--follow",
-        "--hidden",
-        "--no-ignore-vcs",
-        "--smart-case",
-        "--glob",
-        "!**/.git/*",
-      }
 
       opts = opts or {}
       opts.defaults = {
@@ -321,6 +323,20 @@ return {
         history = {
           path = vim.fn.stdpath("state") .. path_sep .. "telescope_history",
         },
+
+        -- Open files in the first window that is an actual file.
+        -- Use the current window if no other window is available.
+        get_selection_window = function()
+          local wins = vim.api.nvim_list_wins()
+          table.insert(wins, 1, vim.api.nvim_get_current_win())
+          for _, win in ipairs(wins) do
+            local buf = vim.api.nvim_win_get_buf(win)
+            if vim.bo[buf].buftype == "" then
+              return win
+            end
+          end
+          return 0
+        end,
 
 				-- stylua: ignore
 				mappings = {
@@ -393,6 +409,25 @@ return {
 							local entry = require('telescope.actions.state').get_selected_entry()
 							require('util.preview').open(entry.path)
 						end,
+
+						-- Compare selected files with diffprg
+						['c'] = function(prompt_bufnr)
+							if #vim.g.diffprg == 0 then
+								LazyVim.error('Set `g:diffprg` to use this feature')
+								return
+							end
+							local from_entry = require('telescope.from_entry')
+							local action_state = require('telescope.actions.state')
+							local picker = action_state.get_current_picker(prompt_bufnr)
+							local entries = {}
+							for _, entry in ipairs(picker:get_multi_selection()) do
+								table.insert(entries, from_entry.path(entry, false, false))
+							end
+							if #entries > 0 then
+								table.insert(entries, 1, vim.g.diffprg)
+								vim.fn.system(entries)
+							end
+						end,
 					},
 				},
       }
@@ -408,8 +443,9 @@ return {
           },
         },
         find_files = {
-          find_command = has_ripgrep and find_args or nil,
           layout_config = { preview_width = 0.5 },
+          hidden = true,
+          find_command = find_command,
         },
         live_grep = {
           dynamic_preview_title = true,

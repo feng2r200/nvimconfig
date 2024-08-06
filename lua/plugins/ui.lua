@@ -85,7 +85,7 @@ return {
 		},
 		opts = {
 			options = {
-				mode = 'tabs',
+				mode = 'buffers',
 				separator_style = 'slant',
 				show_close_icon = false,
 				show_buffer_close_icons = false,
@@ -247,10 +247,18 @@ return {
 		'lukas-reineke/indent-blankline.nvim',
 		main = 'ibl',
 		event = 'LazyFile',
-		keys = {
-			{ '<Leader>ue', '<cmd>IBLToggle<CR>', desc = 'Toggle indent-lines' },
-		},
-		opts = {
+		opts = function()
+			LazyVim.toggle.map('<leader>ue', {
+				name = 'Indention Guides',
+				get = function()
+					return require('ibl.config').get_config(0).enabled
+				end,
+				set = function(state)
+					require('ibl').setup_buffer(0, { enabled = state })
+				end,
+			})
+
+			return {
 			indent = {
 				-- See more characters at :h ibl.config.indent.char
 				char = '│', -- ▏│
@@ -280,7 +288,8 @@ return {
 					'Trouble',
 				},
 			},
-		},
+			}
+		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -328,6 +337,7 @@ return {
 		event = 'VeryLazy',
 		cmd = 'WhichKey',
 		opts_extend = { 'spec' },
+		-- stylua: ignore
 		opts = {
 			icons = {
 				breadcrumb = '»',
@@ -339,29 +349,38 @@ return {
 			spec = {
 				{
 					mode = { 'n', 'v' },
+					{ '[', group = 'prev' },
+					{ ']', group = 'next' },
+					{ 'g', group = 'goto' },
+					{ 'gz', group = 'surround' },
+					{ 'z', group = 'fold' },
 					{ '<Space>', group = '+telescope' },
 					{ '<Space>d', group = '+lsp' },
-					{ 'g', group = '+goto' },
-					{ 'gz', group = '+surround' },
-					{ 'gp', group = "+glance" },
-					{ ']', group = '+next' },
-					{ '[', group = '+prev' },
+					{ 'gp', group = "glance" },
 
-					{ '<leader>b', group = 'buffer' },
+					{
+						'<leader>b',
+						group = 'buffer',
+						expand = function()
+							return require('which-key.extras').expand.buf()
+						end,
+					},
 					{ '<leader>c', group = 'code' },
 					{ '<leader>ch', group = 'calls' },
 					{ '<leader>f', group = 'file/find' },
 					{ '<leader>fw', group = 'workspace' },
 					{ '<leader>g', group = 'git' },
-					{ '<leader>h', group = 'hunks' },
+					{ '<leader>h', group = 'hunks', icon = { icon = ' ', color = 'red' } },
 					{ '<leader>ht', group = 'toggle' },
 					{ '<leader>m', group = 'tools' },
 					{ '<leader>md', group = 'diff' },
 					{ '<leader>s', group = 'search' },
 					{ '<leader>sn', group = 'noice' },
 					{ '<leader>t', group = 'toggle/tools' },
-					{ '<leader>u', group = 'ui' },
-					{ '<leader>x', group = 'diagnostics/quickfix' },
+					{ '<leader>u', group = 'ui', icon = { icon = '󰙵 ', color = 'cyan' } },
+					{ '<leader>x', group = 'diagnostics/quickfix', icon = { icon = '󱖫 ', color = 'green' } },
+					-- Better descriptions
+					{ 'gx', desc = 'Open with system app' },
 				},
 			},
 		},

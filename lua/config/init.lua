@@ -3,6 +3,8 @@
 
 local M = {}
 
+local lazy_clipboard
+
 function M.setup()
 	-- Autocmds can be loaded lazily when not opening a file
 	local lazy_autocmds = vim.fn.argc(-1) == 0
@@ -19,6 +21,9 @@ function M.setup()
 				M.load('autocmds')
 			end
 			M.load('keymaps')
+			if lazy_clipboard ~= nil then
+				vim.opt.clipboard = lazy_clipboard
+			end
 		end,
 	})
 end
@@ -58,6 +63,10 @@ function M.init()
 
 	M.load('options')
 
+	-- Defer built-in clipboard handling: "xsel" and "pbcopy" can be slow
+	lazy_clipboard = vim.opt.clipboard
+	vim.opt.clipboard = ''
+
 	LazyVim.plugin.setup()
 	LazyVimConfig.json.load()
 
@@ -77,4 +86,3 @@ function M.init()
 end
 
 return M
-

@@ -3,15 +3,18 @@
 vim.g.mapleader = "\\"
 vim.g.maplocalleader = " "
 
-vim.g.autoformat = false
-
-vim.g.lazyvim_picker = 'auto'
 
 -- When enabled, 'q' closes any window
 vim.g.window_q_mapping = true
 
--- Display structure in statusline by default
-vim.g.structure_status = false
+-- LazyVim auto format
+vim.g.autoformat = false
+
+-- LazyVim picker to use.
+-- Can be one of: telescope, fzf
+-- Leave it to "auto" to automatically use the picker
+-- enabled with `:LazyExtras`
+vim.g.lazyvim_picker = 'auto'
 
 -- LazyVim root dir detection
 -- Each entry can be:
@@ -73,7 +76,7 @@ opt.clipboard = vim.env.SSH_TTY and '' or 'unnamedplus' -- Sync with system clip
 
 opt.completeopt = 'menu,menuone,noselect'
 opt.wildmode = 'longest:full,full'
-opt.diffopt:append({ 'indent-heuristic', 'algorithm:patience' })
+opt.diffopt:append({ 'indent-heuristic', 'algorithm:patience', 'iwhite' })
 
 opt.textwidth = 80             -- Text width maximum chars before wrapping
 opt.expandtab = true
@@ -207,7 +210,6 @@ end
 -- ===
 
 vim.g.python3_host_prog = "/opt/homebrew/bin/python3"
-
 -- Disable perl/ruby/node providers
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
