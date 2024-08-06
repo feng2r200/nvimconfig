@@ -16,7 +16,7 @@ return {
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
       local cmp = require("cmp")
       local defaults = require("cmp.config.default")()
-      local auto_select = true
+      local auto_select = false
       local Util = require("util")
 
       return {
@@ -38,6 +38,7 @@ return {
         mapping = cmp.mapping.preset.insert({
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<CR>"] = LazyVim.cmp.confirm({ select = auto_select }),
+          ["<C-CR>"] = LazyVim.cmp.confirm({ select = true }),
 
           ["<Down>"] = cmp.mapping.select_next_item({ count = 1 }),
           ["<Up>"] = cmp.mapping.select_prev_item({ count = 1 }),

@@ -16,13 +16,24 @@ local function extend_or_override(config, custom, ...)
 end
 
 return {
+  recommended = function()
+    return LazyVim.extras.wants({
+      ft = "java",
+      root = {
+        "build.gradle",
+        "build.gradle.kts",
+        "build.xml", -- Ant
+        "pom.xml", -- Maven
+        "settings.gradle", -- Gradle
+        "settings.gradle.kts", -- Gradle
+      },
+    })
+  end,
+
   -- Add java to treesitter.
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "java" })
-    end,
+    opts = { ensure_installed = { "java" } },
   },
 
   -- Ensure java debugger and test packages are installed.
@@ -32,10 +43,7 @@ return {
     dependencies = {
       {
         "williamboman/mason.nvim",
-        opts = function(_, opts)
-          opts.ensure_installed = opts.ensure_installed or {}
-          vim.list_extend(opts.ensure_installed, { "java-test", "java-debug-adapter" })
-        end,
+        opts = { ensure_installed = { "java-debug-adapter", "java-test" } },
       },
     },
   },
@@ -63,6 +71,9 @@ return {
     dependencies = { "folke/which-key.nvim" },
     ft = java_filetypes,
     opts = function()
+      local maven_settings = os.getenv("HOME") .. "/.m2/settings.xml"
+      local lombok_jar = require("mason-registry").get_package("jdtls"):get_install_path() .. "/lombok.jar"
+
       return {
         -- How to find the root dir for a given filename. The default comes from
         -- lspconfig which provides a function specifically for java projects.
@@ -84,13 +95,13 @@ return {
         jdtls_launcher = function(jdtls_dir)
           return vim.fn.expand(jdtls_dir .. "/plugins/org.eclipse.equinox.launcher_*.jar")
         end,
-        lombok_jar = function(jdtls_dir)
-          return vim.fn.expand(jdtls_dir .. "/lombok.jar")
-        end,
 
         -- How to run jdtls. This can be overridden to a full java command-line
         -- if the Python wrapper script doesn't suffice.
-        cmd = { vim.fn.exepath("jdtls") },
+        cmd = {
+          vim.fn.exepath("jdtls"),
+          string.format("--jvm-arg=-javaagent:%s", lombok_jar),
+        },
         full_cmd = function(opts)
           local fname = vim.api.nvim_buf_get_name(0)
           local root_dir = opts.root_dir(fname)
@@ -119,7 +130,6 @@ return {
               "-XX:+TieredCompilation",
               "-XX:MaxJavaStackTraceDepth=10000",
               "-XX:SoftRefLRUPolicyMSPerMB=100",
-              "-javaagent:" .. opts.lombok_jar(jdtls_dir),
               "--add-modules=ALL-SYSTEM",
               "--add-opens",
               "java.base/java.util=ALL-UNNAMED",
@@ -140,11 +150,69 @@ return {
         dap = { hotcodereplace = "auto", config_overrides = {} },
         dap_main = {},
         test = true,
+        settings = {
+          java = {
+            maxConcurrentBuilds = 8,
+            server = {
+              launchMode = "Hybrid",
+            },
+            completion = { enabled = false },
+            configuration = {
+              maven = {
+                userSettings = maven_settings,
+                globalSettings = maven_settings,
+              },
+              updateBuildConfiguration = "interactive",
+            },
+            contentProvider = { preferred = "fernflower" },
+            foldingRange = { enabled = true },
+            implementationsCodeLens = { enabled = false },
+            import = {
+              maven = { enabled = true },
+              exclusions = {
+                "**/node_modules/**",
+                "**/.metadata/**",
+                "**/archetype-resources/**",
+                "**/META-INF/maven/**",
+                "**/.git/**",
+                "**/.idea/**",
+              },
+            },
+            maven = {
+              downloadSources = true,
+              updateSnapshots = true,
+            },
+            referencesCodeLens = { enabled = false },
+            references = {
+              includeAccessors = true,
+              includeDecompiledSources = true,
+            },
+            inlayHints = {
+              parameterNames = {
+                enabled = "all", -- literals, all, none
+              },
+            },
+            rename = { enabled = true },
+            selectionRange = { enabled = true },
+            signatureHelp = {
+              enabled = true,
+              description = {
+                enabled = true,
+              },
+            },
+            sources = {
+              organizeImports = {
+                starThreshold = 9999,
+                staticStarThreshold = 9999,
+              },
+            },
+            symbols = { includeSourceMethodDeclarations = true },
+            trace = { server = "messages" },
+          },
+        },
       }
     end,
-    config = function()
-      local opts = LazyVim.opts("nvim-jdtls") or {}
-
+    config = function(_, opts)
       -- Find the extra bundles that should be passed on the jdtls command-line
       -- if nvim-dap is enabled with java debug/test.
       local mason_registry = require("mason-registry")
@@ -173,8 +241,6 @@ return {
       local function attach_jdtls()
         local fname = vim.api.nvim_buf_get_name(0)
 
-        local maven_settings = os.getenv("HOME") .. "/.m2/settings.xml"
-
         -- Configuration can be augmented and overridden by opts.jdtls
         local config = extend_or_override({
           cmd = opts.full_cmd(opts),
@@ -182,66 +248,7 @@ return {
           init_options = {
             bundles = bundles,
           },
-          settings = {
-            java = {
-              maxConcurrentBuilds = 8,
-              server = {
-                launchMode = "Hybrid",
-              },
-              completion = { enabled = false },
-              configuration = {
-                maven = {
-                  userSettings = maven_settings,
-                  globalSettings = maven_settings,
-                },
-                updateBuildConfiguration = "interactive",
-              },
-              contentProvider = { preferred = "fernflower" },
-              foldingRange = { enabled = true },
-              implementationsCodeLens = { enabled = false },
-              import = {
-                maven = { enabled = true },
-                exclusions = {
-                  "**/node_modules/**",
-                  "**/.metadata/**",
-                  "**/archetype-resources/**",
-                  "**/META-INF/maven/**",
-                  "**/.git/**",
-                  "**/.idea/**",
-                },
-              },
-              maven = {
-                downloadSources = true,
-                updateSnapshots = true,
-              },
-              referencesCodeLens = { enabled = false },
-              references = {
-                includeAccessors = true,
-                includeDecompiledSources = true,
-              },
-              inlayHints = {
-                parameterNames = {
-                  enabled = "all", -- literals, all, none
-                },
-              },
-              rename = { enabled = true },
-              selectionRange = { enabled = true },
-              signatureHelp = {
-                enabled = true,
-                description = {
-                  enabled = true,
-                },
-              },
-              sources = {
-                organizeImports = {
-                  starThreshold = 9999,
-                  staticStarThreshold = 9999,
-                },
-              },
-              symbols = { includeSourceMethodDeclarations = true },
-              trace = { server = "messages" },
-            },
-          },
+          settings = opts.settings,
           flags = {
             allow_incremental_sync = true,
             debounce_text_changes = 150,
@@ -274,29 +281,39 @@ return {
           if client and client.name == "jdtls" then
             local wk = require("which-key")
             wk.add({
-              ["<leader>cx"] = { name = "+extract" },
-              ["<leader>cxv"] = { require("jdtls").extract_variable_all, "Extract Variable" },
-              ["<leader>cxc"] = { require("jdtls").extract_constant, "Extract Constant" },
-              ["gs"] = { require("jdtls").super_implementation, "Goto Super" },
-              ["gS"] = { require("jdtls.tests").goto_subjects, "Goto Subjects" },
-              ["<leader>co"] = { require("jdtls").organize_imports, "Organize Imports" },
-            }, { mode = "n", buffer = args.buf })
+              {
+                mode = "n",
+                buffer = args.buf,
+                { "<leader>cx", group = "extract" },
+                { "<leader>cxv", require("jdtls").extract_variable_all, desc = "Extract Variable" },
+                { "<leader>cxc", require("jdtls").extract_constant, desc = "Extract Constant" },
+                { "gs", require("jdtls").super_implementation, desc = "Goto Super" },
+                { "gS", require("jdtls.tests").goto_subjects, desc = "Goto Subjects" },
+                { "<leader>co", require("jdtls").organize_imports, desc = "Organize Imports" },
+              },
+            })
             wk.add({
-              ["<leader>c"] = { name = "+code" },
-              ["<leader>cx"] = { name = "+extract" },
-              ["<leader>cxm"] = {
-                [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]],
-                "Extract Method",
+              {
+                mode = "v",
+                buffer = args.buf,
+                { "<leader>cx", group = "extract" },
+                {
+                  "<leader>cxm",
+                  [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]],
+                  desc = "Extract Method",
+                },
+                {
+                  "<leader>cxv",
+                  [[<ESC><CMD>lua require('jdtls').extract_variable_all(true)<CR>]],
+                  desc = "Extract Variable",
+                },
+                {
+                  "<leader>cxc",
+                  [[<ESC><CMD>lua require('jdtls').extract_constant(true)<CR>]],
+                  desc = "Extract Constant",
+                },
               },
-              ["<leader>cxv"] = {
-                [[<ESC><CMD>lua require('jdtls').extract_variable_all(true)<CR>]],
-                "Extract Variable",
-              },
-              ["<leader>cxc"] = {
-                [[<ESC><CMD>lua require('jdtls').extract_constant(true)<CR>]],
-                "Extract Constant",
-              },
-            }, { mode = "v", buffer = args.buf })
+            })
 
             if opts.dap and LazyVim.has("nvim-dap") and mason_registry.is_installed("java-debug-adapter") then
               -- custom init for Java debugger
@@ -307,11 +324,31 @@ return {
               if opts.test and mason_registry.is_installed("java-test") then
                 -- custom keymaps for Java test runner (not yet compatible with neotest)
                 wk.add({
-                  ["<leader>t"] = { name = "+test" },
-                  ["<leader>tt"] = { require("jdtls.dap").test_class, "Run All Test" },
-                  ["<leader>tr"] = { require("jdtls.dap").test_nearest_method, "Run Nearest Test" },
-                  ["<leader>tT"] = { require("jdtls.dap").pick_test, "Run Test" },
-                }, { mode = "n", buffer = args.buf })
+                  {
+                    mode = "n",
+                    buffer = args.buf,
+                    { "<leader>t", group = "test" },
+                    {
+                      "<leader>tt",
+                      function()
+                        require("jdtls.dap").test_class({
+                          config_overrides = type(opts.test) ~= "boolean" and opts.test.config_overrides or nil,
+                        })
+                      end,
+                      desc = "Run All Test",
+                    },
+                    {
+                      "<leader>tr",
+                      function()
+                        require("jdtls.dap").test_nearest_method({
+                          config_overrides = type(opts.test) ~= "boolean" and opts.test.config_overrides or nil,
+                        })
+                      end,
+                      desc = "Run Nearest Test",
+                    },
+                    { "<leader>tT", require("jdtls.dap").pick_test, desc = "Run Test" },
+                  },
+                })
               end
             end
 
