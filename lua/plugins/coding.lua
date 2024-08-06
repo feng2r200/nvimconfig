@@ -16,7 +16,7 @@ return {
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
       local cmp = require("cmp")
       local defaults = require("cmp.config.default")()
-      local auto_select = false
+      local auto_select = true
       local Util = require("util")
 
       return {
@@ -36,37 +36,31 @@ return {
           { name = "buffer", priority = 50, keyword_length = 3 },
         }),
         mapping = cmp.mapping.preset.insert({
+          ["<C-Space>"] = cmp.mapping.complete(),
           ["<CR>"] = LazyVim.cmp.confirm({ select = auto_select }),
-          ["<C-y>"] = LazyVim.cmp.confirm({ select = true }),
-          ["<S-CR>"] = LazyVim.cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace }),
-          ["<C-CR>"] = function(fallback)
+
+          ["<Down>"] = cmp.mapping.select_next_item({ count = 1 }),
+          ["<Up>"] = cmp.mapping.select_prev_item({ count = 1 }),
+          ["<C-d>"] = cmp.mapping.select_next_item({ count = 5 }),
+          ["<C-u>"] = cmp.mapping.select_prev_item({ count = 5 }),
+
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+
+          ["<C-c>"] = function(fallback)
             cmp.abort()
             fallback()
           end,
-          ["<C-Space>"] = cmp.mapping.complete(),
+
+          ["<C-j>"] = Util.cmp.snippet_jump_forward(),
+          ["<C-k>"] = Util.cmp.snippet_jump_backward(),
+
           ["<Tab>"] = Util.cmp.supertab({
             behavior = require("cmp").SelectBehavior.Select,
           }),
           ["<S-Tab>"] = Util.cmp.supertab_shift({
             behavior = require("cmp").SelectBehavior.Select,
           }),
-          ["<C-j>"] = Util.cmp.snippet_jump_forward(),
-          ["<C-k>"] = Util.cmp.snippet_jump_backward(),
-          ["<C-d>"] = cmp.mapping.select_next_item({ count = 5 }),
-          ["<C-u>"] = cmp.mapping.select_prev_item({ count = 5 }),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-c>"] = function(fallback)
-            cmp.close()
-            fallback()
-          end,
-          ["<C-e>"] = cmp.mapping(function()
-            if cmp.visible() then
-              cmp.abort()
-            else
-              cmp.complete()
-            end
-          end),
         }),
         formatting = {
           format = function(entry, item)
