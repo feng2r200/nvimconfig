@@ -17,28 +17,6 @@ map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev Search R
 map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 
--- Easier line-wise movement
-map('n', 'gh', 'g^', { desc = 'Jump to first screen character' })
-map('n', 'gl', 'g$', { desc = 'Jump to last screen character' })
-
--- Navigation in command line
-map('c', '<C-h>', '<Home>')
-map('c', '<C-l>', '<End>')
-map('c', '<C-f>', '<Right>')
-map('c', '<C-b>', '<Left>')
-
--- Scroll step sideways
-map('n', 'zl', 'z4l')
-map('n', 'zh', 'z4h')
-
--- Toggle fold or select option from popup menu
-map('n', '<CR>', function()
-	return vim.fn.pumvisible() == 1 and '<CR>' or 'za'
-end, { expr = true, desc = 'Toggle Fold' })
-
--- Focus the current fold by closing all others
-map('n', '<S-Return>', 'zMzv', { remap = true, desc = 'Focus Fold' })
-
 -- Tabs: Many ways to navigate them
 map('n', '<A-j>', '<cmd>tabnext<CR>', { desc = 'Next Tab' })
 map('n', '<A-k>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
