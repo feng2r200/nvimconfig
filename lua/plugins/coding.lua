@@ -312,4 +312,30 @@ return {
       table.insert(opts.sources, { name = "lazydev", group_index = 0 })
     end,
   },
+
+  -----------------------------------------------------------------------------
+  {
+    "nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-cmdline",
+    },
+    config = function()
+      local cmp = require("cmp")
+      cmp.setup.cmdline("/", {
+        preselect = cmp.PreselectMode.None,
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = { { name = "buffer" } },
+      })
+      cmp.setup.cmdline("?", {
+        preselect = cmp.PreselectMode.None,
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = { { name = "buffer" } },
+      })
+      cmp.setup.cmdline(":", {
+        preselect = cmp.PreselectMode.None,
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
+      })
+    end,
+  },
 }
