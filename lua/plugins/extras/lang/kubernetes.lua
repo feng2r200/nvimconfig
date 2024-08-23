@@ -1,6 +1,3 @@
--- rafi.plugins.extras.lang.kubernetes
---
-
 return {
 	desc = 'Imports YAML lang and adds common manifest patterns for schemas.',
 	recommended = function()

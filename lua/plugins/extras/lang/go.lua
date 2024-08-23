@@ -1,6 +1,3 @@
--- rafi.plugins.extras.lang.go
---
-
 return {
 	desc = 'Imports Go lang extras and adds more tools.',
 	recommended = function()

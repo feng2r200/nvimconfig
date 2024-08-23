@@ -1,6 +1,3 @@
--- rafi.plugins.extras.lang.markdown
---
-
 LazyVim.on_very_lazy(function()
 	vim.filetype.add({
 		extension = { mdx = 'markdown.mdx' },

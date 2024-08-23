@@ -1,6 +1,3 @@
--- rafi.plugins.extras.lang.ansible
---
-
 LazyVim.on_very_lazy(function()
 	vim.filetype.add({
 		pattern = {
@@ -39,7 +36,7 @@ return {
 		opts = function(_, _)
 			-- Setup filetype settings
 			vim.api.nvim_create_autocmd('FileType', {
-				group = vim.api.nvim_create_augroup('rafi_ftplugin_ansible', {}),
+				group = vim.api.nvim_create_augroup('user_ftplugin_ansible', {}),
 				pattern = 'yaml.ansible',
 				callback = function()
 					-- Add '.' to iskeyword for ansible modules, e.g. ansible.builtin.copy

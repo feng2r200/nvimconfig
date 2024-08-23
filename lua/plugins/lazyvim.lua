@@ -8,7 +8,6 @@ return {
 		lazy = false,
 		cond = true,
 		config = function(_, opts)
-			-- Load lua/rafi/config/*
 			require('config').setup()
 
 			-- Setup lazyvim, but don't load any lazyvim/config/* files.
