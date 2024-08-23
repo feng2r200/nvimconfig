@@ -21,7 +21,6 @@ require("lazy").setup({
     { import = "lazyvim.plugins.xtras" },
 
     { import = "plugins.extras.dap.core" },
-    { import = "plugins.extras.editor.rest" },
     { import = "plugins.extras.lang.go" },
     { import = "plugins.extras.lang.markdown" },
     { import = "plugins.extras.lang.java" },
