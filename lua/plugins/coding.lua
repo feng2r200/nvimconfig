@@ -4,7 +4,7 @@ return {
   -- Completion plugin for neovim written in Lua
   {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+    event = { "InsertEnter" },
     main = "lazyvim.util.cmp",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
@@ -16,7 +16,7 @@ return {
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
       local cmp = require("cmp")
       local defaults = require("cmp.config.default")()
-      local auto_select = true
+      local auto_select = false
       local Util = require("util")
 
       return {
@@ -319,6 +319,7 @@ return {
     dependencies = {
       "hrsh7th/cmp-cmdline",
     },
+    event = { "CmdlineEnter" },
     config = function()
       local cmp = require("cmp")
       cmp.setup.cmdline("/", {

@@ -60,15 +60,22 @@ return {
 					settings = {
 						-- https://github.com/golang/tools/blob/master/gopls/doc/settings.md
 						gopls = {
+							experimentalPostfixCompletions = true,
 							-- https://github.com/golang/tools/blob/master/gopls/doc/analyzers.md
 							analyses = {
+								unusedparams = true,
+								shadow = true,
 								fieldalignment = false,
 								unusedvariable = true,
 								-- shadow = true,
 								-- ST1000 = false,
 								-- ST1005 = false,
 							},
+							staticcheck = true,
 						},
+					},
+					init_options = {
+						usePlaceholders = true,
 					},
 				},
 			},
