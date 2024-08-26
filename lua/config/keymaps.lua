@@ -4,7 +4,6 @@ local map = LazyVim.safe_keymap_set
 map("", "<Space>", "<Nop>", {})
 map("", "<C-t>", "<Nop>", {})
 
-
 -- stylua: ignore start
 
 -- Navigation {{{

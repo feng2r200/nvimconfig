@@ -22,7 +22,6 @@ require("lazy").setup({
 
     { import = "plugins.extras.dap.core" },
     { import = "plugins.extras.lang.go" },
-    { import = "plugins.extras.lang.markdown" },
     { import = "plugins.extras.lang.java" },
     { import = "plugins.extras.lang.python" },
     { import = "plugins.extras.lang.sql" },
