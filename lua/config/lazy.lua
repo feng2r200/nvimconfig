@@ -11,7 +11,7 @@ end
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 clone("folke/lazy.nvim.git", lazypath)
 ---@diagnostic disable-next-line: undefined-field
-vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+vim.opt.rtp:prepend(lazypath)
 clone("LazyVim/LazyVim.git", vim.fn.stdpath("data") .. "/lazy/LazyVim")
 
 require("lazy").setup({
@@ -24,8 +24,8 @@ require("lazy").setup({
     { import = "plugins.extras.lang.go" },
     { import = "plugins.extras.lang.java" },
     { import = "plugins.extras.lang.python" },
-    { import = "plugins.extras.lang.sql" },
     { import = "plugins.extras.lang.tmux" },
+
     { import = "plugins.extras.ui.barbecue" },
     { import = "plugins.extras.ui.symbols-outline" },
 

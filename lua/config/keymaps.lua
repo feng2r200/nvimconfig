@@ -174,50 +174,48 @@ map('n', '<leader>tT', function() LazyVim.terminal() end, { desc = 'Terminal (cw
 -- Windows and buffers {{{
 
 -- Ultimatus Quitos
-if vim.F.if_nil(vim.g.window_q_mapping, true) then
-	map('n', 'q', function()
-		local plugins = {
-			"PlenaryTestPopup",
-			"grug-far",
-			"help",
-			"lspinfo",
-			"notify",
-			"qf",
-			"spectre_panel",
-			"startuptime",
-			"tsplayground",
-			"neotest-output",
-			"checkhealth",
-			"neotest-summary",
-			"neotest-output-panel",
-			"dbout",
-			"gitsigns.blame",
-			'blame',
-			'fugitive',
-			'fugitiveblame',
-			'httpResult',
-		}
-		local buf = vim.api.nvim_get_current_buf()
-		if vim.tbl_contains(plugins, vim.bo[buf].filetype) then
-			vim.bo[buf].buflisted = false
+map('n', 'q', function()
+	local plugins = {
+		"PlenaryTestPopup",
+		"grug-far",
+		"help",
+		"lspinfo",
+		"notify",
+		"qf",
+		"spectre_panel",
+		"startuptime",
+		"tsplayground",
+		"neotest-output",
+		"checkhealth",
+		"neotest-summary",
+		"neotest-output-panel",
+		"dbout",
+		"gitsigns.blame",
+		'blame',
+		'fugitive',
+		'fugitiveblame',
+		'httpResult',
+	}
+	local buf = vim.api.nvim_get_current_buf()
+	if vim.tbl_contains(plugins, vim.bo[buf].filetype) then
+		vim.bo[buf].buflisted = false
+		vim.api.nvim_win_close(0, false)
+	else
+		-- Find non-floating windows
+		local wins = vim.fn.filter(vim.api.nvim_list_wins(), function(_, win)
+			if vim.api.nvim_win_get_config(win).zindex then
+				return nil
+			end
+			return win
+		end)
+		-- If last window, quit
+		if #wins > 1 then
 			vim.api.nvim_win_close(0, false)
 		else
-			-- Find non-floating windows
-			local wins = vim.fn.filter(vim.api.nvim_list_wins(), function(_, win)
-				if vim.api.nvim_win_get_config(win).zindex then
-					return nil
-				end
-				return win
-			end)
-			-- If last window, quit
-			if #wins > 1 then
-				vim.api.nvim_win_close(0, false)
-			else
-				vim.cmd[[quit]]
-			end
+			vim.cmd[[quit]]
 		end
-	end, { desc = 'Close window' })
-end
+	end
+end, { desc = 'Close window' })
 
 -- Toggle window zoom
 LazyVim.toggle.map('sz', LazyVim.toggle.maximize)

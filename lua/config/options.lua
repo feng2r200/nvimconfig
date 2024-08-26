@@ -3,10 +3,6 @@
 vim.g.mapleader = "\\"
 vim.g.maplocalleader = " "
 
-
--- When enabled, 'q' closes any window
-vim.g.window_q_mapping = true
-
 -- LazyVim auto format
 vim.g.autoformat = false
 
