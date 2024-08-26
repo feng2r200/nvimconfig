@@ -19,11 +19,7 @@ return {
 		event = { 'LazyFile', 'VeryLazy' },
 		lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
 		cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' },
-		keys = {
-			{ '<C-Space>', desc = 'Increment Selection' },
-			{ 'v', desc = 'Increment Selection', mode = 'x' },
-			{ 'V', desc = 'Shrink Selection', mode = 'x' },
-		},
+		keys = { },
 		init = function(plugin)
 			-- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
 			-- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
@@ -77,13 +73,7 @@ return {
 			},
 
 			incremental_selection = {
-				enable = true,
-				keymaps = {
-					init_selection = '<C-Space>',
-					node_incremental = 'v',
-					scope_incremental = false,
-					node_decremental = 'V',
-				},
+				enable = false,
 			},
 
 			-- See: https://github.com/nvim-treesitter/nvim-treesitter-textobjects

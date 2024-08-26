@@ -32,7 +32,7 @@ M.show = function()
 		clients = vim.lsp.get_clients({ bufnr = bufnr })
 	else
 		---@diagnostic disable-next-line: deprecated
-		clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+		clients = vim.lsp.get_clients({ bufnr = bufnr })
 	end
 
 	-- Remove all menu options
