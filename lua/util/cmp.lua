@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-doc-name, return-type-mismatch, undefined-global
 -- Cmp utilities
 -- Several cmp mapping helpers to use to your liking.
 -- Based on: https://github.com/VonHeikemen/lsp-zero.nvim

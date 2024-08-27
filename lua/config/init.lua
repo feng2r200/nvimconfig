@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 -- This uses LazyVim's config module.
 -- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/init.lua
 

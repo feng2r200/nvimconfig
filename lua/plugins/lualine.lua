@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global, undefined-field
 -- Plugin: Lualine
 
 return {
@@ -47,7 +48,7 @@ return {
 
       return {
         options = {
-          theme = "onedark",
+          -- theme = "onedark",
           globalstatus = true,
           disabled_filetypes = {
             statusline = { "dashboard", "alpha", "starter" },

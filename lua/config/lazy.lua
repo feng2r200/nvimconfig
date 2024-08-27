@@ -40,6 +40,9 @@ require("lazy").setup({
   install = { missing = true, colorscheme = {} },
   checker = { enabled = false, notify = false },
   change_detection = { notify = false },
+  git = {
+    url_format = "git@github.com:%s",
+  },
   performance = {
     rtp = {
       disabled_plugins = {

@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 local function augroup(name)
   return vim.api.nvim_create_augroup("User_" .. name, {})
 end
