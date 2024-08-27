@@ -145,10 +145,6 @@ map("i", ";", ";<c-g>u")
 -- }}}
 -- Plugins & Tools {{{
 
--- Jump entire buffers throughout jumplist
-map('n', 'g<C-i>', function() Util.edit.jump_buffer(1) end, { desc = 'Jump to newer buffer' })
-map('n', 'g<C-o>', function() Util.edit.jump_buffer(-1) end, { desc = 'Jump to older buffer' })
-
 -- Lazygit
 map('n', '<leader>tg', function() LazyVim.lazygit( { cwd = LazyVim.root.git() }) end, { desc = 'Lazygit (Root Dir)' })
 map('n', '<leader>tG', function() LazyVim.lazygit() end, { desc = 'Lazygit (cwd)' })

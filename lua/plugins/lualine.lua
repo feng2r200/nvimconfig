@@ -8,9 +8,7 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-    enabled = not vim.g.started_by_firenvim,
     init = function()
-      vim.g.qf_disable_statusline = true
       vim.g.lualine_laststatus = vim.o.laststatus
       if vim.fn.argc(-1) > 0 then
         -- set an empty statusline till lualine loads
@@ -48,19 +46,13 @@ return {
 
       return {
         options = {
-          -- theme = "onedark",
-          globalstatus = true,
-          disabled_filetypes = {
-            statusline = { "dashboard", "alpha", "starter" },
-          },
+          theme = "auto",
+          globalstatus = vim.o.laststatus == 3,
+          disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "starter" } },
         },
-        extensions = {
-          "man",
-          "lazy",
-        },
+        extensions = { "man", "lazy", },
         sections = {
           lualine_a = {
-            -- Left edge block.
             {
               function()
                 return "▊"
