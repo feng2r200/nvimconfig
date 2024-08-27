@@ -1,15 +1,16 @@
+---@diagnostic disable: undefined-global, undefined-field
 return {
 
   -----------------------------------------------------------------------------
   -- Completion plugin for neovim written in Lua
   {
     "hrsh7th/nvim-cmp",
-    event = { "InsertEnter" },
-    main = "lazyvim.util.cmp",
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
     },
 
     opts = function()
@@ -17,7 +18,6 @@ return {
       local cmp = require("cmp")
       local defaults = require("cmp.config.default")()
       local auto_select = false
-      local Util = require("util")
 
       return {
         -- configure any filetype to auto add brackets
@@ -36,8 +36,8 @@ return {
           { name = "buffer", priority = 50, keyword_length = 3 },
         }),
         mapping = cmp.mapping.preset.insert({
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<CR>"] = LazyVim.cmp.confirm({ select = auto_select }),
+          ["<C-Space>"] = cmp.mapping.complete {},
+          ["<CR>"] = cmp.mapping.confirm({ select = auto_select }),
 
           ["<Down>"] = cmp.mapping.select_next_item({ count = 1 }),
           ["<Up>"] = cmp.mapping.select_prev_item({ count = 1 }),
@@ -51,16 +51,6 @@ return {
             cmp.abort()
             fallback()
           end,
-
-          ["<C-j>"] = Util.cmp.snippet_jump_forward(),
-          ["<C-k>"] = Util.cmp.snippet_jump_backward(),
-
-          ["<Tab>"] = Util.cmp.supertab({
-            behavior = require("cmp").SelectBehavior.Select,
-          }),
-          ["<S-Tab>"] = Util.cmp.supertab_shift({
-            behavior = require("cmp").SelectBehavior.Select,
-          }),
         }),
         formatting = {
           format = function(entry, item)
@@ -88,6 +78,25 @@ return {
           end,
         },
       }
+    end,
+    config = function(_, opts)
+      local cmp = require("cmp")
+      cmp.setup(opts)
+      cmp.setup.cmdline("/", {
+        preselect = cmp.PreselectMode.None,
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = { { name = "buffer" } },
+      })
+      cmp.setup.cmdline("?", {
+        preselect = cmp.PreselectMode.None,
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = { { name = "buffer" } },
+      })
+      cmp.setup.cmdline(":", {
+        preselect = cmp.PreselectMode.None,
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
+      })
     end,
   },
 
@@ -212,18 +221,6 @@ return {
   },
 
   -----------------------------------------------------------------------------
-  -- Trailing whitespace highlight and remove
-  {
-    "echasnovski/mini.trailspace",
-    event = { "BufReadPost", "BufNewFile" },
-		-- stylua: ignore
-		keys = {
-			{ '<Leader>cw', '<cmd>lua MiniTrailspace.trim()<CR>', desc = 'Erase Whitespace' },
-		},
-    opts = {},
-  },
-
-  -----------------------------------------------------------------------------
   -- Perform diffs on blocks of code
   {
     "AndrewRadev/linediff.vim",
@@ -234,20 +231,6 @@ return {
       { "<Leader>mds", "<cmd>LinediffShow<CR>", desc = "Line diff show" },
       { "<Leader>mdr", "<cmd>LinediffReset<CR>", desc = "Line diff reset" },
     },
-  },
-
-  -----------------------------------------------------------------------------
-  -- Delete surrounding function call
-  {
-    "AndrewRadev/dsf.vim",
-		-- stylua: ignore
-		keys = {
-			{ 'dsf', '<Plug>DsfDelete', noremap = true, desc = 'Delete Surrounding Function' },
-			{ 'csf', '<Plug>DsfChange', noremap = true, desc = 'Change Surrounding Function' },
-		},
-    init = function()
-      vim.g.dsf_no_mappings = 1
-    end,
   },
 
   -----------------------------------------------------------------------------
@@ -287,33 +270,6 @@ return {
           LazyVim.mini.ai_whichkey(opts)
         end)
       end)
-    end,
-  },
-
-  -----------------------------------------------------------------------------
-  {
-    "nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-cmdline",
-    },
-    event = { "CmdlineEnter" },
-    config = function()
-      local cmp = require("cmp")
-      cmp.setup.cmdline("/", {
-        preselect = cmp.PreselectMode.None,
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = { { name = "buffer" } },
-      })
-      cmp.setup.cmdline("?", {
-        preselect = cmp.PreselectMode.None,
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = { { name = "buffer" } },
-      })
-      cmp.setup.cmdline(":", {
-        preselect = cmp.PreselectMode.None,
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
-      })
     end,
   },
 }

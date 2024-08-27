@@ -1,4 +1,4 @@
--- Clone bootstrap repositories if not already installed.
+---@diagnostic disable: undefined-global
 local function clone(remote, dest)
   if not vim.uv.fs_stat(dest) then
     print("Installing " .. dest .. "…")
@@ -10,13 +10,12 @@ end
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 clone("folke/lazy.nvim.git", lazypath)
----@diagnostic disable-next-line: undefined-field
-vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+vim.opt.rtp:prepend(lazypath)
 clone("LazyVim/LazyVim.git", vim.fn.stdpath("data") .. "/lazy/LazyVim")
 
 require("lazy").setup({
   spec = {
-    { import = "plugins.lazyvim" },
+    { import = "plugins.extras.lazyvim" },
     { import = "plugins" },
     { import = "lazyvim.plugins.xtras" },
 
@@ -37,12 +36,10 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lsp.none-ls" },
     { import = "lazyvim.plugins.extras.test.core" },
   },
-  concurrency = vim.uv.available_parallelism() * 2,
   defaults = { lazy = true, version = false },
   install = { missing = true, colorscheme = {} },
   checker = { enabled = false, notify = false },
   change_detection = { notify = false },
-  diff = { cmd = "terminal_git" },
   performance = {
     rtp = {
       disabled_plugins = {
