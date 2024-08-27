@@ -1,14 +1,7 @@
+---@diagnostic disable: undefined-global, inject-field
 -- Plugins: Tree-sitter and Syntax
 
 return {
-
-	-----------------------------------------------------------------------------
-	-- Vimscript syntax/indent plugins
-	{ 'iloginow/vim-stylus', ft = 'stylus' },
-	{ 'mustache/vim-mustache-handlebars', ft = { 'mustache', 'handlebars' } },
-	{ 'lifepillar/pgsql.vim', ft = 'pgsql' },
-	{ 'MTDL9/vim-log-highlighting', ft = 'log' },
-	{ 'reasonml-editor/vim-reason-plus', ft = { 'reason', 'merlin' } },
 
 	-----------------------------------------------------------------------------
 	-- Nvim Treesitter configurations and abstraction layer
@@ -19,7 +12,6 @@ return {
 		event = { 'LazyFile', 'VeryLazy' },
 		lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
 		cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' },
-		keys = { },
 		init = function(plugin)
 			-- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
 			-- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
@@ -186,9 +178,7 @@ return {
 			-- If treesitter is already loaded, we need to run config again for textobjects
 			if LazyVim.is_loaded('nvim-treesitter') then
 				local opts = LazyVim.opts('nvim-treesitter')
-				require('nvim-treesitter.configs').setup({
-					textobjects = opts.textobjects,
-				})
+				require('nvim-treesitter.configs').setup({ textobjects = opts.textobjects })
 			end
 
 			-- When in diff mode, we want to use the default
