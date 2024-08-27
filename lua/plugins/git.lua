@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 -- Plugins: Git
 
 return {
@@ -19,9 +20,6 @@ return {
 			watch_gitdir = {
 				interval = 1000,
 				follow_files = true,
-			},
-			preview_config = {
-				border = 'rounded',
 			},
 			signs = {
 				add = { text = '▎' },
@@ -232,70 +230,4 @@ return {
 		end,
 	},
 
-	-----------------------------------------------------------------------------
-	-- Browse git repositories
-	{
-		'ruifm/gitlinker.nvim',
-		keys = {
-			{
-				'<leader>go',
-				function()
-					require('gitlinker').get_buf_range_url('n')
-				end,
-				silent = true,
-				desc = 'Git open in browser',
-			},
-			{
-				'<leader>go',
-				function()
-					require('gitlinker').get_buf_range_url('v')
-				end,
-				mode = 'x',
-				desc = 'Git open in browser',
-			},
-		},
-		opts = {
-			mappings = nil,
-			opts = {
-				add_current_line_on_normal_mode = true,
-				print_url = false,
-				action_callback = function(...)
-					return require('gitlinker.actions').open_in_browser(...)
-				end,
-			},
-		},
-	},
-
-	-----------------------------------------------------------------------------
-	-- Pleasant editing on Git commit messages
-	{
-		'rhysd/committia.vim',
-		event = 'BufReadPre COMMIT_EDITMSG',
-		init = function()
-			-- See: https://github.com/rhysd/committia.vim#variables
-			vim.g.committia_min_window_width = 30
-			vim.g.committia_edit_window_width = 75
-		end,
-		config = function()
-			vim.g.committia_hooks = {
-				edit_open = function()
-					vim.cmd.resize(10)
-					local opts = {
-						buffer = vim.api.nvim_get_current_buf(),
-						silent = true,
-					}
-					local function map(mode, lhs, rhs)
-						vim.keymap.set(mode, lhs, rhs, opts)
-					end
-					map('n', 'q', '<cmd>quit<CR>')
-					map('i', '<C-d>', '<Plug>(committia-scroll-diff-down-half)')
-					map('i', '<C-u>', '<Plug>(committia-scroll-diff-up-half)')
-					map('i', '<C-f>', '<Plug>(committia-scroll-diff-down-page)')
-					map('i', '<C-b>', '<Plug>(committia-scroll-diff-up-page)')
-					map('i', '<C-j>', '<Plug>(committia-scroll-diff-down)')
-					map('i', '<C-k>', '<Plug>(committia-scroll-diff-up)')
-				end,
-			}
-		end,
-	},
 }

@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 local Util = require("lazyvim.util")
 
 return {
@@ -5,9 +6,6 @@ return {
 	-----------------------------------------------------------------------------
 	-- Automatic indentation style detection
 	{ 'nmac427/guess-indent.nvim', lazy = false, priority = 50, opts = {} },
-
-	-- Display vim version numbers in docs
-	{ 'tweekmonster/helpful.vim', cmd = 'HelpfulVersion' },
 
 	-- An alternative sudo for Vim and Neovim
 	{ 'lambdalisue/suda.vim', event = 'BufRead' },
@@ -219,43 +217,6 @@ return {
 				},
 			},
 		},
-	},
-
-	-----------------------------------------------------------------------------
-	-- Pretty window for navigating LSP locations
-	{
-		'dnlhc/glance.nvim',
-		cmd = 'Glance',
-		keys = {
-			{ 'gpd', '<cmd>Glance definitions<CR>', desc = "Glance definitions" },
-			{ 'gpr', '<cmd>Glance references<CR>', desc = "Glance references" },
-			{ 'gpy', '<cmd>Glance type_definitions<CR>', desc = "Glance type_definitions" },
-			{ 'gpi', '<cmd>Glance implementations<CR>', desc = "Glance implementations" },
-		},
-		opts = function()
-			local actions = require('glance').actions
-			return {
-				folds = {
-					fold_closed = '󰅂', -- 󰅂 
-					fold_open = '󰅀', -- 󰅀 
-					folded = true,
-				},
-				mappings = {
-					list = {
-						['<C-u>'] = actions.preview_scroll_win(5),
-						['<C-d>'] = actions.preview_scroll_win(-5),
-						['sg'] = actions.jump_vsplit,
-						['sv'] = actions.jump_split,
-						['st'] = actions.jump_tab,
-						['p'] = actions.enter_win('preview'),
-					},
-					preview = {
-						['q'] = actions.close,
-						['p'] = actions.enter_win('list'),
-					},
-				},
-			}
-		end,
 	},
 
 	-----------------------------------------------------------------------------

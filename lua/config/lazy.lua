@@ -26,7 +26,6 @@ require("lazy").setup({
     { import = "plugins.extras.lang.tmux" },
 
     { import = "plugins.extras.ui.barbecue" },
-    { import = "plugins.extras.ui.symbols-outline" },
 
     { import = "lazyvim.plugins.extras.formatting.black" },
     { import = "lazyvim.plugins.extras.lang.rust" },
