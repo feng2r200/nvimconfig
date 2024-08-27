@@ -23,8 +23,8 @@ require("lazy").setup({
     { import = "plugins.extras.lang.go" },
     { import = "plugins.extras.lang.java" },
     { import = "plugins.extras.lang.python" },
-    { import = "plugins.extras.lang.sql" },
     { import = "plugins.extras.lang.tmux" },
+
     { import = "plugins.extras.ui.barbecue" },
     { import = "plugins.extras.ui.symbols-outline" },
 

@@ -36,7 +36,7 @@ return {
           { name = "buffer", priority = 50, keyword_length = 3 },
         }),
         mapping = cmp.mapping.preset.insert({
-          ["<C-Space>"] = cmp.mapping.complete {},
+          ["<C-Space>"] = cmp.mapping.complete({}),
           ["<CR>"] = cmp.mapping.confirm({ select = auto_select }),
 
           ["<Down>"] = cmp.mapping.select_next_item({ count = 1 }),
