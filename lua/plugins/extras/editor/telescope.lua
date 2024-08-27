@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 if lazyvim_docs then
   -- In case you don't want to use `:LazyExtras`,
   -- then you need to set the option below.
@@ -38,54 +39,6 @@ function myactions.scroll_results(prompt_bufnr, direction)
   local speed = status.picker.layout_config.scroll_speed or default_speed
 
   require("telescope.actions.set").shift_selection(prompt_bufnr, math.floor(speed) * direction)
-end
-
--- Custom pickers
-
-local plugin_directories = function(opts)
-  local actions = require("telescope.actions")
-  local utils = require("telescope.utils")
-  local dir = vim.fn.stdpath("data") .. "/lazy"
-
-  opts = opts or {}
-  opts.cmd = vim.F.if_nil(opts.cmd, {
-    vim.o.shell,
-    "-c",
-    "find " .. vim.fn.shellescape(dir) .. " -mindepth 1 -maxdepth 1 -type d",
-  })
-
-  local dir_len = dir:len()
-  opts.entry_maker = function(line)
-    return {
-      value = line,
-      ordinal = line,
-      display = line:sub(dir_len + 2),
-    }
-  end
-
-  require("telescope.pickers")
-    .new(opts, {
-      layout_config = {
-        width = 0.65,
-        height = 0.7,
-      },
-      prompt_title = "[ Plugin directories ]",
-      finder = require("telescope.finders").new_table({
-        results = utils.get_os_command_output(opts.cmd),
-        entry_maker = opts.entry_maker,
-      }),
-      sorter = require("telescope.sorters").get_fuzzy_file(),
-      previewer = require("telescope.previewers.term_previewer").cat.new(opts),
-      attach_mappings = function(prompt_bufnr)
-        actions.select_default:replace(function()
-          local entry = require("telescope.actions.state").get_selected_entry()
-          actions.close(prompt_bufnr)
-          vim.cmd.tcd(entry.value)
-        end)
-        return true
-      end,
-    })
-    :find()
 end
 
 -- Custom window-sizes
