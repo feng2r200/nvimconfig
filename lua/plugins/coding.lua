@@ -18,12 +18,13 @@ return {
       local cmp = require("cmp")
       local defaults = require("cmp.config.default")()
       local auto_select = false
+      local Util = require("util")
 
       return {
         -- configure any filetype to auto add brackets
         auto_brackets = { "python" },
         completion = {
-          completeopt = "menu,menuone,noinsert",
+          completeopt = "menu,menuone,noinsert" .. (auto_select and "" or ",noselect"),
         },
         preselect = auto_select and cmp.PreselectMode.Item or cmp.PreselectMode.None,
         view = { entries = { follow_cursor = true } },
@@ -36,8 +37,19 @@ return {
           { name = "buffer", priority = 50, keyword_length = 3 },
         }),
         mapping = cmp.mapping.preset.insert({
+          ["<CR>"] = LazyVim.cmp.confirm({ select = auto_select }),
+          ["<C-y>"] = LazyVim.cmp.confirm({ select = true }),
+          ["<C-c>"] = function(fallback)
+            cmp.abort()
+            fallback()
+          end,
+
           ["<C-Space>"] = cmp.mapping.complete({}),
-          ["<CR>"] = cmp.mapping.confirm({ select = auto_select }),
+          ["<Tab>"] = Util.cmp.supertab({ behavior = require("cmp").SelectBehavior.Select }),
+          ["<S-Tab>"] = Util.cmp.supertab_shift({ behavior = require("cmp").SelectBehavior.Select }),
+
+          ["<C-j>"] = Util.cmp.snippet_jump_forward(),
+          ["<C-k>"] = Util.cmp.snippet_jump_backward(),
 
           ["<Down>"] = cmp.mapping.select_next_item({ count = 1 }),
           ["<Up>"] = cmp.mapping.select_prev_item({ count = 1 }),
@@ -46,11 +58,6 @@ return {
 
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-
-          ["<C-c>"] = function(fallback)
-            cmp.abort()
-            fallback()
-          end,
         }),
         formatting = {
           format = function(entry, item)
