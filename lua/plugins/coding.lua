@@ -39,10 +39,6 @@ return {
         mapping = cmp.mapping.preset.insert({
           ["<CR>"] = LazyVim.cmp.confirm({ select = auto_select }),
           ["<C-y>"] = LazyVim.cmp.confirm({ select = true }),
-          ["<C-c>"] = function(fallback)
-            cmp.abort()
-            fallback()
-          end,
 
           ["<C-Space>"] = cmp.mapping.complete({}),
           ["<Tab>"] = Util.cmp.supertab({ behavior = require("cmp").SelectBehavior.Select }),
@@ -58,6 +54,18 @@ return {
 
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+
+          ["<C-c>"] = function(fallback)
+            cmp.abort()
+            fallback()
+          end,
+					['<C-e>'] = cmp.mapping(function()
+						if cmp.visible() then
+							cmp.abort()
+						else
+							cmp.complete()
+						end
+					end),
         }),
         formatting = {
           format = function(entry, item)
