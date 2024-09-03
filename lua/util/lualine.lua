@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 -- Util: Lualine components
 
 ---@class util.lualine

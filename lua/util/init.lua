@@ -13,6 +13,7 @@ local LazyUtil = require('lazy.core.util')
 ---@field preview util.preview
 ---@field ui util.ui
 ---@field lualine util.lualine
+---@field kit util.kit
 local M = {}
 
 ---@type table<string, string|string[]>
