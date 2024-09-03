@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 -- This is the same as in lspconfig.server_configurations.jdtls, but avoids
 -- needing to require that when this module loads.
 local java_filetypes = { "java" }
