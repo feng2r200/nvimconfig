@@ -31,10 +31,11 @@ return {
         sorting = defaults.sorting,
         experimental = { ghost_text = { hl_group = "Comment" } },
         sources = cmp.config.sources({
-          { name = "nvim_lsp", priority = 50, keyword_length = 2 },
-          { name = "path", priority = 40, keyword_length = 4 },
+          { name = "nvim_lsp", priority = 10 },
         }, {
-          { name = "buffer", priority = 50, keyword_length = 3 },
+          { name = "path", priority = 50, keyword_length = 4 },
+        }, {
+          { name = "buffer", priority = 30, keyword_length = 3 },
         }),
         mapping = cmp.mapping.preset.insert({
           ["<CR>"] = LazyVim.cmp.confirm({ select = auto_select }),
@@ -59,13 +60,13 @@ return {
             cmp.abort()
             fallback()
           end,
-					['<C-e>'] = cmp.mapping(function()
-						if cmp.visible() then
-							cmp.abort()
-						else
-							cmp.complete()
-						end
-					end),
+          ["<C-e>"] = cmp.mapping(function()
+            if cmp.visible() then
+              cmp.abort()
+            else
+              cmp.complete()
+            end
+          end),
         }),
         formatting = {
           format = function(entry, item)
@@ -135,7 +136,7 @@ return {
         end,
       }
       if LazyVim.has("nvim-snippets") then
-        table.insert(opts.sources, { name = "snippets" })
+        table.insert(opts.sources, { name = "snippets", priority = 20, keyword_length = 2 })
       end
     end,
   },
