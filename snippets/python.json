@@ -14,6 +14,22 @@
       "\treturn self.$1[key]"
     ],
     "description": "Dict getitem"
+  },
+  "iter": {
+    "prefix": "__iter__",
+    "body": [
+      "__iter__(self):",
+      "\treturn iter(self.$1)"
+    ],
+    "description": "Dict iterator"
+  },
+  "dict_contains": {
+    "prefix": "__contains__",
+    "body": [
+      "__contains__(self, key):",
+      "\treturn key in self.$1"
+    ],
+    "description": "Dict contains."
   }
 }
 
