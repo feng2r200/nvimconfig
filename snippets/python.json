@@ -1,0 +1,19 @@
+{
+  "setitem": {
+    "prefix": "__setitem__",
+    "body": [
+      "__setitem__(self, key, value):",
+      "\tself.$1[key] = value"
+    ],
+    "description": "Dict setitem"
+  },
+  "getitem": {
+    "prefix": "__getitem__",
+    "body": [
+      "__getitem__(self, key):",
+      "\treturn self.$1[key]"
+    ],
+    "description": "Dict getitem"
+  }
+}
+
