@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 return {
 
 	{ 'windwp/nvim-autopairs', enabled = false },

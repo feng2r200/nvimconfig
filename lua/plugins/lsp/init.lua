@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-doc-name, undefined-global, undefined-field
 -- LSP: Initialize
 
 -- This is part of LazyVim's code, with my modifications.

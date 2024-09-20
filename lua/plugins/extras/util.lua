@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 local M = {}
 
 M.root_patterns = { ".git", "lua", "package.json", "mvnw", "gradlew", "pom.xml", "build.gradle", "release", ".project", ".env", "venv" }

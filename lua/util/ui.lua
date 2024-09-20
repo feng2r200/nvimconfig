@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 -- Util: UI
 
 ---@class util.ui

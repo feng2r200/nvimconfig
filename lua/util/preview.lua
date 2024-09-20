@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 -- Util: Preview (requires telescope)
 
 ---@class util.preview

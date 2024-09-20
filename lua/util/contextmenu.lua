@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-doc-name, undefined-field, undefined-global
 -- Context-aware menu
 
 ---@class util.contextmenu

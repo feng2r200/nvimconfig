@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 return {
 	desc = 'Imports YAML lang and adds common manifest patterns for schemas.',
 	recommended = function()

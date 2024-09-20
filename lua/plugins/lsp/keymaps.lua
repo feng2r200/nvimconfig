@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-doc-name, undefined-global, undefined-field, inject-field
 -- LSP: Key-maps
 
 local M = {}

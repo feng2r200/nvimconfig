@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 return {
 
 	-- Tree like view for symbols using LSP

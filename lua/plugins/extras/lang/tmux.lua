@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 LazyVim.on_very_lazy(function()
 	vim.filetype.add({
 		filename = { Tmuxfile = 'tmux' },

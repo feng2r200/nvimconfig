@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global, deprecated
 -- Edit utilities
 
 ---@class util.edit

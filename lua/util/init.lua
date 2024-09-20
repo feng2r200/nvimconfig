@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-doc-class, undefined-field
 -- Util: Init
 
 -- This is part of LazyVim's code, with my modifications.

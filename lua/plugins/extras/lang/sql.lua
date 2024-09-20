@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 return {
   -- add yaml specific modules to treesitter
   {
