@@ -11,6 +11,15 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
+      {
+        "garymjr/nvim-snippets",
+        opts = {
+          friendly_snippets = true,
+        },
+        dependencies = {
+          "rafamadriz/friendly-snippets",
+        },
+      },
     },
 
     opts = function()
@@ -36,7 +45,14 @@ return {
           { name = "path", priority = 50, keyword_length = 4 },
         }, {
           { name = "buffer", priority = 30, keyword_length = 3 },
+        }, {
+          { name = "snippets", priority = 20, keyword_length = 2 },
         }),
+        snippet = {
+          expand = function(item)
+            return LazyVim.cmp.expand(item.body)
+          end,
+        },
         mapping = cmp.mapping.preset.insert({
           ["<CR>"] = LazyVim.cmp.confirm({ select = auto_select }),
           ["<C-y>"] = LazyVim.cmp.confirm({ select = true }),
@@ -115,31 +131,31 @@ return {
 
   -----------------------------------------------------------------------------
   -- Native snippets
-  {
-    "nvim-cmp",
-    dependencies = {
-      {
-        "garymjr/nvim-snippets",
-        opts = {
-          friendly_snippets = true,
-        },
-        dependencies = {
-          -- Preconfigured snippets for different languages
-          "rafamadriz/friendly-snippets",
-        },
-      },
-    },
-    opts = function(_, opts)
-      opts.snippet = {
-        expand = function(item)
-          return LazyVim.cmp.expand(item.body)
-        end,
-      }
-      if LazyVim.has("nvim-snippets") then
-        table.insert(opts.sources, { name = "snippets", priority = 20, keyword_length = 2 })
-      end
-    end,
-  },
+  -- {
+  --   "garymjr/nvim-snippets",
+  --   dependencies = {
+  --     {
+  --       "nvim-cmp",
+  --       opts = {
+  --         friendly_snippets = true,
+  --       },
+  --       dependencies = {
+  --         -- Preconfigured snippets for different languages
+  --         "rafamadriz/friendly-snippets",
+  --       },
+  --     },
+  --   },
+  --   opts = function(_, opts)
+  --     opts.snippet = {
+  --       expand = function(item)
+  --         return LazyVim.cmp.expand(item.body)
+  --       end,
+  --     }
+  --     if LazyVim.has("nvim-snippets") then
+  --       table.insert(opts.sources, { name = "snippets", priority = 20, keyword_length = 2 })
+  --     end
+  --   end,
+  -- },
 
   -----------------------------------------------------------------------------
   -- Powerful auto-pair plugin with multiple characters support
