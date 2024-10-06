@@ -96,11 +96,7 @@ return {
   -- Find, Filter, Preview, Pick. All lua.
   {
     "nvim-telescope/telescope.nvim",
-    version = false,
     cmd = "Telescope",
-    enabled = function()
-      return LazyVim.pick.want() == "telescope"
-    end,
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
@@ -295,8 +291,6 @@ return {
 				mappings = {
 
 					i = {
-						['jj'] = { '<Esc>', type = 'command' },
-
 						['<Tab>'] = actions.move_selection_worse,
 						['<S-Tab>'] = actions.move_selection_better,
 						['<C-u>'] = actions.results_scrolling_up,
