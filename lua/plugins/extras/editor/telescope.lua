@@ -106,7 +106,7 @@ return {
 			{ '<localleader>r', '<cmd>Telescope resume<CR>', desc = 'Resume Last' },
 			{ '<localleader>f', '<cmd>Telescope find_files<CR>', desc = 'Find Files' },
 			{ '<localleader>g', '<cmd>Telescope live_grep<CR>', desc = 'Grep' },
-			{ '<localleader>b', '<cmd>Telescope buffers<CR>', desc = 'Buffers' },
+			{ '<localleader>b', '<cmd>Telescope buffers sort_mru=true sort_lastused=true<CR>', desc = 'Buffers' },
 			{ '<localleader>j', '<cmd>Telescope jumplist<CR>', desc = 'Jump List' },
 			{ '<localleader>m', '<cmd>Telescope marks<CR>', desc = 'Marks' },
 			{ '<localleader>t', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', desc = 'Workspace Symbols' },
@@ -117,11 +117,6 @@ return {
 			{ '<localleader>/', '<cmd>Telescope search_history<CR>', desc = 'Search History' },
 			{ '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<CR>', desc = 'Buffer Find' },
 
-			{
-				'<leader>,',
-				'<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>',
-				desc = 'Switch Buffer',
-			},
 			{ '<leader>ff', '<cmd>Telescope find_files<CR>', desc = 'Find Files' },
 			{ '<leader>fg', '<cmd>Telescope live_grep<CR>', desc = 'Grep' },
 
