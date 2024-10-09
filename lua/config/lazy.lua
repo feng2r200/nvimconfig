@@ -28,7 +28,6 @@ require("lazy").setup({
     { import = "plugins.extras.ui.barbecue" },
     { import = "plugins.extras.ui.leetcode" },
 
-    { import = "lazyvim.plugins.extras.formatting.black" },
     { import = "lazyvim.plugins.extras.lang.rust" },
     { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.lang.yaml" },
