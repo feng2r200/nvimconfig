@@ -131,13 +131,13 @@ return {
 				term:toggle()
 			end
 			local mappings = {
-				{ '<C-/>', mode = { 'n', 't' }, toggleterm, desc = 'Toggle Terminal' },
-				{ '<C-_>', mode = { 'n', 't' }, toggleterm, desc = 'which_key_ignore' },
+				{ '<C-_>', mode = { 'n', 't' }, toggleterm, desc = 'Toggle Terminal' },
 			}
 			return vim.list_extend(mappings, keys)
 		end,
 		opts = {
 			open_mapping = false,
+			direction = "float",
 			float_opts = {
 				border = 'curved',
 			},
@@ -245,17 +245,7 @@ return {
 	},
 
 	{
-		import = 'lazyvim.plugins.extras.editor.fzf',
-		enabled = function()
-			return LazyVim.pick.want() == 'fzf'
-		end,
-	},
-
-	{
 		import = 'plugins.extras.editor.telescope',
-		enabled = function()
-			return LazyVim.pick.want() == 'telescope'
-		end,
 	},
 
   {

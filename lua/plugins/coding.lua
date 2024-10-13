@@ -130,34 +130,6 @@ return {
   },
 
   -----------------------------------------------------------------------------
-  -- Native snippets
-  -- {
-  --   "garymjr/nvim-snippets",
-  --   dependencies = {
-  --     {
-  --       "nvim-cmp",
-  --       opts = {
-  --         friendly_snippets = true,
-  --       },
-  --       dependencies = {
-  --         -- Preconfigured snippets for different languages
-  --         "rafamadriz/friendly-snippets",
-  --       },
-  --     },
-  --   },
-  --   opts = function(_, opts)
-  --     opts.snippet = {
-  --       expand = function(item)
-  --         return LazyVim.cmp.expand(item.body)
-  --       end,
-  --     }
-  --     if LazyVim.has("nvim-snippets") then
-  --       table.insert(opts.sources, { name = "snippets", priority = 20, keyword_length = 2 })
-  --     end
-  --   end,
-  -- },
-
-  -----------------------------------------------------------------------------
   -- Powerful auto-pair plugin with multiple characters support
   {
     "windwp/nvim-autopairs",
