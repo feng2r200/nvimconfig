@@ -19,8 +19,7 @@ return {
       end
     end,
     opts = function()
-      local Util = require("lazyvim.util")
-      local RafiUtil = require("util")
+      local Util = require("util")
       local icons = require("lazyvim.config").icons
 
       local function is_plugin_window()
@@ -91,12 +90,14 @@ return {
             },
             LazyVim.lualine.root_dir(),
             {
-              RafiUtil.lualine.plugin_title(),
+              Util.lualine.plugin_title(),
               padding = { left = 0, right = 1 },
               cond = is_plugin_window,
             },
             {
-              "filetype",
+              function()
+                return vim.bo.modified and vim.bo.buftype == "" and icons.status.filename.modified or " "
+              end,
               icon_only = true,
               padding = { left = 1, right = 0 },
               cond = is_file_window,
@@ -135,7 +136,7 @@ return {
 
             -- Whitespace trails
             {
-              RafiUtil.lualine.trails(),
+              Util.lualine.trails(),
               cond = is_file_window,
               padding = { left = 1, right = 0 },
               color = LazyVim.ui.fg("Identifier"),
@@ -246,19 +247,10 @@ return {
 							cond = function () return package.loaded['dap'] and require('dap').status() ~= '' end,
 							color = LazyVim.ui.fg('Debug'),
 						},
-            -- lazy.nvim updates
-            {
-              require("lazy.status").updates,
-              cond = require("lazy.status").has_updates,
-              color = LazyVim.ui.fg("Comment"),
-              on_click = function()
-                vim.cmd([[Lazy]])
-              end,
-            },
           },
           lualine_y = {
             {
-              RafiUtil.lualine.filemedia(),
+              Util.lualine.filemedia(),
               padding = 1,
               cond = function()
                 return is_min_width(70)
@@ -289,14 +281,14 @@ return {
               colored = false,
               padding = { left = 1, right = 0 },
             },
-            { Util.lualine.pretty_path(), padding = { left = 1, right = 0 } },
+            { LazyVim.lualine.pretty_path(), padding = { left = 1, right = 0 } },
             {
               function()
                 return vim.bo.modified and vim.bo.buftype == "" and icons.status.filename.modified or ""
               end,
               cond = is_file_window,
               padding = 1,
-              color = { fg = RafiUtil.ui.bg("DiffDelete") },
+              color = { fg = Util.ui.bg("DiffDelete") },
             },
           },
           lualine_b = {},
