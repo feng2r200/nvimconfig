@@ -70,20 +70,6 @@ function M.init()
 
 	LazyVim.plugin.setup()
 	LazyVimConfig.json.load()
-
-	-- Add lua/*/plugins/extras as list of "extra" sources
-	LazyVim.extras.sources = {
-		{
-			name = 'LazyVim',
-			desc = 'LazyVim extras',
-			module = 'lazyvim.plugins.extras',
-		},
-		{
-			name = 'User ',
-			desc = 'User extras',
-			module = 'plugins.extras',
-		},
-	}
 end
 
 return M
