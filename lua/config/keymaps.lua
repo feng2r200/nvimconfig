@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-global
 local Util = require("util")
-local map = LazyVim.safe_keymap_set
+local map = vim.keymap.set
 
 map("", "<Space>", "<Nop>", {})
 map("", "<C-t>", "<Nop>", {})
@@ -22,15 +22,14 @@ map('n', '<A-j>', '<cmd>tabnext<CR>', { desc = 'Next Tab' })
 map('n', '<A-k>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
 map('n', '<A-[>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
 map('n', '<A-]>', '<cmd>tabnext<CR>', { desc = 'Next Tab' })
-map('n', '<C-Tab>', '<cmd>tabnext<CR>', { desc = 'Next Tab' })
-map('n', '<C-S-Tab>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
 
 -- Moving tabs
 map('n', '<A-{>', '<cmd>-tabmove<CR>', { desc = 'Tab Move Backwards' })
 map('n', '<A-}>', '<cmd>+tabmove<CR>', { desc = 'Tab Move Forwards' })
 
 -- buffers
-map("n", "<leader>bd", LazyVim.ui.bufremove, { desc = "Delete Buffer" })
+map("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete Buffer" })
+map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete Other Buffers"})
 
 -- }}}
 -- Selection {{{
@@ -137,35 +136,17 @@ end, { desc = 'Open Location List' })
 map('n', '<leader>ui', vim.show_pos, { desc = 'Show Treesitter Node' })
 map('n', '<leader>uI', '<cmd>InspectTree<cr>', { desc = 'Inspect Tree' })
 
--- Add undo break-points
-map("i", ",", ",<c-g>u")
-map("i", ".", ".<c-g>u")
-map("i", ";", ";<c-g>u")
-
 -- }}}
 -- Plugins & Tools {{{
 
--- Lazygit
-map('n', '<leader>tg', function() LazyVim.lazygit( { cwd = LazyVim.root.git() }) end, { desc = 'Lazygit (Root Dir)' })
-map('n', '<leader>tG', function() LazyVim.lazygit() end, { desc = 'Lazygit (cwd)' })
-map('n', '<leader>tm', LazyVim.lazygit.blame_line, { desc = 'Git Blame Line' })
-map('n', '<leader>tf', function()
-	local git_path = vim.api.nvim_buf_get_name(0)
-	LazyVim.lazygit({args = { '-f', vim.trim(git_path) }})
-end, { desc = 'Lazygit Current File History' })
-
-map('n', '<leader>gl', function()
-	LazyVim.lazygit({ args = { 'log' }, cwd = LazyVim.root.git() })
-end, { desc = 'Lazygit Log' })
-map('n', '<leader>gL', function()
-	LazyVim.lazygit({ args = { 'log' } })
-end, { desc = 'Lazygit Log (cwd)' })
-
 -- Terminal
 map('t', '<esc><esc>', '<c-\\><c-n>', { desc = 'Enter Normal Mode' })
-local lazyterm = function() LazyVim.terminal(nil, { cwd = LazyVim.root() }) end
-map('n', '<leader>tt', lazyterm, { desc = 'Terminal (Root Dir)' })
-map('n', '<leader>tT', function() LazyVim.terminal() end, { desc = 'Terminal (cwd)' })
+map('n', '<c-/>', function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = 'Terminal (Root Dir)' })
+map('n', '<c-_>', function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = 'which_key_ignore' })
+
+-- Terminal Mappings
+map('t', '<C-/>', '<cmd>close<cr>', { desc = 'Hide Terminal' })
+map('t', '<c-_>', '<cmd>close<cr>', { desc = 'which_key_ignore' })
 
 -- }}}
 -- Windows and buffers {{{
