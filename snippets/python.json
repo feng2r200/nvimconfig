@@ -30,6 +30,20 @@
       "\treturn key in self.$1"
     ],
     "description": "Dict contains."
+  },
+  "property template": {
+      "prefix": "@property",
+      "body": [
+          "@property",
+          "def ${1:pname}(self):",
+          "\t\"\"\"${2:The $1 property.}\"\"\"",
+          "\t${3:return self._$1}",
+          "",
+          "@${4:$1}.setter",
+          "def ${5:$1}(self, value):",
+          "\t${6:self._$1} = value"
+      ],
+      "description": "New property: get and set via decorator"
   }
 }
 
