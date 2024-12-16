@@ -11,7 +11,6 @@ return {
 		build = ':TSUpdate',
 		event = { 'LazyFile', 'VeryLazy' },
 		lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
-		cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' },
 		init = function(plugin)
 			-- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
 			-- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
@@ -21,143 +20,55 @@ return {
 			require('lazy.core.loader').add_to_rtp(plugin)
 			require('nvim-treesitter.query_predicates')
 		end,
-		dependencies = {
-			-- Modern matchit and matchparen
-			{
-				'andymass/vim-matchup',
-				init = function()
-					vim.g.matchup_matchparen_offscreen = {}
-				end,
-			},
-
-			-- Wisely add "end" in various filetypes
-			'RRethy/nvim-treesitter-endwise',
-		},
+		cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' },
 		opts_extend = { 'ensure_installed' },
 		---@diagnostic disable-next-line: undefined-doc-name
 		---@type TSConfig
 		---@diagnostic disable: missing-fields
 		opts = {
-			highlight = {
-				enable = true,
-				disable = function(_, buf)
-					local max_filesize = 100 * 1024 -- 100 KB
-					local ok, stats =
-						pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-					if ok and stats and stats.size > max_filesize then
-						return true
-					end
-				end,
-			},
+			highlight = { enable = true },
 			indent = { enable = true },
-			refactor = {
-				highlight_definitions = { enable = true },
-				highlight_current_scope = { enable = true },
+			ensure_installed = {
+				"bash",
+        "c",
+        "diff",
+        "html",
+        "javascript",
+        "jsdoc",
+        "json",
+        "jsonc",
+        "lua",
+        "luadoc",
+        "luap",
+        "markdown",
+        "markdown_inline",
+        "printf",
+        "python",
+        "query",
+        "regex",
+        "toml",
+        "tsx",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "xml",
+        "yaml",
 			},
-
-			-- See: https://github.com/RRethy/nvim-treesitter-endwise
-			endwise = { enable = true },
-
-			-- See: https://github.com/andymass/vim-matchup
-			matchup = {
-				enable = true,
-				include_match_words = true,
-			},
-
 			incremental_selection = {
-				enable = false,
+				enable = false
 			},
 
-			-- See: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 			textobjects = {
-				select = {
-					enable = true,
-					lookahead = true,
-					keymaps = {
-						['af'] = '@function.outer',
-						['if'] = '@function.inner',
-						['ac'] = '@class.outer',
-						['ic'] = '@class.inner',
-						['a,'] = '@parameter.outer',
-						['i,'] = '@parameter.inner',
-					},
-				},
 				move = {
 					enable = true,
-					set_jumps = true,
-					goto_next_start = {
-						[']f'] = '@function.outer',
-						[']c'] = '@class.outer',
-						['],'] = '@parameter.inner',
-					},
-					goto_next_end = {
-						[']F'] = '@function.outer',
-						[']C'] = '@class.outer',
-					},
-					goto_previous_start = {
-						['[f'] = '@function.outer',
-						['[c'] = '@class.outer',
-						['[,'] = '@parameter.inner',
-					},
-					goto_previous_end = {
-						['[F'] = '@function.outer',
-						['[C'] = '@class.outer',
-					},
+          goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
+          goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
+          goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
+          goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
 				},
-				swap = {
-					enable = true,
-					swap_next = { ['>,'] = '@parameter.inner' },
-					swap_previous = { ['<,'] = '@parameter.inner' },
-				},
-			},
-
-			-- https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
-			ensure_installed = {
-				'bash',
-				'c',
-				'comment',
-				'css',
-				'csv',
-				'cue',
-				'diff',
-				'dtd',
-				'editorconfig',
-				'fish',
-				'git_config',
-				'git_rebase',
-				'gitattributes',
-				'gitcommit',
-				'gitignore',
-				'graphql',
-				'html',
-				'http',
-				'javascript',
-				'jsdoc',
-				'json5',
-				'just',
-				'lua',
-				'luadoc',
-				'luap',
-				'make',
-				'markdown',
-				'markdown_inline',
-				'printf',
-				'python',
-				'query',
-				'readline',
-				'regex',
-				'scss',
-				'sql',
-				'ssh_config',
-				'svelte',
-				'toml',
-				'vim',
-				'vimdoc',
-				'xml',
-				'yaml',
-				'zig',
 			},
 		},
+
 		---@diagnostic disable-next-line: undefined-doc-name
 		---@param opts TSConfig
 		config = function(_, opts)
@@ -174,6 +85,7 @@ return {
 	{
 		'nvim-treesitter/nvim-treesitter-textobjects',
 		event = 'VeryLazy',
+    enabled = true,
 		config = function()
 			-- If treesitter is already loaded, we need to run config again for textobjects
 			if LazyVim.is_loaded('nvim-treesitter') then
@@ -204,7 +116,6 @@ return {
 		end,
 	},
 
-	-----------------------------------------------------------------------------
 	-- Automatically add closing tags for HTML and JSX
 	{
 		'windwp/nvim-ts-autotag',

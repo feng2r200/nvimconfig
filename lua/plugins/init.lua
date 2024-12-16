@@ -22,34 +22,15 @@ return {
 		'folke/snacks.nvim',
 		priority = 1000,
 		lazy = false,
-		opts = function()
-			---@type snacks.Config
-			return {
-				toggle = { map = LazyVim.safe_keymap_set },
-				statuscolumn = { enabled = false }, -- We set this in options.lua
-				terminal = {
-					win = {
-						keys = {
-							nav_h = { '<C-h>', term_nav('h'), desc = 'Go to Left Window', expr = true, mode = 't' },
-							nav_j = { '<C-j>', term_nav('j'), desc = 'Go to Lower Window', expr = true, mode = 't' },
-							nav_k = { '<C-k>', term_nav('k'), desc = 'Go to Upper Window', expr = true, mode = 't' },
-							nav_l = { '<C-l>', term_nav('l'), desc = 'Go to Right Window', expr = true, mode = 't' },
-						},
-					},
-				},
-			}
+		opts = {},
+		config = function(_, opts)
+			local notify = vim.notify
+			require('snacks').setup(opts)
+			-- HACK: restore vim.notify after snacks setup and let noice.nvim take over
+			-- this is needed to have early notifications show up in noice history
+			if LazyVim.has('noice.nvim') then
+				vim.notify = notify
+			end
 		end,
-		keys = {
-			{ '<leader>gm', function() Snacks.git.blame_line() end, { desc = 'Git Blame Line' }},
-			{ '<leader>go', function() Snacks.gitbrowse() end, { desc = 'Git Browse' }},
-			{
-				'<leader>un',
-				function()
-					Snacks.notifier.hide()
-				end,
-				desc = 'Dismiss All Notifications',
-			},
-		},
 	},
 }
-

@@ -13,8 +13,7 @@ return {
     event = "LazyFile",
 		-- stylua: ignore
 		dependencies = {
-			-- Portable package manager for Neovim
-			'williamboman/mason.nvim',
+			'mason.nvim',
 			-- Mason extension for easier lspconfig integration
 			{ 'williamboman/mason-lspconfig.nvim', config = function() end },
 		},
@@ -140,8 +139,6 @@ return {
       LazyVim.lsp.setup()
       LazyVim.lsp.on_dynamic_capability(require("plugins.lsp.keymaps").on_attach)
 
-      LazyVim.lsp.words.setup(opts.document_highlight)
-
       -- Diagnostics signs and highlights.
       if vim.fn.has("nvim-0.10.0") == 0 then
         if type(opts.diagnostics.signs) ~= "boolean" then
@@ -192,19 +189,18 @@ return {
 
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
-      -- Enable custom rounded borders in :LspInfo window.
-      require("lspconfig.ui.windows").default_options.border = "rounded"
-
       -- Initialize LSP servers and ensure Mason packages
 
       -- Setup base config for all servers.
       local servers = opts.servers
       local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+			local has_blink, blink = pcall(require, 'blink.cmp')
       local capabilities = vim.tbl_deep_extend(
         "force",
         {},
         vim.lsp.protocol.make_client_capabilities(),
         has_cmp and cmp_nvim_lsp.default_capabilities() or {},
+				has_blink and blink.get_lsp_capabilities() or {},
         opts.capabilities or {}
       )
 

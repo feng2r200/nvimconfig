@@ -9,6 +9,7 @@ return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     init = function()
+      vim.g.qf_disable_statusline = true
       vim.g.lualine_laststatus = vim.o.laststatus
       if vim.fn.argc(-1) > 0 then
         -- set an empty statusline till lualine loads
@@ -43,13 +44,13 @@ return {
 
       vim.o.laststatus = vim.g.lualine_laststatus
 
-      return {
+      local opts = {
         options = {
           theme = "auto",
           globalstatus = vim.o.laststatus == 3,
           disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "starter" } },
         },
-        extensions = { "man", "lazy", },
+        extensions = { "man", "lazy" },
         sections = {
           lualine_a = {
             {
@@ -60,7 +61,7 @@ return {
               separator = "",
               color = function()
                 local hl = is_file_window() and "Statement" or "Function"
-                return LazyVim.ui.fg(hl)
+                return { fg = Snacks.util.color(hl) }
               end,
             },
             -- Readonly/zoomed/hash symbol.
@@ -114,6 +115,8 @@ return {
               end,
             },
             {
+              separator = "",
+              padding = { left = 0, right = 1 },
               function()
                 return "#" .. vim.b["toggle_number"]
               end,
@@ -122,6 +125,7 @@ return {
               end,
             },
             {
+              separator = "",
               function()
                 if vim.fn.win_gettype() == "loclist" then
                   return vim.fn.getloclist(0, { title = 0 }).title
@@ -139,7 +143,9 @@ return {
               Util.lualine.trails(),
               cond = is_file_window,
               padding = { left = 1, right = 0 },
-              color = LazyVim.ui.fg("Identifier"),
+              color = function()
+                return { fg = Snacks.util.color("Identifier") }
+              end,
             },
 
             {
@@ -188,6 +194,7 @@ return {
             },
           },
           lualine_x = {
+            Snacks.profiler.status(),
             -- Diff (git)
             {
               "diff",
@@ -225,7 +232,9 @@ return {
                   ---@diagnostic disable-next-line: undefined-field
                   and require("noice").api.status.command.has()
               end,
-              color = LazyVim.ui.fg("Statement"),
+              color = function()
+                return { fg = Snacks.util.color("Statement") }
+              end,
             },
             -- showmode
             {
@@ -238,14 +247,16 @@ return {
                   ---@diagnostic disable-next-line: undefined-field
                   and require("noice").api.status.mode.has()
               end,
-              color = LazyVim.ui.fg("Constant"),
+              color = function()
+                return { fg = Snacks.util.color("Constant") }
+              end,
             },
 						-- dap status
 						-- stylua: ignore
 						{
 							function() return '  ' .. require('dap').status() end,
 							cond = function () return package.loaded['dap'] and require('dap').status() ~= '' end,
-							color = LazyVim.ui.fg('Debug'),
+							color = function() return { fg = Snacks.util.color('Debug') } end,
 						},
           },
           lualine_y = {
@@ -279,16 +290,12 @@ return {
               "filetype",
               icon_only = true,
               colored = false,
+              separator = "",
               padding = { left = 1, right = 0 },
             },
-            { LazyVim.lualine.pretty_path(), padding = { left = 1, right = 0 } },
             {
-              function()
-                return vim.bo.modified and vim.bo.buftype == "" and icons.status.filename.modified or ""
-              end,
-              cond = is_file_window,
-              padding = 1,
-              color = { fg = Util.ui.bg("DiffDelete") },
+              LazyVim.lualine.pretty_path({ length = 3 }),
+              padding = { left = 1, right = 0 },
             },
           },
           lualine_b = {},
@@ -305,6 +312,28 @@ return {
           },
         },
       }
+
+      -- Show code structure in statusline.
+      -- Allow it to be overriden for some buffer types (see autocmds).
+      if vim.g.trouble_lualine and LazyVim.has("trouble.nvim") then
+        local trouble = require("trouble")
+        local symbols = trouble.statusline({
+          mode = "symbols",
+          groups = {},
+          title = false,
+          filter = { range = true },
+          format = "{kind_icon}{symbol.name:Normal}",
+          hl_group = "lualine_c_normal",
+        })
+        table.insert(opts.sections.lualine_c, {
+          symbols and symbols.get,
+          cond = function()
+            return vim.b.trouble_lualine ~= false and symbols.has()
+          end,
+        })
+      end
+
+      return opts
     end,
   },
 }

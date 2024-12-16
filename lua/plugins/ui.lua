@@ -31,119 +31,118 @@ return {
   { "MunifTanjim/nui.nvim", lazy = false },
 
   -----------------------------------------------------------------------------
-  -- Fancy notification manager
+  -- Replaces the UI for messages, cmdline and the popupmenu
   {
-    "rcarriga/nvim-notify",
-    priority = 9000,
-    keys = {
-      {
-        "<leader>un",
-        function()
-          require("notify").dismiss({ silent = true, pending = true })
-        end,
-        desc = "Dismiss All Notifications",
+    "folke/noice.nvim",
+    event = "VeryLazy",
+		-- stylua: ignore
+		keys = {
+			{ '<leader>sn', '', desc = '+noice' },
+			{ '<S-Enter>', function() require('noice').redirect(tostring(vim.fn.getcmdline())) end, mode = 'c', desc = 'Redirect Cmdline' },
+			{ '<leader>snl', function() require('noice').cmd('last') end, desc = 'Noice Last Message' },
+			{ '<leader>snh', function() require('noice').cmd('history') end, desc = 'Noice History' },
+			{ '<leader>sna', function() require('noice').cmd('all') end, desc = 'Noice All' },
+			{ '<leader>snd', function() require('noice').cmd('dismiss') end, desc = 'Dismiss All' },
+			{ '<leader>snt', function() require('noice').cmd('pick') end, desc = 'Noice Picker (Telescope/FzfLua)' },
+			{ '<C-f>', function() if not require('noice.lsp').scroll(4) then return '<C-f>' end end, silent = true, expr = true, desc = 'Scroll Forward', mode = {'i', 'n', 's'} },
+			{ '<C-b>', function() if not require('noice.lsp').scroll(-4) then return '<C-b>' end end, silent = true, expr = true, desc = 'Scroll Backward', mode = {'i', 'n', 's'}},
+		},
+    ---@type NoiceConfig
+    opts = {
+      cmdline = {
+        view = "cmdline",
+      },
+      lsp = {
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
+      },
+      messages = {
+        view_search = false,
+      },
+      presets = {
+        bottom_search = true,
+        command_palette = true,
+        long_message_to_split = true,
+        lsp_doc_border = true,
+      },
+      routes = {
+        -- See :h ui-messages
+        {
+          filter = {
+            event = "msg_show",
+            any = {
+              { find = "%d+L, %d+B" },
+              { find = "^%d+ changes?; after #%d+" },
+              { find = "^%d+ changes?; before #%d+" },
+              { find = "^Hunk %d+ of %d+$" },
+              { find = "^%d+ fewer lines;?" },
+              { find = "^%d+ more lines?;?" },
+              { find = "^%d+ line less;?" },
+              { find = "^Already at newest change" },
+              { kind = "wmsg" },
+              { kind = "emsg", find = "E486" },
+              { kind = "quickfix" },
+            },
+          },
+          view = "mini",
+        },
+        {
+          filter = {
+            event = "msg_show",
+            any = {
+              { find = "^%d+ lines .ed %d+ times?$" },
+              { find = "^%d+ lines yanked$" },
+              { kind = "emsg", find = "E490" },
+              { kind = "search_count" },
+            },
+          },
+          opts = { skip = true },
+        },
       },
     },
-    opts = {
-      stages = "static",
-      timeout = 3000,
-      max_height = function()
-        return math.floor(vim.o.lines * 0.75)
-      end,
-      max_width = function()
-        return math.floor(vim.o.columns * 0.75)
-      end,
-      on_open = function(win)
-        vim.api.nvim_win_set_config(win, { zindex = 100 })
-      end,
-    },
-    init = function()
-      -- When noice is not enabled, install notify on VeryLazy
-      if not LazyVim.has("noice.nvim") then
-        LazyVim.on_very_lazy(function()
-          vim.notify = require("notify")
-        end)
+    config = function(_, opts)
+      -- HACK: noice shows messages from before it was enabled,
+      -- but this is not ideal when Lazy is installing plugins,
+      -- so clear the messages in this case.
+      if vim.o.filetype == "lazy" then
+        vim.cmd([[messages clear]])
       end
+      require("noice").setup(opts)
     end,
   },
 
   -----------------------------------------------------------------------------
-  -- Visually display indent levels
   {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    event = "LazyFile",
-    opts = function()
-      return {
-        indent = {
-          -- See more characters at :h ibl.config.indent.char
-          char = "│", -- ▏│
-          tab_char = "│",
+    "snacks.nvim",
+    opts = {
+      -- See also lazyvim's lua/lazyvim/plugins/util.lua
+      indent = { enabled = true },
+      input = { enabled = true },
+      notifier = { enabled = true },
+      scope = { enabled = true },
+      -- scroll = { enabled = true },
+      statuscolumn = { enabled = false }, -- we set this in options.lua
+      toggle = { map = LazyVim.safe_keymap_set },
+      words = { enabled = true },
+      zen = {
+        toggles = { git_signs = true },
+        zoom = {
+          show = { tabline = false },
+          win = { backdrop = true },
         },
-        scope = { enabled = false },
-        exclude = {
-          filetypes = {
-            "alpha",
-            "checkhealth",
-            "dashboard",
-            "git",
-            "gitcommit",
-            "help",
-            "lazy",
-            "lazyterm",
-            "lspinfo",
-            "man",
-            "mason",
-            "neo-tree",
-            "notify",
-            "Outline",
-            "TelescopePrompt",
-            "TelescopeResults",
-            "terminal",
-            "toggleterm",
-            "Trouble",
-          },
-        },
-      }
-    end,
-  },
-
-  -----------------------------------------------------------------------------
-  -- Visualize and operate on indent scope
-  {
-    "echasnovski/mini.indentscope",
-    event = "LazyFile",
-    opts = function(_, opts)
-      opts.symbol = "╎" -- ▏│
-      opts.options = { try_as_border = true }
-      opts.draw = {
-        delay = 0,
-        animation = require("mini.indentscope").gen_animation.none(),
-      }
-    end,
-    init = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = {
-          "alpha",
-          "dashboard",
-          "fzf",
-          "help",
-          "lazy",
-          "lazyterm",
-          "man",
-          "mason",
-          "neo-tree",
-          "notify",
-          "Outline",
-          "toggleterm",
-          "Trouble",
-          "trouble",
-        },
-        callback = function()
-          vim.b["miniindentscope_disable"] = true
-        end,
-      })
-    end,
+      },
+    },
+		-- stylua: ignore
+		keys = {
+			{ '<leader>.',  function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer' },
+			{ '<leader>S',  function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer' },
+			{ '<leader>n',  function() Snacks.notifier.show_history() end, desc = 'Notification History' },
+			{ '<leader>un', function() Snacks.notifier.hide() end, desc = 'Dismiss All Notifications' },
+			{ '<leader>dps', function() Snacks.profiler.scratch() end, desc = 'Profiler Scratch Buffer' },
+		},
   },
 
   -----------------------------------------------------------------------------
@@ -155,6 +154,8 @@ return {
     opts_extend = { "spec" },
 		-- stylua: ignore
 		opts = {
+			preset = 'helix',
+			defaults = {},
 			icons = {
 				breadcrumb = '»',
 				separator = '󰁔  ', -- ➜
@@ -167,13 +168,12 @@ return {
 					mode = { 'n', 'v' },
 					{ '[', group = 'prev' },
 					{ ']', group = 'next' },
+					{ 's', group = 'screen' },
 					{ 'g', group = 'goto' },
 					{ 'gz', group = 'surround' },
 					{ 'z', group = 'fold' },
 					{ '<Space>', group = '+telescope' },
 					{ '<Space>d', group = '+lsp' },
-					{ 'gp', group = "glance" },
-
 					{
 						'<leader>b',
 						group = 'buffer',
@@ -182,6 +182,8 @@ return {
 						end,
 					},
 					{ '<leader>c', group = 'code' },
+					{ '<leader>d', group = 'debug' },
+					{ '<leader>dp', group = 'profiler' },
 					{ '<leader>ch', group = 'calls' },
 					{ '<leader>f', group = 'file/find' },
 					{ '<leader>fw', group = 'workspace' },
@@ -283,32 +285,6 @@ return {
       hi BqfPreviewBorder guifg=#F2CDCD ctermfg=71
       hi link BqfPreviewRange Search
       ]])
-    end,
-  },
-
-  -----------------------------------------------------------------------------
-
-  {
-    "anuvyklack/windows.nvim",
-    event = "WinNew",
-    dependencies = {
-      { "anuvyklack/middleclass" },
-      { "anuvyklack/animation.nvim", enabled = true },
-    },
-    opts = {
-      animation = { enable = true, duration = 150, fps = 60 },
-      autowidth = { enable = true },
-    },
-    keys = {
-      { "<C-w>z", "<cmd>WindowsMaximize<CR>", desc = "Zoom window" },
-      { "<C-w>_", "<cmd>WindowsMaximizeVertically<CR>", desc = "Max vertically window" },
-      { "<C-w>|", "<cmd>WindowsMaximizeHorizontally<CR>", desc = "Max horizontally window" },
-      { "<C-w>=", "<cmd>WindowsEqualize<CR>", desc = "Equalize window" },
-    },
-    init = function()
-      vim.o.winwidth = 30
-      vim.o.winminwidth = 30
-      vim.o.equalalways = false
     end,
   },
 }

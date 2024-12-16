@@ -71,11 +71,25 @@ function M.open(path)
 	vim.api.nvim_set_option_value('cursorline', false, scope)
 	vim.api.nvim_set_option_value('signcolumn', 'no', scope)
 	vim.api.nvim_set_option_value('colorcolumn', '', scope)
-	vim.api.nvim_set_option_value('winhighlight', 'Normal:NormalFloat', scope)
+	vim.api.nvim_set_option_value(
+		'winhighlight',
+		'Normal:NormalFloat,CursorLine:TelescopePreviewMatch',
+		scope
+	)
+
+	-- Jump to line number if provided.
+	local previewer_opts = {}
+	if lnum ~= nil and lnum > 0 then
+		vim.api.nvim_set_option_value('cursorline', true, scope)
+		local colstart = column or 0
+		previewer_opts.callback = function()
+			pcall(vim.api.nvim_win_set_cursor, winid, { lnum, colstart })
+		end
+	end
 
 	-- Run telescope preview.
 	local previewer = require('telescope.config').values.buffer_previewer_maker
-	previewer(path, popup_bufnr, {})
+	previewer(path, popup_bufnr, previewer_opts)
 
 	-- Setup close events
 	local augroup = vim.api.nvim_create_augroup('preview_window_' .. winid, {})

@@ -109,6 +109,7 @@ map({ "n", "v" }, "<leader>cf", function() LazyVim.format({ force = true }) end,
 
 -- Clear search with <Esc>
 map({ "i", "n" }, "<esc>", "<cmd>nohl<cr><esc>", { desc = "Escape and Clear hlsearch" })
+
 -- }}}
 -- File operations {{{
 
@@ -140,13 +141,13 @@ map('n', '<leader>uI', '<cmd>InspectTree<cr>', { desc = 'Inspect Tree' })
 -- Plugins & Tools {{{
 
 -- Terminal
-map('t', '<esc><esc>', '<c-\\><c-n>', { desc = 'Enter Normal Mode' })
-map('n', '<c-/>', function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = 'Terminal (Root Dir)' })
-map('n', '<c-_>', function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = 'which_key_ignore' })
+map('n', '<C-/>', function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = 'Terminal (Root Dir)' })
+map('n', '<C-_>', function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = 'which_key_ignore' })
 
 -- Terminal Mappings
-map('t', '<C-/>', '<cmd>close<cr>', { desc = 'Hide Terminal' })
-map('t', '<c-_>', '<cmd>close<cr>', { desc = 'which_key_ignore' })
+map('t', '<esc><esc>', '<C-\\><C-n>', { desc = 'Enter Normal Mode' })
+map('t', '<C-/>', '<cmd>close<CR>', { desc = 'Hide Terminal' })
+map('t', '<C-_>', '<cmd>close<CR>', { desc = 'which_key_ignore' })
 
 -- }}}
 -- Windows and buffers {{{
@@ -154,30 +155,30 @@ map('t', '<c-_>', '<cmd>close<cr>', { desc = 'which_key_ignore' })
 -- Ultimatus Quitos
 map('n', 'q', function()
 	local plugins = {
-		"PlenaryTestPopup",
-		"grug-far",
-		"help",
-		"lspinfo",
-		"notify",
-		"qf",
-		"spectre_panel",
-		"startuptime",
-		"tsplayground",
-		"neotest-output",
-		"checkhealth",
-		"neotest-summary",
-		"neotest-output-panel",
-		"dbout",
-		"gitsigns.blame",
 		'blame',
+		'checkhealth',
+		'dbout',
 		'fugitive',
 		'fugitiveblame',
+		'gitsigns-blame',
+		'grug-far',
+		'help',
 		'httpResult',
+		'lspinfo',
+		'neotest-output',
+		'neotest-output-panel',
+		'neotest-summary',
+		'notify',
+		'PlenaryTestPopup',
+		'qf',
+		'spectre_panel',
+		'startuptime',
+		'tsplayground',
 	}
 	local buf = vim.api.nvim_get_current_buf()
 	if vim.tbl_contains(plugins, vim.bo[buf].filetype) then
 		vim.bo[buf].buflisted = false
-		vim.api.nvim_win_close(0, false)
+		pcall(vim.api.nvim_buf_delete, buf)
 	else
 		-- Find non-floating windows
 		local wins = vim.fn.filter(vim.api.nvim_list_wins(), function(_, win)
@@ -195,8 +196,6 @@ map('n', 'q', function()
 	end
 end, { desc = 'Close window' })
 
--- Toggle window zoom
-LazyVim.toggle.map('sz', LazyVim.toggle.maximize)
 -- }}}
 
 -- vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

@@ -6,12 +6,16 @@ vim.g.maplocalleader = " "
 
 -- LazyVim auto format
 vim.g.autoformat = false
+vim.g.snacks_animate = false
 
 -- LazyVim picker to use.
 -- Can be one of: telescope, fzf
 -- Leave it to "auto" to automatically use the picker
 -- enabled with `:LazyExtras`
 vim.g.lazyvim_picker = 'auto'
+vim.g.lazyvim_cmp = "auto"
+
+vim.g.ai_cmp = true
 
 -- LazyVim root dir detection
 -- Each entry can be:
@@ -19,19 +23,6 @@ vim.g.lazyvim_picker = 'auto'
 -- * a pattern or array of patterns like `.git` or `lua`.
 -- * a function with signature `function(buf) -> string|string[]`
 vim.g.root_spec = { 'lsp', { '.git', 'lua' }, 'cwd' }
-
--- LazyVim automatically configures lazygit:
---  * theme, based on the active colorscheme.
---  * editorPreset to nvim-remote
---  * enables nerd font icons
--- Set to false to disable.
-vim.g.lazygit_config = true
-
--- Options for the LazyVim statuscolumn
-vim.g.lazyvim_statuscolumn = {
-	folds_open = false, -- show fold sign when fold is open
-	folds_githl = false, -- highlight fold sign with git sign color
-}
 
 -- Hide deprecation warnings
 vim.g.deprecation_warnings = false
@@ -191,7 +182,7 @@ opt.fillchars = {
 	verthoriz = '╋',
 }
 
-opt.statuscolumn = [[%!v:lua.require'lazyvim.util'.ui.statuscolumn()]]
+opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
 
 if vim.fn.has('nvim-0.10') == 1 then
 	opt.smoothscroll = true

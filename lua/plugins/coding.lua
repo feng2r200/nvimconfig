@@ -135,6 +135,9 @@ return {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     opts = {
+      map_cr = false,
+      disable_in_visualblock = true,
+      avoid_move_to_end = true,
       disable_filetype = { "TelescopePrompt", "grug-far", "spectre_panel" },
     },
     keys = {
