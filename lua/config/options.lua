@@ -233,6 +233,7 @@ vim.filetype.add({
 		['.*%.js%.map'] = 'json',
 		['.*%.postman_collection'] = 'json',
 		['Jenkinsfile.*'] = 'groovy',
+		['Modelfile'] = 'helm',
 	},
 })
 

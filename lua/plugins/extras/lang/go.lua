@@ -20,6 +20,7 @@ return {
 				'gosum',
 				'gotmpl',
 				'gowork',
+				'helm',
 			}
 
 			-- Convert a JSON string to a Go struct.
