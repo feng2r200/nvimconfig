@@ -74,13 +74,13 @@ return {
 		close_if_last_window = true,
 		sources = { 'filesystem', 'buffers', 'git_status' },
 		open_files_do_not_replace_types = {
+			'edgy',
+			'gitsigns-blame',
+			'Outline',
+			'qf',
 			'terminal',
 			'Trouble',
 			'trouble',
-			'qf',
-			'edgy',
-			'Outline',
-			'gitsigns.blame',
 		},
 		popup_border_style = 'rounded',
 		sort_case_insensitive = true,
@@ -141,9 +141,14 @@ return {
 			mappings = {
 				['q'] = 'close_window',
 				['?'] = 'noop',
-				['<Space>'] = 'noop',
-
 				['g?'] = 'show_help',
+				['<Space>'] = 'noop',
+				-- Close preview or floating neo-tree window, and clear hlsearch.
+				['<Esc>'] = function(_)
+					require('neo-tree.sources.filesystem.lib.filter_external').cancel()
+					require('neo-tree.sources.common.preview').hide()
+					vim.cmd([[ nohlsearch ]])
+				end,
 				['<2-LeftMouse>'] = 'open',
 				['<CR>'] = 'open_with_window_picker',
 				['l'] = 'open',
@@ -165,11 +170,9 @@ return {
 				['m'] = { 'move', config = { show_path = 'relative' } },
 				['a'] = { 'add', nowait = true, config = { show_path = 'relative' } },
 				['N'] = { 'add_directory', config = { show_path = 'relative' } },
-
 				['P'] = 'paste_from_clipboard',
 				['p'] = {
 					'toggle_preview',
-					nowait = true,
 					config = { use_float = true },
 				},
 
@@ -200,6 +203,11 @@ return {
 			},
 		},
 		filesystem = {
+			bind_to_cwd = false,
+			follow_current_file = { enabled = false },
+			find_by_full_path_words = true,
+			group_empty_dirs = true,
+			use_libuv_file_watcher = true,
 			window = {
 				mappings = {
 					['d'] = 'noop',
@@ -222,13 +230,6 @@ return {
 				},
 			},
 
-			-- See `:h neo-tree-cwd`
-			-- bind_to_cwd = false,
-			-- cwd_target = {
-			-- 	sidebar = 'window',
-			-- 	current = 'window',
-			-- },
-
 			filtered_items = {
 				hide_dotfiles = false,
 				hide_gitignored = false,
@@ -250,9 +251,6 @@ return {
 					'vite.config.js.timestamp-*',
 				},
 			},
-			find_by_full_path_words = true,
-			group_empty_dirs = true,
-			use_libuv_file_watcher = true,
 		},
 		buffers = {
 			window = {
@@ -281,7 +279,7 @@ return {
 	},
 	config = function(_, opts)
 		local function on_move(data)
-			LazyVim.lsp.on_rename(data.source, data.destination)
+			Snacks.rename.on_rename_file(data.source, data.destination)
 		end
 
 		local events = require('neo-tree.events')
