@@ -82,6 +82,8 @@ return {
                 typeCheckingMode = "basic",
                 autoSearchPaths = true,
                 useLibraryCodeForTypes = true,
+                diagnosticMode = true,
+                diagnosticMode = "workspace",
                 autoImportCompletions = true,
               },
             },
