@@ -28,20 +28,15 @@ require("lazy").setup({
     { import = "plugins.extras.lazyvim" },
     { import = "plugins" },
 
-    { import = "plugins.extras.ui.barbecue" },
-    { import = "plugins.extras.ui.leetcode" },
-    { import = "plugins.extras.lang.tmux" },
-
     { import = "lazyvim.plugins.extras.lang.rust" },
     { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.lang.yaml" },
-    { import = "plugins.extras.lang.go" },
-    { import = "plugins.extras.lang.java" },
-    { import = "plugins.extras.lang.python" },
-
     { import = "lazyvim.plugins.extras.lsp.none-ls" },
     { import = "lazyvim.plugins.extras.test.core" },
 
+    { import = "plugins.extras.lang.go" },
+    { import = "plugins.extras.lang.java" },
+    { import = "plugins.extras.lang.python" },
   },
   defaults = { lazy = true, version = false },
   install = { missing = true, colorscheme = {} },

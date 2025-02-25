@@ -255,43 +255,40 @@ return {
     },
   },
 
-  -----------------------------------------------------------------------------
-  -- Pretty window for navigating LSP locations
+	-----------------------------------------------------------------------------
+	-- Seamless navigation between tmux panes and vim splits
   {
-    "dnlhc/glance.nvim",
-    cmd = "Glance",
-		-- stylua: ignore
-		keys = {
-			{ '<leader>cg', '', desc = '+glance' },
-			{ '<leader>cgd', '<cmd>Glance definitions<CR>', desc = 'Glance Definitions' },
-			{ '<leader>cgr', '<cmd>Glance references<CR>', desc = 'Glance References' },
-			{ '<leader>cgy', '<cmd>Glance type_definitions<CR>', desc = 'Glance Type Definitions' },
-			{ '<leader>cgi', '<cmd>Glance implementations<CR>', desc = 'Glance implementations' },
-			{ '<leader>cgu', '<cmd>Glance resume<CR>', desc = 'Glance Resume' },
-		},
-    opts = function()
-      local actions = require("glance").actions
-      return {
-        folds = {
-          fold_closed = "󰅂", -- 󰅂 
-          fold_open = "󰅀", -- 󰅀 
-          folded = true,
-        },
-        mappings = {
-          list = {
-            ["<C-u>"] = actions.preview_scroll_win(5),
-            ["<C-d>"] = actions.preview_scroll_win(-5),
-            ["sg"] = actions.jump_vsplit,
-            ["sv"] = actions.jump_split,
-            ["st"] = actions.jump_tab,
-            ["p"] = actions.enter_win("preview"),
-          },
-          preview = {
-            ["q"] = actions.close,
-            ["p"] = actions.enter_win("list"),
-          },
-        },
-      }
-    end,
+    "aserowy/tmux.nvim",
+    lazy = false,
+    keys = {
+      { "<C-h>", function() require('tmux').move_left() end, remap = true, desc = "Cursor Move Left" },
+      { "<C-j>", function() require('tmux').move_bottom() end, remap = true, desc = "Cursor Move Bottom" },
+      { "<C-k>", function() require('tmux').move_top() end, remap = true, desc = "Cursor Move Top" },
+      { "<C-l>", function() require('tmux').move_right() end, remap = true, desc = "Cursor Move Right" },
+      { "<C-Left>", function() require('tmux').resize_left() end, remap = true, desc = "Window Resize Left" },
+      { "<C-Down>", function() require('tmux').resize_bottom() end, remap = true, desc = "Window Resize Bottom" },
+      { "<C-Up>", function() require('tmux').resize_top() end, remap = true, desc = "Window Resize Top" },
+      { "<C-Right>", function() require('tmux').resize_right() end, remap = true, desc = "Window Resize Right" },
+    },
+    opts = {
+      copy_sync = {
+        enable = false,
+      },
+      navigation = {
+        -- enables default keybindings (C-hjkl) for normal mode
+        enable_default_keybindings = true,
+        -- prevents unzoom tmux when navigating beyond vim border
+        persist_zoom = false,
+      },
+      resize = {
+        -- enables default keybindings (A-hjkl) for normal mode
+        enable_default_keybindings = false,
+        -- sets resize steps for x axis
+        resize_step_x = 2,
+        -- sets resize steps for y axis
+        resize_step_y = 2,
+      },
+    },
   },
+
 }

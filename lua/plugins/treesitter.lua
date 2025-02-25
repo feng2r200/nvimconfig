@@ -86,6 +86,7 @@ return {
         "python",
         "query",
         "regex",
+				"tmux",
         "toml",
         "tsx",
         "typescript",

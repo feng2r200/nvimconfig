@@ -5,10 +5,7 @@
 local M = {}
 
 ---@type table<string, string>
-M.deprecated_extras = {
-	['rafi.plugins.extras.editor.telescope'] = '`telescope.nvim` is now the default **RafiVim** picker.',
-	['rafi.plugins.extras.ui.indent-blankline'] = "Use LazyVim's `indent-blankline.nvim` instead.",
-}
+M.deprecated_extras = {}
 
 ---@param name 'autocmds' | 'options' | 'keymaps'
 function M.load(name)

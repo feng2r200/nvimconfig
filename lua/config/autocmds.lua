@@ -25,42 +25,42 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 -- Close some filetypes with <q>
-vim.api.nvim_create_autocmd('FileType', {
-	group = augroup('close_with_q'),
-	pattern = {
-		'blame',
-		'checkhealth',
-		'dbout',
-		'fugitive',
-		'fugitiveblame',
-		'gitsigns-blame',
-		'grug-far',
-		'help',
-		'httpResult',
-		'lspinfo',
-		'neotest-output',
-		'neotest-output-panel',
-		'neotest-summary',
-		'notify',
-		'PlenaryTestPopup',
-		'qf',
-		'spectre_panel',
-		'startuptime',
-		'tsplayground',
-	},
-	callback = function(event)
-		vim.bo[event.buf].buflisted = false
-		vim.schedule(function()
-			vim.keymap.set('n', 'q', function()
-				vim.cmd('close')
-				pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
-			end, {
-				buffer = event.buf,
-				silent = true,
-				desc = 'Quit buffer',
-			})
-		end)
-	end,
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("close_with_q"),
+  pattern = {
+    "blame",
+    "checkhealth",
+    "dbout",
+    "fugitive",
+    "fugitiveblame",
+    "gitsigns-blame",
+    "grug-far",
+    "help",
+    "httpResult",
+    "lspinfo",
+    "neotest-output",
+    "neotest-output-panel",
+    "neotest-summary",
+    "notify",
+    "PlenaryTestPopup",
+    "qf",
+    "spectre_panel",
+    "startuptime",
+    "tsplayground",
+  },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.schedule(function()
+      vim.keymap.set("n", "q", function()
+        vim.cmd("close")
+        pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
+      end, {
+        buffer = event.buf,
+        silent = true,
+        desc = "Quit buffer",
+      })
+    end)
+  end,
 })
 
 -- Show cursor line only in active window
@@ -169,3 +169,24 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("user_ftplugin_tmux", {}),
+  pattern = "tmux",
+  callback = function()
+    -- Open 'man tmux' in a vertical split with word under cursor.
+    local function open_doc()
+      local cword = vim.fn.expand("<cword>")
+      require("man").open_page(0, { silent = true }, { "tmux" })
+      vim.fn.search(cword)
+    end
+
+    vim.opt_local.iskeyword:append("-")
+
+    vim.b.undo_ftplugin = (vim.b.undo_ftplugin or "")
+      .. (vim.b.undo_ftplugin ~= nil and " | " or "")
+      .. "setlocal iskeyword<"
+      .. "| sil! nunmap <buffer> gK"
+
+    vim.keymap.set("n", "gK", open_doc, { buffer = 0 })
+  end,
+})
