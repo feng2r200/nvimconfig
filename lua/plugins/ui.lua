@@ -17,7 +17,7 @@ return {
         separator_style = "thin",
         show_close_icon = false,
         show_buffer_close_icons = false,
-        always_show_bufferline = false,
+        always_show_bufferline = true,
         custom_areas = {
           right = function()
             local result = {}
