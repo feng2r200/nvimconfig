@@ -17,7 +17,6 @@ map("", "<C-t>", "<Nop>", {})
 -- Picker {{{
 
 -- Bind localleader to common LazyVim picker (telescope/fzf/snacks) keymaps.
-map('n', '<localleader>r', '<leader>sR', { remap = true, desc = 'Resume Last' })
 map('n', '<localleader>f', '<leader>ff', { remap = true, desc = 'Find Files (Root Dir)' })
 map('n', '<localleader>F', '<leader>fF', { remap = true, desc = 'Find Files (cwd)' })
 map('n', '<localleader>g', '<leader>sg', { remap = true, desc = 'Grep (Root Dir)' })
@@ -26,11 +25,8 @@ map('n', '<localleader>b', '<leader>,',  { remap = true, desc = 'Switch Buffer' 
 map('n', '<localleader>B', '<leader>sB', { remap = true, desc = 'Grep open buffers' })
 map('n', '<localleader>l', '<leader>sb', { remap = true, desc = 'Buffer lines' })
 map('n', '<localleader>h', '<leader>sh', { remap = true, desc = 'Help Pages' })
-map('n', '<localleader>H', '<leader>sH', { remap = true, desc = 'Search Highlight Groups' })
 map('n', '<localleader>j', '<leader>sj', { remap = true, desc = 'Jumplist' })
 map('n', '<localleader>m', '<leader>sm', { remap = true, desc = 'Jump to Mark' })
-map('n', '<localleader>M', '<leader>sM', { remap = true, desc = 'Man Pages' })
-map('n', '<localleader>o', '<leader>so', { remap = true, desc = 'Options' })
 map('n', '<localleader>t', '<leader>ss', { remap = true, desc = 'Goto Symbol' })
 map('n', '<localleader>T', '<leader>sS', { remap = true, desc = 'Goto Symbol (Workspace)' })
 map('n', '<localleader>v', '<leader>s"', { remap = true, desc = 'Registers' })
