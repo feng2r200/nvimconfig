@@ -8,6 +8,7 @@ return {
 		priority = 10000,
 		lazy = false,
 		cond = true,
+		import = 'lazyvim.plugins',
 		config = function(_, opts)
 			require('config').setup()
 

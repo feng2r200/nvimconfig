@@ -30,14 +30,15 @@ return {
 
 	-----------------------------------------------------------------------------
 	-- File explorer written in Lua
-	'nvim-neo-tree/neo-tree.nvim',
+	-- NOTE: This extends
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
+	'neo-tree.nvim',
 	branch = 'v3.x',
 	dependencies = { 'MunifTanjim/nui.nvim' },
-	cmd = 'Neotree',
 	-- stylua: ignore
 	keys = {
 		{
-			'<leader>e',
+			'<localleader>e',
 			function()
 				require('neo-tree.command').execute({ toggle = true, reveal = true, dir = LazyVim.root() })
 			end,

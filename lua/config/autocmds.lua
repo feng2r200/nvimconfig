@@ -1,35 +1,10 @@
+-- vim.api.nvim_del_augroup_by_name('lazyvim_last_loc')
+-- vim.api.nvim_del_augroup_by_name('lazyvim_wrap_spell')
+
 ---@diagnostic disable: undefined-global
 local function augroup(name)
-  return vim.api.nvim_create_augroup("User_" .. name, {})
+  return vim.api.nvim_create_augroup("User_" .. name, { clear = true })
 end
-
--- Check if we need to reload the file when it changed
-vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
-  group = augroup("checktime"),
-  callback = function()
-    if vim.o.buftype ~= "nofile" then
-      vim.cmd("checktime")
-    end
-  end,
-})
-
--- Highlight on yank
-vim.api.nvim_create_autocmd("TextYankPost", {
-  group = augroup("highlight_yank"),
-  callback = function()
-    (vim.hl or vim.highlight).on_yank({ timeout = 50 })
-  end,
-})
-
--- Resize splits if window got resized
-vim.api.nvim_create_autocmd({ "VimResized" }, {
-  group = augroup("resize_splits"),
-  callback = function()
-    local current_tab = vim.fn.tabpagenr()
-    vim.cmd("tabdo wincmd =")
-    vim.cmd("tabnext " .. current_tab)
-  end,
-})
 
 -- Go to last loc when opening a buffer, see ':h last-position-jump'
 vim.api.nvim_create_autocmd("BufReadPost", {
@@ -49,6 +24,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
+-- Close some filetypes with <q>
 vim.api.nvim_create_autocmd('FileType', {
 	group = augroup('close_with_q'),
 	pattern = {
@@ -113,27 +89,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Fix conceallevel for json files
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = augroup("json_conceal"),
-  pattern = { "json", "jsonc", "json5" },
-  callback = function()
-    vim.opt_local.conceallevel = 0
-  end,
-})
-
--- Create directories when needed, when saving a file (except for URIs "://").
-vim.api.nvim_create_autocmd("BufWritePre", {
-  group = augroup("auto_create_dir"),
-  callback = function(event)
-    if event.match:match("^%w%w+:[\\/][\\/]") then
-      return
-    end
-    local file = vim.uv.fs_realpath(event.match) or event.match
-    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
-  end,
-})
-
 -- Disable swap/undo/backup files in temp directories or shm
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = augroup("undo_disable"),
@@ -164,3 +119,53 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPre" }, {
     vim.opt_global.writebackup = false
   end,
 })
+
+-- Check if we need to reload the file when it changed
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  group = augroup("checktime"),
+  callback = function()
+    if vim.o.buftype ~= "nofile" then
+      vim.cmd("checktime")
+    end
+  end,
+})
+
+-- Highlight on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = augroup("highlight_yank"),
+  callback = function()
+    (vim.hl or vim.highlight).on_yank({ timeout = 50 })
+  end,
+})
+
+-- Resize splits if window got resized
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+  group = augroup("resize_splits"),
+  callback = function()
+    local current_tab = vim.fn.tabpagenr()
+    vim.cmd("tabdo wincmd =")
+    vim.cmd("tabnext " .. current_tab)
+  end,
+})
+
+-- Fix conceallevel for json files
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  group = augroup("json_conceal"),
+  pattern = { "json", "jsonc", "json5" },
+  callback = function()
+    vim.opt_local.conceallevel = 0
+  end,
+})
+
+-- Create directories when needed, when saving a file (except for URIs "://").
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = augroup("auto_create_dir"),
+  callback = function(event)
+    if event.match:match("^%w%w+:[\\/][\\/]") then
+      return
+    end
+    local file = vim.uv.fs_realpath(event.match) or event.match
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+  end,
+})
+

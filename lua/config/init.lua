@@ -4,46 +4,28 @@
 
 local M = {}
 
-local lazy_clipboard
-
-function M.setup()
-	-- Autocmds can be loaded lazily when not opening a file
-	local lazy_autocmds = vim.fn.argc(-1) == 0
-	if not lazy_autocmds then
-		M.load('autocmds')
-	end
-
-	local group = vim.api.nvim_create_augroup('UserVim', { clear = true })
-	vim.api.nvim_create_autocmd('User', {
-		group = group,
-		pattern = 'VeryLazy',
-		callback = function()
-			if lazy_autocmds then
-				M.load('autocmds')
-			end
-			M.load('keymaps')
-			if lazy_clipboard ~= nil then
-				vim.opt.clipboard = lazy_clipboard
-			end
-		end,
-	})
-end
+---@type table<string, string>
+M.deprecated_extras = {
+	['rafi.plugins.extras.editor.telescope'] = '`telescope.nvim` is now the default **RafiVim** picker.',
+	['rafi.plugins.extras.ui.indent-blankline'] = "Use LazyVim's `indent-blankline.nvim` instead.",
+}
 
 ---@param name 'autocmds' | 'options' | 'keymaps'
 function M.load(name)
-	local function _load(mod)
-		if require('lazy.core.cache').find(mod)[1] then
-			LazyVim.try(function()
-				require(mod)
-			end, { msg = 'Failed loading ' .. mod })
-		end
+	local mod = 'config.' .. name
+	if require('lazy.core.cache').find(mod)[1] then
+		LazyVim.try(function()
+			require(mod)
+		end, { msg = 'Failed loading ' .. mod })
 	end
-	_load('config.' .. name)
+
 	if vim.bo.filetype == 'lazy' then
 		vim.cmd([[do VimResized]])
 	end
-	local pattern = 'UserVim' .. name:sub(1, 1):upper() .. name:sub(2)
-	vim.api.nvim_exec_autocmds('User', { pattern = pattern, modeline = false })
+
+	if name == 'options' then
+		require('config').setup()
+	end
 end
 
 -- Check if table has a value that ends with a suffix.
@@ -59,28 +41,15 @@ local function tbl_endswith(tbl, suffix)
 	end
 	return false
 end
-M.did_init = false
-function M.init()
-	if M.did_init then
-		return
-	end
-	M.did_init = true
-	local plugin = require('lazy.core.config').spec.plugins.LazyVim
-	if plugin then
-		---@diagnostic disable-next-line: undefined-field
-		vim.opt.rtp:append(plugin.dir)
+
+function M.setup()
+	-- Overload deprecated extras.
+	local extras = require('lazyvim.util.plugin').deprecated_extras
+	for k, v in pairs(M.deprecated_extras) do
+		extras[k] = v
 	end
 
-	local LazyVimConfig = require('lazyvim.config')
-
-	LazyVim.lazy_notify()
-
-	M.load('options')
-
-	-- Defer built-in clipboard handling: "xsel" and "pbcopy" can be slow
-	lazy_clipboard = vim.opt.clipboard
-	vim.opt.clipboard = ''
-
+	-- Check if extra is enabled, regardless of the first namespace.
 	---@param extra string
 	LazyVim.has_extra = function(extra)
 		local modname = '.extras.' .. extra
@@ -89,22 +58,18 @@ function M.init()
 		end
 		return tbl_endswith(require('lazyvim.config').json.data.extras, modname)
 	end
+
+	-- Use Telescope by default.
+	---@return "telescope" | "fzf" | "snacks"
 	LazyVim.pick.want = function()
 		vim.g.lazyvim_picker = vim.g.lazyvim_picker or 'auto'
 		if vim.g.lazyvim_picker == 'auto' then
-			return LazyVim.has_extra('editor.fzf') and 'fzf' or 'telescope'
+			return LazyVim.has_extra('editor.snacks_picker') and 'snacks'
+				or LazyVim.has_extra('editor.fzf') and 'fzf'
+				or 'telescope'
 		end
 		return vim.g.lazyvim_picker
 	end
-	LazyVim.cmp_engine = function()
-		vim.g.lazyvim_cmp = vim.g.lazyvim_cmp or 'auto'
-		if vim.g.lazyvim_cmp == 'auto' then
-			return LazyVim.has_extra('coding.blink') and 'blink.cmp' or 'nvim-cmp'
-		end
-		return vim.g.lazyvim_cmp
-	end
-	LazyVim.plugin.setup()
-	LazyVimConfig.json.load()
 end
 
 return M

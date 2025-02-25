@@ -1,13 +1,13 @@
----@diagnostic disable: undefined-global, undefined-field
 -- Plugin: Lualine
 
 return {
 
   -----------------------------------------------------------------------------
   -- Statusline plugin with many customizations.
+  -- NOTE: This extends
+  -- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/ui.lua
   {
-    "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
+    "lualine.nvim",
     init = function()
       vim.g.qf_disable_statusline = true
       vim.g.lualine_laststatus = vim.o.laststatus
@@ -20,8 +20,7 @@ return {
       end
     end,
     opts = function()
-      local Util = require("util")
-      local icons = require("lazyvim.config").icons
+      local icons = LazyVim.config.icons
 
       local function is_plugin_window()
         return vim.bo.buftype ~= ""
@@ -91,7 +90,7 @@ return {
             },
             LazyVim.lualine.root_dir(),
             {
-              Util.lualine.plugin_title(),
+              require("util.lualine").plugin_title(),
               padding = { left = 0, right = 1 },
               cond = is_plugin_window,
             },
@@ -140,7 +139,7 @@ return {
 
             -- Whitespace trails
             {
-              Util.lualine.trails(),
+              require("util.lualine").trails(),
               cond = is_file_window,
               padding = { left = 1, right = 0 },
               color = function()
@@ -261,7 +260,7 @@ return {
           },
           lualine_y = {
             {
-              Util.lualine.filemedia(),
+              require("util.lualine").filemedia(),
               padding = 1,
               cond = function()
                 return is_min_width(70)

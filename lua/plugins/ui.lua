@@ -4,54 +4,55 @@
 return {
 
   -----------------------------------------------------------------------------
-  -- Icon provider
+  -- Snazzy tab/bufferline
+  -- NOTE: This extends
+  -- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/ui.lua
   {
-    "echasnovski/mini.icons",
-    lazy = true,
+    "bufferline.nvim",
+    enabled = not vim.g.started_by_firenvim,
+		-- stylua: ignore
     opts = {
-      file = {
-        [".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
-        ["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
-      },
-      filetype = {
-        dotenv = { glyph = "", hl = "MiniIconsYellow" },
+      options = {
+        mode = "buffers",
+        separator_style = "thin",
+        show_close_icon = false,
+        show_buffer_close_icons = false,
+        always_show_bufferline = false,
+        custom_areas = {
+          right = function()
+            local result = {}
+            local root = LazyVim.root()
+            table.insert(result, {
+              text = "%#BufferLineTab# " .. vim.fn.fnamemodify(root, ":t"),
+            })
+
+            -- Session indicator
+            if vim.v.this_session ~= "" then
+              table.insert(result, { text = "%#BufferLineTab#  " })
+            end
+            return result
+          end,
+        },
+        offsets = {
+          {
+            filetype = "neo-tree",
+            text = "Neo-tree",
+            highlight = "Directory",
+            text_align = "center",
+          },
+        },
       },
     },
-    init = function()
-      ---@diagnostic disable-next-line: duplicate-set-field
-      package.preload["nvim-web-devicons"] = function()
-        require("mini.icons").mock_nvim_web_devicons()
-        return package.loaded["nvim-web-devicons"]
-      end
-    end,
   },
 
   -----------------------------------------------------------------------------
-  -- UI Component Library
-  { "MunifTanjim/nui.nvim", lazy = false },
-
-  -----------------------------------------------------------------------------
   -- Replaces the UI for messages, cmdline and the popupmenu
+	-- NOTE: This extends
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/ui.lua
   {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-		-- stylua: ignore
-		keys = {
-			{ '<leader>sn', '', desc = '+noice' },
-			{ '<S-Enter>', function() require('noice').redirect(tostring(vim.fn.getcmdline())) end, mode = 'c', desc = 'Redirect Cmdline' },
-			{ '<leader>snl', function() require('noice').cmd('last') end, desc = 'Noice Last Message' },
-			{ '<leader>snh', function() require('noice').cmd('history') end, desc = 'Noice History' },
-			{ '<leader>sna', function() require('noice').cmd('all') end, desc = 'Noice All' },
-			{ '<leader>snd', function() require('noice').cmd('dismiss') end, desc = 'Dismiss All' },
-			{ '<leader>snt', function() require('noice').cmd('pick') end, desc = 'Noice Picker (Telescope/FzfLua)' },
-			{ '<C-f>', function() if not require('noice.lsp').scroll(4) then return '<C-f>' end end, silent = true, expr = true, desc = 'Scroll Forward', mode = {'i', 'n', 's'} },
-			{ '<C-b>', function() if not require('noice.lsp').scroll(-4) then return '<C-b>' end end, silent = true, expr = true, desc = 'Scroll Backward', mode = {'i', 'n', 's'}},
-		},
+    "noice.nvim",
     ---@type NoiceConfig
     opts = {
-      cmdline = {
-        view = "cmdline",
-      },
       lsp = {
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -90,129 +91,87 @@ return {
           view = "mini",
         },
       },
-    },
-    config = function(_, opts)
-      -- HACK: noice shows messages from before it was enabled,
-      -- but this is not ideal when Lazy is installing plugins,
-      -- so clear the messages in this case.
-      if vim.o.filetype == "lazy" then
-        vim.cmd([[messages clear]])
-      end
-      require("noice").setup(opts)
-    end,
-  },
-
-  -----------------------------------------------------------------------------
-  {
-    "snacks.nvim",
-    opts = {
-      -- See also lazyvim's lua/lazyvim/plugins/util.lua
-      indent = { enabled = true },
-      input = { enabled = true },
-      notifier = { enabled = true },
-      scope = { enabled = true },
-      -- scroll = { enabled = true },
-      statuscolumn = { enabled = false }, -- we set this in options.lua
-      toggle = { map = LazyVim.safe_keymap_set },
-      words = { enabled = true },
-      zen = {
-        toggles = { git_signs = true },
-        zoom = {
-          show = { tabline = false },
-          win = { backdrop = true },
-        },
+      cmdline = {
+        view = "cmdline",
       },
     },
-		-- stylua: ignore
-		keys = {
-			{ '<leader>.',  function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer' },
-			{ '<leader>S',  function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer' },
-			{ '<leader>n',  function() Snacks.notifier.show_history() end, desc = 'Notification History' },
-			{ '<leader>un', function() Snacks.notifier.hide() end, desc = 'Dismiss All Notifications' },
-			{ '<leader>dps', function() Snacks.profiler.scratch() end, desc = 'Profiler Scratch Buffer' },
-		},
   },
 
-  -----------------------------------------------------------------------------
-  -- Create key bindings that stick
-  {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    cmd = "WhichKey",
-    opts_extend = { "spec" },
-		-- stylua: ignore
+	-----------------------------------------------------------------------------
+	-- Collection of small QoL plugins
+	-- NOTE: This extends
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/ui.lua
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/util.lua
+	{
+		'folke/snacks.nvim',
 		opts = {
-			preset = 'helix',
-			defaults = {},
-			icons = {
-				breadcrumb = '»',
-				separator = '󰁔  ', -- ➜
+			dashboard = { enabled = false },
+			scroll = { enabled = false },
+			terminal = {
+				win = { style = 'terminal', wo = { winbar = '' } },
 			},
-			delay = function(ctx)
-				return ctx.plugin and 0 or 400
-			end,
-			spec = {
-				{
-					mode = { 'n', 'v' },
-					{ '[', group = 'prev' },
-					{ ']', group = 'next' },
-					{ 's', group = 'screen' },
-					{ 'g', group = 'goto' },
-					{ 'gz', group = 'surround' },
-					{ 'z', group = 'fold' },
-					{ '<Space>', group = '+telescope' },
-					{ '<Space>d', group = '+lsp' },
-					{
-						'<leader>b',
-						group = 'buffer',
-						expand = function()
-							return require('which-key.extras').expand.buf()
-						end,
-					},
-					{ '<leader>c', group = 'code' },
-					{ '<leader>d', group = 'debug' },
-					{ '<leader>dp', group = 'profiler' },
-					{ '<leader>ch', group = 'calls' },
-					{ '<leader>f', group = 'file/find' },
-					{ '<leader>fw', group = 'workspace' },
-					{ '<leader>g', group = 'git' },
-					{ '<leader>h', group = 'hunks', icon = { icon = ' ', color = 'red' } },
-					{ '<leader>ht', group = 'toggle' },
-					{ '<leader>m', group = 'tools' },
-					{ '<leader>md', group = 'diff' },
-					{ '<leader>s', group = 'search' },
-					{ '<leader>sn', group = 'noice' },
-					{ '<leader>t', group = 'toggle/tools' },
-					{ '<leader>u', group = 'ui', icon = { icon = '󰙵 ', color = 'cyan' } },
-					{ '<leader>x', group = 'diagnostics/quickfix', icon = { icon = '󱖫 ', color = 'green' } },
-					-- Better descriptions
-					{ 'gx', desc = 'Open with system app' },
+			zen = {
+				toggles = { git_signs = true },
+				zoom = {
+					show = { tabline = false },
+					win = { backdrop = true },
 				},
 			},
 		},
-    config = function(_, opts)
-      local wk = require("which-key")
-      wk.setup(opts)
-    end,
-  },
-
-  -----------------------------------------------------------------------------
-  -- Hint and fix deviating indentation
-  {
-    "tenxsoydev/tabs-vs-spaces.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    opts = {},
-  },
-
-  -----------------------------------------------------------------------------
-  -- Highlight words quickly
-  {
-    "t9md/vim-quickhl",
-		-- stylua: ignore
-		keys = {
-			{ '<Leader>mt', '<Plug>(quickhl-manual-this)', mode = { 'n', 'x' }, desc = 'Highlight word' },
-		},
-  },
+	},
+	{
+		'folke/snacks.nvim',
+		keys = function(_, keys)
+			if LazyVim.pick.want() ~= 'snacks' then
+				return
+			end
+			-- stylua: ignore
+			local mappings = {
+				{ '<localleader>n', function() Snacks.picker.notifications() end, desc = 'Notifications' },
+			}
+			return vim.list_extend(mappings, keys)
+		end,
+		opts = function(_, opts)
+			if LazyVim.pick.want() ~= 'snacks' then
+				return
+			end
+			return vim.tbl_deep_extend('force', opts or {}, {
+				picker = {
+					win = {
+						input = {
+							keys = {
+								['jj'] = { '<esc>', expr = true, mode = 'i' },
+								['sv'] = 'edit_split',
+								['sg'] = 'edit_vsplit',
+								['st'] = 'edit_tab',
+								['.'] = 'toggle_hidden',
+								[','] = 'toggle_ignored',
+								['e'] = 'qflist',
+								['E'] = 'loclist',
+								['K'] = 'select_and_prev',
+								['J'] = 'select_and_next',
+								['*'] = 'select_all',
+								['<c-l>'] = { 'preview_scroll_right', mode = { 'i', 'n' } },
+								['<c-h>'] = { 'preview_scroll_left', mode = { 'i', 'n' } },
+							},
+						},
+						list = {
+							keys = {
+								['<c-l>'] = 'preview_scroll_right',
+								['<c-h>'] = 'preview_scroll_left',
+							},
+						},
+						preview = {
+							keys = {
+								['<c-h>'] = 'focus_input',
+								['<c-l>'] = 'cycle_win',
+							},
+						},
+					},
+				},
+			})
+		end,
+	},
 
   -----------------------------------------------------------------------------
   -- Better quickfix window
