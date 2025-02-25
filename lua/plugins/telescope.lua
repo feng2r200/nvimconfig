@@ -98,8 +98,6 @@ return {
     cmd = "Telescope",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      -- Browse synonyms for a word
-      "rafi/telescope-thesaurus.nvim",
     },
 		-- stylua: ignore
 		keys = {
