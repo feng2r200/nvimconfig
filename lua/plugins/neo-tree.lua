@@ -99,7 +99,7 @@ return {
 
 		filesystem = {
 			bind_to_cwd = false,
-			follow_current_file = { enabled = false },
+			follow_current_file = { enabled = true },
 			use_libuv_file_watcher = true,
 			find_by_full_path_words = true,
 			group_empty_dirs = true,
