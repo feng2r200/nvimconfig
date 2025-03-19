@@ -32,18 +32,19 @@ return {
 	-- File explorer written in Lua
 	-- NOTE: This extends
 	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
-	'neo-tree.nvim',
-	branch = 'v3.x',
+	"nvim-neo-tree/neo-tree.nvim",
+	cmd = "Neotree",
 	dependencies = { 'MunifTanjim/nui.nvim' },
 	-- stylua: ignore
 	keys = {
 		{
-			'<localleader>e',
+			"<leader>fe",
 			function()
-				require('neo-tree.command').execute({ toggle = true, reveal = true, dir = LazyVim.root() })
+				require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
 			end,
-			desc = 'Explorer NeoTree (Root Dir)',
+			desc = "Explorer NeoTree (Root Dir)",
 		},
+		{ "<leader>e", "<leader>fe", desc = "Explorer NeoTree (Root Dir)", remap = true },
 	},
 	deactivate = function()
 		vim.cmd([[Neotree close]])
@@ -52,10 +53,7 @@ return {
 		-- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
 		-- because `cwd` is not set up properly.
 		vim.api.nvim_create_autocmd('BufEnter', {
-			group = vim.api.nvim_create_augroup(
-				'Neotree_start_directory',
-				{ clear = true }
-			),
+			group = vim.api.nvim_create_augroup( 'Neotree_start_directory', { clear = true }),
 			desc = 'Start Neo-tree with directory',
 			once = true,
 			callback = function()
@@ -72,17 +70,9 @@ return {
 		})
 	end,
 	opts = {
-		close_if_last_window = true,
 		sources = { 'filesystem', 'buffers', 'git_status' },
-		open_files_do_not_replace_types = {
-			'edgy',
-			'gitsigns-blame',
-			'Outline',
-			'qf',
-			'terminal',
-			'Trouble',
-			'trouble',
-		},
+		open_files_do_not_replace_types = { 'terminal', 'Trouble', 'trouble', 'edgy', 'gitsigns-blame', 'Outline', 'qf' },
+		close_if_last_window = true,
 		popup_border_style = 'rounded',
 		sort_case_insensitive = true,
 
@@ -107,108 +97,12 @@ return {
 			},
 		},
 
-		default_component_configs = {
-			icon = {
-				folder_empty = '',
-				folder_empty_open = '',
-				default = '',
-			},
-			modified = {
-				symbol = '•',
-			},
-			name = {
-				trailing_slash = true,
-				highlight_opened_files = true, -- NeoTreeFileNameOpened
-				use_git_status_colors = false,
-			},
-			git_status = {
-				symbols = {
-					-- Change type
-					added = 'A',
-					deleted = 'D',
-					modified = 'M',
-					renamed = 'R',
-					-- Status type
-					untracked = 'U',
-					ignored = 'I',
-					unstaged = '',
-					staged = 'S',
-					conflict = 'C',
-				},
-			},
-		},
-		window = {
-			width = winwidth,
-			mappings = {
-				['q'] = 'close_window',
-				['?'] = 'noop',
-				['g?'] = 'show_help',
-				['<Space>'] = 'noop',
-				-- Close preview or floating neo-tree window, and clear hlsearch.
-				['<Esc>'] = function(_)
-					require('neo-tree.sources.filesystem.lib.filter_external').cancel()
-					require('neo-tree.sources.common.preview').hide()
-					vim.cmd([[ nohlsearch ]])
-				end,
-				['<2-LeftMouse>'] = 'open',
-				['<CR>'] = 'open_with_window_picker',
-				['l'] = 'open',
-				['h'] = 'close_node',
-				['C'] = 'close_node',
-				['z'] = 'close_all_nodes',
-				['<C-r>'] = 'refresh',
-
-				['s'] = 'noop',
-				['sv'] = 'open_split',
-				['sg'] = 'open_vsplit',
-				['st'] = 'open_tabnew',
-
-				['<S-Tab>'] = 'prev_source',
-				['<Tab>'] = 'next_source',
-
-				['dd'] = 'delete',
-				['c'] = { 'copy', config = { show_path = 'relative' } },
-				['m'] = { 'move', config = { show_path = 'relative' } },
-				['a'] = { 'add', nowait = true, config = { show_path = 'relative' } },
-				['N'] = { 'add_directory', config = { show_path = 'relative' } },
-				['P'] = 'paste_from_clipboard',
-				['p'] = {
-					'toggle_preview',
-					config = { use_float = true },
-				},
-
-				-- Custom commands
-				['w'] = toggle_width,
-				['K'] = function(state)
-					local node = state.tree:get_node()
-					local path = node:get_id()
-					require('util').preview.open(path)
-				end,
-				['Y'] = {
-					function(state)
-						local node = state.tree:get_node()
-						local path = node:get_id()
-						vim.fn.setreg('+', path, 'c')
-					end,
-					desc = 'Copy Path to Clipboard',
-				},
-				['O'] = {
-					function(state)
-						require('lazy.util').open(
-							state.tree:get_node().path,
-							{ system = true }
-						)
-					end,
-					desc = 'Open with System Application',
-				},
-			},
-		},
 		filesystem = {
 			bind_to_cwd = false,
 			follow_current_file = { enabled = false },
+			use_libuv_file_watcher = true,
 			find_by_full_path_words = true,
 			group_empty_dirs = true,
-			use_libuv_file_watcher = true,
 			window = {
 				mappings = {
 					['d'] = 'noop',
@@ -253,6 +147,110 @@ return {
 				},
 			},
 		},
+
+		window = {
+			width = winwidth,
+			mappings = {
+				['l'] = 'open',
+				['h'] = 'close_node',
+				['<space>'] = 'noop',
+				['q'] = 'close_window',
+				['?'] = 'noop',
+				['g?'] = 'show_help',
+				-- Close preview or floating neo-tree window, and clear hlsearch.
+				['<Esc>'] = function(_)
+					require('neo-tree.sources.filesystem.lib.filter_external').cancel()
+					require('neo-tree.sources.common.preview').hide()
+					vim.cmd([[ nohlsearch ]])
+				end,
+				['<2-LeftMouse>'] = 'open',
+				['<CR>'] = 'open_with_window_picker',
+				['C'] = 'close_node',
+				['z'] = 'close_all_nodes',
+				['<C-r>'] = 'refresh',
+
+				['s'] = 'noop',
+				['sv'] = 'open_split',
+				['sg'] = 'open_vsplit',
+				['st'] = 'open_tabnew',
+
+				['<S-Tab>'] = 'prev_source',
+				['<Tab>'] = 'next_source',
+
+				['dd'] = 'delete',
+				['c'] = { 'copy', config = { show_path = 'relative' } },
+				['m'] = { 'move', config = { show_path = 'relative' } },
+				['a'] = { 'add', nowait = true, config = { show_path = 'relative' } },
+				['N'] = { 'add_directory', config = { show_path = 'relative' } },
+				['p'] = {
+					'toggle_preview',
+					config = { use_float = true },
+				},
+
+				-- Custom commands
+				['w'] = toggle_width,
+				['K'] = function(state)
+					local node = state.tree:get_node()
+					local path = node:get_id()
+					require('util').preview.open(path)
+				end,
+				['Y'] = {
+					function(state)
+						local node = state.tree:get_node()
+						local path = node:get_id()
+						vim.fn.setreg('+', path, 'c')
+					end,
+					desc = 'Copy Path to Clipboard',
+				},
+				['O'] = {
+					function(state)
+						require('lazy.util').open(
+							state.tree:get_node().path,
+							{ system = true }
+						)
+					end,
+					desc = 'Open with System Application',
+				},
+			},
+		},
+
+		default_component_configs = {
+			indent = {
+				with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+				expander_collapsed = "",
+				expander_expanded = "",
+				expander_highlight = "NeoTreeExpander",
+			},
+			icon = {
+				folder_empty = '',
+				folder_empty_open = '',
+				default = '',
+			},
+			modified = {
+				symbol = '•',
+			},
+			name = {
+				trailing_slash = true,
+				highlight_opened_files = true, -- NeoTreeFileNameOpened
+				use_git_status_colors = false,
+			},
+			git_status = {
+				symbols = {
+					-- Change type
+					added = 'A',
+					deleted = 'D',
+					modified = 'M',
+					renamed = 'R',
+					-- Status type
+					untracked = 'U',
+					ignored = 'I',
+					unstaged = '',
+					staged = 'S',
+					conflict = 'C',
+				},
+			},
+		},
+
 		buffers = {
 			window = {
 				mappings = {
