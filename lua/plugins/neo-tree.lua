@@ -138,6 +138,7 @@ return {
 					'node_modules',
 					'.pytest_cache',
 					'.mypy_cache',
+					'.venv',
 					'__pycache__',
 					'.stfolder',
 					'.stversions',
