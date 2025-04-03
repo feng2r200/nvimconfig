@@ -9,6 +9,7 @@ vim.g.autoformat = false
 vim.g.snacks_animate = false
 vim.g.trouble_lualine = false
 vim.g.lazyvim_check_order = false
+vim.g.lazyvim_blink_main = true
 
 -- LazyVim root dir detection
 -- Each entry can be:

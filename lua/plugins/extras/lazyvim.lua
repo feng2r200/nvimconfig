@@ -29,6 +29,7 @@ return {
 			-- stylua: ignore
 			icons = {
 				misc = {
+					minuet = '󰀫',
 					dots = '󰇘',
 					git = ' ',
 				},
