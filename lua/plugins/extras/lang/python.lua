@@ -27,6 +27,7 @@ return {
         "Pipfile",
         "pyrightconfig.json",
         "venv",
+        ".venv"
       },
     })
   end,
@@ -82,7 +83,6 @@ return {
                 typeCheckingMode = "basic",
                 autoSearchPaths = true,
                 useLibraryCodeForTypes = true,
-                diagnosticMode = true,
                 diagnosticMode = "workspace",
                 autoImportCompletions = true,
               },
