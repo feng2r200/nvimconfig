@@ -55,7 +55,7 @@ return {
               },
             },
             position = "left",
-            size = 0.2,
+            size = 0.3,
           },
           {
             elements = {
@@ -69,7 +69,7 @@ return {
               "repl",
             },
             position = "bottom",
-            size = 0.25,
+            size = 0.30,
           },
         },
         controls = {
