@@ -1,39 +1,69 @@
-let mapleader="\\"
-""" Plugins --------------------------------------------------------------
-set argtextobj
-set textobj-entire
-set textobj-indent
-set highlightedyank
-set ideajoin
-
-""" Plugin settings ------------------------------------------------------
-let g:argtextobj_pairs="[:],(:),<:>"
-let g:highlightedyank_highlight_duration="1000"
-
 """ Common settings ------------------------------------------------------
+set number
+set relativenumber
 set showmode
 set showcmd
-set so=5
-set incsearch
+
 set hlsearch
-set nu
-set relativenumber
-set ignorecase smartcase
+set ignorecase
+set incsearch
+set highlightedyank
+let g:highlightedyank_highlight_duration="1000"
+
+set smartcase
+set clipboard+=unnamed,unnamedplus,ideaput
 set history=1000
+set scrolloff=5
+
+set ideavimsupport+=dialog
 set ttimeoutlen=50
 set visualbell
 set cursorline=true
 set cursorcolumn=true
 
-set clipboard+=unnamed,unnamedplus,ideaput
+""" Plugins --------------------------------------------------------------
+set commentary
+set surround
+set exchange
 
-""" Idea specific settings -----------------------------------------------
+set argtextobj
+let g:argtextobj_pairs="(:),[:],{:},<:>"
+set textobj-entire
+set textobj-indent
+
+set ideajoin
+set ideamarks
+
 set ideastatusicon=gray
 set idearefactormode=keep
-set ideamarks=true
 set selectmode+=ideaselection
 
-""" Idea key mapping ---------------------------------------------------
+" ================================================================================
+" 通用按键映射说明：
+"                Normal    Visual    Operator Pending    Insert Only    Command Line
+"                常规模式    可视化模式     运算符模式          插入模式         命令行模式
+"                              v          d,y,c              i,a            /,:
+"map  noremap       X          X            X
+"nmap nnoremap      X
+"vmap vnoremap                 X
+"omap onoremap                              X
+"map! noremap!                                               X               X
+"imap inoremap                                               X
+"cmap cnoremap                                                               X
+
+" 用法说明：   [nore]map [<args>] {lhs} {rhs}
+" map前面加了nore 表示非递归映射，递归映射是指rhs会当做lhs再解释一次，
+" 非递归映射则不会，即rhs会被放入到Vim最终要处理的字符队列里去
+" 比如先后定义了nnoremap x iaa , nmap <F2> x ，那么按F2键相当于执行了按iaa键的功能，
+" 如果第二个命令用的是nnoremap <F2> x ，那么按下F2键相当于执行了按下x键的功能
+" <args> 表示map命令的一些参数，其中常用的有
+"   <buffer> 表示这个映射只是在当前的buffer中定义，而不是定义全局的映射
+"   <expr> 表示{rhs}是一个Vim表达式 ，而不是按键序列，如：
+"          noremap  <expr>0     col('.') == 1 ? '^': '0'
+"   <silent> 表示静默映射，不会显示Vim在处理rhs过程中对界面产生的变化。
+" ================================================================================
+
+let mapleader="\\"
 
 """ Navigation
 sethandler <C-j>        a:vim
@@ -58,8 +88,8 @@ vnoremap <C-j>          :action MoveStatementDown<CR>
 vnoremap <C-k>          :action MoveStatementUp<CR>
 
 nnoremap gcc            :action CommentByLineComment<CR>
-nnoremap gbc            :action CommentByBlockComment<CR>
-vnoremap gbc            :action CommentByBlockComment<CR>
+nnoremap gC            :action CommentByBlockComment<CR>
+vnoremap gC            :action CommentByBlockComment<CR>
 
 nnoremap <leader>cxv            :action IntroduceVariable<CR>
 vnoremap <leader>cxv            :action IntroduceVariable<CR>
@@ -70,8 +100,8 @@ nnoremap ]]             :action MethodDown<CR>
 nnoremap ]d             :action GotoNextError<CR>
 nnoremap [d             :action GotoPreviousError<CR>
 
-nnoremap R             :action RenameElement<CR>
-vnoremap R             :action RenameElement<CR>
+nnoremap <leader>cr     :action RenameElement<CR>
+vnoremap <leader>cr     :action RenameElement<CR>
 
 """ Searching and Source Code Navigation
 nnoremap gd             :action GotoDeclaration<CR>
@@ -81,29 +111,28 @@ nnoremap gi             :action GotoImplementation<CR>
 """ Motion
 nnoremap <leader>ve         :action ActivateProjectToolWindow<CR>
 nnoremap <leader>vo         :action ActivateStructureToolWindow<CR>
-nnoremap <leader>fe         :action RecentFiles<CR>
+nnoremap <leader>vw         :action ActivateProblemsViewToolWindow<CR>
 
 nnoremap <Space>b          :action RecentFiles<CR>
-nnoremap <Space>cw         :bdelete<CR>
+nnoremap <leader>bd        :bdelete<CR>
 nnoremap <leader>fc        :action GotoClass<CR>
 nnoremap <leader>ff        :action GotoFile<CR>
 nnoremap <leader>ss        :action GotoSymbol<CR>
 
-nnoremap <C-t>         :action ActivateTerminalToolWindow<CR>
+nnoremap <C-_>         :action ActivateTerminalToolWindow<CR>
 
 nnoremap <leader>tg    :action ActivateVersionControlToolWindow<CR>
 
-nnoremap <leader>la    :action Generate<CR>
-nnoremap <leader>lf    :action ReformatCode<CR>
-vnoremap <leader>lf    :action ReformatCode<CR>
+nnoremap <leader>ca    :action Generate<CR>
+nnoremap <leader>cf    :action ReformatCode<CR>
+vnoremap <leader>cf    :action ReformatCode<CR>
 nnoremap gs    :action ParameterInfo<CR>
-nnoremap <leader>vw    :action ActivateProblemsViewToolWindow<CR>
 
 nnoremap <leader>db    :action ToggleLineBreakpoint<CR>
 nnoremap <leader>dl    :action ViewBreakpoints<CR>
+nnoremap <leader>dn    :action DebugClass<CR>
 
 nnoremap <leader>Hp    :action RecentProjectListGroup<CR>
-nnoremap <leader>dn    :action DebugClass<CR>
 
 nnoremap ]c     :action VcsShowNextChangeMarker<CR>
 nnoremap [c     :action VcsShowPrevChangeMarker<CR>
