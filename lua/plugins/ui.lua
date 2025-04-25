@@ -107,6 +107,7 @@ return {
 		opts = {
 			dashboard = { enabled = false },
 			scroll = { enabled = false },
+      explorer = { enabled = false },
 			terminal = {
 				win = { style = 'terminal', wo = { winbar = '' } },
 			},
