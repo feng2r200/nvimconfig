@@ -21,16 +21,16 @@ return {
             treesitter = { "lsp" },
           },
         },
-        documentation = { auto_show = true, auto_show_delay_ms = 500, },
-        ghost_text = { enabled = false, },
+        documentation = { auto_show = true, auto_show_delay_ms = 500 },
+        ghost_text = { enabled = false },
 
         trigger = {
           prefetch_on_insert = true,
           show_on_trigger_character = true,
           show_on_insert_on_trigger_character = true,
           show_on_accept_on_trigger_character = true,
-          show_on_blocked_trigger_characters = { ' ', '\n', '\t' },
-          show_on_x_blocked_trigger_characters = { "'", '"', '(', '{', '[' },
+          show_on_blocked_trigger_characters = { " ", "\n", "\t" },
+          show_on_x_blocked_trigger_characters = { "'", '"', "(", "{", "[" },
         },
       },
 
@@ -39,7 +39,23 @@ return {
         sources = {},
       },
 
-      fuzzy = { implementation = 'prefer_rust_with_warning' },
+      fuzzy = {
+        implementation = "prefer_rust_with_warning",
+        sorts = {
+          function(a, b)
+            -- :lua vim.print(vim.lsp.protocol.CompletionItemKind)
+            local is_field_a = a.kind == vim.lsp.protocol.CompletionItemKind.Field
+            local is_field_b = b.kind == vim.lsp.protocol.CompletionItemKind.Field
+
+            -- If one is a field and the other isn't, prioritize the field
+            if is_field_a ~= is_field_b then
+              return is_field_a -- If `a` is a field, it comes first, else `b` will come first
+            end
+          end,
+          "score",
+          "sort_text",
+        },
+      },
 
       signature = { enabled = true },
     },
