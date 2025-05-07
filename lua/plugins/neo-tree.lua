@@ -172,7 +172,7 @@ return {
 
 				['s'] = 'noop',
 				['sv'] = 'open_split',
-				['sg'] = 'open_vsplit',
+				['ss'] = 'open_vsplit',
 				['st'] = 'open_tabnew',
 
 				['<S-Tab>'] = 'prev_source',

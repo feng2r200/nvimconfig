@@ -62,14 +62,7 @@ return {
               "console",
             },
             position = "bottom",
-            size = 0.125,
-          },
-          {
-            elements = {
-              "repl",
-            },
-            position = "bottom",
-            size = 0.30,
+            size = 0.4,
           },
         },
         controls = {
