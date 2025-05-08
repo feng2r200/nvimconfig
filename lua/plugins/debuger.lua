@@ -34,6 +34,7 @@ return {
           toggle = "t",
         },
         expand_lines = true,
+        force_buffers = true,
         layouts = {
           {
             elements = {
@@ -66,7 +67,17 @@ return {
           },
         },
         controls = {
-          enabled = false,
+          enabled = true,
+          elements = "console",
+        },
+        floating = {
+          mappings = {
+            close = { "q", "<Esc>" },
+          },
+        },
+        render = {
+          indent = 1,
+          max_value_lines = 100,
         },
       },
       config = function(_, opts)

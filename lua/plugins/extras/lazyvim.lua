@@ -4,7 +4,6 @@ return {
 	-- LazyVim framework.
 	{
 		'LazyVim/LazyVim',
-		version = '*',
 		priority = 10000,
 		lazy = false,
 		cond = true,
