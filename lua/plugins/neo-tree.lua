@@ -87,16 +87,6 @@ return {
 			},
 		},
 
-		event_handlers = {
-			-- Close neo-tree when opening a file.
-			{
-				event = 'file_opened',
-				handler = function()
-					require('neo-tree').close_all()
-				end,
-			},
-		},
-
 		filesystem = {
 			bind_to_cwd = false,
 			follow_current_file = { enabled = true },
