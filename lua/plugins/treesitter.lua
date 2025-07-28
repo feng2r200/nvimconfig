@@ -30,7 +30,14 @@ return {
 		},
 		config = function(_, opts)
 			if type(opts.ensure_installed) == 'table' then
-				opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
+				opts.ensure_installed = vim.tbl_filter(function(lang)
+					local added = {}
+					if added[lang] then
+						return false
+					end
+					added[lang] = true
+					return true
+				end, opts.ensure_installed)
 			end
 			require('nvim-treesitter.configs').setup(opts)
 		end,

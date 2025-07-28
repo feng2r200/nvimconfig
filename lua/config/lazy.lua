@@ -1,60 +1,64 @@
+-- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-vim.uv = vim.uv or vim.loop
-
-local function clone(remote, dest)
-  if not vim.uv.fs_stat(dest) then
-    print("Installing " .. dest .. "…")
-    remote = "https://github.com/" .. remote
-    -- stylua: ignore
-    vim.fn.system({ 'git', 'clone', '--filter=blob:none', remote, '--branch=stable', dest })
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
   end
 end
-clone("folke/lazy.nvim.git", lazypath)
-vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+vim.opt.rtp:prepend(lazypath)
 
-for _, name in pairs({ "options", "autocmds", "keymaps" }) do
-  vim.api.nvim_create_autocmd("User", {
-    group = vim.api.nvim_create_augroup("User." .. name, { clear = true }),
-    pattern = "LazyVim" .. name:sub(1, 1):upper() .. name:sub(2) .. "Defaults",
-    once = true,
-    callback = function()
-      require("config").load(name)
-    end,
-  })
-end
-
+-- Setup lazy.nvim
 require("lazy").setup({
   spec = {
-    { import = "plugins.extras.lazyvim" },
+    -- Import all plugin configurations
     { import = "plugins" },
-
-    { import = "lazyvim.plugins.extras.lang.rust" },
-    { import = "lazyvim.plugins.extras.lang.typescript" },
-    { import = "lazyvim.plugins.extras.lang.yaml" },
-    { import = "lazyvim.plugins.extras.lsp.none-ls" },
-    { import = "lazyvim.plugins.extras.test.core" },
-
+    -- Import language-specific configurations
     { import = "plugins.extras.lang.go" },
-    { import = "plugins.extras.lang.java" },
     { import = "plugins.extras.lang.python" },
+    { import = "plugins.extras.lang.java" },
+    { import = "plugins.extras.lang.typescript" },
+    { import = "plugins.extras.lang.markdown" },
+    { import = "plugins.extras.lang.docker" },
+    { import = "plugins.extras.lang.yaml" },
+    { import = "plugins.extras.lang.json" },
+    { import = "plugins.extras.lang.tex" },
+    { import = "plugins.extras.lang.rust" },
   },
-  defaults = { lazy = true, version = false },
-  install = { missing = true, colorscheme = {} },
-  checker = { enabled = false, notify = false },
-  change_detection = { notify = false },
+  defaults = {
+    lazy = true,
+    version = false,
+  },
+  install = {
+    missing = true,
+    colorscheme = { "tokyonight", "catppuccin" },
+  },
+  checker = {
+    enabled = false,
+    notify = false,
+  },
+  change_detection = {
+    notify = false,
+  },
   git = {
-    url_format = "git@github.com:%s",
+    url_format = "https://github.com/%s.git",
   },
   performance = {
     rtp = {
       disabled_plugins = {
         "gzip",
-        "vimballPlugin",
         "matchit",
         "matchparen",
-        "2html_plugin",
-        "tarPlugin",
         "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
         "tutor",
         "zipPlugin",
       },

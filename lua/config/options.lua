@@ -191,7 +191,7 @@ opt.jumpoptions = 'view'
 
 opt.wrap = false                -- No wrap by default
 opt.linebreak = true            -- Break long lines at 'breakat'
-opt.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
+opt.formatexpr = ""
 
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
@@ -215,16 +215,16 @@ opt.splitkeep = 'screen'  -- New split keep the text on the same screen line
 opt.pumblend = 10         -- Popup blend
 opt.pumheight = 10        -- Maximum number of items to show in the popup menu
 
-opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
+opt.statuscolumn = ""
 
 if vim.fn.has('nvim-0.10') == 1 then
 	opt.smoothscroll = true
-	vim.opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+	vim.opt.foldexpr = "0"
 	vim.opt.foldmethod = 'expr'
 	vim.opt.foldtext = ''
 else
 	vim.opt.foldmethod = 'indent'
-	vim.opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+	vim.opt.foldexpr = "0"
 end
 
 -- vim: set ts=2 sw=0 tw=80 noet :

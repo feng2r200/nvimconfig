@@ -1,7 +1,31 @@
 ---@diagnostic disable: undefined-global
-local Util = require("lazyvim.util")
 
 return {
+
+  -----------------------------------------------------------------------------
+  -- Multi-file search and replace
+  {
+    "MagicDuck/grug-far.nvim",
+    cmd = "GrugFar",
+    keys = {
+      {
+        "<leader>sr",
+        function()
+          local grug = require("grug-far")
+          local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+          grug.open({
+            transient = true,
+            prefills = {
+              filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+            },
+          })
+        end,
+        mode = { "n", "v" },
+        desc = "Search and Replace",
+      },
+    },
+    opts = { headerMaxWidth = 80 },
+  },
 
   -----------------------------------------------------------------------------
   -- Automatic indentation style detection
@@ -62,7 +86,11 @@ return {
 				once = true,
 				nested = true,
 				callback = function()
-					local opts = LazyVim.opts('persistence.nvim')
+					-- 使用插件的配置选项，而不是调用 setup 返回值
+					local opts = {
+						autoload = true,  -- 从插件配置中获取默认值
+					}
+					
 					if not opts.autoload then
 						return
 					end
@@ -253,7 +281,7 @@ return {
       local opts = {
         symbols = {
           icons = {},
-          filter = vim.deepcopy(LazyVim.config.kind_filter),
+          filter = {},
         },
         keymaps = {
           up_and_jump = "<up>",
@@ -263,7 +291,7 @@ return {
 
       for kind, symbol in pairs(defaults.symbols.icons) do
         opts.symbols.icons[kind] = {
-          icon = LazyVim.config.icons.kinds[kind] or symbol.icon,
+          icon = symbol.icon,
           hl = symbol.hl,
         }
       end

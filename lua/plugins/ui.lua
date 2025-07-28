@@ -21,7 +21,7 @@ return {
         custom_areas = {
           right = function()
             local result = {}
-            local root = LazyVim.root()
+            local root = vim.fn.getcwd()
             table.insert(result, {
               text = "%#BufferLineTab# " .. vim.fn.fnamemodify(root, ":t"),
             })
@@ -123,7 +123,7 @@ return {
 	{
 		'folke/snacks.nvim',
 		keys = function(_, keys)
-			if LazyVim.pick.want() ~= 'snacks' then
+			if vim.g.picker_want ~= 'snacks' then
 				return
 			end
 			-- stylua: ignore
@@ -133,7 +133,7 @@ return {
 			return vim.list_extend(mappings, keys)
 		end,
 		opts = function(_, opts)
-			if LazyVim.pick.want() ~= 'snacks' then
+			if vim.g.picker_want ~= 'snacks' then
 				return
 			end
 			return vim.tbl_deep_extend('force', opts or {}, {

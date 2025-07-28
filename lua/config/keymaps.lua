@@ -16,28 +16,50 @@ map("", "<C-t>", "<Nop>", {})
 
 -- Picker {{{
 
+-- Core search mappings
+map('n', '<Space>f', function()
+	Snacks.picker.files()
+end, { desc = 'Find Files' })
+
+map('n', '<Space>g', function()
+	Snacks.picker.grep()
+end, { desc = 'Grep Files' })
+
+-- Additional useful search mappings
+map('n', '<Space>b', function()
+	Snacks.picker.buffers()
+end, { desc = 'Find Buffers' })
+
+map('n', '<Space>h', function()
+	Snacks.picker.help()
+end, { desc = 'Help Tags' })
+
+map('n', '<Space>r', function()
+	Snacks.picker.recent()
+end, { desc = 'Recent Files' })
+
 -- Bind localleader to common LazyVim picker (telescope/fzf/snacks) keymaps.
-map('n', '<localleader>f', '<leader>ff', { remap = true, desc = 'Find Files (Root Dir)' })
-map('n', '<localleader>F', '<leader>fF', { remap = true, desc = 'Find Files (cwd)' })
-map('n', '<localleader>g', '<leader>sg', { remap = true, desc = 'Grep (Root Dir)' })
-map('n', '<localleader>G', '<leader>sG', { remap = true, desc = 'Grep (cwd)' })
-map('n', '<localleader>b', '<leader>,',  { remap = true, desc = 'Switch Buffer' })
-map('n', '<localleader>B', '<leader>sB', { remap = true, desc = 'Grep open buffers' })
-map('n', '<localleader>l', '<leader>sb', { remap = true, desc = 'Buffer lines' })
-map('n', '<localleader>h', '<leader>sh', { remap = true, desc = 'Help Pages' })
-map('n', '<localleader>j', '<leader>sj', { remap = true, desc = 'Jumplist' })
-map('n', '<localleader>m', '<leader>sm', { remap = true, desc = 'Jump to Mark' })
-map('n', '<localleader>t', '<leader>ss', { remap = true, desc = 'Goto Symbol' })
-map('n', '<localleader>T', '<leader>sS', { remap = true, desc = 'Goto Symbol (Workspace)' })
-map('n', '<localleader>v', '<leader>s"', { remap = true, desc = 'Registers' })
-map('n', '<localleader>s', '<leader>qS', { remap = true, desc = 'Sessions' })
-map('n', '<localleader>x', '<leader>fr', { remap = true, desc = 'Recent' })
-map('n', '<localleader>X', '<leader>fR', { remap = true, desc = 'Recent (cwd)' })
-map('n', '<localleader>;', '<leader>sc', { remap = true, desc = 'Command History' })
-map('n', '<localleader>:', '<leader>sC', { remap = true, desc = 'Commands' })
-map('n', '<localleader>p', '<leader>fp', { remap = true, desc = 'Projects' })
-map({ 'n', 'x' }, '<leader>gg', '<leader>sw', { remap = true, desc = 'Visual selection or word (Root Dir)' })
-map({ 'n', 'x' }, '<leader>gG', '<leader>sW', { remap = true, desc = 'Visual selection or word (cwd)' })
+-- map('n', '<localleader>f', '<leader>ff', { remap = true, desc = 'Find Files (Root Dir)' })
+-- map('n', '<localleader>F', '<leader>fF', { remap = true, desc = 'Find Files (cwd)' })
+-- map('n', '<localleader>g', '<leader>sg', { remap = true, desc = 'Grep (Root Dir)' })
+-- map('n', '<localleader>G', '<leader>sG', { remap = true, desc = 'Grep (cwd)' })
+-- map('n', '<localleader>b', '<leader>,',  { remap = true, desc = 'Switch Buffer' })
+-- map('n', '<localleader>B', '<leader>sB', { remap = true, desc = 'Grep open buffers' })
+-- map('n', '<localleader>l', '<leader>sb', { remap = true, desc = 'Buffer lines' })
+-- map('n', '<localleader>h', '<leader>sh', { remap = true, desc = 'Help Pages' })
+-- map('n', '<localleader>j', '<leader>sj', { remap = true, desc = 'Jumplist' })
+-- map('n', '<localleader>m', '<leader>sm', { remap = true, desc = 'Jump to Mark' })
+-- map('n', '<localleader>t', '<leader>ss', { remap = true, desc = 'Goto Symbol' })
+-- map('n', '<localleader>T', '<leader>sS', { remap = true, desc = 'Goto Symbol (Workspace)' })
+-- map('n', '<localleader>v', '<leader>s"', { remap = true, desc = 'Registers' })
+-- map('n', '<localleader>s', '<leader>qS', { remap = true, desc = 'Sessions' })
+-- map('n', '<localleader>x', '<leader>fr', { remap = true, desc = 'Recent' })
+-- map('n', '<localleader>X', '<leader>fR', { remap = true, desc = 'Recent (cwd)' })
+-- map('n', '<localleader>;', '<leader>sc', { remap = true, desc = 'Command History' })
+-- map('n', '<localleader>:', '<leader>sC', { remap = true, desc = 'Commands' })
+-- map('n', '<localleader>p', '<leader>fp', { remap = true, desc = 'Projects' })
+-- map({ 'n', 'x' }, '<leader>gg', '<leader>sw', { remap = true, desc = 'Visual selection or word (Root Dir)' })
+-- map({ 'n', 'x' }, '<leader>gG', '<leader>sW', { remap = true, desc = 'Visual selection or word (cwd)' })
 
 -- }}}
 -- Navigation {{{
@@ -56,7 +78,7 @@ map('n', '<A-}>', '<cmd>+tabmove<CR>', { desc = 'Tab Move Forwards' })
 
 -- buffers
 map("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete Buffer" })
-map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete Other Buffers"})
+map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete Other Buffers" })
 
 -- }}}
 -- Selection {{{
@@ -72,17 +94,17 @@ map('x', '>', '>gv|', { desc = 'Indent Left and Re-select' })
 local blockwise_force = function(key)
 	local c_v = vim.api.nvim_replace_termcodes('<C-v>', true, false, true)
 	local keyseq = {
-		I  = { v = '<C-v>I',  V = '<C-v>^o^I', [c_v] = 'I' },
-		A  = { v = '<C-v>A',  V = '<C-v>0o$A', [c_v] = 'A' },
+		I  = { v = '<C-v>I', V = '<C-v>^o^I', [c_v] = 'I' },
+		A  = { v = '<C-v>A', V = '<C-v>0o$A', [c_v] = 'A' },
 		gI = { v = '<C-v>0I', V = '<C-v>0o$I', [c_v] = '0I' },
 	}
 	return function()
 		return keyseq[key][vim.fn.mode()]
 	end
 end
-map('x', 'I',  blockwise_force('I'),  { expr = true, noremap = true, desc = 'Blockwise Insert' })
+map('x', 'I', blockwise_force('I'), { expr = true, noremap = true, desc = 'Blockwise Insert' })
 map('x', 'gI', blockwise_force('gI'), { expr = true, noremap = true, desc = 'Blockwise Insert' })
-map('x', 'A',  blockwise_force('A'),  { expr = true, noremap = true, desc = 'Blockwise Append' })
+map('x', 'A', blockwise_force('A'), { expr = true, noremap = true, desc = 'Blockwise Append' })
 
 -- }}}
 -- Jump to {{{
@@ -126,7 +148,9 @@ map('n', 'gco', 'o<Esc>Vcx<Esc><cmd>normal gcc<CR>fxa<BS>', { silent = true, des
 map('n', 'gcO', 'O<Esc>Vcx<Esc><cmd>normal gcc<CR>fxa<BS>', { silent = true, desc = 'Add Comment Above' })
 
 -- Formatting
-map({ "n", "v" }, "<leader>cf", function() LazyVim.format({ force = true }) end, { desc = "Format" })
+map({ "n", "v" }, "<leader>cf", function()
+	require("conform").format({ async = true, lsp_fallback = true })
+end, { desc = "Format" })
 map({ 'n', 'x' }, '<leader>vcf', function() formatter_select() end, { desc = 'Formatter Select' })
 
 -- }}}
@@ -170,8 +194,8 @@ map('n', '<leader>gm', function() Snacks.picker.git_log_line() end, { desc = 'Gi
 map({ 'n', 'x' }, '<leader>go', function() Snacks.gitbrowse() end, { desc = 'Git Browse' })
 
 -- Terminal
-map('n', '<C-/>', function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = 'Terminal (Root Dir)' })
-map('n', '<C-_>', function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = 'which_key_ignore' })
+map('n', '<C-/>', function() Snacks.terminal(nil, { cwd = vim.fn.getcwd() }) end, { desc = 'Terminal (Root Dir)' })
+map('n', '<C-_>', function() Snacks.terminal(nil, { cwd = vim.fn.getcwd() }) end, { desc = 'which_key_ignore' })
 
 -- Terminal Mappings
 map('t', '<esc><esc>', '<C-\\><C-n>', { desc = 'Enter Normal Mode' })
@@ -221,7 +245,7 @@ if vim.F.if_nil(vim.g.window_q_mapping, false) then
 			if #wins > 1 then
 				vim.api.nvim_win_close(0, false)
 			else
-				vim.cmd[[quit]]
+				vim.cmd [[quit]]
 			end
 		end
 	end, { desc = 'Close window' })
@@ -280,6 +304,7 @@ end -- }}}
 
 -- Display a list of formatters and apply the selected one.
 function _G.formatter_select() -- {{{
+	local conform = require("conform")
 	local buf = vim.api.nvim_get_current_buf()
 	local is_visual = vim.tbl_contains({ 'v', 'V', '\22' }, vim.fn.mode())
 	local cur_start, cur_end
@@ -288,62 +313,41 @@ function _G.formatter_select() -- {{{
 		cur_end = vim.fn.getpos('v')
 	end
 
-	-- Collect various sources of formatters.
-	---@class rafi.Formatter
-	---@field kind string
-	---@field name string
-	---@field client LazyFormatter|{active:boolean,resolved:string[]}
+	-- Get available formatters for this buffer
+	local formatters = conform.list_formatters(buf)
 
-	---@type rafi.Formatter[]
-	local sources = {}
-	local fmts = LazyVim.format.resolve(buf)
-	for _, fmt in ipairs(fmts) do
-		vim.tbl_map(function(resolved)
-			table.insert(sources, {
-				kind = fmt.name,
-				name = resolved,
-				client = fmt,
-			})
-		end, fmt.resolved)
-	end
-
-	local total_sources = #sources
-
-	-- Apply formatter source on buffer.
-	---@param bufnr number
-	---@param source rafi.Formatter
-	local apply_source = function(bufnr, source)
-		if source == nil then
-			return
-		end
-		LazyVim.try(function()
-			return source.client.format(bufnr)
-		end, { msg = 'Formatter `' .. source.name .. '` failed' })
-	end
-
-	if total_sources == 1 then
-		apply_source(buf, sources[1])
-	elseif total_sources > 1 then
-		-- Display a list of sources to choose from
-		vim.ui.select(sources, {
-			prompt = 'Select a formatter',
-			format_item = function(item)
-				return item.name .. ' (' .. item.kind .. ')'
-			end,
-		}, function(selected)
-			if is_visual then
-				-- Restore visual selection
-				vim.fn.setpos('.', cur_start)
-				vim.cmd([[normal! v]])
-				vim.fn.setpos('.', cur_end)
-			end
-			apply_source(buf, selected)
-		end)
-	else
+	if #formatters == 0 then
 		vim.notify(
 			'No configured formatters for this filetype.',
 			vim.log.levels.WARN
 		)
+		return
+	elseif #formatters == 1 then
+		-- Use the only available formatter
+		conform.format({ bufnr = buf, async = true, lsp_fallback = true })
+	else
+		-- Display a list of formatters to choose from
+		vim.ui.select(formatters, {
+			prompt = 'Select a formatter',
+			format_item = function(item)
+				return item.name
+			end,
+		}, function(selected)
+			if selected then
+				if is_visual then
+					-- Restore visual selection
+					vim.fn.setpos('.', cur_start)
+					vim.cmd([[normal! v]])
+					vim.fn.setpos('.', cur_end)
+				end
+				conform.format({
+					bufnr = buf,
+					formatters = { selected.name },
+					async = true,
+					lsp_fallback = true
+				})
+			end
+		end)
 	end
 end -- }}}
 

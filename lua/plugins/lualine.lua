@@ -20,7 +20,14 @@ return {
       end
     end,
     opts = function()
-      local icons = LazyVim.config.icons
+      local icons = {
+        diagnostics = {
+          Error = "",
+          Warn = "",
+          Info = "",
+          Hint = "",
+        },
+      }
 
       local function is_plugin_window()
         return vim.bo.buftype ~= ""
@@ -88,7 +95,7 @@ return {
                 vim.cmd([[Telescope git_branches]])
               end,
             },
-            LazyVim.lualine.root_dir(),
+            function() return vim.fn.getcwd() end,
             {
               require("util.lualine").plugin_title(),
               padding = { left = 0, right = 1 },
@@ -105,7 +112,7 @@ return {
           },
           lualine_c = {
             {
-              LazyVim.lualine.pretty_path(),
+              function() return vim.fn.expand('%:t') end,
               color = { fg = "#D7D7BC" },
               cond = is_file_window,
               on_click = function()
@@ -293,7 +300,7 @@ return {
               padding = { left = 1, right = 0 },
             },
             {
-              LazyVim.lualine.pretty_path({ length = 3 }),
+              function() return vim.fn.expand('%:t') end,
               padding = { left = 1, right = 0 },
             },
           },
@@ -314,7 +321,7 @@ return {
 
       -- Show code structure in statusline.
       -- Allow it to be overriden for some buffer types (see autocmds).
-      if vim.g.trouble_lualine and LazyVim.has("trouble.nvim") then
+      if vim.g.trouble_lualine and pcall(require, "trouble") then
         local trouble = require("trouble")
         local symbols = trouble.statusline({
           mode = "symbols",

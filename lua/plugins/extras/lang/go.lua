@@ -1,86 +1,173 @@
----@diagnostic disable: undefined-global
 return {
-	desc = 'Imports Go lang extras and adds more tools.',
-	recommended = function()
-		return LazyVim.extras.wants({
-			ft = { 'go', 'gomod', 'gowork', 'gotmpl' },
-			root = { 'go.work', 'go.mod' },
-		})
-	end,
+  -- Treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      opts = opts or {}
+      vim.list_extend(opts.ensure_installed or {}, {
+        "go",
+        "gomod",
+        "gosum",
+        "gotmpl",
+        "gowork",
+        "helm",
+      })
 
-	{ import = 'lazyvim.plugins.extras.lang.go' },
+      -- Convert a JSON string to a Go struct.
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "go",
+        callback = function()
+          vim.api.nvim_buf_create_user_command(
+            0,
+            "JsonToStruct",
+            function(args)
+              local range = args.line1 .. "," .. args.line2
+              local fname = vim.api.nvim_buf_get_name(0)
+              local cmd = { "!json-to-struct" }
+              table.insert(cmd, "-name " .. vim.fn.fnamemodify(fname, ":t:r"))
+              table.insert(cmd, "-pkg " .. vim.fn.fnamemodify(fname, ":h:t:r"))
+              vim.cmd(range .. " " .. table.concat(cmd, " "))
+            end,
+            { bar = true, nargs = 0, range = true }
+          )
+        end,
+      })
+    end,
+  },
 
-	{
-		'nvim-treesitter/nvim-treesitter',
-		opts = function(_, opts)
-			opts = opts or {}
-			opts.ensure_installed = {
-				'go',
-				'gomod',
-				'gosum',
-				'gotmpl',
-				'gowork',
-				'helm',
-			}
+  -- Tools
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        -- LSP
+        "gopls",
+        -- Formatters
+        "gofumpt",
+        "goimports-reviser",
+        -- Tools
+        "gomodifytags",
+        "impl",
+        "json-to-struct",
+        -- Debugger
+        "delve",
+      },
+    },
+  },
 
-			-- Convert a JSON string to a Go struct.
-			vim.api.nvim_buf_create_user_command(
-				0,
-				'JsonToStruct',
-				---@param args table
-				function(args)
-					local range = args.line1 .. ',' .. args.line2
-					local fname = vim.api.nvim_buf_get_name(0)
-					local cmd = { '!json-to-struct' }
-					table.insert(cmd, '-name ' .. vim.fn.fnamemodify(fname, ':t:r'))
-					table.insert(cmd, '-pkg ' .. vim.fn.fnamemodify(fname, ':h:t:r'))
-					vim.cmd(range .. ' ' .. table.concat(cmd, ' '))
-				end,
-				{ bar = true, nargs = 0, range = true }
-			)
-		end,
-	},
+  -- LSP
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        gopls = {
+          settings = {
+            gopls = {
+              gofumpt = true,
+              codelenses = {
+                gc_details = false,
+                generate = true,
+                regenerate_cgo = true,
+                run_govulncheck = true,
+                test = true,
+                tidy = true,
+                upgrade_dependency = true,
+                vendor = true,
+              },
+              hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+              },
+              experimentalPostfixCompletions = true,
+              analyses = {
+                unusedparams = true,
+                shadow = true,
+                fieldalignment = false,
+                unusedvariable = true,
+                nilness = true,
+                unusedwrite = true,
+                useany = true,
+              },
+              usePlaceholders = true,
+              completeUnimported = true,
+              staticcheck = true,
+              directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+              semanticTokens = true,
+            },
+          },
+          init_options = {
+            usePlaceholders = true,
+          },
+        },
+      },
+      setup = {
+        gopls = function(_, opts)
+          -- Workaround for gopls not supporting semanticTokensProvider
+          vim.api.nvim_create_autocmd("LspAttach", {
+            callback = function(args)
+              local client = vim.lsp.get_client_by_id(args.data.client_id)
+              if client and client.name == "gopls" then
+                if not client.server_capabilities.semanticTokensProvider then
+                  local semantic = client.config.capabilities.textDocument.semanticTokens
+                  if semantic then
+                    client.server_capabilities.semanticTokensProvider = {
+                      full = true,
+                      legend = {
+                        tokenTypes = semantic.tokenTypes,
+                        tokenModifiers = semantic.tokenModifiers,
+                      },
+                      range = true,
+                    }
+                  end
+                end
+              end
+            end,
+          })
+        end,
+      },
+    },
+  },
 
-	{
-		'mason-org/mason.nvim',
-		opts = {
-			ensure_installed = {
-				'gofumpt',
-				'goimports-reviser',
-				'gomodifytags',
-				'impl',
-				'json-to-struct',
-			},
-		},
-	},
+  -- Formatting
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        go = { "goimports", "gofumpt" },
+      },
+    },
+  },
 
-	{
-		'neovim/nvim-lspconfig',
-		opts = {
-			servers = {
-				gopls = {
-					settings = {
-						-- https://github.com/golang/tools/blob/master/gopls/doc/settings.md
-						gopls = {
-							experimentalPostfixCompletions = true,
-							-- https://github.com/golang/tools/blob/master/gopls/doc/analyzers.md
-							analyses = {
-								unusedparams = true,
-								shadow = true,
-								fieldalignment = false,
-								unusedvariable = true,
-								-- shadow = true,
-								-- ST1000 = false,
-								-- ST1005 = false,
-							},
-							staticcheck = true,
-						},
-					},
-					init_options = {
-						usePlaceholders = true,
-					},
-				},
-			},
-		},
-	},
+  -- Debug Adapter
+  {
+    "mfussenegger/nvim-dap",
+    optional = true,
+    dependencies = {
+      {
+        "leoluz/nvim-dap-go",
+        opts = {},
+      },
+    },
+  },
+
+  -- Testing
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    dependencies = {
+      "fredrikaverpil/neotest-golang",
+    },
+    opts = {
+      adapters = {
+        ["neotest-golang"] = {
+          dap_go_enabled = true,
+        },
+      },
+    },
+  },
 }
