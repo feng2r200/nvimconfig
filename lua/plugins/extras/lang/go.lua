@@ -58,6 +58,7 @@ return {
   -- LSP
   {
     "neovim/nvim-lspconfig",
+    ft = { "go", "gomod", "gowork", "gotmpl" },
     opts = {
       servers = {
         gopls = {

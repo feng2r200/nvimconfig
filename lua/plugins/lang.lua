@@ -8,8 +8,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     version = false,
     build = ":TSUpdate",
-    event = { "BufReadPost", "BufWritePost", "BufNewFile", "VeryLazy" },
-    lazy = vim.fn.argc(-1) == 0,
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     init = function(plugin)
       require("lazy.core.loader").add_to_rtp(plugin)
       require("nvim-treesitter.query_predicates")
@@ -92,12 +91,12 @@ return {
     end,
   },
 
-  -- Language servers configuration
+  -- Language servers configuration (base)
   {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        -- Lua
+        -- Only basic servers that are commonly used
         lua_ls = {
           settings = {
             Lua = {
@@ -124,27 +123,6 @@ return {
             },
           },
         },
-
-        -- TypeScript
-        ts_ls = {
-          enabled = false,
-        },
-        vtsls = {
-          filetypes = {
-            "javascript",
-            "javascriptreact",
-            "javascript.jsx",
-            "typescript",
-            "typescriptreact",
-            "typescript.tsx",
-          },
-        },
-
-        -- Bash
-        bashls = {},
-
-        -- Markdown
-        marksman = {},
       },
       setup = {},
     },

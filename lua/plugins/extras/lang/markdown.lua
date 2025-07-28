@@ -23,6 +23,7 @@ return {
   -- LSP
   {
     "neovim/nvim-lspconfig",
+    ft = { "markdown" },
     opts = {
       servers = {
         marksman = {},

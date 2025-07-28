@@ -27,8 +27,6 @@ require("lazy").setup({
     { import = "plugins.extras.lang.typescript" },
     { import = "plugins.extras.lang.markdown" },
     { import = "plugins.extras.lang.docker" },
-    { import = "plugins.extras.lang.yaml" },
-    { import = "plugins.extras.lang.json" },
     { import = "plugins.extras.lang.tex" },
     { import = "plugins.extras.lang.rust" },
   },
@@ -51,11 +49,17 @@ require("lazy").setup({
     url_format = "https://github.com/%s.git",
   },
   performance = {
+    cache = {
+      enabled = true,
+    },
+    reset_packpath = true,
     rtp = {
+      reset = true,
+      paths = {},
       disabled_plugins = {
         "gzip",
         "matchit",
-        "matchparen",
+        "matchparen", 
         "netrwPlugin",
         "tarPlugin",
         "tohtml",

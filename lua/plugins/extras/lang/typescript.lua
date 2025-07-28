@@ -29,6 +29,7 @@ return {
   -- LSP
   {
     "neovim/nvim-lspconfig",
+    ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
     opts = {
       servers = {
         tsserver = {

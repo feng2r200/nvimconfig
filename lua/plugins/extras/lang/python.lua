@@ -44,6 +44,7 @@ return {
   -- LSP Configuration
   {
     "neovim/nvim-lspconfig",
+    ft = { "python" },
     opts = {
       servers = {
         -- Ruff LSP for linting and formatting

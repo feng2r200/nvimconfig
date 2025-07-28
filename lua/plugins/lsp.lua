@@ -2,49 +2,16 @@ return {
   -- LSP Configuration
   {
     "neovim/nvim-lspconfig",
-    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     dependencies = {
       "mason.nvim",
       "mason-lspconfig.nvim",
     },
     opts = function()
-      local keys = {
-        { "<leader>cl", false },
-        { "<c-k>", false, mode = "i" },
-        { "<leader>cli", vim.lsp.buf.incoming_calls, desc = "Incoming calls" },
-        { "<leader>clo", vim.lsp.buf.outgoing_calls, desc = "Outgoing calls" },
-      }
-      
-      return {
+      ---@class PluginLspOpts
+      local ret = {
         -- LSP Server settings
-        servers = {
-          lua_ls = {
-            settings = {
-              Lua = {
-                workspace = {
-                  checkThirdParty = false,
-                },
-                codeLens = {
-                  enable = true,
-                },
-                completion = {
-                  callSnippet = "Replace",
-                },
-                doc = {
-                  privateName = { "^_" },
-                },
-                hint = {
-                  enable = true,
-                  setType = false,
-                  paramType = true,
-                  paramName = "Disable",
-                  semicolon = "Disable",
-                  arrayIndex = "Disable",
-                },
-              },
-            },
-          },
-        },
+        servers = {},
         -- Global capabilities
         capabilities = {
           textDocument = {
@@ -72,74 +39,79 @@ return {
         -- Setup handlers
         setup = {},
       }
+      return ret
     end,
     config = function(_, opts)
       -- Setup LSP configuration
-      local lspconfig = require("lspconfig")
+      local Util = require("util.lsp")
+      
+      -- Setup key mappings
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+        callback = function(ev)
+          Util.on_attach(ev.data.client_id, ev.buf)
+        end,
+      })
+
+      -- Setup capabilities
       local capabilities = vim.tbl_deep_extend(
         "force",
         vim.lsp.protocol.make_client_capabilities(),
         opts.capabilities or {}
       )
 
-      -- Setup key mappings
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-        callback = function(ev)
-          local client = vim.lsp.get_client_by_id(ev.data.client_id)
-          local buffer = ev.buf
-          
-          -- Enable completion triggered by <c-x><c-o>
-          vim.bo[buffer].omnifunc = "v:lua.vim.lsp.omnifunc"
+      -- Function to setup servers
+      local function setup(server)
+        local server_opts = vim.tbl_deep_extend("force", {
+          capabilities = capabilities,
+        }, opts.servers[server] or {})
 
-          -- Buffer local mappings
-          local function map(mode, lhs, rhs, desc)
-            vim.keymap.set(mode, lhs, rhs, { buffer = buffer, desc = desc })
+        if opts.setup[server] then
+          if opts.setup[server](server, server_opts) then
+            return
           end
-
-          map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
-          map("n", "gd", vim.lsp.buf.definition, "Go to definition")
-          map("n", "K", vim.lsp.buf.hover, "Hover")
-          map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
-          map("n", "<C-k>", vim.lsp.buf.signature_help, "Signature help")
-          map("n", "<space>wa", vim.lsp.buf.add_workspace_folder, "Add workspace folder")
-          map("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, "Remove workspace folder")
-          map("n", "<space>wl", function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end, "List workspace folders")
-          map("n", "<space>D", vim.lsp.buf.type_definition, "Type definition")
-          map("n", "<space>rn", vim.lsp.buf.rename, "Rename")
-          map({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, "Code action")
-          map("n", "gr", vim.lsp.buf.references, "References")
-
-          -- Format on save if the client supports it
-          if client and client.supports_method("textDocument/formatting") then
-            vim.api.nvim_create_autocmd("BufWritePre", {
-              buffer = buffer,
-              callback = function()
-                vim.lsp.buf.format({ bufnr = buffer })
-              end,
-            })
+        elseif opts.setup["*"] then
+          if opts.setup["*"](server, server_opts) then
+            return
           end
-        end,
-      })
+        end
+        require("lspconfig")[server].setup(server_opts)
+      end
 
-      -- Setup servers
+      -- Setup servers when they're needed
+      local mason_lspconfig = require("mason-lspconfig")
+      local all_mslp_servers = {}
+      
+      -- Safely get server mappings
+      local ok, mappings = pcall(require, "mason-lspconfig.mappings.server")
+      if ok and mappings.lspconfig_to_package then
+        all_mslp_servers = vim.tbl_keys(mappings.lspconfig_to_package)
+      end
+
+      local ensure_installed = {}
+      
       for server, server_opts in pairs(opts.servers) do
         if server_opts.enabled ~= false then
-          server_opts = vim.tbl_deep_extend("force", {
-            capabilities = capabilities,
-          }, server_opts or {})
-          
-          if opts.setup[server] then
-            if opts.setup[server](server, server_opts) then
-              return
-            end
+          setup(server)
+          if server_opts.mason ~= false and vim.tbl_contains(all_mslp_servers, server) then
+            ensure_installed[#ensure_installed + 1] = server
           end
-          lspconfig[server].setup(server_opts)
         end
       end
+
+      mason_lspconfig.setup({
+        ensure_installed = ensure_installed,
+        handlers = { setup },
+      })
     end,
+  },
+
+  -- Create LSP utility module
+  {
+    "folke/neoconf.nvim",
+    cmd = "Neoconf",
+    config = false,
+    dependencies = { "nvim-lspconfig" },
   },
 
   -- Mason package manager
@@ -194,7 +166,7 @@ return {
   -- Mason LSP configuration
   {
     "williamboman/mason-lspconfig.nvim",
-    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     dependencies = { "mason.nvim" },
     opts = {
       automatic_installation = true,

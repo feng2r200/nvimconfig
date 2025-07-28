@@ -22,6 +22,7 @@ return {
   -- LSP
   {
     "neovim/nvim-lspconfig",
+    ft = { "tex", "plaintex", "bib" },
     opts = {
       servers = {
         texlab = {

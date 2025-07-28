@@ -22,6 +22,7 @@ return {
   -- LSP
   {
     "neovim/nvim-lspconfig",
+    ft = { "dockerfile" },
     opts = {
       servers = {
         dockerls = {},

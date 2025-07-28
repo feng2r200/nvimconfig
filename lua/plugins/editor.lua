@@ -29,7 +29,7 @@ return {
 
   -----------------------------------------------------------------------------
   -- Automatic indentation style detection
-  { "nmac427/guess-indent.nvim", lazy = false, priority = 50, opts = {} },
+  { "nmac427/guess-indent.nvim", event = { "BufReadPre", "BufNewFile" }, priority = 50, opts = {} },
 
   -- An alternative sudo for Vim and Neovim
   { "lambdalisue/suda.vim", event = "BufRead" },
@@ -357,7 +357,6 @@ return {
 	-- Seamless navigation between tmux panes and vim splits
   {
     "aserowy/tmux.nvim",
-    lazy = false,
     keys = {
       { "<C-h>", function() require('tmux').move_left() end, remap = true, desc = "Cursor Move Left" },
       { "<C-j>", function() require('tmux').move_bottom() end, remap = true, desc = "Cursor Move Bottom" },

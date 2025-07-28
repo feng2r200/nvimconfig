@@ -22,6 +22,7 @@ return {
   -- LSP
   {
     "neovim/nvim-lspconfig",
+    ft = { "rust" },
     opts = {
       servers = {
         rust_analyzer = {

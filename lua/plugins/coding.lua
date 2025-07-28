@@ -15,7 +15,7 @@ return {
   -- Completion plugin for neovim written in Lua
   {
     "saghen/blink.cmp",
-    lazy = false,
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = "rafamadriz/friendly-snippets",
     version = "v0.*",
     opts = {
