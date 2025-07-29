@@ -32,7 +32,7 @@ return {
     ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
     opts = {
       servers = {
-        tsserver = {
+        ts_ls = {
           settings = {
             typescript = {
               format = {
@@ -108,13 +108,14 @@ return {
     ft = { "json" },
     opts = {},
     keys = {
-      { "<leader>ns", "<cmd>lua require('package-info').show()<cr>", desc = "Show package info" },
-      { "<leader>nc", "<cmd>lua require('package-info').hide()<cr>", desc = "Hide package info" },
-      { "<leader>nt", "<cmd>lua require('package-info').toggle()<cr>", desc = "Toggle package info" },
-      { "<leader>nu", "<cmd>lua require('package-info').update()<cr>", desc = "Update package" },
-      { "<leader>nd", "<cmd>lua require('package-info').delete()<cr>", desc = "Delete package" },
-      { "<leader>ni", "<cmd>lua require('package-info').install()<cr>", desc = "Install package" },
+      { "<leader>ns", "<cmd>lua require('package-info').show()<cr>",           desc = "Show package info" },
+      { "<leader>nc", "<cmd>lua require('package-info').hide()<cr>",           desc = "Hide package info" },
+      { "<leader>nt", "<cmd>lua require('package-info').toggle()<cr>",         desc = "Toggle package info" },
+      { "<leader>nu", "<cmd>lua require('package-info').update()<cr>",         desc = "Update package" },
+      { "<leader>nd", "<cmd>lua require('package-info').delete()<cr>",         desc = "Delete package" },
+      { "<leader>ni", "<cmd>lua require('package-info').install()<cr>",        desc = "Install package" },
       { "<leader>np", "<cmd>lua require('package-info').change_version()<cr>", desc = "Change package version" },
     },
   },
 }
+
