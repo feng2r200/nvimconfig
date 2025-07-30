@@ -30,13 +30,13 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed or {}, { 
-        "ninja", 
-        "python", 
-        "pymanifest", 
-        "requirements", 
-        "rst", 
-        "toml" 
+      vim.list_extend(opts.ensure_installed or {}, {
+        "ninja",
+        "python",
+        "pymanifest",
+        "requirements",
+        "rst",
+        "toml"
       })
     end,
   },
@@ -71,7 +71,7 @@ return {
             },
           },
         },
-        
+
         -- Pyright for type checking
         pyright = {
           before_init = function(_, config)
@@ -128,7 +128,7 @@ return {
         "mfussenegger/nvim-dap-python",
         keys = {
           { "<leader>dPt", function() require('dap-python').test_method() end, desc = "Debug Method", ft = "python" },
-          { "<leader>dPc", function() require('dap-python').test_class() end, desc = "Debug Class", ft = "python" },
+          { "<leader>dPc", function() require('dap-python').test_class() end,  desc = "Debug Class",  ft = "python" },
         },
         config = function()
           local root_dir = vim.fn.getcwd()
@@ -138,24 +138,6 @@ return {
             return python_path
           end
         end,
-      },
-    },
-  },
-
-  -- Virtual environment selector
-  {
-    "linux-cultist/venv-selector.nvim",
-    branch = "regexp",
-    cmd = "VenvSelect",
-    ft = "python",
-    keys = { 
-      { "<leader>cv", "<cmd>:VenvSelect<cr>", desc = "Select VirtualEnv", ft = "python" } 
-    },
-    opts = {
-      settings = {
-        options = {
-          notify_user_on_venv_activation = true,
-        },
       },
     },
   },
