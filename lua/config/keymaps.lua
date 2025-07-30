@@ -17,26 +17,11 @@ map("", "<C-t>", "<Nop>", {})
 -- Picker {{{
 
 -- Core search mappings
-map('n', '<Space>f', function()
-	Snacks.picker.files()
-end, { desc = 'Find Files' })
-
-map('n', '<Space>g', function()
-	Snacks.picker.grep()
-end, { desc = 'Grep Files' })
-
--- Additional useful search mappings
-map('n', '<Space>b', function()
-	Snacks.picker.buffers()
-end, { desc = 'Find Buffers' })
-
-map('n', '<Space>h', function()
-	Snacks.picker.help()
-end, { desc = 'Help Tags' })
-
-map('n', '<Space>r', function()
-	Snacks.picker.recent()
-end, { desc = 'Recent Files' })
+map('n', '<Space>f', function() Snacks.picker.files() end, { desc = 'Find Files' })
+map('n', '<Space>g', function() Snacks.picker.grep() end, { desc = 'Grep Files' })
+map('n', '<Space>b', function() Snacks.picker.buffers() end, { desc = 'Find Buffers' })
+map('n', '<Space>h', function() Snacks.picker.help() end, { desc = 'Help Tags' })
+map('n', '<Space>r', function() Snacks.picker.recent() end, { desc = 'Recent Files' })
 
 -- Bind localleader to common LazyVim picker (telescope/fzf/snacks) keymaps.
 -- map('n', '<localleader>f', '<leader>ff', { remap = true, desc = 'Find Files (Root Dir)' })
@@ -65,6 +50,15 @@ end, { desc = 'Recent Files' })
 -- Navigation {{{
 
 unmap('n', { '<S-h>', '<S-l>' })
+
+map('n', "<C-h>", function() require('tmux').move_left() end, { remap = true, desc = "Cursor Move Left" })
+map('n', "<C-j>", function() require('tmux').move_bottom() end, { remap = true, desc = "Cursor Move Bottom" })
+map('n', "<C-k>", function() require('tmux').move_top() end, { remap = true, desc = "Cursor Move Top" })
+map('n', "<C-l>", function() require('tmux').move_right() end, { remap = true, desc = "Cursor Move Right" })
+map('n', "<C-Left>", function() require('tmux').resize_left() end, { remap = true, desc = "Window Resize Left" })
+map('n', "<C-Down>", function() require('tmux').resize_bottom() end, { remap = true, desc = "Window Resize Bottom" })
+map('n', "<C-Up>", function() require('tmux').resize_top() end, { remap = true, desc = "Window Resize Top" })
+map('n', "<C-Right>", function() require('tmux').resize_right() end, { remap = true, desc = "Window Resize Right" })
 
 -- Tabs: Many ways to navigate them
 map('n', '<A-j>', '<cmd>tabnext<CR>', { desc = 'Next Tab' })

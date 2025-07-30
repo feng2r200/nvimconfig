@@ -24,7 +24,7 @@ function M.on_attach(client_id, buffer)
   map("n", "gd", vim.lsp.buf.definition, "Go to definition")
   map("n", "K", vim.lsp.buf.hover, "Hover")
   map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
-  map("n", "<C-k>", vim.lsp.buf.signature_help, "Signature help")
+  -- map("n", "<C-k>", vim.lsp.buf.signature_help, "Signature help")
   map("n", "<space>wa", vim.lsp.buf.add_workspace_folder, "Add workspace folder")
   map("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, "Remove workspace folder")
   map("n", "<space>wl", function()
@@ -92,3 +92,4 @@ function M.get_clients(buffer)
 end
 
 return M
+
