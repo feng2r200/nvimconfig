@@ -1,7 +1,9 @@
 return {
+  { "augmentcode/augment.vim", lazy = false },
+
   -- Minimal and fast icon provider
   {
-    "echasnovski/mini.icons", 
+    "echasnovski/mini.icons",
     lazy = true,
     opts = {},
     init = function()
@@ -30,9 +32,9 @@ return {
             treesitter = { "lsp" },
           },
         },
-        documentation = { 
-          auto_show = true, 
-          auto_show_delay_ms = 500 
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 500,
         },
         ghost_text = { enabled = false },
         trigger = {
@@ -69,8 +71,7 @@ return {
   -- Lightweight yet powerful formatter plugin
   {
     "stevearc/conform.nvim",
-    event = { "BufWritePre" },
-    cmd = { "ConformInfo" },
+    lazy = false,
     keys = {
       {
         "<leader>cf",
@@ -177,13 +178,13 @@ return {
             a = { "@block.outer", "@conditional.outer", "@loop.outer" },
             i = { "@block.inner", "@conditional.inner", "@loop.inner" },
           }),
-          f = ai.gen_spec.treesitter({ 
-            a = "@function.outer", 
-            i = "@function.inner" 
+          f = ai.gen_spec.treesitter({
+            a = "@function.outer",
+            i = "@function.inner",
           }),
-          c = ai.gen_spec.treesitter({ 
-            a = "@class.outer", 
-            i = "@class.inner" 
+          c = ai.gen_spec.treesitter({
+            a = "@class.outer",
+            i = "@class.inner",
           }),
           t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },
           d = { "%f[%d]%d+" },
@@ -217,7 +218,7 @@ return {
     dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
     keys = {
       { "<Leader>V", "<Plug>(comment_toggle_blockwise_current)", mode = "n", desc = "Comment" },
-      { "<Leader>V", "<Plug>(comment_toggle_blockwise_visual)", mode = "x", desc = "Comment" },
+      { "<Leader>V", "<Plug>(comment_toggle_blockwise_visual)",  mode = "x", desc = "Comment" },
     },
     opts = function()
       local ok, tcc = pcall(require, "ts_context_commentstring.integrations.comment_nvim")
@@ -233,9 +234,9 @@ return {
     "AndrewRadev/linediff.vim",
     cmd = { "Linediff", "LinediffAdd" },
     keys = {
-      { "<Leader>mdf", ":Linediff<CR>", mode = "x", desc = "Line diff" },
-      { "<Leader>mda", ":LinediffAdd<CR>", mode = "x", desc = "Line diff add" },
-      { "<Leader>mds", "<cmd>LinediffShow<CR>", desc = "Line diff show" },
+      { "<Leader>mdf", ":Linediff<CR>",          mode = "x",              desc = "Line diff" },
+      { "<Leader>mda", ":LinediffAdd<CR>",       mode = "x",              desc = "Line diff add" },
+      { "<Leader>mds", "<cmd>LinediffShow<CR>",  desc = "Line diff show" },
       { "<Leader>mdr", "<cmd>LinediffReset<CR>", desc = "Line diff reset" },
     },
   },
