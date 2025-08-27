@@ -9,19 +9,104 @@ return {
 	-- NOTE: This extends
 	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
 	{
-		'gitsigns.nvim',
-		-- stylua: ignore
+		'lewis6991/gitsigns.nvim',
+		event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
 		opts = {
-			signcolumn          = true, -- Toggle with `:Gitsigns toggle_signs`
+			signs = {
+				add          = { text = '+' },
+				change       = { text = '~' },
+				delete       = { text = '-' },
+				topdelete    = { text = '‾' },
+				changedelete = { text = '≃' },
+				untracked    = { text = '?' },
+			},
+			signs_staged = {
+				add          = { text = '+' },
+				change       = { text = '~' },
+				delete       = { text = '-' },
+				topdelete    = { text = '‾' },
+				changedelete = { text = '≃' },
+			},
+			signcolumn          = true,  -- Toggle with `:Gitsigns toggle_signs`
 			numhl               = false, -- Toggle with `:Gitsigns toggle_numhl`
 			linehl              = false, -- Toggle with `:Gitsigns toggle_linehl`
 			word_diff           = false, -- Toggle with `:Gitsigns toggle_word_diff`
 			current_line_blame  = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+			current_line_blame_opts = {
+				virt_text = true,
+				virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+				delay = 1000,
+				ignore_whitespace = false,
+				virt_text_priority = 100,
+			},
+			current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+			sign_priority = 6,
+			update_debounce = 100,
+			status_formatter = nil, -- Use default
+			max_file_length = 40000, -- Disable if file is longer than this
+			preview_config = {
+				-- Options passed to nvim_open_win
+				border = 'single',
+				style = 'minimal',
+				relative = 'cursor',
+				row = 0,
+				col = 1,
+			},
 			attach_to_untracked = true,
-			watch_gitdir        = {
+			watch_gitdir = {
 				interval = 1000,
 				follow_files = true,
 			},
+			on_attach = function(buffer)
+				local gs = require('gitsigns')
+
+				local function map(mode, l, r, desc)
+					vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+				end
+
+				-- Navigation
+				map('n', ']h', function()
+					if vim.wo.diff then
+						vim.cmd.normal({ ']c', bang = true })
+					else
+						gs.nav_hunk('next')
+					end
+				end, 'Next Hunk')
+
+				map('n', '[h', function()
+					if vim.wo.diff then
+						vim.cmd.normal({ '[c', bang = true })
+					else
+						gs.nav_hunk('prev')
+					end
+				end, 'Prev Hunk')
+
+				map('n', ']H', function() gs.nav_hunk('last') end, 'Last Hunk')
+				map('n', '[H', function() gs.nav_hunk('first') end, 'First Hunk')
+
+				-- Actions
+				map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>', 'Stage Hunk')
+				map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>', 'Reset Hunk')
+				map('n', '<leader>hS', gs.stage_buffer, 'Stage Buffer')
+				map('n', '<leader>hu', gs.undo_stage_hunk, 'Undo Stage Hunk')
+				map('n', '<leader>hR', gs.reset_buffer, 'Reset Buffer')
+				map('n', '<leader>hp', gs.preview_hunk_inline, 'Preview Hunk Inline')
+				map('n', '<leader>hb', function() gs.blame_line({ full = true }) end, 'Blame Line')
+				map('n', '<leader>hB', function() gs.blame() end, 'Blame Buffer')
+				map('n', '<leader>hd', gs.diffthis, 'Diff This')
+				map('n', '<leader>hD', function() gs.diffthis('~') end, 'Diff This ~')
+
+				-- Text object
+				map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', 'GitSigns Select Hunk')
+
+				-- Toggles
+				map('n', '<leader>htb', gs.toggle_current_line_blame, 'Toggle Current Line Blame')
+				map('n', '<leader>htd', gs.toggle_deleted, 'Toggle Deleted')
+				map('n', '<leader>hts', gs.toggle_signs, 'Toggle Signs')
+				map('n', '<leader>htn', gs.toggle_numhl, 'Toggle Numhl')
+				map('n', '<leader>htl', gs.toggle_linehl, 'Toggle Linehl')
+				map('n', '<leader>htw', gs.toggle_word_diff, 'Toggle Word Diff')
+			end,
 		},
 	},
 
