@@ -19,8 +19,59 @@ return {
     "saghen/blink.cmp",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = "rafamadriz/friendly-snippets",
+    -- 保持稳定版本策略
     version = "v0.*",
     opts = {
+      -- 🎨 外观配置 (借鉴 LazyVim)
+      appearance = {
+        -- 向后兼容 nvim-cmp 主题
+        use_nvim_cmp_as_default = false,
+        -- Nerd Font 图标对齐
+        nerd_font_variant = "mono",
+        -- 补全项类型图标
+        kind_icons = {
+          Text = "󰉿",
+          Method = "󰆧",
+          Function = "󰊕",
+          Constructor = "",
+          Field = "󰜢",
+          Variable = "󰀫",
+          Class = "󰠱",
+          Interface = "",
+          Module = "",
+          Property = "󰜢",
+          Unit = "󰑭",
+          Value = "󰎠",
+          Enum = "",
+          Keyword = "󰌋",
+          Snippet = "",
+          Color = "󰏘",
+          File = "󰈙",
+          Reference = "󰈇",
+          Folder = "󰉋",
+          EnumMember = "",
+          Constant = "󰏿",
+          Struct = "󰙅",
+          Event = "",
+          Operator = "󰆕",
+          TypeParameter = "",
+        },
+      },
+
+      -- 🧩 代码片段配置 (借鉴 LazyVim)
+      snippets = {
+        expand = function(snippet)
+          -- 使用 Neovim 内置的代码片段展开
+          vim.snippet.expand(snippet)
+        end,
+      },
+
+      -- 📚 补全源配置 (借鉴 LazyVim)
+      sources = {
+        -- 明确定义补全源及优先级
+        default = { "lsp", "path", "snippets", "buffer" },
+      },
+
       completion = {
         accept = {
           auto_brackets = {
@@ -34,9 +85,12 @@ return {
         },
         documentation = {
           auto_show = true,
-          auto_show_delay_ms = 500,
+          -- 优化响应速度 (LazyVim: 200ms)
+          auto_show_delay_ms = 200,
         },
+        -- 保持原有的 ghost_text 设置
         ghost_text = { enabled = false },
+        -- 保留原有的详细 trigger 配置（用户独有优势）
         trigger = {
           prefetch_on_insert = true,
           show_on_trigger_character = true,
@@ -46,13 +100,17 @@ return {
           show_on_x_blocked_trigger_characters = { "'", '"', "(", "{", "[" },
         },
       },
+
       cmdline = {
         enabled = false,
         sources = {},
       },
+
+      -- 保留原有的自定义 fuzzy 排序（用户独有优势）
       fuzzy = {
         implementation = "prefer_rust_with_warning",
         sorts = {
+          -- Field 类型优先排序
           function(a, b)
             local is_field_a = a.kind == vim.lsp.protocol.CompletionItemKind.Field
             local is_field_b = b.kind == vim.lsp.protocol.CompletionItemKind.Field
@@ -64,6 +122,7 @@ return {
           "sort_text",
         },
       },
+
       signature = { enabled = true },
     },
   },
@@ -88,11 +147,14 @@ return {
         fish = { "fish_indent" },
         sh = { "shfmt" },
       },
+      formatters = {
+        injected = { options = { ignore_errors = true } },
+      },
       default_format_opts = {
         timeout_ms = 3000,
         async = false,
         quiet = false,
-        lsp_fallback = true,
+        lsp_format = 'fallback',
       },
       format_on_save = false,
       format_after_save = false,

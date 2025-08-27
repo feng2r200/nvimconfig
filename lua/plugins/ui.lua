@@ -8,9 +8,9 @@ return {
   -- NOTE: This extends
   -- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/ui.lua
   {
-    "bufferline.nvim",
+    "akinsho/bufferline.nvim",
     enabled = not vim.g.started_by_firenvim,
-		-- stylua: ignore
+    -- stylua: ignore
     opts = {
       options = {
         mode = "buffers",
@@ -47,8 +47,8 @@ return {
 
   -----------------------------------------------------------------------------
   -- Replaces the UI for messages, cmdline and the popupmenu
-	-- NOTE: This extends
-	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/ui.lua
+  -- NOTE: This extends
+  -- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/ui.lua
   {
     "noice.nvim",
     ---@type NoiceConfig
@@ -84,7 +84,7 @@ return {
               { find = "^%d+ line less;?" },
               { find = "^Already at newest change" },
               { kind = "wmsg" },
-              { kind = "emsg", find = "E486" },
+              { kind = "emsg",                      find = "E486" },
               { kind = "quickfix" },
             },
           },
@@ -97,82 +97,82 @@ return {
     },
   },
 
-	-----------------------------------------------------------------------------
-	-- Collection of small QoL plugins
-	-- NOTE: This extends
-	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/ui.lua
-	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/util.lua
-	{
-		'folke/snacks.nvim',
-		opts = {
-			dashboard = { enabled = false },
-			scroll = { enabled = false },
+  -----------------------------------------------------------------------------
+  -- Collection of small QoL plugins
+  -- NOTE: This extends
+  -- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/ui.lua
+  -- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/util.lua
+  {
+    'folke/snacks.nvim',
+    opts = {
+      dashboard = { enabled = false },
+      scroll = { enabled = false },
       explorer = { enabled = false },
-			terminal = {
-				win = { style = 'terminal', wo = { winbar = '' } },
-			},
-			zen = {
-				toggles = { git_signs = true },
-				zoom = {
-					show = { tabline = false },
-					win = { backdrop = true },
-				},
-			},
-		},
-	},
-	{
-		'folke/snacks.nvim',
-		keys = function(_, keys)
-			if vim.g.picker_want ~= 'snacks' then
-				return
-			end
-			-- stylua: ignore
-			local mappings = {
-				{ '<localleader>n', function() Snacks.picker.notifications() end, desc = 'Notifications' },
-			}
-			return vim.list_extend(mappings, keys)
-		end,
-		opts = function(_, opts)
-			if vim.g.picker_want ~= 'snacks' then
-				return
-			end
-			return vim.tbl_deep_extend('force', opts or {}, {
-				picker = {
-					win = {
-						input = {
-							keys = {
-								['jj'] = { '<esc>', expr = true, mode = 'i' },
-								['sv'] = 'edit_split',
-								['sg'] = 'edit_vsplit',
-								['st'] = 'edit_tab',
-								['.'] = 'toggle_hidden',
-								[','] = 'toggle_ignored',
-								['e'] = 'qflist',
-								['E'] = 'loclist',
-								['K'] = 'select_and_prev',
-								['J'] = 'select_and_next',
-								['*'] = 'select_all',
-								['<c-l>'] = { 'preview_scroll_right', mode = { 'i', 'n' } },
-								['<c-h>'] = { 'preview_scroll_left', mode = { 'i', 'n' } },
-							},
-						},
-						list = {
-							keys = {
-								['<c-l>'] = 'preview_scroll_right',
-								['<c-h>'] = 'preview_scroll_left',
-							},
-						},
-						preview = {
-							keys = {
-								['<c-h>'] = 'focus_input',
-								['<c-l>'] = 'cycle_win',
-							},
-						},
-					},
-				},
-			})
-		end,
-	},
+      terminal = {
+        win = { style = 'terminal', wo = { winbar = '' } },
+      },
+      zen = {
+        toggles = { git_signs = true },
+        zoom = {
+          show = { tabline = false },
+          win = { backdrop = true },
+        },
+      },
+    },
+  },
+  {
+    'folke/snacks.nvim',
+    keys = function(_, keys)
+      if vim.g.picker_want ~= 'snacks' then
+        return
+      end
+      -- stylua: ignore
+      local mappings = {
+        { '<localleader>n', function() Snacks.picker.notifications() end, desc = 'Notifications' },
+      }
+      return vim.list_extend(mappings, keys)
+    end,
+    opts = function(_, opts)
+      if vim.g.picker_want ~= 'snacks' then
+        return
+      end
+      return vim.tbl_deep_extend('force', opts or {}, {
+        picker = {
+          win = {
+            input = {
+              keys = {
+                ['jj'] = { '<esc>', expr = true, mode = 'i' },
+                ['sv'] = 'edit_split',
+                ['sg'] = 'edit_vsplit',
+                ['st'] = 'edit_tab',
+                ['.'] = 'toggle_hidden',
+                [','] = 'toggle_ignored',
+                ['e'] = 'qflist',
+                ['E'] = 'loclist',
+                ['K'] = 'select_and_prev',
+                ['J'] = 'select_and_next',
+                ['*'] = 'select_all',
+                ['<c-l>'] = { 'preview_scroll_right', mode = { 'i', 'n' } },
+                ['<c-h>'] = { 'preview_scroll_left', mode = { 'i', 'n' } },
+              },
+            },
+            list = {
+              keys = {
+                ['<c-l>'] = 'preview_scroll_right',
+                ['<c-h>'] = 'preview_scroll_left',
+              },
+            },
+            preview = {
+              keys = {
+                ['<c-h>'] = 'focus_input',
+                ['<c-l>'] = 'cycle_win',
+              },
+            },
+          },
+        },
+      })
+    end,
+  },
 
   -----------------------------------------------------------------------------
   -- Better quickfix window
