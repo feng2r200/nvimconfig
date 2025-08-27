@@ -1,6 +1,4 @@
 return {
-  { "augmentcode/augment.vim", lazy = false },
-
   -- Minimal and fast icon provider
   {
     "echasnovski/mini.icons",
