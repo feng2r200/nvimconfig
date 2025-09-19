@@ -219,12 +219,12 @@ opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
 
 if vim.fn.has('nvim-0.10') == 1 then
 	opt.smoothscroll = true
-	vim.opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+	vim.opt.foldexpr = "v:lua.require'lazyvim.util'.treesitter.foldexpr()"
 	vim.opt.foldmethod = 'expr'
 	vim.opt.foldtext = ''
 else
 	vim.opt.foldmethod = 'indent'
-	vim.opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+	vim.opt.foldexpr = "v:lua.require'lazyvim.util'.treesitter.foldexpr()"
 end
 
 -- vim: set ts=2 sw=0 tw=80 noet :

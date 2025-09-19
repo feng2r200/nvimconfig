@@ -32,7 +32,7 @@ return {
 			if type(opts.ensure_installed) == 'table' then
 				opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
 			end
-			require('nvim-treesitter.configs').setup(opts)
+			require('nvim-treesitter.config').setup(opts)
 		end,
 		opts = {
 			highlight = {
