@@ -30,6 +30,7 @@ return {
 	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/util.lua
 	{
 		'persistence.nvim',
+    enabled = false,
 		event = 'VimEnter',
 		-- stylua: ignore
 		keys = {
