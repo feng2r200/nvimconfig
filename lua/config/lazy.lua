@@ -35,7 +35,6 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.test.core" },
 
     { import = "plugins.extras.lang.go" },
-    { import = "plugins.extras.lang.java" },
     { import = "plugins.extras.lang.python" },
   },
   defaults = { lazy = true, version = false },
