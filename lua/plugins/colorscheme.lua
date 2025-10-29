@@ -8,26 +8,45 @@ return {
     priority = 1000,
     opts = {
       colors = {
-        onedark = { bg = "#101011" },
+        bg = "#1a1a1a",
+        bg_statusline = "#1a1a1a",
+        fg = "#e0dedf",
+        float_bg = "#151517",
+        cursorline = "#2a2a2a",
+        line_number = "#b0a8aa",
+        indentline = "#4b4b4b",
+        color_column = "#1a1a1a",
+        purple = "#c48fff",
+        blue = "#6fa3fd",
+        yellow = "#d9ba6f",
+        orange = "#d9b078",
+        white = "#e1dbdf",
+        black = "#2a2a2a",
+        cyan = "#5fa9b4",
+        red = "#a9473e",
+        gray = "#4b4b4b",
+        green = "#4fa281",
       },
       highlights = {},
       styles = {
         keywords = "bold",
       },
       plugins = {
-        nvim_lsp = false,
-        treesitter = false,
+        nvim_lsp = true,
+        treesitter = true,
       },
       options = {
-        transparency = true,
+        cursorline = true,
+        highlight_inactive_windows = true,
         lualine_transparency = true,
+        terminal_colors = true,
+        transparency = true,
       },
     },
     config = function(_, opts)
-      require("onedarkpro").setup(vim.tbl_deep_extend("force", opts, {}))
-
-      vim.cmd.colorscheme("onedark_vivid")
+      require("onedarkpro").setup(opts)
+      require("onedarkpro.config").set_theme("onedark_vivid")
+      require("onedarkpro").load()
     end,
   },
-
 }
