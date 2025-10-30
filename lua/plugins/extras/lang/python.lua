@@ -73,7 +73,7 @@ return {
                 typeCheckingMode = "basic",
                 autoSearchPaths = true,
                 useLibraryCodeForTypes = true,
-                diagnosticMode = "openFilesOnly", -- workspace | openFilesOnly
+                diagnosticMode = "workspace", -- workspace | openFilesOnly
                 autoImportCompletions = true,
               },
             },
