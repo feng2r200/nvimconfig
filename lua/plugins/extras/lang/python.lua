@@ -1,7 +1,7 @@
-vim.g.lazyvim_python_lsp = "pyright"
+vim.g.lazyvim_python_lsp = "basedpyright"
 vim.g.lazyvim_python_ruff = "ruff"
 
-local lsp = vim.g.lazyvim_python_lsp or "pyright"
+local lsp = vim.g.lazyvim_python_lsp or "basedpyright"
 local ruff = vim.g.lazyvim_python_ruff or "ruff"
 
 LazyVim.on_very_lazy(function()
@@ -56,34 +56,32 @@ return {
             },
           },
         },
-        ruff_lsp = {
-          keys = {
-            {
-              "<leader>co",
-              LazyVim.lsp.action["source.organizeImports"],
-              desc = "Organize Imports",
-            },
-          },
-        },
-        pyright = {
+        basedpyright = {
           settings = {
-            python = {
+            basedpyright = {
               analysis = {
-                indexing = true,
-                typeCheckingMode = "basic",
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-                diagnosticMode = "workspace", -- workspace | openFilesOnly
                 autoImportCompletions = true,
-              },
-            },
-          },
-        },
+                autoSearchPaths = true,
+                diagnosticMode = "workspace",
+                logLevel = "Warning",
+                typeCheckingMode = "basic",
+                useLibraryCodeForTypes = true,
+                inlayHints = {
+                  variableTypes = true,
+                  callArgumentNames = true,
+                  callArgumentNamesMatching = true,
+                  functionReturnTypes = true,
+                  genericTypes = true,
+                  autoFormatStrings = true,
+                },
+              }
+            }
+          }
+        }
       },
       setup = {
         [ruff] = function()
           Snacks.util.lsp.on({ name = ruff }, function(_, client)
-            -- Disable hover in favor of Pyright
             client.server_capabilities.hoverProvider = false
           end)
         end,
