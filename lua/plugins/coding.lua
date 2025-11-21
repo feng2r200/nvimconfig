@@ -6,8 +6,8 @@ return {
   -- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/extras/coding/blink.lua
   {
     "blink.cmp",
-    optional = true,
     enabled = true,
+    build = vim.g.lazyvim_blink_main and "cargo +nightly build --release",
     opts = {
       completion = {
         accept = {
