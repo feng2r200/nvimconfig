@@ -36,6 +36,8 @@ require("lazy").setup({
 
     { import = "plugins.extras.lang.go" },
     { import = "plugins.extras.lang.python" },
+
+    { import = "plugins.extras.ai.avante" },
   },
   defaults = { lazy = true, version = false },
   install = { missing = true, colorscheme = {} },
