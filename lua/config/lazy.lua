@@ -35,7 +35,7 @@ require("lazy").setup({
 
     { import = "plugins.extras.lang.go" },
     { import = "plugins.extras.lang.python" },
-    { import = "lazyvim.plugins.extras.lang.markdown" },
+    { import = "plugins.extras.lang.markdown" },
     { import = "lazyvim.plugins.extras.lang.json" },
     { import = "lazyvim.plugins.extras.lang.rust" },
     { import = "lazyvim.plugins.extras.lang.toml" },
