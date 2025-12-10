@@ -28,16 +28,19 @@ require("lazy").setup({
     { import = "plugins.extras.lazyvim" },
     { import = "plugins" },
 
-    { import = "lazyvim.plugins.extras.lang.rust" },
-    { import = "lazyvim.plugins.extras.lang.typescript" },
-    { import = "lazyvim.plugins.extras.lang.yaml" },
     { import = "lazyvim.plugins.extras.lsp.none-ls" },
     { import = "lazyvim.plugins.extras.test.core" },
 
+    { import = "plugins.extras.ai.avante" },
+
     { import = "plugins.extras.lang.go" },
     { import = "plugins.extras.lang.python" },
-
-    { import = "plugins.extras.ai.avante" },
+    { import = "lazyvim.plugins.extras.lang.markdown" },
+    { import = "lazyvim.plugins.extras.lang.json" },
+    { import = "lazyvim.plugins.extras.lang.rust" },
+    { import = "lazyvim.plugins.extras.lang.toml" },
+    { import = "lazyvim.plugins.extras.lang.typescript" },
+    { import = "lazyvim.plugins.extras.lang.yaml" },
   },
   defaults = { lazy = true, version = false },
   install = { missing = true, colorscheme = {} },
