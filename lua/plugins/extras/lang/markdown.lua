@@ -16,6 +16,16 @@ return {
 
 	{ import = 'lazyvim.plugins.extras.lang.markdown' },
 
+  {
+    "mfussenegger/nvim-lint",
+    optional = true,
+    opts = {
+      -- linters_by_ft = {
+      --   markdown = { "markdownlint-cli2" },
+      -- },
+    },
+  },
+
 	-----------------------------------------------------------------------------
 	-- Generate table of contents for Markdown files
 	{
