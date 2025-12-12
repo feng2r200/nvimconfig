@@ -31,8 +31,6 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lsp.none-ls" },
     { import = "lazyvim.plugins.extras.test.core" },
 
-    { import = "plugins.extras.ai.avante" },
-
     { import = "plugins.extras.lang.go" },
     { import = "plugins.extras.lang.python" },
     { import = "plugins.extras.lang.markdown" },
