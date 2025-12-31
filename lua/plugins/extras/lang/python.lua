@@ -64,7 +64,11 @@ return {
                 autoSearchPaths = true,
                 diagnosticMode = "workspace",
                 logLevel = "Warning",
-                typeCheckingMode = "basic",
+                typeCheckingMode = "strict",
+                reportUnusedFunction = "warning",
+                reportUnusedVariable = "warning",
+                reportUnusedImport = "warning",
+                reportUnusedParameter = "warning",
                 useLibraryCodeForTypes = true,
                 inlayHints = {
                   variableTypes = true,
