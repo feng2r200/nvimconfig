@@ -326,6 +326,7 @@ return {
   {
     "aserowy/tmux.nvim",
     lazy = false,
+    enabled = false,
     keys = {
       {
         "<C-h>",
