@@ -8,6 +8,9 @@ return {
     "blink.cmp",
     enabled = true,
     build = vim.g.lazyvim_blink_main and "cargo +nightly build --release",
+    dependencies = {
+      { "saghen/blink.lib" },
+    },
     opts = {
       completion = {
         accept = {
