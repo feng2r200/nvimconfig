@@ -30,6 +30,17 @@ local cache_keys = {
 	'statusline_cache_charcount',
 }
 
+local function format_count(count)
+	return tostring(count):reverse():gsub('(%d%d%d)', '%1,'):reverse():gsub('^,', '')
+end
+
+local function visual_mode()
+	local mode = vim.fn.mode()
+	if mode == 'v' or mode == 'V' or mode:byte() == 22 then
+		return mode
+	end
+end
+
 -- Clear cached values that relate to buffer filename.
 vim.api.nvim_create_autocmd(
 	{ 'BufReadPost', 'BufFilePost', 'BufNewFile', 'BufWritePost' },
@@ -93,13 +104,22 @@ function M.filemedia(opts)
 	end
 end
 
----@param opts? {label: string}
+---@param opts? {label: string, selection_label: string}
 ---@return function
 function M.charcount(opts)
 	opts = vim.tbl_extend('force', {
 		label = 'chars',
+		selection_label = 'sel chars',
 	}, opts or {})
 	return function()
+		local mode = visual_mode()
+		if mode ~= nil then
+			local ok, lines = pcall(vim.fn.getregion, vim.fn.getpos('v'), vim.fn.getpos('.'), { type = mode })
+			if ok and #lines > 0 then
+				return format_count(vim.fn.strchars(table.concat(lines, '\n'))) .. ' ' .. opts.selection_label
+			end
+		end
+
 		local cache_key = 'statusline_cache_charcount'
 		local changedtick = vim.api.nvim_buf_get_changedtick(0)
 		local cache_ok, cache = pcall(vim.api.nvim_buf_get_var, 0, cache_key)
@@ -109,8 +129,7 @@ function M.charcount(opts)
 
 		local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 		local count = vim.fn.strchars(table.concat(lines, '\n'))
-		local formatted = tostring(count):reverse():gsub('(%d%d%d)', '%1,'):reverse():gsub('^,', '')
-		local msg = formatted .. ' ' .. opts.label
+		local msg = format_count(count) .. ' ' .. opts.label
 		vim.api.nvim_buf_set_var(0, cache_key, {
 			changedtick = changedtick,
 			value = msg,
