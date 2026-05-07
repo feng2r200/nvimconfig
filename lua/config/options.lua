@@ -52,8 +52,7 @@ if not vim.g.vscode then
 end
 
 -- What to save for views and sessions
-opt.sessionoptions:remove({ 'blank', 'buffers', 'terminal' })
-opt.sessionoptions:append({ 'globals', 'skiprtp' })
+opt.sessionoptions = "buffers,curdir,folds,globals,help,localoptions,options,resize,tabpages,terminal,winsize,skiprtp"
 
 opt.formatoptions = opt.formatoptions
 	- 'a' -- Auto formatting is BAD.

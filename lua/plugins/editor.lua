@@ -30,11 +30,12 @@ return {
   -- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/util.lua
   {
     "persistence.nvim",
-    enabled = false,
+    enabled = true,
     event = "VimEnter",
 		-- stylua: ignore
 		keys = {
 			{ '<localleader>s', "<cmd>lua require'persistence'.select()<CR>", desc = 'Sessions' },
+      { "<localleader>S", "<cmd>lua require('persistence').save()<CR>",  desc = "Save Session" },
 		},
     opts = {
       branch = false,
@@ -43,12 +44,27 @@ return {
       -- * stdin has been provided
       -- * git commit/rebase session
       autoload = true,
+      save_dir = vim.fn.stdpath("state") .. "/sessions/",
+      silent = true,
+      options = {
+        "buffers",
+        "curdir",
+        "tabpages",
+        "winsize",
+        "help",
+        "globals",
+        "folds",
+        "localoptions",
+        "options",
+        "terminal",
+        "resize",
+      },
     },
     init = function()
       -- Detect if stdin has been provided.
       vim.g.started_with_stdin = false
       vim.api.nvim_create_autocmd("StdinReadPre", {
-        group = vim.api.nvim_create_augroup("user.persistence", {}),
+        group = vim.api.nvim_create_augroup("user.persistence", { clear = true }),
         callback = function()
           vim.g.started_with_stdin = true
         end,
@@ -72,7 +88,7 @@ return {
             require("persistence").stop()
             return
           end
-          for _, path in pairs(disabled_dirs) do
+          for _, path in ipairs(disabled_dirs) do
             if cwd:sub(1, #path) == path then
               require("persistence").stop()
               return
