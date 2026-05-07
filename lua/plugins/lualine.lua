@@ -269,6 +269,13 @@ return {
                 vim.cmd([[Telescope filetypes]])
               end,
             },
+            {
+              require("util.lualine").charcount(),
+              padding = 1,
+              cond = function()
+                return is_file_window() and is_min_width(70)
+              end,
+            },
           },
           lualine_z = {
             {

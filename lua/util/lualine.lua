@@ -27,6 +27,7 @@ local plugin_icons = {
 
 local cache_keys = {
 	'statusline_cache_trails',
+	'statusline_cache_charcount',
 }
 
 -- Clear cached values that relate to buffer filename.
@@ -89,6 +90,32 @@ function M.filemedia(opts)
 			table.insert(parts, vim.bo.filetype)
 		end
 		return table.concat(parts, opts.separator)
+	end
+end
+
+---@param opts? {label: string}
+---@return function
+function M.charcount(opts)
+	opts = vim.tbl_extend('force', {
+		label = 'chars',
+	}, opts or {})
+	return function()
+		local cache_key = 'statusline_cache_charcount'
+		local changedtick = vim.api.nvim_buf_get_changedtick(0)
+		local cache_ok, cache = pcall(vim.api.nvim_buf_get_var, 0, cache_key)
+		if cache_ok and type(cache) == 'table' and cache.changedtick == changedtick then
+			return cache.value
+		end
+
+		local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+		local count = vim.fn.strchars(table.concat(lines, '\n'))
+		local formatted = tostring(count):reverse():gsub('(%d%d%d)', '%1,'):reverse():gsub('^,', '')
+		local msg = formatted .. ' ' .. opts.label
+		vim.api.nvim_buf_set_var(0, cache_key, {
+			changedtick = changedtick,
+			value = msg,
+		})
+		return msg
 	end
 end
 
